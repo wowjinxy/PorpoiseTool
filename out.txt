@@ -4,7 +4,7 @@ Parsed simple instruction: lis r3 0x8000
 Parsed simple instruction: stw r0 0x4(r1)
 Parsed simple instruction: stwu r1 -0x8(r1)
 Parsed simple instruction: lhz r0 0x30e4(r3)
-Parsed simple instruction: andi. r0 r0 0xeef
+Parsed simple instruction: andi r0 r0 0xeef
 Parsed simple instruction: cmpwi r0 0xeef
 Parsed simple instruction: bne .L_80003130
 Parsed simple instruction: li r3 0x0
@@ -51,10 +51,10 @@ Parsed simple instruction: lis r6 0x8000
 Parsed simple instruction: addi r6 r6 0xf4
 Parsed simple instruction: lwz r5 0x0(r6)
 Parsed simple instruction: cmplwi r5 0x0
-Parsed simple instruction: beq + .L_8000320C
+Parsed simple instruction: beq .L_8000320C
 Parsed simple instruction: lwz r6 0x8(r5)
 Parsed simple instruction: cmplwi r6 0x0
-Parsed simple instruction: beq + .L_8000320C
+Parsed simple instruction: beq .L_8000320C
 Parsed simple instruction: add r6 r5 r6
 Parsed simple instruction: lwz r14 0x0(r6)
 Parsed simple instruction: cmplwi r14 0x0
@@ -81,9 +81,9 @@ Parsed simple instruction: bl OSInit
 Parsed simple instruction: lis r4 0x8000
 Parsed simple instruction: addi r4 r4 0x30e6
 Parsed simple instruction: lhz r3 0x0(r4)
-Parsed simple instruction: andi. r5 r3 0x8000
+Parsed simple instruction: andi r5 r3 0x8000
 Parsed simple instruction: beq .L_8000323C
-Parsed simple instruction: andi. r3 r3 0x7fff
+Parsed simple instruction: andi r3 r3 0x7fff
 Parsed simple instruction: cmplwi r3 0x1
 Parsed simple instruction: bne .L_80003240
 Parsed label: L_8000323C:
@@ -183,7 +183,7 @@ Parsed simple instruction: dcbst r0 r5
 Parsed simple instruction: sync 
 Parsed simple instruction: icbi r0 r5
 Parsed simple instruction: addic r5 r5 0x8
-Parsed simple instruction: subic. r4 r4 0x8
+Parsed simple instruction: subic r4 r4 0x8
 Parsed simple instruction: bge .L_80003364
 Parsed simple instruction: isync 
 Parsed simple instruction: blr 
@@ -209,13 +209,13 @@ Parsed simple instruction: mr r7 r0
 Parsed simple instruction: subi r6 r3 0x1
 Parsed simple instruction: blt .L_8000345C
 Parsed simple instruction: nor r0 r6 r6
-Parsed simple instruction: clrlwi. r0 r0 30
+Parsed simple instruction: clrlwi r0 r0 30
 Parsed simple instruction: mr r3 r0
 Parsed simple instruction: beq .L_800033EC
 Parsed simple instruction: subf r5 r3 r5
 Parsed simple instruction: clrlwi r0 r7 24
 Parsed label: L_800033E0:
-Parsed simple instruction: subic. r3 r3 0x1
+Parsed simple instruction: subic r3 r3 0x1
 Parsed simple instruction: stbu r0 0x1(r6)
 Parsed simple instruction: bne .L_800033E0
 Parsed label: L_800033EC:
@@ -228,12 +228,12 @@ Parsed simple instruction: or r0 r3 r0
 Parsed simple instruction: or r0 r4 r0
 Parsed simple instruction: or r7 r7 r0
 Parsed label: L_8000340C:
-Parsed simple instruction: srwi. r0 r5 5
+Parsed simple instruction: srwi r0 r5 5
 Parsed simple instruction: subi r3 r6 0x3
 Parsed simple instruction: beq .L_80003440
 Parsed label: L_80003418:
 Parsed simple instruction: stw r7 0x4(r3)
-Parsed simple instruction: subic. r0 r0 0x1
+Parsed simple instruction: subic r0 r0 0x1
 Parsed simple instruction: stw r7 0x8(r3)
 Parsed simple instruction: stw r7 0xc(r3)
 Parsed simple instruction: stw r7 0x10(r3)
@@ -243,10 +243,10 @@ Parsed simple instruction: stw r7 0x1c(r3)
 Parsed simple instruction: stwu r7 0x20(r3)
 Parsed simple instruction: bne .L_80003418
 Parsed label: L_80003440:
-Parsed simple instruction: extrwi. r0 r5 3 27
+Parsed simple instruction: extrwi r0 r5 3 27
 Parsed simple instruction: beq .L_80003454
 Parsed label: L_80003448:
-Parsed simple instruction: subic. r0 r0 0x1
+Parsed simple instruction: subic r0 r0 0x1
 Parsed simple instruction: stwu r7 0x4(r3)
 Parsed simple instruction: bne .L_80003448
 Parsed label: L_80003454:
@@ -257,7 +257,7 @@ Parsed simple instruction: cmplwi r5 0x0
 Parsed simple instruction: beqlr 
 Parsed simple instruction: clrlwi r0 r7 24
 Parsed label: L_80003468:
-Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: subic r5 r5 0x1
 Parsed simple instruction: stbu r0 0x1(r6)
 Parsed simple instruction: bne .L_80003468
 Parsed simple instruction: blr 
@@ -273,7 +273,7 @@ Parsed label: L_80003490:
 Parsed simple instruction: lbzu r0 0x1(r4)
 Parsed simple instruction: stbu r0 0x1(r6)
 Parsed label: L_80003498:
-Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: subic r5 r5 0x1
 Parsed simple instruction: bne .L_80003490
 Parsed simple instruction: blr 
 Parsed label: L_800034A4:
@@ -285,7 +285,7 @@ Parsed label: L_800034B4:
 Parsed simple instruction: lbzu r0 -0x1(r4)
 Parsed simple instruction: stbu r0 -0x1(r6)
 Parsed label: L_800034BC:
-Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: subic r5 r5 0x1
 Parsed simple instruction: bne .L_800034B4
 Parsed simple instruction: blr 
 End of function: memcpy, 25 instructions
@@ -298,7 +298,7 @@ Parsed label: L_800034D8:
 Parsed simple instruction: lbzu r0 0x1(r4)
 Parsed simple instruction: stbu r0 0x1(r6)
 Parsed label: L_800034E0:
-Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: subic r5 r5 0x1
 Parsed simple instruction: bne .L_800034D8
 Parsed simple instruction: blr 
 End of function: fn_800034C8, 11 instructions
@@ -322,13 +322,13 @@ Warning: Unrecognized instruction line: .4byte 0x4D657472
 Parsed simple instruction: xoris r23 r27 0x6572
 Parsed simple instruction: xori r19 r27 0x2054
 Parsed simple instruction: ori r18 r11 0x6765
-Parsed simple instruction: andis. r0 r1 0x5265
-Parsed simple instruction: andi. r9 r27 0x6465
+Parsed simple instruction: andis r0 r1 0x5265
+Parsed simple instruction: andi r9 r27 0x6465
 Parsed simple instruction: xoris r20 r19 0x204b
 Parsed simple instruction: oris r18 r11 0x6e65
 Parsed simple instruction: xoris r0 r1 0x666f
-Parsed simple instruction: andi. r0 r17 0x506f
-Parsed simple instruction: andis. r5 r27 0x7250
+Parsed simple instruction: andi r0 r17 0x506f
+Parsed simple instruction: andis r5 r27 0x7250
 Parsed label: L_80003548:
 Warning: Unrecognized instruction line: .4byte 0x43000000
 Warning: Unrecognized instruction line: .4byte 0x00000000
@@ -1348,7 +1348,7 @@ Parsed simple instruction: mtsprg 1 r2
 Parsed simple instruction: mfcr r2
 Parsed simple instruction: mtsprg 2 r2
 Parsed simple instruction: mfmsr r2
-Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: andis r2 r2 0x2
 Parsed simple instruction: beq .L_8000454C
 Parsed simple instruction: mfmsr r2
 Parsed simple instruction: xoris r2 r2 0x2
@@ -1413,7 +1413,7 @@ Parsed simple instruction: mtsprg 1 r2
 Parsed simple instruction: mfcr r2
 Parsed simple instruction: mtsprg 2 r2
 Parsed simple instruction: mfmsr r2
-Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: andis r2 r2 0x2
 Parsed simple instruction: beq .L_8000464C
 Parsed simple instruction: mfmsr r2
 Parsed simple instruction: xoris r2 r2 0x2
@@ -1478,7 +1478,7 @@ Parsed simple instruction: mtsprg 1 r2
 Parsed simple instruction: mfcr r2
 Parsed simple instruction: mtsprg 2 r2
 Parsed simple instruction: mfmsr r2
-Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: andis r2 r2 0x2
 Parsed simple instruction: beq .L_8000474C
 Parsed simple instruction: mfmsr r2
 Parsed simple instruction: xoris r2 r2 0x2
@@ -2337,7 +2337,7 @@ Translated lis r3 0x8000 to: gc_env.r[3] = (0x8000) << 16;
 Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
 Translated stwu r1 -0x8(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x8;']
 Translated lhz r0 0x30e4(r3) to: gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x30e4);
-Translated andi. r0 r0 0xeef to: gc_env.r[0] = gc_env.r[0] & 0xeef;
+Translated andi r0 r0 0xeef to: gc_env.r[0] = gc_env.r[0] & 0xeef;
 Translated cmpwi r0 0xeef to: gc_env.cr[0] = (gc_env.r[0] == 0xeef) ? 0 : (gc_env.r[0] < 0xeef ? -1 : 1); // Compare with immediate
 Translated bne .L_80003130 to: if (gc_env.cr[0] != 0) goto L_80003130;
 Translated li r3 0x0 to: gc_env.r[3] = 0x0;
@@ -2362,31 +2362,31 @@ Translated stw r0 0x0(r6) to: gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_e
 Translated lis r6 0x8000 to: gc_env.r[6] = (0x8000) << 16;
 Translated addi r6 r6 0xf4 to: gc_env.r[6] = gc_env.r[6] + 0xf4;
 Translated lwz r6 0x0(r6) to: gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-Unknown opcode: cmplwi r6 0x0
-Unknown opcode: beq .L_800031AC
+Translated cmplwi r6 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_800031AC to: if (gc_env.cr[0] == 0) goto L_800031AC;
 Translated lwz r7 0xc(r6) to: gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0xc);
 Translated li r5 0x0 to: gc_env.r[5] = 0x0;
-Unknown opcode: cmplwi r7 0x2
-Unknown opcode: beq .L_8000319C
-Unknown opcode: cmplwi r7 0x3
+Translated cmplwi r7 0x2 to: gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x2) ? 0 : ((uint32_t)gc_env.r[7] < 0x2 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_8000319C to: if (gc_env.cr[0] == 0) goto L_8000319C;
+Translated cmplwi r7 0x3 to: gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x3) ? 0 : ((uint32_t)gc_env.r[7] < 0x3 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_800031AC to: if (gc_env.cr[0] != 0) goto L_800031AC;
 Translated li r5 0x1 to: gc_env.r[5] = 0x1;
 Translated lis r6 InitMetroTRK@ha to: gc_env.r[6] = (InitMetroTRK@ha) << 16;
 Translated addi r6 r6 InitMetroTRK@l to: gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
 Translated mtlr r6 to: gc_env.lr = gc_env.r[6]; // Move to link register
-Unknown opcode: blrl 
+Translated blrl  to: // Call function at gc_env.lr; // Branch to link register
 Translated lis r6 0x8000 to: gc_env.r[6] = (0x8000) << 16;
 Translated addi r6 r6 0xf4 to: gc_env.r[6] = gc_env.r[6] + 0xf4;
 Translated lwz r5 0x0(r6) to: gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-Unknown opcode: cmplwi r5 0x0
-Unknown opcode: beq + .L_8000320C
+Translated cmplwi r5 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_8000320C to: if (gc_env.cr[0] == 0) goto L_8000320C;
 Translated lwz r6 0x8(r5) to: gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8);
-Unknown opcode: cmplwi r6 0x0
-Unknown opcode: beq + .L_8000320C
+Translated cmplwi r6 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_8000320C to: if (gc_env.cr[0] == 0) goto L_8000320C;
 Unknown opcode: add r6 r5 r6
 Translated lwz r14 0x0(r6) to: gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-Unknown opcode: cmplwi r14 0x0
-Unknown opcode: beq .L_8000320C
+Translated cmplwi r14 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[14] == 0x0) ? 0 : ((uint32_t)gc_env.r[14] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_8000320C to: if (gc_env.cr[0] == 0) goto L_8000320C;
 Translated addi r15 r6 0x4 to: gc_env.r[15] = gc_env.r[6] + 0x4;
 Unknown opcode: mtctr r14
 Translated addi r6 r6 0x4 to: gc_env.r[6] = gc_env.r[6] + 0x4;
@@ -2406,10 +2406,10 @@ Translated bl OSInit to: OSReset();
 Translated lis r4 0x8000 to: gc_env.r[4] = (0x8000) << 16;
 Translated addi r4 r4 0x30e6 to: gc_env.r[4] = gc_env.r[4] + 0x30e6;
 Translated lhz r3 0x0(r4) to: gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
-Translated andi. r5 r3 0x8000 to: gc_env.r[5] = gc_env.r[3] & 0x8000;
-Unknown opcode: beq .L_8000323C
-Translated andi. r3 r3 0x7fff to: gc_env.r[3] = gc_env.r[3] & 0x7fff;
-Unknown opcode: cmplwi r3 0x1
+Translated andi r5 r3 0x8000 to: gc_env.r[5] = gc_env.r[3] & 0x8000;
+Translated beq .L_8000323C to: if (gc_env.cr[0] == 0) goto L_8000323C;
+Translated andi r3 r3 0x7fff to: gc_env.r[3] = gc_env.r[3] & 0x7fff;
+Translated cmplwi r3 0x1 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x1) ? 0 : ((uint32_t)gc_env.r[3] < 0x1 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_80003240 to: if (gc_env.cr[0] != 0) goto L_80003240;
 Translated bl __check_pad3 to: OSReset();
 Translated bl __init_user to: OSReset();
@@ -2436,13 +2436,13 @@ Unknown opcode: mr r29 r0
 Unknown opcode: b .L_80003298
 Unknown opcode: b .L_8000329C
 Translated lwz r30 0x8(r29) to: gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8);
-Unknown opcode: cmplwi r30 0x0
-Unknown opcode: beq .L_800032DC
+Translated cmplwi r30 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[30] == 0x0) ? 0 : ((uint32_t)gc_env.r[30] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_800032DC to: if (gc_env.cr[0] == 0) goto L_800032DC;
 Translated lwz r4 0x0(r29) to: gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
 Translated lwz r31 0x4(r29) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
-Unknown opcode: beq .L_800032D4
+Translated beq .L_800032D4 to: if (gc_env.cr[0] == 0) goto L_800032D4;
 Unknown opcode: cmplw r31 r4
-Unknown opcode: beq .L_800032D4
+Translated beq .L_800032D4 to: if (gc_env.cr[0] == 0) goto L_800032D4;
 Unknown opcode: mr r3 r31
 Unknown opcode: mr r5 r30
 Translated bl memcpy to: OSReset();
@@ -2457,10 +2457,10 @@ Unknown opcode: mr r29 r0
 Unknown opcode: b .L_800032EC
 Unknown opcode: b .L_800032F0
 Translated lwz r5 0x4(r29) to: gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
-Unknown opcode: cmplwi r5 0x0
-Unknown opcode: beq .L_80003314
+Translated cmplwi r5 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_80003314 to: if (gc_env.cr[0] == 0) goto L_80003314;
 Translated lwz r3 0x0(r29) to: gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
-Unknown opcode: beq .L_8000330C
+Translated beq .L_8000330C to: if (gc_env.cr[0] == 0) goto L_8000330C;
 Translated li r4 0x0 to: gc_env.r[4] = 0x0;
 Translated bl memset to: OSReset();
 Translated addi r29 r29 0x8 to: gc_env.r[29] = gc_env.r[29] + 0x8;
@@ -2489,7 +2489,7 @@ Unknown opcode: dcbst r0 r5
 Unknown opcode: sync 
 Unknown opcode: icbi r0 r5
 Unknown opcode: addic r5 r5 0x8
-Unknown opcode: subic. r4 r4 0x8
+Unknown opcode: subic r4 r4 0x8
 Unknown opcode: bge .L_80003364
 Unknown opcode: isync 
 Translated blr  to: return;
@@ -2505,33 +2505,33 @@ Translated lwz r31 0x1c(r1) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.
 Translated addi r1 r1 0x20 to: gc_env.r[1] = gc_env.r[1] + 0x20;
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
-Unknown opcode: cmplwi r5 0x20
+Translated cmplwi r5 0x20 to: gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x20) ? 0 : ((uint32_t)gc_env.r[5] < 0x20 ? -1 : 1); // Logical compare with immediate
 Unknown opcode: clrlwi r0 r4 24
 Unknown opcode: mr r7 r0
 Unknown opcode: subi r6 r3 0x1
 Unknown opcode: blt .L_8000345C
 Unknown opcode: nor r0 r6 r6
-Unknown opcode: clrlwi. r0 r0 30
+Unknown opcode: clrlwi r0 r0 30
 Unknown opcode: mr r3 r0
-Unknown opcode: beq .L_800033EC
+Translated beq .L_800033EC to: if (gc_env.cr[0] == 0) goto L_800033EC;
 Unknown opcode: subf r5 r3 r5
 Unknown opcode: clrlwi r0 r7 24
-Unknown opcode: subic. r3 r3 0x1
+Unknown opcode: subic r3 r3 0x1
 Unknown opcode: stbu r0 0x1(r6)
 Translated bne .L_800033E0 to: if (gc_env.cr[0] != 0) goto L_800033E0;
-Unknown opcode: cmplwi r7 0x0
-Unknown opcode: beq .L_8000340C
+Translated cmplwi r7 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x0) ? 0 : ((uint32_t)gc_env.r[7] < 0x0 ? -1 : 1); // Logical compare with immediate
+Translated beq .L_8000340C to: if (gc_env.cr[0] == 0) goto L_8000340C;
 Unknown opcode: slwi r3 r7 24
 Unknown opcode: slwi r0 r7 16
 Unknown opcode: slwi r4 r7 8
 Unknown opcode: or r0 r3 r0
 Unknown opcode: or r0 r4 r0
 Unknown opcode: or r7 r7 r0
-Unknown opcode: srwi. r0 r5 5
+Unknown opcode: srwi r0 r5 5
 Unknown opcode: subi r3 r6 0x3
-Unknown opcode: beq .L_80003440
+Translated beq .L_80003440 to: if (gc_env.cr[0] == 0) goto L_80003440;
 Translated stw r7 0x4(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
-Unknown opcode: subic. r0 r0 0x1
+Unknown opcode: subic r0 r0 0x1
 Translated stw r7 0x8(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[7]);
 Translated stw r7 0xc(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xc, gc_env.r[7]);
 Translated stw r7 0x10(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10, gc_env.r[7]);
@@ -2540,17 +2540,17 @@ Translated stw r7 0x18(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x18, gc
 Translated stw r7 0x1c(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c, gc_env.r[7]);
 Translated stwu r7 0x20(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20, gc_env.r[7]);', 'gc_env.r[3] = gc_env.r[3] + 0x20;']
 Translated bne .L_80003418 to: if (gc_env.cr[0] != 0) goto L_80003418;
-Unknown opcode: extrwi. r0 r5 3 27
-Unknown opcode: beq .L_80003454
-Unknown opcode: subic. r0 r0 0x1
+Unknown opcode: extrwi r0 r5 3 27
+Translated beq .L_80003454 to: if (gc_env.cr[0] == 0) goto L_80003454;
+Unknown opcode: subic r0 r0 0x1
 Translated stwu r7 0x4(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);', 'gc_env.r[3] = gc_env.r[3] + 0x4;']
 Translated bne .L_80003448 to: if (gc_env.cr[0] != 0) goto L_80003448;
 Translated addi r6 r3 0x3 to: gc_env.r[6] = gc_env.r[3] + 0x3;
 Unknown opcode: clrlwi r5 r5 30
-Unknown opcode: cmplwi r5 0x0
+Translated cmplwi r5 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
 Unknown opcode: beqlr 
 Unknown opcode: clrlwi r0 r7 24
-Unknown opcode: subic. r5 r5 0x1
+Unknown opcode: subic r5 r5 0x1
 Unknown opcode: stbu r0 0x1(r6)
 Translated bne .L_80003468 to: if (gc_env.cr[0] != 0) goto L_80003468;
 Translated blr  to: return;
@@ -2562,7 +2562,7 @@ Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
 Unknown opcode: b .L_80003498
 Unknown opcode: lbzu r0 0x1(r4)
 Unknown opcode: stbu r0 0x1(r6)
-Unknown opcode: subic. r5 r5 0x1
+Unknown opcode: subic r5 r5 0x1
 Translated bne .L_80003490 to: if (gc_env.cr[0] != 0) goto L_80003490;
 Translated blr  to: return;
 Unknown opcode: add r4 r4 r5
@@ -2571,7 +2571,7 @@ Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
 Unknown opcode: b .L_800034BC
 Unknown opcode: lbzu r0 -0x1(r4)
 Unknown opcode: stbu r0 -0x1(r6)
-Unknown opcode: subic. r5 r5 0x1
+Unknown opcode: subic r5 r5 0x1
 Translated bne .L_800034B4 to: if (gc_env.cr[0] != 0) goto L_800034B4;
 Translated blr  to: return;
 Unknown opcode: subi r4 r4 0x1
@@ -2580,7 +2580,7 @@ Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
 Unknown opcode: b .L_800034E0
 Unknown opcode: lbzu r0 0x1(r4)
 Unknown opcode: stbu r0 0x1(r6)
-Unknown opcode: subic. r5 r5 0x1
+Unknown opcode: subic r5 r5 0x1
 Translated bne .L_800034D8 to: if (gc_env.cr[0] != 0) goto L_800034D8;
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
@@ -2598,13 +2598,13 @@ Translated blr  to: return;
 Unknown opcode: xoris r23 r27 0x6572
 Unknown opcode: xori r19 r27 0x2054
 Unknown opcode: ori r18 r11 0x6765
-Unknown opcode: andis. r0 r1 0x5265
-Translated andi. r9 r27 0x6465 to: gc_env.r[9] = gc_env.r[27] & 0x6465;
+Unknown opcode: andis r0 r1 0x5265
+Translated andi r9 r27 0x6465 to: gc_env.r[9] = gc_env.r[27] & 0x6465;
 Unknown opcode: xoris r20 r19 0x204b
 Unknown opcode: oris r18 r11 0x6e65
 Unknown opcode: xoris r0 r1 0x666f
-Translated andi. r0 r17 0x506f to: gc_env.r[0] = gc_env.r[17] & 0x506f;
-Unknown opcode: andis. r5 r27 0x7250
+Translated andi r0 r17 0x506f to: gc_env.r[0] = gc_env.r[17] & 0x506f;
+Unknown opcode: andis r5 r27 0x7250
 Unknown opcode: b fn_80005450
 Unknown opcode: mtsprg 1 r2
 Unknown opcode: mfsrr0 r2
@@ -2786,8 +2786,8 @@ Unknown opcode: mtsprg 1 r2
 Unknown opcode: mfcr r2
 Unknown opcode: mtsprg 2 r2
 Unknown opcode: mfmsr r2
-Unknown opcode: andis. r2 r2 0x2
-Unknown opcode: beq .L_8000454C
+Unknown opcode: andis r2 r2 0x2
+Translated beq .L_8000454C to: if (gc_env.cr[0] == 0) goto L_8000454C;
 Unknown opcode: mfmsr r2
 Unknown opcode: xoris r2 r2 0x2
 Unknown opcode: sync 
@@ -2814,8 +2814,8 @@ Unknown opcode: mtsprg 1 r2
 Unknown opcode: mfcr r2
 Unknown opcode: mtsprg 2 r2
 Unknown opcode: mfmsr r2
-Unknown opcode: andis. r2 r2 0x2
-Unknown opcode: beq .L_8000464C
+Unknown opcode: andis r2 r2 0x2
+Translated beq .L_8000464C to: if (gc_env.cr[0] == 0) goto L_8000464C;
 Unknown opcode: mfmsr r2
 Unknown opcode: xoris r2 r2 0x2
 Unknown opcode: sync 
@@ -2842,8 +2842,8 @@ Unknown opcode: mtsprg 1 r2
 Unknown opcode: mfcr r2
 Unknown opcode: mtsprg 2 r2
 Unknown opcode: mfmsr r2
-Unknown opcode: andis. r2 r2 0x2
-Unknown opcode: beq .L_8000474C
+Unknown opcode: andis r2 r2 0x2
+Translated beq .L_8000474C to: if (gc_env.cr[0] == 0) goto L_8000474C;
 Unknown opcode: mfmsr r2
 Unknown opcode: xoris r2 r2 0x2
 Unknown opcode: sync 

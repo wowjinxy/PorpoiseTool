@@ -44,7 +44,7 @@ class ModularTranspiler:
         self.includes: Set[str] = set(['"gc_env.h"'])
         self._load_opcode_handlers()
 
-    def _load_opcode_handlers(self) -> None:
+    def _load_opcode_handlers(self):
         """Load opcode handler modules from the opcodes directory."""
         if not self.opcodes_dir.exists():
             print(f"Error: Opcodes directory '{self.opcodes_dir}' not found")
@@ -56,7 +56,7 @@ class ModularTranspiler:
 
             try:
                 spec = importlib.util.spec_from_file_location(py_file.stem, py_file)
-                if spec is None or spec.loader is None:
+                if not spec or not spec.loader:
                     print(f"Warning: Failed to create spec for {py_file}")
                     continue
                 
@@ -144,9 +144,11 @@ class ModularTranspiler:
                 continue
 
             # Match simple instructions (no address/raw bytes)
-            simple_instr_match = re.match(r'(\w+\.?)\s*(.*)', line)
+            simple_instr_match = re.match(r'(\w+\.?)(?:\s*\+)?\s*(.*)', line)
             if simple_instr_match and current_function:
                 opcode, operands_str = simple_instr_match.groups()
+                # Normalize opcode by removing trailing . and handling + (e.g., beq +)
+                opcode = opcode.rstrip('.')
                 operands = [op.strip() for op in re.split(r'[,\s]+', operands_str.strip()) if op.strip()]
                 current_function.instructions.append(Instruction(
                     opcode=opcode,
@@ -159,7 +161,6 @@ class ModularTranspiler:
 
             # Handle labels (e.g., .L_80003130:)
             if line.endswith(':') and current_function:
-                # Remove leading period for C compatibility
                 label = line.lstrip('.')
                 print(f"Parsed label: {label}")
                 current_function.instructions.append(Instruction(
@@ -177,7 +178,6 @@ class ModularTranspiler:
 
     def translate_instruction(self, instruction: Instruction) -> List[str]:
         """Translate a single instruction to C code."""
-        # Handle labels directly
         if instruction.opcode.endswith(':'):
             return [instruction.opcode]
 
@@ -220,7 +220,6 @@ class ModularTranspiler:
 
             c_lines.append(f'void {func.name}(void) {{')
             
-            # Translate instructions
             for instr in func.instructions:
                 c_lines.extend(f'    {line}' for line in self.translate_instruction(instr) if line.strip())
 
@@ -282,7 +281,7 @@ class ModularTranspiler:
             sys.exit(1)
 
 
-def main() -> None:
+def main():
     """Main entry point for the transpiler."""
     if len(sys.argv) < 2:
         print("Usage: python PyDol.py <assembly_file> [opcodes_dir]")

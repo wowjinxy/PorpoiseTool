@@ -2,7 +2,7 @@
 Logical operations handler for PowerPC assembly
 """
 
-opcodes = ['andi', 'cmpwi']
+opcodes = ['andi', 'cmpwi', 'cmplwi']
 
 def handle(instruction, transpiler):
     """Handle logical and comparison operations."""
@@ -18,4 +18,8 @@ def handle(instruction, transpiler):
         src_reg = int(ops[0].lstrip('r'))
         imm = ops[1]
         return f"gc_env.cr[0] = (gc_env.r[{src_reg}] == {imm}) ? 0 : (gc_env.r[{src_reg}] < {imm} ? -1 : 1); // Compare with immediate"
+    elif opcode == 'cmplwi' and len(ops) >= 2:
+        src_reg = int(ops[0].lstrip('r'))
+        imm = ops[1]
+        return f"gc_env.cr[0] = ((uint32_t)gc_env.r[{src_reg}] == {imm}) ? 0 : ((uint32_t)gc_env.r[{src_reg}] < {imm} ? -1 : 1); // Logical compare with immediate"
     return f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"

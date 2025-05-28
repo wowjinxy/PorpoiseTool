@@ -43,33 +43,33 @@ void __start(void) {
     gc_env.r[6] = (0x8000) << 16;
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-    // Unknown opcode: cmplwi r6 0x0
-    // Unknown opcode: beq .L_800031AC
+    gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_800031AC;
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0xc);
     gc_env.r[5] = 0x0;
-    // Unknown opcode: cmplwi r7 0x2
-    // Unknown opcode: beq .L_8000319C
-    // Unknown opcode: cmplwi r7 0x3
+    gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x2) ? 0 : ((uint32_t)gc_env.r[7] < 0x2 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_8000319C;
+    gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x3) ? 0 : ((uint32_t)gc_env.r[7] < 0x3 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_800031AC;
     gc_env.r[5] = 0x1;
     L_8000319C:
     gc_env.r[6] = (InitMetroTRK@ha) << 16;
     gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
     gc_env.lr = gc_env.r[6]; // Move to link register
-    // Unknown opcode: blrl 
+    // Call function at gc_env.lr; // Branch to link register
     L_800031AC:
     gc_env.r[6] = (0x8000) << 16;
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-    // Unknown opcode: cmplwi r5 0x0
-    // Unknown opcode: beq + .L_8000320C
+    gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_8000320C;
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8);
-    // Unknown opcode: cmplwi r6 0x0
-    // Unknown opcode: beq + .L_8000320C
+    gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_8000320C;
     // Unknown opcode: add r6 r5 r6
     gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-    // Unknown opcode: cmplwi r14 0x0
-    // Unknown opcode: beq .L_8000320C
+    gc_env.cr[0] = ((uint32_t)gc_env.r[14] == 0x0) ? 0 : ((uint32_t)gc_env.r[14] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_8000320C;
     gc_env.r[15] = gc_env.r[6] + 0x4;
     // Unknown opcode: mtctr r14
     L_800031E4:
@@ -93,9 +93,9 @@ void __start(void) {
     gc_env.r[4] = gc_env.r[4] + 0x30e6;
     gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
     gc_env.r[5] = gc_env.r[3] & 0x8000;
-    // Unknown opcode: beq .L_8000323C
+    if (gc_env.cr[0] == 0) goto L_8000323C;
     gc_env.r[3] = gc_env.r[3] & 0x7fff;
-    // Unknown opcode: cmplwi r3 0x1
+    gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x1) ? 0 : ((uint32_t)gc_env.r[3] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80003240;
     L_8000323C:
     OSReset();
@@ -135,13 +135,13 @@ void __init_data(void) {
     // Unknown opcode: b .L_8000329C
     L_8000329C:
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8);
-    // Unknown opcode: cmplwi r30 0x0
-    // Unknown opcode: beq .L_800032DC
+    gc_env.cr[0] = ((uint32_t)gc_env.r[30] == 0x0) ? 0 : ((uint32_t)gc_env.r[30] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_800032DC;
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
-    // Unknown opcode: beq .L_800032D4
+    if (gc_env.cr[0] == 0) goto L_800032D4;
     // Unknown opcode: cmplw r31 r4
-    // Unknown opcode: beq .L_800032D4
+    if (gc_env.cr[0] == 0) goto L_800032D4;
     // Unknown opcode: mr r3 r31
     // Unknown opcode: mr r5 r30
     OSReset();
@@ -160,10 +160,10 @@ void __init_data(void) {
     // Unknown opcode: b .L_800032F0
     L_800032F0:
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
-    // Unknown opcode: cmplwi r5 0x0
-    // Unknown opcode: beq .L_80003314
+    gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_80003314;
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
-    // Unknown opcode: beq .L_8000330C
+    if (gc_env.cr[0] == 0) goto L_8000330C;
     gc_env.r[4] = 0x0;
     OSReset();
     L_8000330C:
@@ -203,7 +203,7 @@ void __flush_cache(void) {
     // Unknown opcode: sync 
     // Unknown opcode: icbi r0 r5
     // Unknown opcode: addic r5 r5 0x8
-    // Unknown opcode: subic. r4 r4 0x8
+    // Unknown opcode: subic r4 r4 0x8
     // Unknown opcode: bge .L_80003364
     // Unknown opcode: isync 
     return;
@@ -228,24 +228,24 @@ void memset(void) {
 
 // Function: __fill_mem
 void __fill_mem(void) {
-    // Unknown opcode: cmplwi r5 0x20
+    gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x20) ? 0 : ((uint32_t)gc_env.r[5] < 0x20 ? -1 : 1); // Logical compare with immediate
     // Unknown opcode: clrlwi r0 r4 24
     // Unknown opcode: mr r7 r0
     // Unknown opcode: subi r6 r3 0x1
     // Unknown opcode: blt .L_8000345C
     // Unknown opcode: nor r0 r6 r6
-    // Unknown opcode: clrlwi. r0 r0 30
+    // Unknown opcode: clrlwi r0 r0 30
     // Unknown opcode: mr r3 r0
-    // Unknown opcode: beq .L_800033EC
+    if (gc_env.cr[0] == 0) goto L_800033EC;
     // Unknown opcode: subf r5 r3 r5
     // Unknown opcode: clrlwi r0 r7 24
     L_800033E0:
-    // Unknown opcode: subic. r3 r3 0x1
+    // Unknown opcode: subic r3 r3 0x1
     // Unknown opcode: stbu r0 0x1(r6)
     if (gc_env.cr[0] != 0) goto L_800033E0;
     L_800033EC:
-    // Unknown opcode: cmplwi r7 0x0
-    // Unknown opcode: beq .L_8000340C
+    gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x0) ? 0 : ((uint32_t)gc_env.r[7] < 0x0 ? -1 : 1); // Logical compare with immediate
+    if (gc_env.cr[0] == 0) goto L_8000340C;
     // Unknown opcode: slwi r3 r7 24
     // Unknown opcode: slwi r0 r7 16
     // Unknown opcode: slwi r4 r7 8
@@ -253,12 +253,12 @@ void __fill_mem(void) {
     // Unknown opcode: or r0 r4 r0
     // Unknown opcode: or r7 r7 r0
     L_8000340C:
-    // Unknown opcode: srwi. r0 r5 5
+    // Unknown opcode: srwi r0 r5 5
     // Unknown opcode: subi r3 r6 0x3
-    // Unknown opcode: beq .L_80003440
+    if (gc_env.cr[0] == 0) goto L_80003440;
     L_80003418:
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
-    // Unknown opcode: subic. r0 r0 0x1
+    // Unknown opcode: subic r0 r0 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[7]);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xc, gc_env.r[7]);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10, gc_env.r[7]);
@@ -269,10 +269,10 @@ void __fill_mem(void) {
     gc_env.r[3] = gc_env.r[3] + 0x20;
     if (gc_env.cr[0] != 0) goto L_80003418;
     L_80003440:
-    // Unknown opcode: extrwi. r0 r5 3 27
-    // Unknown opcode: beq .L_80003454
+    // Unknown opcode: extrwi r0 r5 3 27
+    if (gc_env.cr[0] == 0) goto L_80003454;
     L_80003448:
-    // Unknown opcode: subic. r0 r0 0x1
+    // Unknown opcode: subic r0 r0 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
     gc_env.r[3] = gc_env.r[3] + 0x4;
     if (gc_env.cr[0] != 0) goto L_80003448;
@@ -280,11 +280,11 @@ void __fill_mem(void) {
     gc_env.r[6] = gc_env.r[3] + 0x3;
     // Unknown opcode: clrlwi r5 r5 30
     L_8000345C:
-    // Unknown opcode: cmplwi r5 0x0
+    gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
     // Unknown opcode: beqlr 
     // Unknown opcode: clrlwi r0 r7 24
     L_80003468:
-    // Unknown opcode: subic. r5 r5 0x1
+    // Unknown opcode: subic r5 r5 0x1
     // Unknown opcode: stbu r0 0x1(r6)
     if (gc_env.cr[0] != 0) goto L_80003468;
     return;
@@ -302,7 +302,7 @@ void memcpy(void) {
     // Unknown opcode: lbzu r0 0x1(r4)
     // Unknown opcode: stbu r0 0x1(r6)
     L_80003498:
-    // Unknown opcode: subic. r5 r5 0x1
+    // Unknown opcode: subic r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_80003490;
     return;
     L_800034A4:
@@ -314,7 +314,7 @@ void memcpy(void) {
     // Unknown opcode: lbzu r0 -0x1(r4)
     // Unknown opcode: stbu r0 -0x1(r6)
     L_800034BC:
-    // Unknown opcode: subic. r5 r5 0x1
+    // Unknown opcode: subic r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_800034B4;
     return;
 }
@@ -329,7 +329,7 @@ void fn_800034C8(void) {
     // Unknown opcode: lbzu r0 0x1(r4)
     // Unknown opcode: stbu r0 0x1(r6)
     L_800034E0:
-    // Unknown opcode: subic. r5 r5 0x1
+    // Unknown opcode: subic r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_800034D8;
     return;
 }
@@ -356,13 +356,13 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: xoris r23 r27 0x6572
     // Unknown opcode: xori r19 r27 0x2054
     // Unknown opcode: ori r18 r11 0x6765
-    // Unknown opcode: andis. r0 r1 0x5265
+    // Unknown opcode: andis r0 r1 0x5265
     gc_env.r[9] = gc_env.r[27] & 0x6465;
     // Unknown opcode: xoris r20 r19 0x204b
     // Unknown opcode: oris r18 r11 0x6e65
     // Unknown opcode: xoris r0 r1 0x666f
     gc_env.r[0] = gc_env.r[17] & 0x506f;
-    // Unknown opcode: andis. r5 r27 0x7250
+    // Unknown opcode: andis r5 r27 0x7250
     L_80003548:
     // Unknown opcode: b fn_80005450
     // Unknown opcode: mtsprg 1 r2
@@ -546,8 +546,8 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfcr r2
     // Unknown opcode: mtsprg 2 r2
     // Unknown opcode: mfmsr r2
-    // Unknown opcode: andis. r2 r2 0x2
-    // Unknown opcode: beq .L_8000454C
+    // Unknown opcode: andis r2 r2 0x2
+    if (gc_env.cr[0] == 0) goto L_8000454C;
     // Unknown opcode: mfmsr r2
     // Unknown opcode: xoris r2 r2 0x2
     // Unknown opcode: sync 
@@ -575,8 +575,8 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfcr r2
     // Unknown opcode: mtsprg 2 r2
     // Unknown opcode: mfmsr r2
-    // Unknown opcode: andis. r2 r2 0x2
-    // Unknown opcode: beq .L_8000464C
+    // Unknown opcode: andis r2 r2 0x2
+    if (gc_env.cr[0] == 0) goto L_8000464C;
     // Unknown opcode: mfmsr r2
     // Unknown opcode: xoris r2 r2 0x2
     // Unknown opcode: sync 
@@ -604,8 +604,8 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfcr r2
     // Unknown opcode: mtsprg 2 r2
     // Unknown opcode: mfmsr r2
-    // Unknown opcode: andis. r2 r2 0x2
-    // Unknown opcode: beq .L_8000474C
+    // Unknown opcode: andis r2 r2 0x2
+    if (gc_env.cr[0] == 0) goto L_8000474C;
     // Unknown opcode: mfmsr r2
     // Unknown opcode: xoris r2 r2 0x2
     // Unknown opcode: sync 
