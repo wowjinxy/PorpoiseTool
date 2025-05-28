@@ -1,0 +1,2982 @@
+Parsed function: __check_pad3
+Parsed simple instruction: mflr r0
+Parsed simple instruction: lis r3 0x8000
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stwu r1 -0x8(r1)
+Parsed simple instruction: lhz r0 0x30e4(r3)
+Parsed simple instruction: andi. r0 r0 0xeef
+Parsed simple instruction: cmpwi r0 0xeef
+Parsed simple instruction: bne .L_80003130
+Parsed simple instruction: li r3 0x0
+Parsed simple instruction: li r4 0x0
+Parsed simple instruction: li r5 0x0
+Parsed simple instruction: bl OSResetSystem
+Parsed label: L_80003130:
+Parsed simple instruction: lwz r0 0xc(r1)
+Parsed simple instruction: addi r1 r1 0x8
+Parsed simple instruction: mtlr r0
+Parsed simple instruction: blr 
+End of function: __check_pad3, 17 instructions
+Parsed function: __start
+Parsed simple instruction: bl __init_registers
+Parsed simple instruction: bl __init_hardware
+Parsed simple instruction: li r0 -0x1
+Parsed simple instruction: stwu r1 -0x8(r1)
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stw r0 0x0(r1)
+Parsed simple instruction: bl __init_data
+Parsed simple instruction: li r0 0x0
+Parsed simple instruction: lis r6 0x8000
+Parsed simple instruction: addi r6 r6 0x44
+Parsed simple instruction: stw r0 0x0(r6)
+Parsed simple instruction: lis r6 0x8000
+Parsed simple instruction: addi r6 r6 0xf4
+Parsed simple instruction: lwz r6 0x0(r6)
+Parsed simple instruction: cmplwi r6 0x0
+Parsed simple instruction: beq .L_800031AC
+Parsed simple instruction: lwz r7 0xc(r6)
+Parsed simple instruction: li r5 0x0
+Parsed simple instruction: cmplwi r7 0x2
+Parsed simple instruction: beq .L_8000319C
+Parsed simple instruction: cmplwi r7 0x3
+Parsed simple instruction: bne .L_800031AC
+Parsed simple instruction: li r5 0x1
+Parsed label: L_8000319C:
+Parsed simple instruction: lis r6 InitMetroTRK@ha
+Parsed simple instruction: addi r6 r6 InitMetroTRK@l
+Parsed simple instruction: mtlr r6
+Parsed simple instruction: blrl 
+Parsed label: L_800031AC:
+Parsed simple instruction: lis r6 0x8000
+Parsed simple instruction: addi r6 r6 0xf4
+Parsed simple instruction: lwz r5 0x0(r6)
+Parsed simple instruction: cmplwi r5 0x0
+Parsed simple instruction: beq + .L_8000320C
+Parsed simple instruction: lwz r6 0x8(r5)
+Parsed simple instruction: cmplwi r6 0x0
+Parsed simple instruction: beq + .L_8000320C
+Parsed simple instruction: add r6 r5 r6
+Parsed simple instruction: lwz r14 0x0(r6)
+Parsed simple instruction: cmplwi r14 0x0
+Parsed simple instruction: beq .L_8000320C
+Parsed simple instruction: addi r15 r6 0x4
+Parsed simple instruction: mtctr r14
+Parsed label: L_800031E4:
+Parsed simple instruction: addi r6 r6 0x4
+Parsed simple instruction: lwz r7 0x0(r6)
+Parsed simple instruction: add r7 r7 r5
+Parsed simple instruction: stw r7 0x0(r6)
+Parsed simple instruction: bdnz .L_800031E4
+Parsed simple instruction: lis r5 0x8000
+Parsed simple instruction: addi r5 r5 0x34
+Parsed simple instruction: clrrwi r7 r15 5
+Parsed simple instruction: stw r7 0x0(r5)
+Parsed simple instruction: b .L_80003214
+Parsed label: L_8000320C:
+Parsed simple instruction: li r14 0x0
+Parsed simple instruction: li r15 0x0
+Parsed label: L_80003214:
+Parsed simple instruction: bl DBInit
+Parsed simple instruction: bl OSInit
+Parsed simple instruction: lis r4 0x8000
+Parsed simple instruction: addi r4 r4 0x30e6
+Parsed simple instruction: lhz r3 0x0(r4)
+Parsed simple instruction: andi. r5 r3 0x8000
+Parsed simple instruction: beq .L_8000323C
+Parsed simple instruction: andi. r3 r3 0x7fff
+Parsed simple instruction: cmplwi r3 0x1
+Parsed simple instruction: bne .L_80003240
+Parsed label: L_8000323C:
+Parsed simple instruction: bl __check_pad3
+Parsed label: L_80003240:
+Parsed simple instruction: bl __init_user
+Parsed simple instruction: mr r3 r14
+Parsed simple instruction: mr r4 r15
+Parsed simple instruction: bl main
+Parsed simple instruction: b exit
+End of function: __start, 76 instructions
+Parsed function: __init_registers
+Parsed simple instruction: lis r1 _stack_addr@h
+Parsed simple instruction: ori r1 r1 _stack_addr@l
+Parsed simple instruction: lis r2 _SDA2_BASE_@h
+Parsed simple instruction: ori r2 r2 _SDA2_BASE_@l
+Parsed simple instruction: lis r13 _SDA_BASE_@h
+Parsed simple instruction: ori r13 r13 _SDA_BASE_@l
+Parsed simple instruction: blr 
+End of function: __init_registers, 7 instructions
+Parsed function: __init_data
+Parsed simple instruction: mflr r0
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stwu r1 -0x18(r1)
+Parsed simple instruction: stw r31 0x14(r1)
+Parsed simple instruction: stw r30 0x10(r1)
+Parsed simple instruction: stw r29 0xc(r1)
+Parsed simple instruction: lis r3 _rom_copy_info@ha
+Parsed simple instruction: addi r0 r3 _rom_copy_info@l
+Parsed simple instruction: mr r29 r0
+Parsed simple instruction: b .L_80003298
+Parsed label: L_80003298:
+Parsed simple instruction: b .L_8000329C
+Parsed label: L_8000329C:
+Parsed simple instruction: lwz r30 0x8(r29)
+Parsed simple instruction: cmplwi r30 0x0
+Parsed simple instruction: beq .L_800032DC
+Parsed simple instruction: lwz r4 0x0(r29)
+Parsed simple instruction: lwz r31 0x4(r29)
+Parsed simple instruction: beq .L_800032D4
+Parsed simple instruction: cmplw r31 r4
+Parsed simple instruction: beq .L_800032D4
+Parsed simple instruction: mr r3 r31
+Parsed simple instruction: mr r5 r30
+Parsed simple instruction: bl memcpy
+Parsed simple instruction: mr r3 r31
+Parsed simple instruction: mr r4 r30
+Parsed simple instruction: bl __flush_cache
+Parsed label: L_800032D4:
+Parsed simple instruction: addi r29 r29 0xc
+Parsed simple instruction: b .L_8000329C
+Parsed label: L_800032DC:
+Parsed simple instruction: lis r3 _bss_init_info@ha
+Parsed simple instruction: addi r0 r3 _bss_init_info@l
+Parsed simple instruction: mr r29 r0
+Parsed simple instruction: b .L_800032EC
+Parsed label: L_800032EC:
+Parsed simple instruction: b .L_800032F0
+Parsed label: L_800032F0:
+Parsed simple instruction: lwz r5 0x4(r29)
+Parsed simple instruction: cmplwi r5 0x0
+Parsed simple instruction: beq .L_80003314
+Parsed simple instruction: lwz r3 0x0(r29)
+Parsed simple instruction: beq .L_8000330C
+Parsed simple instruction: li r4 0x0
+Parsed simple instruction: bl memset
+Parsed label: L_8000330C:
+Parsed simple instruction: addi r29 r29 0x8
+Parsed simple instruction: b .L_800032F0
+Parsed label: L_80003314:
+Parsed simple instruction: lwz r0 0x1c(r1)
+Parsed simple instruction: lwz r31 0x14(r1)
+Parsed simple instruction: lwz r30 0x10(r1)
+Parsed simple instruction: lwz r29 0xc(r1)
+Parsed simple instruction: addi r1 r1 0x18
+Parsed simple instruction: mtlr r0
+Parsed simple instruction: blr 
+End of function: __init_data, 56 instructions
+Parsed function: __init_hardware
+Parsed simple instruction: mfmsr r0
+Parsed simple instruction: ori r0 r0 0x2000
+Parsed simple instruction: mtmsr r0
+Parsed simple instruction: mflr r31
+Parsed simple instruction: bl __OSPSInit
+Parsed simple instruction: bl __OSCacheInit
+Parsed simple instruction: mtlr r31
+Parsed simple instruction: blr 
+End of function: __init_hardware, 8 instructions
+Parsed function: __flush_cache
+Parsed simple instruction: lis r5 0xffff
+Parsed simple instruction: ori r5 r5 0xfff1
+Parsed simple instruction: and r5 r5 r3
+Parsed simple instruction: subf r3 r5 r3
+Parsed simple instruction: add r4 r4 r3
+Parsed label: L_80003364:
+Parsed simple instruction: dcbst r0 r5
+Parsed simple instruction: sync 
+Parsed simple instruction: icbi r0 r5
+Parsed simple instruction: addic r5 r5 0x8
+Parsed simple instruction: subic. r4 r4 0x8
+Parsed simple instruction: bge .L_80003364
+Parsed simple instruction: isync 
+Parsed simple instruction: blr 
+End of function: __flush_cache, 14 instructions
+Parsed function: memset
+Parsed simple instruction: mflr r0
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stwu r1 -0x20(r1)
+Parsed simple instruction: stw r31 0x1c(r1)
+Parsed simple instruction: mr r31 r3
+Parsed simple instruction: bl __fill_mem
+Parsed simple instruction: lwz r0 0x24(r1)
+Parsed simple instruction: mr r3 r31
+Parsed simple instruction: lwz r31 0x1c(r1)
+Parsed simple instruction: addi r1 r1 0x20
+Parsed simple instruction: mtlr r0
+Parsed simple instruction: blr 
+End of function: memset, 12 instructions
+Parsed function: __fill_mem
+Parsed simple instruction: cmplwi r5 0x20
+Parsed simple instruction: clrlwi r0 r4 24
+Parsed simple instruction: mr r7 r0
+Parsed simple instruction: subi r6 r3 0x1
+Parsed simple instruction: blt .L_8000345C
+Parsed simple instruction: nor r0 r6 r6
+Parsed simple instruction: clrlwi. r0 r0 30
+Parsed simple instruction: mr r3 r0
+Parsed simple instruction: beq .L_800033EC
+Parsed simple instruction: subf r5 r3 r5
+Parsed simple instruction: clrlwi r0 r7 24
+Parsed label: L_800033E0:
+Parsed simple instruction: subic. r3 r3 0x1
+Parsed simple instruction: stbu r0 0x1(r6)
+Parsed simple instruction: bne .L_800033E0
+Parsed label: L_800033EC:
+Parsed simple instruction: cmplwi r7 0x0
+Parsed simple instruction: beq .L_8000340C
+Parsed simple instruction: slwi r3 r7 24
+Parsed simple instruction: slwi r0 r7 16
+Parsed simple instruction: slwi r4 r7 8
+Parsed simple instruction: or r0 r3 r0
+Parsed simple instruction: or r0 r4 r0
+Parsed simple instruction: or r7 r7 r0
+Parsed label: L_8000340C:
+Parsed simple instruction: srwi. r0 r5 5
+Parsed simple instruction: subi r3 r6 0x3
+Parsed simple instruction: beq .L_80003440
+Parsed label: L_80003418:
+Parsed simple instruction: stw r7 0x4(r3)
+Parsed simple instruction: subic. r0 r0 0x1
+Parsed simple instruction: stw r7 0x8(r3)
+Parsed simple instruction: stw r7 0xc(r3)
+Parsed simple instruction: stw r7 0x10(r3)
+Parsed simple instruction: stw r7 0x14(r3)
+Parsed simple instruction: stw r7 0x18(r3)
+Parsed simple instruction: stw r7 0x1c(r3)
+Parsed simple instruction: stwu r7 0x20(r3)
+Parsed simple instruction: bne .L_80003418
+Parsed label: L_80003440:
+Parsed simple instruction: extrwi. r0 r5 3 27
+Parsed simple instruction: beq .L_80003454
+Parsed label: L_80003448:
+Parsed simple instruction: subic. r0 r0 0x1
+Parsed simple instruction: stwu r7 0x4(r3)
+Parsed simple instruction: bne .L_80003448
+Parsed label: L_80003454:
+Parsed simple instruction: addi r6 r3 0x3
+Parsed simple instruction: clrlwi r5 r5 30
+Parsed label: L_8000345C:
+Parsed simple instruction: cmplwi r5 0x0
+Parsed simple instruction: beqlr 
+Parsed simple instruction: clrlwi r0 r7 24
+Parsed label: L_80003468:
+Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: stbu r0 0x1(r6)
+Parsed simple instruction: bne .L_80003468
+Parsed simple instruction: blr 
+End of function: __fill_mem, 58 instructions
+Parsed function: memcpy
+Parsed simple instruction: cmplw r4 r3
+Parsed simple instruction: blt .L_800034A4
+Parsed simple instruction: subi r4 r4 0x1
+Parsed simple instruction: subi r6 r3 0x1
+Parsed simple instruction: addi r5 r5 0x1
+Parsed simple instruction: b .L_80003498
+Parsed label: L_80003490:
+Parsed simple instruction: lbzu r0 0x1(r4)
+Parsed simple instruction: stbu r0 0x1(r6)
+Parsed label: L_80003498:
+Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: bne .L_80003490
+Parsed simple instruction: blr 
+Parsed label: L_800034A4:
+Parsed simple instruction: add r4 r4 r5
+Parsed simple instruction: add r6 r3 r5
+Parsed simple instruction: addi r5 r5 0x1
+Parsed simple instruction: b .L_800034BC
+Parsed label: L_800034B4:
+Parsed simple instruction: lbzu r0 -0x1(r4)
+Parsed simple instruction: stbu r0 -0x1(r6)
+Parsed label: L_800034BC:
+Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: bne .L_800034B4
+Parsed simple instruction: blr 
+End of function: memcpy, 25 instructions
+Parsed function: fn_800034C8
+Parsed simple instruction: subi r4 r4 0x1
+Parsed simple instruction: subi r6 r3 0x1
+Parsed simple instruction: addi r5 r5 0x1
+Parsed simple instruction: b .L_800034E0
+Parsed label: L_800034D8:
+Parsed simple instruction: lbzu r0 0x1(r4)
+Parsed simple instruction: stbu r0 0x1(r6)
+Parsed label: L_800034E0:
+Parsed simple instruction: subic. r5 r5 0x1
+Parsed simple instruction: bne .L_800034D8
+Parsed simple instruction: blr 
+End of function: fn_800034C8, 11 instructions
+Parsed function: fn_800034EC
+Parsed simple instruction: mflr r0
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stwu r1 -0x10(r1)
+Parsed simple instruction: stw r31 0xc(r1)
+Parsed simple instruction: mr r31 r3
+Parsed simple instruction: bl fn_80016B44
+Parsed simple instruction: mr r3 r31
+Parsed simple instruction: lwz r31 0xc(r1)
+Parsed simple instruction: addi r1 r1 0x10
+Parsed simple instruction: lwz r0 0x4(r1)
+Parsed simple instruction: mtlr r0
+Parsed simple instruction: blr 
+End of function: fn_800034EC, 12 instructions
+Parsed function: gap_00_8000351C_init
+Warning: Unrecognized instruction line: .hidden gap_00_8000351C_init
+Warning: Unrecognized instruction line: .4byte 0x4D657472
+Parsed simple instruction: xoris r23 r27 0x6572
+Parsed simple instruction: xori r19 r27 0x2054
+Parsed simple instruction: ori r18 r11 0x6765
+Parsed simple instruction: andis. r0 r1 0x5265
+Parsed simple instruction: andi. r9 r27 0x6465
+Parsed simple instruction: xoris r20 r19 0x204b
+Parsed simple instruction: oris r18 r11 0x6e65
+Parsed simple instruction: xoris r0 r1 0x666f
+Parsed simple instruction: andi. r0 r17 0x506f
+Parsed simple instruction: andis. r5 r27 0x7250
+Parsed label: L_80003548:
+Warning: Unrecognized instruction line: .4byte 0x43000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: b fn_80005450
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: icbi r0 r2
+Parsed simple instruction: mfdar r2
+Parsed simple instruction: dcbi r0 r2
+Parsed simple instruction: mfsprg r2 1
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x200
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x300
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x400
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x500
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x600
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x700
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x800
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x900
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0xc00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0xd00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0xe00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: b .L_80004470
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0xf20
+Parsed simple instruction: rfi 
+Parsed label: L_80004470:
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0xf00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mfcr r2
+Parsed simple instruction: mtsprg 2 r2
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: beq .L_8000454C
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: xoris r2 r2 0x2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtmsr r2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtsprg 1 r2
+Parsed label: L_8000454C:
+Parsed simple instruction: mfsprg r2 2
+Parsed simple instruction: mtcrf 255 r2
+Parsed simple instruction: mfsprg r2 1
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1000
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mfcr r2
+Parsed simple instruction: mtsprg 2 r2
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: beq .L_8000464C
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: xoris r2 r2 0x2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtmsr r2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtsprg 1 r2
+Parsed label: L_8000464C:
+Parsed simple instruction: mfsprg r2 2
+Parsed simple instruction: mtcrf 255 r2
+Parsed simple instruction: mfsprg r2 1
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1100
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mfcr r2
+Parsed simple instruction: mtsprg 2 r2
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: andis. r2 r2 0x2
+Parsed simple instruction: beq .L_8000474C
+Parsed simple instruction: mfmsr r2
+Parsed simple instruction: xoris r2 r2 0x2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtmsr r2
+Parsed simple instruction: sync 
+Parsed simple instruction: mtsprg 1 r2
+Parsed label: L_8000474C:
+Parsed simple instruction: mfsprg r2 2
+Parsed simple instruction: mtcrf 255 r2
+Parsed simple instruction: mfsprg r2 1
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1200
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1300
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1400
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1600
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1700
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1c00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1d00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1e00
+Parsed simple instruction: rfi 
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Warning: Unrecognized instruction line: .4byte 0x00000000
+Parsed simple instruction: mtsprg 1 r2
+Parsed simple instruction: mtsprg 2 r3
+Parsed simple instruction: mtsprg 3 r4
+Parsed simple instruction: mfsrr0 r2
+Parsed simple instruction: mfsrr1 r4
+Parsed simple instruction: mfmsr r3
+Parsed simple instruction: ori r3 r3 0x30
+Parsed simple instruction: mtsrr1 r3
+Parsed simple instruction: lis r3 0x8001
+Parsed simple instruction: ori r3 r3 0x75a8
+Parsed simple instruction: mtsrr0 r3
+Parsed simple instruction: li r3 0x1f00
+Parsed simple instruction: rfi 
+End of function: gap_00_8000351C_init, 380 instructions
+Parsed function: fn_80005450
+Warning: Unrecognized instruction line: .sym gTRKInterruptVectorTableEnd, global
+Parsed simple instruction: mflr r0
+Parsed simple instruction: stw r0 0x4(r1)
+Parsed simple instruction: stwu r1 -0x8(r1)
+Parsed simple instruction: bl fn_80018340
+Parsed simple instruction: addi r1 r1 0x8
+Parsed simple instruction: lwz r0 0x4(r1)
+Parsed simple instruction: mtlr r0
+Parsed simple instruction: blr 
+End of function: fn_80005450, 8 instructions
+Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
+Translated lis r3 0x8000 to: gc_env.r[3] = (0x8000) << 16;
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stwu r1 -0x8(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x8;']
+Translated lhz r0 0x30e4(r3) to: gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x30e4);
+Translated andi. r0 r0 0xeef to: gc_env.r[0] = gc_env.r[0] & 0xeef;
+Translated cmpwi r0 0xeef to: gc_env.cr[0] = (gc_env.r[0] == 0xeef) ? 0 : (gc_env.r[0] < 0xeef ? -1 : 1); // Compare with immediate
+Translated bne .L_80003130 to: if (gc_env.cr[0] != 0) goto L_80003130;
+Translated li r3 0x0 to: gc_env.r[3] = 0x0;
+Translated li r4 0x0 to: gc_env.r[4] = 0x0;
+Translated li r5 0x0 to: gc_env.r[5] = 0x0;
+Translated bl OSResetSystem to: OSReset();
+Translated lwz r0 0xc(r1) to: gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
+Translated addi r1 r1 0x8 to: gc_env.r[1] = gc_env.r[1] + 0x8;
+Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
+Translated blr  to: return;
+Translated bl __init_registers to: OSReset();
+Translated bl __init_hardware to: OSReset();
+Translated li r0 -0x1 to: gc_env.r[0] = -0x1;
+Translated stwu r1 -0x8(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x8;']
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stw r0 0x0(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x0, gc_env.r[0]);
+Translated bl __init_data to: OSReset();
+Translated li r0 0x0 to: gc_env.r[0] = 0x0;
+Translated lis r6 0x8000 to: gc_env.r[6] = (0x8000) << 16;
+Translated addi r6 r6 0x44 to: gc_env.r[6] = gc_env.r[6] + 0x44;
+Translated stw r0 0x0(r6) to: gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[0]);
+Translated lis r6 0x8000 to: gc_env.r[6] = (0x8000) << 16;
+Translated addi r6 r6 0xf4 to: gc_env.r[6] = gc_env.r[6] + 0xf4;
+Translated lwz r6 0x0(r6) to: gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
+Unknown opcode: cmplwi r6 0x0
+Unknown opcode: beq .L_800031AC
+Translated lwz r7 0xc(r6) to: gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0xc);
+Translated li r5 0x0 to: gc_env.r[5] = 0x0;
+Unknown opcode: cmplwi r7 0x2
+Unknown opcode: beq .L_8000319C
+Unknown opcode: cmplwi r7 0x3
+Translated bne .L_800031AC to: if (gc_env.cr[0] != 0) goto L_800031AC;
+Translated li r5 0x1 to: gc_env.r[5] = 0x1;
+Translated lis r6 InitMetroTRK@ha to: gc_env.r[6] = (InitMetroTRK@ha) << 16;
+Translated addi r6 r6 InitMetroTRK@l to: gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
+Translated mtlr r6 to: gc_env.lr = gc_env.r[6]; // Move to link register
+Unknown opcode: blrl 
+Translated lis r6 0x8000 to: gc_env.r[6] = (0x8000) << 16;
+Translated addi r6 r6 0xf4 to: gc_env.r[6] = gc_env.r[6] + 0xf4;
+Translated lwz r5 0x0(r6) to: gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
+Unknown opcode: cmplwi r5 0x0
+Unknown opcode: beq + .L_8000320C
+Translated lwz r6 0x8(r5) to: gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8);
+Unknown opcode: cmplwi r6 0x0
+Unknown opcode: beq + .L_8000320C
+Unknown opcode: add r6 r5 r6
+Translated lwz r14 0x0(r6) to: gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
+Unknown opcode: cmplwi r14 0x0
+Unknown opcode: beq .L_8000320C
+Translated addi r15 r6 0x4 to: gc_env.r[15] = gc_env.r[6] + 0x4;
+Unknown opcode: mtctr r14
+Translated addi r6 r6 0x4 to: gc_env.r[6] = gc_env.r[6] + 0x4;
+Translated lwz r7 0x0(r6) to: gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
+Unknown opcode: add r7 r7 r5
+Translated stw r7 0x0(r6) to: gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[7]);
+Unknown opcode: bdnz .L_800031E4
+Translated lis r5 0x8000 to: gc_env.r[5] = (0x8000) << 16;
+Translated addi r5 r5 0x34 to: gc_env.r[5] = gc_env.r[5] + 0x34;
+Unknown opcode: clrrwi r7 r15 5
+Translated stw r7 0x0(r5) to: gc_mem_write32(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[7]);
+Unknown opcode: b .L_80003214
+Translated li r14 0x0 to: gc_env.r[14] = 0x0;
+Translated li r15 0x0 to: gc_env.r[15] = 0x0;
+Translated bl DBInit to: OSReset();
+Translated bl OSInit to: OSReset();
+Translated lis r4 0x8000 to: gc_env.r[4] = (0x8000) << 16;
+Translated addi r4 r4 0x30e6 to: gc_env.r[4] = gc_env.r[4] + 0x30e6;
+Translated lhz r3 0x0(r4) to: gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
+Translated andi. r5 r3 0x8000 to: gc_env.r[5] = gc_env.r[3] & 0x8000;
+Unknown opcode: beq .L_8000323C
+Translated andi. r3 r3 0x7fff to: gc_env.r[3] = gc_env.r[3] & 0x7fff;
+Unknown opcode: cmplwi r3 0x1
+Translated bne .L_80003240 to: if (gc_env.cr[0] != 0) goto L_80003240;
+Translated bl __check_pad3 to: OSReset();
+Translated bl __init_user to: OSReset();
+Unknown opcode: mr r3 r14
+Unknown opcode: mr r4 r15
+Translated bl main to: OSReset();
+Unknown opcode: b exit
+Translated lis r1 _stack_addr@h to: gc_env.r[1] = (_stack_addr@h) << 16;
+Unknown opcode: ori r1 r1 _stack_addr@l
+Translated lis r2 _SDA2_BASE_@h to: gc_env.r[2] = (_SDA2_BASE_@h) << 16;
+Unknown opcode: ori r2 r2 _SDA2_BASE_@l
+Translated lis r13 _SDA_BASE_@h to: gc_env.r[13] = (_SDA_BASE_@h) << 16;
+Unknown opcode: ori r13 r13 _SDA_BASE_@l
+Translated blr  to: return;
+Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stwu r1 -0x18(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x18, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x18;']
+Translated stw r31 0x14(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]);
+Translated stw r30 0x10(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]);
+Translated stw r29 0xc(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);
+Translated lis r3 _rom_copy_info@ha to: gc_env.r[3] = (_rom_copy_info@ha) << 16;
+Translated addi r0 r3 _rom_copy_info@l to: gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;
+Unknown opcode: mr r29 r0
+Unknown opcode: b .L_80003298
+Unknown opcode: b .L_8000329C
+Translated lwz r30 0x8(r29) to: gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8);
+Unknown opcode: cmplwi r30 0x0
+Unknown opcode: beq .L_800032DC
+Translated lwz r4 0x0(r29) to: gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
+Translated lwz r31 0x4(r29) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
+Unknown opcode: beq .L_800032D4
+Unknown opcode: cmplw r31 r4
+Unknown opcode: beq .L_800032D4
+Unknown opcode: mr r3 r31
+Unknown opcode: mr r5 r30
+Translated bl memcpy to: OSReset();
+Unknown opcode: mr r3 r31
+Unknown opcode: mr r4 r30
+Translated bl __flush_cache to: OSReset();
+Translated addi r29 r29 0xc to: gc_env.r[29] = gc_env.r[29] + 0xc;
+Unknown opcode: b .L_8000329C
+Translated lis r3 _bss_init_info@ha to: gc_env.r[3] = (_bss_init_info@ha) << 16;
+Translated addi r0 r3 _bss_init_info@l to: gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;
+Unknown opcode: mr r29 r0
+Unknown opcode: b .L_800032EC
+Unknown opcode: b .L_800032F0
+Translated lwz r5 0x4(r29) to: gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
+Unknown opcode: cmplwi r5 0x0
+Unknown opcode: beq .L_80003314
+Translated lwz r3 0x0(r29) to: gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
+Unknown opcode: beq .L_8000330C
+Translated li r4 0x0 to: gc_env.r[4] = 0x0;
+Translated bl memset to: OSReset();
+Translated addi r29 r29 0x8 to: gc_env.r[29] = gc_env.r[29] + 0x8;
+Unknown opcode: b .L_800032F0
+Translated lwz r0 0x1c(r1) to: gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c);
+Translated lwz r31 0x14(r1) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14);
+Translated lwz r30 0x10(r1) to: gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10);
+Translated lwz r29 0xc(r1) to: gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
+Translated addi r1 r1 0x18 to: gc_env.r[1] = gc_env.r[1] + 0x18;
+Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
+Translated blr  to: return;
+Unknown opcode: mfmsr r0
+Unknown opcode: ori r0 r0 0x2000
+Unknown opcode: mtmsr r0
+Translated mflr r31 to: gc_env.r[31] = gc_env.lr; // Move from link register
+Translated bl __OSPSInit to: OSReset();
+Translated bl __OSCacheInit to: OSReset();
+Translated mtlr r31 to: gc_env.lr = gc_env.r[31]; // Move to link register
+Translated blr  to: return;
+Translated lis r5 0xffff to: gc_env.r[5] = (0xffff) << 16;
+Unknown opcode: ori r5 r5 0xfff1
+Unknown opcode: and r5 r5 r3
+Unknown opcode: subf r3 r5 r3
+Unknown opcode: add r4 r4 r3
+Unknown opcode: dcbst r0 r5
+Unknown opcode: sync 
+Unknown opcode: icbi r0 r5
+Unknown opcode: addic r5 r5 0x8
+Unknown opcode: subic. r4 r4 0x8
+Unknown opcode: bge .L_80003364
+Unknown opcode: isync 
+Translated blr  to: return;
+Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stwu r1 -0x20(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x20;']
+Translated stw r31 0x1c(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]);
+Unknown opcode: mr r31 r3
+Translated bl __fill_mem to: OSReset();
+Translated lwz r0 0x24(r1) to: gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24);
+Unknown opcode: mr r3 r31
+Translated lwz r31 0x1c(r1) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c);
+Translated addi r1 r1 0x20 to: gc_env.r[1] = gc_env.r[1] + 0x20;
+Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
+Translated blr  to: return;
+Unknown opcode: cmplwi r5 0x20
+Unknown opcode: clrlwi r0 r4 24
+Unknown opcode: mr r7 r0
+Unknown opcode: subi r6 r3 0x1
+Unknown opcode: blt .L_8000345C
+Unknown opcode: nor r0 r6 r6
+Unknown opcode: clrlwi. r0 r0 30
+Unknown opcode: mr r3 r0
+Unknown opcode: beq .L_800033EC
+Unknown opcode: subf r5 r3 r5
+Unknown opcode: clrlwi r0 r7 24
+Unknown opcode: subic. r3 r3 0x1
+Unknown opcode: stbu r0 0x1(r6)
+Translated bne .L_800033E0 to: if (gc_env.cr[0] != 0) goto L_800033E0;
+Unknown opcode: cmplwi r7 0x0
+Unknown opcode: beq .L_8000340C
+Unknown opcode: slwi r3 r7 24
+Unknown opcode: slwi r0 r7 16
+Unknown opcode: slwi r4 r7 8
+Unknown opcode: or r0 r3 r0
+Unknown opcode: or r0 r4 r0
+Unknown opcode: or r7 r7 r0
+Unknown opcode: srwi. r0 r5 5
+Unknown opcode: subi r3 r6 0x3
+Unknown opcode: beq .L_80003440
+Translated stw r7 0x4(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
+Unknown opcode: subic. r0 r0 0x1
+Translated stw r7 0x8(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[7]);
+Translated stw r7 0xc(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xc, gc_env.r[7]);
+Translated stw r7 0x10(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10, gc_env.r[7]);
+Translated stw r7 0x14(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x14, gc_env.r[7]);
+Translated stw r7 0x18(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x18, gc_env.r[7]);
+Translated stw r7 0x1c(r3) to: gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c, gc_env.r[7]);
+Translated stwu r7 0x20(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20, gc_env.r[7]);', 'gc_env.r[3] = gc_env.r[3] + 0x20;']
+Translated bne .L_80003418 to: if (gc_env.cr[0] != 0) goto L_80003418;
+Unknown opcode: extrwi. r0 r5 3 27
+Unknown opcode: beq .L_80003454
+Unknown opcode: subic. r0 r0 0x1
+Translated stwu r7 0x4(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);', 'gc_env.r[3] = gc_env.r[3] + 0x4;']
+Translated bne .L_80003448 to: if (gc_env.cr[0] != 0) goto L_80003448;
+Translated addi r6 r3 0x3 to: gc_env.r[6] = gc_env.r[3] + 0x3;
+Unknown opcode: clrlwi r5 r5 30
+Unknown opcode: cmplwi r5 0x0
+Unknown opcode: beqlr 
+Unknown opcode: clrlwi r0 r7 24
+Unknown opcode: subic. r5 r5 0x1
+Unknown opcode: stbu r0 0x1(r6)
+Translated bne .L_80003468 to: if (gc_env.cr[0] != 0) goto L_80003468;
+Translated blr  to: return;
+Unknown opcode: cmplw r4 r3
+Unknown opcode: blt .L_800034A4
+Unknown opcode: subi r4 r4 0x1
+Unknown opcode: subi r6 r3 0x1
+Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
+Unknown opcode: b .L_80003498
+Unknown opcode: lbzu r0 0x1(r4)
+Unknown opcode: stbu r0 0x1(r6)
+Unknown opcode: subic. r5 r5 0x1
+Translated bne .L_80003490 to: if (gc_env.cr[0] != 0) goto L_80003490;
+Translated blr  to: return;
+Unknown opcode: add r4 r4 r5
+Unknown opcode: add r6 r3 r5
+Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
+Unknown opcode: b .L_800034BC
+Unknown opcode: lbzu r0 -0x1(r4)
+Unknown opcode: stbu r0 -0x1(r6)
+Unknown opcode: subic. r5 r5 0x1
+Translated bne .L_800034B4 to: if (gc_env.cr[0] != 0) goto L_800034B4;
+Translated blr  to: return;
+Unknown opcode: subi r4 r4 0x1
+Unknown opcode: subi r6 r3 0x1
+Translated addi r5 r5 0x1 to: gc_env.r[5] = gc_env.r[5] + 0x1;
+Unknown opcode: b .L_800034E0
+Unknown opcode: lbzu r0 0x1(r4)
+Unknown opcode: stbu r0 0x1(r6)
+Unknown opcode: subic. r5 r5 0x1
+Translated bne .L_800034D8 to: if (gc_env.cr[0] != 0) goto L_800034D8;
+Translated blr  to: return;
+Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stwu r1 -0x10(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x10, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x10;']
+Translated stw r31 0xc(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[31]);
+Unknown opcode: mr r31 r3
+Translated bl fn_80016B44 to: OSReset();
+Unknown opcode: mr r3 r31
+Translated lwz r31 0xc(r1) to: gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
+Translated addi r1 r1 0x10 to: gc_env.r[1] = gc_env.r[1] + 0x10;
+Translated lwz r0 0x4(r1) to: gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4);
+Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
+Translated blr  to: return;
+Unknown opcode: xoris r23 r27 0x6572
+Unknown opcode: xori r19 r27 0x2054
+Unknown opcode: ori r18 r11 0x6765
+Unknown opcode: andis. r0 r1 0x5265
+Translated andi. r9 r27 0x6465 to: gc_env.r[9] = gc_env.r[27] & 0x6465;
+Unknown opcode: xoris r20 r19 0x204b
+Unknown opcode: oris r18 r11 0x6e65
+Unknown opcode: xoris r0 r1 0x666f
+Translated andi. r0 r17 0x506f to: gc_env.r[0] = gc_env.r[17] & 0x506f;
+Unknown opcode: andis. r5 r27 0x7250
+Unknown opcode: b fn_80005450
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfsrr0 r2
+Unknown opcode: icbi r0 r2
+Unknown opcode: mfdar r2
+Unknown opcode: dcbi r0 r2
+Unknown opcode: mfsprg r2 1
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x200 to: gc_env.r[3] = 0x200;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x300 to: gc_env.r[3] = 0x300;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x400 to: gc_env.r[3] = 0x400;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x500 to: gc_env.r[3] = 0x500;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x600 to: gc_env.r[3] = 0x600;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x700 to: gc_env.r[3] = 0x700;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x800 to: gc_env.r[3] = 0x800;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x900 to: gc_env.r[3] = 0x900;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0xc00 to: gc_env.r[3] = 0xc00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0xd00 to: gc_env.r[3] = 0xd00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0xe00 to: gc_env.r[3] = 0xe00;
+Unknown opcode: rfi 
+Unknown opcode: b .L_80004470
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0xf20 to: gc_env.r[3] = 0xf20;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0xf00 to: gc_env.r[3] = 0xf00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfcr r2
+Unknown opcode: mtsprg 2 r2
+Unknown opcode: mfmsr r2
+Unknown opcode: andis. r2 r2 0x2
+Unknown opcode: beq .L_8000454C
+Unknown opcode: mfmsr r2
+Unknown opcode: xoris r2 r2 0x2
+Unknown opcode: sync 
+Unknown opcode: mtmsr r2
+Unknown opcode: sync 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfsprg r2 2
+Unknown opcode: mtcrf 255 r2
+Unknown opcode: mfsprg r2 1
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1000 to: gc_env.r[3] = 0x1000;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfcr r2
+Unknown opcode: mtsprg 2 r2
+Unknown opcode: mfmsr r2
+Unknown opcode: andis. r2 r2 0x2
+Unknown opcode: beq .L_8000464C
+Unknown opcode: mfmsr r2
+Unknown opcode: xoris r2 r2 0x2
+Unknown opcode: sync 
+Unknown opcode: mtmsr r2
+Unknown opcode: sync 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfsprg r2 2
+Unknown opcode: mtcrf 255 r2
+Unknown opcode: mfsprg r2 1
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1100 to: gc_env.r[3] = 0x1100;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfcr r2
+Unknown opcode: mtsprg 2 r2
+Unknown opcode: mfmsr r2
+Unknown opcode: andis. r2 r2 0x2
+Unknown opcode: beq .L_8000474C
+Unknown opcode: mfmsr r2
+Unknown opcode: xoris r2 r2 0x2
+Unknown opcode: sync 
+Unknown opcode: mtmsr r2
+Unknown opcode: sync 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mfsprg r2 2
+Unknown opcode: mtcrf 255 r2
+Unknown opcode: mfsprg r2 1
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1200 to: gc_env.r[3] = 0x1200;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1300 to: gc_env.r[3] = 0x1300;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1400 to: gc_env.r[3] = 0x1400;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1600 to: gc_env.r[3] = 0x1600;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1700 to: gc_env.r[3] = 0x1700;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1c00 to: gc_env.r[3] = 0x1c00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1d00 to: gc_env.r[3] = 0x1d00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1e00 to: gc_env.r[3] = 0x1e00;
+Unknown opcode: rfi 
+Unknown opcode: mtsprg 1 r2
+Unknown opcode: mtsprg 2 r3
+Unknown opcode: mtsprg 3 r4
+Unknown opcode: mfsrr0 r2
+Unknown opcode: mfsrr1 r4
+Unknown opcode: mfmsr r3
+Unknown opcode: ori r3 r3 0x30
+Unknown opcode: mtsrr1 r3
+Translated lis r3 0x8001 to: gc_env.r[3] = (0x8001) << 16;
+Unknown opcode: ori r3 r3 0x75a8
+Unknown opcode: mtsrr0 r3
+Translated li r3 0x1f00 to: gc_env.r[3] = 0x1f00;
+Unknown opcode: rfi 
+Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
+Translated stw r0 0x4(r1) to: gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
+Translated stwu r1 -0x8(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x8;']
+Translated bl fn_80018340 to: OSReset();
+Translated addi r1 r1 0x8 to: gc_env.r[1] = gc_env.r[1] + 0x8;
+Translated lwz r0 0x4(r1) to: gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4);
+Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
+Translated blr  to: return;
+Generated: auto_00_80003100_init.c
+Generated: auto_00_80003100_init.h
