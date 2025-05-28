@@ -9,7 +9,7 @@ import importlib.util
 import re
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 from dataclasses import dataclass
 
 
@@ -32,6 +32,15 @@ class Function:
     is_local: bool = False
 
 
+@dataclass
+class DataSection:
+    """Represents a parsed data section (e.g., gap_ arrays)."""
+    name: str
+    start_addr: Optional[str]
+    size: Optional[str]
+    data: List[Tuple[str, str]]  # List of (value, comment) pairs
+
+
 class ModularTranspiler:
     """Transpiles GameCube assembly code to C source and header files."""
     
@@ -40,6 +49,7 @@ class ModularTranspiler:
         self.opcodes_dir = Path(opcodes_dir)
         self.opcode_handlers: Dict[str, callable] = {}
         self.functions: List[Function] = []
+        self.data_sections: List[DataSection] = []
         self.variables: Set[str] = set()
         self.includes: Set[str] = set(['"gc_env.h"'])
         self._load_opcode_handlers()
@@ -72,25 +82,133 @@ class ModularTranspiler:
                 print(f"Warning: Failed to load opcode handler {py_file}: {str(e)}")
 
     def strip_comments(self, assembly_code: str) -> str:
-        """Remove comments from assembly code."""
+        """Remove inline comments from assembly code, preserving /* */ comments."""
         lines = []
         for line in assembly_code.split('\n'):
             line = line.rstrip()
             if '#' in line:
-                line = line.split('#')[0]
-            while '/*' in line and '*/' in line:
-                start = line.find('/*')
-                end = line.find('*/') + 2
-                line = line[:start] + line[end:]
-            lines.append(line.rstrip())
+                line = line.split('#')[0].rstrip()
+            lines.append(line)
         return '\n'.join(lines)
 
-    def parse_assembly(self, assembly_code: str) -> List[Function]:
-        """Parse assembly code into a list of Function objects."""
-        assembly_code = self.strip_comments(assembly_code)
+    def extract_gap_sections(self, assembly_code: str) -> Tuple[str, List[Tuple[str, str, str, List[str]]]]:
+        """Extract gap_ sections and return cleaned code with gap_ section data."""
         lines = assembly_code.split('\n')
-        functions = []
+        cleaned_lines = []
+        gap_sections = []
+        in_gap = False
+        current_gap = None
+        current_addr = None
+        current_size = None
+        gap_lines = []
+
+        for line in lines:
+            line = line.strip()
+            if not line:
+                cleaned_lines.append(line)
+                continue
+
+            # Match section and address metadata
+            addr_match = re.match(r'#\s*\.(\w+):(0x[0-9A-Fa-f]+)\s*\|\s*(0x[0-9A-Fa-f]+)\s*\|\s*size:\s*(0x[0-9A-Fa-f]+)', line)
+            if addr_match:
+                current_addr = addr_match.group(3)
+                current_size = addr_match.group(4)
+                cleaned_lines.append(line)
+                continue
+
+            # Match function declarations
+            fn_match = re.match(r'\.fn\s+(\w+)(?:,\s*(\w+))?', line)
+            if fn_match:
+                func_name, func_type = fn_match.groups()
+                if func_name.startswith('gap_'):
+                    in_gap = True
+                    current_gap = (func_name, func_type, current_addr, current_size)
+                    gap_lines = []
+                    print(f"Found gap section: {func_name} at {current_addr}")
+                    continue
+                else:
+                    cleaned_lines.append(line)
+                    continue
+
+            # Match function/data end
+            if line.startswith('.endfn'):
+                if in_gap and current_gap:
+                    gap_sections.append((current_gap[0], current_gap[2], current_gap[3], gap_lines))
+                    print(f"Extracted gap section: {current_gap[0]}, {len(gap_lines)} lines")
+                    in_gap = False
+                    current_gap = None
+                    gap_lines = []
+                    continue
+                cleaned_lines.append(line)
+                continue
+
+            # Collect lines in gap section
+            if in_gap:
+                gap_lines.append(line)
+            else:
+                cleaned_lines.append(line)
+
+        return '\n'.join(cleaned_lines), gap_sections
+
+    def parse_gap_section(self, name: str, addr: Optional[str], size: Optional[str], lines: List[str]) -> DataSection:
+        """Parse a gap_ section into a DataSection with .4byte values."""
+        data = []
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+
+            # Match .hidden directive
+            if line.startswith('.hidden'):
+                continue
+
+            # Match instructions with address and raw bytes
+            instr_match = re.match(r'/\*\s*([0-9A-Fa-f]+)\s+([0-9A-Fa-f]+)\s+([0-9A-Fa-f\s]+)\s*\*/\s*(.+)', line)
+            if instr_match:
+                address, _, raw_bytes, instruction = instr_match.groups()
+                bytes_str = ''.join(raw_bytes.split())
+                value = f"0x{bytes_str[:8]}"  # Take first 4 bytes
+                comment = instruction.strip()
+                if comment.startswith('.4byte'):
+                    value = comment.split('.4byte ')[1].split(' ')[0]
+                data.append((value, comment))
+                print(f"Parsed gap data at {address}: {value} ({comment})")
+                continue
+
+            # Match .4byte directives
+            fourbyte_match = re.match(r'\.4byte\s+(0x[0-9A-Fa-f]+)', line)
+            if fourbyte_match:
+                value = fourbyte_match.group(1)
+                data.append((value, f".4byte {value}"))
+                print(f"Parsed gap data: {value}")
+                continue
+
+            # Handle labels
+            if line.endswith(':'):
+                label = line.lstrip('.')
+                data.append(('//', f"Label: {label}"))
+                print(f"Parsed gap label: {label}")
+                continue
+
+            # Warn about unrecognized lines
+            print(f"Warning: Unrecognized gap line: {line}")
+            data.append(('//', f"Unrecognized: {line}"))
+
+        return DataSection(name=name, start_addr=addr, size=size, data=data)
+
+    def parse_assembly(self, assembly_code: str) -> None:
+        """Parse assembly code into functions and data sections."""
+        # Extract gap_ sections first
+        cleaned_code, gap_sections = self.extract_gap_sections(assembly_code)
+        # Parse gap_ sections
+        for name, addr, size, lines in gap_sections:
+            self.data_sections.append(self.parse_gap_section(name, addr, size, lines))
+
+        # Parse remaining code for functions
+        lines = cleaned_code.split('\n')
         current_function = None
+        current_addr = None
+        current_size = None
 
         for line in lines:
             line = line.strip()
@@ -100,6 +218,8 @@ class ModularTranspiler:
             # Match section and address metadata
             addr_match = re.match(r'#\s*\.(\w+):(0x[0-9A-Fa-f]+)\s*\|\s*(0x[0-9A-Fa-f]+)\s*\|\s*size:\s*(0x[0-9A-Fa-f]+)', line)
             if addr_match:
+                current_addr = addr_match.group(3)
+                current_size = addr_match.group(4)
                 continue
 
             # Match function declarations
@@ -108,20 +228,26 @@ class ModularTranspiler:
                 func_name, func_type = fn_match.groups()
                 current_function = Function(
                     name=func_name,
-                    start_addr=None,
-                    size=None,
+                    start_addr=current_addr,
+                    size=current_size,
                     instructions=[],
                     is_local=(func_type == 'local')
                 )
-                functions.append(current_function)
-                print(f"Parsed function: {func_name}")
+                self.functions.append(current_function)
+                print(f"Parsed function: {func_name} at {current_addr}")
+                current_addr = None
+                current_size = None
                 continue
 
             # Match function end
             if line.startswith('.endfn'):
                 if current_function:
                     print(f"End of function: {current_function.name}, {len(current_function.instructions)} instructions")
-                current_function = None
+                    current_function = None
+                continue
+
+            # Match .hidden directive
+            if line.startswith('.hidden'):
                 continue
 
             # Match instructions with address and raw bytes
@@ -143,11 +269,10 @@ class ModularTranspiler:
                     print(f"Warning: Failed to parse instruction parts in line: {line}")
                 continue
 
-            # Match simple instructions (no address/raw bytes)
+            # Match simple instructions
             simple_instr_match = re.match(r'(\w+\.?)(?:\s*\+)?\s*(.*)', line)
             if simple_instr_match and current_function:
                 opcode, operands_str = simple_instr_match.groups()
-                # Normalize opcode by removing trailing . and handling + (e.g., beq +)
                 opcode = opcode.rstrip('.')
                 operands = [op.strip() for op in re.split(r'[,\s]+', operands_str.strip()) if op.strip()]
                 current_function.instructions.append(Instruction(
@@ -159,22 +284,20 @@ class ModularTranspiler:
                 print(f"Parsed simple instruction: {opcode} {' '.join(operands)}")
                 continue
 
-            # Handle labels (e.g., .L_80003130:)
+            # Handle labels
             if line.endswith(':') and current_function:
                 label = line.lstrip('.')
-                print(f"Parsed label: {label}")
                 current_function.instructions.append(Instruction(
                     opcode=label,
                     operands=[],
                     address=None,
                     raw_bytes=None
                 ))
+                print(f"Parsed label: {label}")
                 continue
 
             if current_function:
-                print(f"Warning: Unrecognized instruction line: {line}")
-
-        return functions
+                print(f"Warning: Unrecognized line: {line}")
 
     def translate_instruction(self, instruction: Instruction) -> List[str]:
         """Translate a single instruction to C code."""
@@ -195,7 +318,7 @@ class ModularTranspiler:
         print(f"Unknown opcode: {instruction.opcode} {' '.join(instruction.operands)}")
         return [f"// Unknown opcode: {instruction.opcode} {' '.join(instruction.operands)}"]
 
-    def generate_c_file(self, functions: List[Function], output_name: str) -> str:
+    def generate_c_file(self, output_name: str) -> str:
         """Generate content for the C source file."""
         c_lines = [
             f'#include "{output_name}.h"',
@@ -213,7 +336,8 @@ class ModularTranspiler:
             c_lines.extend(f'{var};' for var in sorted(self.variables))
             c_lines.append('')
 
-        for func in functions:
+        # Generate functions
+        for func in self.functions:
             c_lines.append(f'// Function: {func.name}')
             if func.start_addr:
                 c_lines.append(f'// Address: {func.start_addr}')
@@ -225,9 +349,23 @@ class ModularTranspiler:
 
             c_lines.extend(['}', ''])
 
+        # Generate data sections
+        for data in self.data_sections:
+            c_lines.append(f'// Data section: {data.name}')
+            if data.start_addr:
+                c_lines.append(f'// Address: {data.start_addr}')
+            c_lines.append(f'uint32_t {data.name}[] = {{')
+            for value, comment in data.data:
+                if value.startswith('//'):
+                    c_lines.append(f'    {value} {comment}')
+                else:
+                    c_lines.append(f'    {value}, // {comment}')
+            c_lines.append('};')
+            c_lines.append('')
+
         return '\n'.join(c_lines)
 
-    def generate_header_file(self, functions: List[Function], output_name: str) -> str:
+    def generate_header_file(self, output_name: str) -> str:
         """Generate content for the C header file."""
         guard_name = f"__{output_name.upper()}_H__"
         h_lines = [
@@ -239,8 +377,13 @@ class ModularTranspiler:
         ]
 
         h_lines.append('// Function declarations')
-        for func in functions:
+        for func in self.functions:
             h_lines.append(f'void {func.name}(void);')
+
+        h_lines.append('')
+        h_lines.append('// Data section declarations')
+        for data in self.data_sections:
+            h_lines.append(f'extern uint32_t {data.name}[];')
 
         h_lines.extend(['', f'#endif // {guard_name}'])
         return '\n'.join(h_lines)
@@ -259,9 +402,11 @@ class ModularTranspiler:
             print(f"Error reading file '{input_file}': {str(e)}")
             sys.exit(1)
 
-        self.functions = self.parse_assembly(assembly_code)
-        if not self.functions:
-            print("Error: No functions found in assembly file")
+        self.functions = []
+        self.data_sections = []
+        self.parse_assembly(assembly_code)
+        if not self.functions and not self.data_sections:
+            print("Error: No functions or data sections found in assembly file")
             sys.exit(1)
 
         base_name = input_path.stem
@@ -270,19 +415,18 @@ class ModularTranspiler:
 
         try:
             with c_file.open('w') as f:
-                f.write(self.generate_c_file(self.functions, base_name))
+                f.write(self.generate_c_file(base_name))
             print(f"Generated: {c_file}")
 
             with h_file.open('w') as f:
-                f.write(self.generate_header_file(self.functions, base_name))
+                f.write(self.generate_header_file(base_name))
             print(f"Generated: {h_file}")
         except Exception as e:
             print(f"Error writing output files: {str(e)}")
             sys.exit(1)
 
 
-def main():
-    """Main entry point for the transpiler."""
+if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python PyDol.py <assembly_file> [opcodes_dir]")
         sys.exit(1)
@@ -290,7 +434,3 @@ def main():
     opcodes_dir = sys.argv[2] if len(sys.argv) > 2 else "opcodes"
     transpiler = ModularTranspiler(opcodes_dir)
     transpiler.transpile_file(sys.argv[1])
-
-
-if __name__ == "__main__":
-    main()
