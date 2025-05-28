@@ -11,7 +11,8 @@ def handle(instruction, transpiler):
 
     if opcode == 'lis' and len(ops) >= 2:
         reg_num = int(ops[0].lstrip('r'))
-        return f"gc_env.r[{reg_num}] = ({ops[1]}) << 16;"
+        imm = ops[1].split('@')[0]  # Strip @ha
+        return f"gc_env.r[{reg_num}] = ((uint32_t){imm}) << 16;"  # Treat as address
     elif opcode == 'stw' and len(ops) >= 2:
         src_reg = int(ops[0].lstrip('r'))
         if '(' in ops[1] and ')' in ops[1]:

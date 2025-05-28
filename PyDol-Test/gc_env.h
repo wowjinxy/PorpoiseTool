@@ -16,6 +16,7 @@ typedef struct {
     // Special registers
     uint32_t lr; // Link register
     uint32_t cr[8]; // Condition register fields (cr0-cr7, 4 bits each)
+    uint32_t ctr; // Count register
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
@@ -33,7 +34,6 @@ void gc_env_cleanup(void);
 // Memory access functions
 static inline uint32_t gc_mem_read32(uint8_t* ram, uint32_t addr) {
     if (addr < GC_RAM_BASE || addr + 3 >= GC_RAM_BASE + GC_RAM_SIZE) {
-        // Handle invalid memory access (simplified)
         return 0;
     }
     addr -= GC_RAM_BASE;
@@ -42,7 +42,6 @@ static inline uint32_t gc_mem_read32(uint8_t* ram, uint32_t addr) {
 
 static inline void gc_mem_write32(uint8_t* ram, uint32_t addr, uint32_t data) {
     if (addr < GC_RAM_BASE || addr + 3 >= GC_RAM_BASE + GC_RAM_SIZE) {
-        // Handle invalid memory access (simplified)
         return;
     }
     addr -= GC_RAM_BASE;

@@ -7,7 +7,7 @@
 // Function: __check_pad3
 void __check_pad3(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[3] = (0x8000) << 16;
+    gc_env.r[3] = ((uint32_t)0x8000) << 16;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x8;
@@ -18,7 +18,7 @@ void __check_pad3(void) {
     gc_env.r[3] = 0x0;
     gc_env.r[4] = 0x0;
     gc_env.r[5] = 0x0;
-    OSReset();
+    OSResetSystem();
     L_80003130:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
     gc_env.r[1] = gc_env.r[1] + 0x8;
@@ -28,19 +28,19 @@ void __check_pad3(void) {
 
 // Function: __start
 void __start(void) {
-    OSReset();
-    OSReset();
+    __init_registers();
+    __init_hardware();
     gc_env.r[0] = -0x1;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x8;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x0, gc_env.r[0]);
-    OSReset();
+    __init_data();
     gc_env.r[0] = 0x0;
-    gc_env.r[6] = (0x8000) << 16;
+    gc_env.r[6] = ((uint32_t)0x8000) << 16;
     gc_env.r[6] = gc_env.r[6] + 0x44;
     gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[0]);
-    gc_env.r[6] = (0x8000) << 16;
+    gc_env.r[6] = ((uint32_t)0x8000) << 16;
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -53,12 +53,12 @@ void __start(void) {
     if (gc_env.cr[0] != 0) goto L_800031AC;
     gc_env.r[5] = 0x1;
     L_8000319C:
-    gc_env.r[6] = (InitMetroTRK@ha) << 16;
+    gc_env.r[6] = ((uint32_t)InitMetroTRK) << 16;
     gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
     gc_env.lr = gc_env.r[6]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_800031AC:
-    gc_env.r[6] = (0x8000) << 16;
+    gc_env.r[6] = ((uint32_t)0x8000) << 16;
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -66,30 +66,31 @@ void __start(void) {
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8);
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8000320C;
-    // Unknown opcode: add r6 r5 r6
+    gc_env.r[6] = gc_env.r[5] + gc_env.r[6];
     gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[14] == 0x0) ? 0 : ((uint32_t)gc_env.r[14] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8000320C;
     gc_env.r[15] = gc_env.r[6] + 0x4;
-    // Unknown opcode: mtctr r14
+    gc_env.ctr = gc_env.r[14]; // Move to count register
     L_800031E4:
     gc_env.r[6] = gc_env.r[6] + 0x4;
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
-    // Unknown opcode: add r7 r7 r5
+    gc_env.r[7] = gc_env.r[7] + gc_env.r[5];
     gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[7]);
-    // Unknown opcode: bdnz .L_800031E4
-    gc_env.r[5] = (0x8000) << 16;
+    gc_env.ctr -= 1;
+    if (gc_env.ctr != 0) goto L_800031E4;
+    gc_env.r[5] = ((uint32_t)0x8000) << 16;
     gc_env.r[5] = gc_env.r[5] + 0x34;
-    // Unknown opcode: clrrwi r7 r15 5
+    gc_env.r[7] = gc_env.r[15] & ~((1ULL << 5) - 1); // Clear rightmost 5 bits
     gc_mem_write32(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[7]);
-    // Unknown opcode: b .L_80003214
+    goto L_80003214;
     L_8000320C:
     gc_env.r[14] = 0x0;
     gc_env.r[15] = 0x0;
     L_80003214:
-    OSReset();
-    OSReset();
-    gc_env.r[4] = (0x8000) << 16;
+    DBInit();
+    OSInit();
+    gc_env.r[4] = ((uint32_t)0x8000) << 16;
     gc_env.r[4] = gc_env.r[4] + 0x30e6;
     gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
     gc_env.r[5] = gc_env.r[3] & 0x8000;
@@ -98,22 +99,22 @@ void __start(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x1) ? 0 : ((uint32_t)gc_env.r[3] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80003240;
     L_8000323C:
-    OSReset();
+    __check_pad3();
     L_80003240:
-    OSReset();
-    // Unknown opcode: mr r3 r14
-    // Unknown opcode: mr r4 r15
-    OSReset();
-    // Unknown opcode: b exit
+    __init_user();
+    gc_env.r[3] = gc_env.r[14]; // Move register
+    gc_env.r[4] = gc_env.r[15]; // Move register
+    main();
+    goto exit;
 }
 
 // Function: __init_registers
 void __init_registers(void) {
-    gc_env.r[1] = (_stack_addr@h) << 16;
+    gc_env.r[1] = ((uint32_t)_stack_addr) << 16;
     // Unknown opcode: ori r1 r1 _stack_addr@l
-    gc_env.r[2] = (_SDA2_BASE_@h) << 16;
+    gc_env.r[2] = ((uint32_t)_SDA2_BASE_) << 16;
     // Unknown opcode: ori r2 r2 _SDA2_BASE_@l
-    gc_env.r[13] = (_SDA_BASE_@h) << 16;
+    gc_env.r[13] = ((uint32_t)_SDA_BASE_) << 16;
     // Unknown opcode: ori r13 r13 _SDA_BASE_@l
     return;
 }
@@ -127,12 +128,12 @@ void __init_data(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);
-    gc_env.r[3] = (_rom_copy_info@ha) << 16;
+    gc_env.r[3] = ((uint32_t)_rom_copy_info) << 16;
     gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;
-    // Unknown opcode: mr r29 r0
-    // Unknown opcode: b .L_80003298
+    gc_env.r[29] = gc_env.r[0]; // Move register
+    goto L_80003298;
     L_80003298:
-    // Unknown opcode: b .L_8000329C
+    goto L_8000329C;
     L_8000329C:
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8);
     gc_env.cr[0] = ((uint32_t)gc_env.r[30] == 0x0) ? 0 : ((uint32_t)gc_env.r[30] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -142,22 +143,22 @@ void __init_data(void) {
     if (gc_env.cr[0] == 0) goto L_800032D4;
     // Unknown opcode: cmplw r31 r4
     if (gc_env.cr[0] == 0) goto L_800032D4;
-    // Unknown opcode: mr r3 r31
-    // Unknown opcode: mr r5 r30
-    OSReset();
-    // Unknown opcode: mr r3 r31
-    // Unknown opcode: mr r4 r30
-    OSReset();
+    gc_env.r[3] = gc_env.r[31]; // Move register
+    gc_env.r[5] = gc_env.r[30]; // Move register
+    memcpy();
+    gc_env.r[3] = gc_env.r[31]; // Move register
+    gc_env.r[4] = gc_env.r[30]; // Move register
+    __flush_cache();
     L_800032D4:
     gc_env.r[29] = gc_env.r[29] + 0xc;
-    // Unknown opcode: b .L_8000329C
+    goto L_8000329C;
     L_800032DC:
-    gc_env.r[3] = (_bss_init_info@ha) << 16;
+    gc_env.r[3] = ((uint32_t)_bss_init_info) << 16;
     gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;
-    // Unknown opcode: mr r29 r0
-    // Unknown opcode: b .L_800032EC
+    gc_env.r[29] = gc_env.r[0]; // Move register
+    goto L_800032EC;
     L_800032EC:
-    // Unknown opcode: b .L_800032F0
+    goto L_800032F0;
     L_800032F0:
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -165,10 +166,10 @@ void __init_data(void) {
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
     if (gc_env.cr[0] == 0) goto L_8000330C;
     gc_env.r[4] = 0x0;
-    OSReset();
+    memset();
     L_8000330C:
     gc_env.r[29] = gc_env.r[29] + 0x8;
-    // Unknown opcode: b .L_800032F0
+    goto L_800032F0;
     L_80003314:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c);
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14);
@@ -185,19 +186,19 @@ void __init_hardware(void) {
     // Unknown opcode: ori r0 r0 0x2000
     // Unknown opcode: mtmsr r0
     gc_env.r[31] = gc_env.lr; // Move from link register
-    OSReset();
-    OSReset();
+    __OSPSInit();
+    __OSCacheInit();
     gc_env.lr = gc_env.r[31]; // Move to link register
     return;
 }
 
 // Function: __flush_cache
 void __flush_cache(void) {
-    gc_env.r[5] = (0xffff) << 16;
+    gc_env.r[5] = ((uint32_t)0xffff) << 16;
     // Unknown opcode: ori r5 r5 0xfff1
     // Unknown opcode: and r5 r5 r3
     // Unknown opcode: subf r3 r5 r3
-    // Unknown opcode: add r4 r4 r3
+    gc_env.r[4] = gc_env.r[4] + gc_env.r[3];
     L_80003364:
     // Unknown opcode: dcbst r0 r5
     // Unknown opcode: sync 
@@ -216,10 +217,10 @@ void memset(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x20;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]);
-    // Unknown opcode: mr r31 r3
-    OSReset();
+    gc_env.r[31] = gc_env.r[3]; // Move register
+    __fill_mem();
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24);
-    // Unknown opcode: mr r3 r31
+    gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c);
     gc_env.r[1] = gc_env.r[1] + 0x20;
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -230,12 +231,12 @@ void memset(void) {
 void __fill_mem(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x20) ? 0 : ((uint32_t)gc_env.r[5] < 0x20 ? -1 : 1); // Logical compare with immediate
     // Unknown opcode: clrlwi r0 r4 24
-    // Unknown opcode: mr r7 r0
+    gc_env.r[7] = gc_env.r[0]; // Move register
     // Unknown opcode: subi r6 r3 0x1
     // Unknown opcode: blt .L_8000345C
     // Unknown opcode: nor r0 r6 r6
     // Unknown opcode: clrlwi r0 r0 30
-    // Unknown opcode: mr r3 r0
+    gc_env.r[3] = gc_env.r[0]; // Move register
     if (gc_env.cr[0] == 0) goto L_800033EC;
     // Unknown opcode: subf r5 r3 r5
     // Unknown opcode: clrlwi r0 r7 24
@@ -297,7 +298,7 @@ void memcpy(void) {
     // Unknown opcode: subi r4 r4 0x1
     // Unknown opcode: subi r6 r3 0x1
     gc_env.r[5] = gc_env.r[5] + 0x1;
-    // Unknown opcode: b .L_80003498
+    goto L_80003498;
     L_80003490:
     // Unknown opcode: lbzu r0 0x1(r4)
     // Unknown opcode: stbu r0 0x1(r6)
@@ -306,10 +307,10 @@ void memcpy(void) {
     if (gc_env.cr[0] != 0) goto L_80003490;
     return;
     L_800034A4:
-    // Unknown opcode: add r4 r4 r5
-    // Unknown opcode: add r6 r3 r5
+    gc_env.r[4] = gc_env.r[4] + gc_env.r[5];
+    gc_env.r[6] = gc_env.r[3] + gc_env.r[5];
     gc_env.r[5] = gc_env.r[5] + 0x1;
-    // Unknown opcode: b .L_800034BC
+    goto L_800034BC;
     L_800034B4:
     // Unknown opcode: lbzu r0 -0x1(r4)
     // Unknown opcode: stbu r0 -0x1(r6)
@@ -324,7 +325,7 @@ void fn_800034C8(void) {
     // Unknown opcode: subi r4 r4 0x1
     // Unknown opcode: subi r6 r3 0x1
     gc_env.r[5] = gc_env.r[5] + 0x1;
-    // Unknown opcode: b .L_800034E0
+    goto L_800034E0;
     L_800034D8:
     // Unknown opcode: lbzu r0 0x1(r4)
     // Unknown opcode: stbu r0 0x1(r6)
@@ -341,9 +342,9 @@ void fn_800034EC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x10, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x10;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[31]);
-    // Unknown opcode: mr r31 r3
-    OSReset();
-    // Unknown opcode: mr r3 r31
+    gc_env.r[31] = gc_env.r[3]; // Move register
+    fn_80016B44();
+    gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
     gc_env.r[1] = gc_env.r[1] + 0x10;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4);
@@ -364,7 +365,7 @@ void gap_00_8000351C_init(void) {
     gc_env.r[0] = gc_env.r[17] & 0x506f;
     // Unknown opcode: andis r5 r27 0x7250
     L_80003548:
-    // Unknown opcode: b fn_80005450
+    goto fn_80005450;
     // Unknown opcode: mtsprg 1 r2
     // Unknown opcode: mfsrr0 r2
     // Unknown opcode: icbi r0 r2
@@ -379,7 +380,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x200;
@@ -392,7 +393,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x300;
@@ -405,7 +406,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x400;
@@ -418,7 +419,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x500;
@@ -431,7 +432,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x600;
@@ -444,7 +445,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x700;
@@ -457,7 +458,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x800;
@@ -470,7 +471,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x900;
@@ -483,7 +484,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0xc00;
@@ -496,7 +497,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0xd00;
@@ -509,12 +510,12 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0xe00;
     // Unknown opcode: rfi 
-    // Unknown opcode: b .L_80004470
+    goto L_80004470;
     // Unknown opcode: mtsprg 1 r2
     // Unknown opcode: mtsprg 2 r3
     // Unknown opcode: mtsprg 3 r4
@@ -523,7 +524,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0xf20;
@@ -537,7 +538,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0xf00;
@@ -566,7 +567,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1000;
@@ -595,7 +596,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1100;
@@ -624,7 +625,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1200;
@@ -637,7 +638,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1300;
@@ -650,7 +651,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1400;
@@ -663,7 +664,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1600;
@@ -676,7 +677,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1700;
@@ -689,7 +690,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1c00;
@@ -702,7 +703,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1d00;
@@ -715,7 +716,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1e00;
@@ -728,7 +729,7 @@ void gap_00_8000351C_init(void) {
     // Unknown opcode: mfmsr r3
     // Unknown opcode: ori r3 r3 0x30
     // Unknown opcode: mtsrr1 r3
-    gc_env.r[3] = (0x8001) << 16;
+    gc_env.r[3] = ((uint32_t)0x8001) << 16;
     // Unknown opcode: ori r3 r3 0x75a8
     // Unknown opcode: mtsrr0 r3
     gc_env.r[3] = 0x1f00;
@@ -741,7 +742,7 @@ void fn_80005450(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x8;
-    OSReset();
+    fn_80018340();
     gc_env.r[1] = gc_env.r[1] + 0x8;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4);
     gc_env.lr = gc_env.r[0]; // Move to link register

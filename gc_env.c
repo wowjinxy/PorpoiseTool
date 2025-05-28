@@ -10,17 +10,18 @@ void gc_env_init(void) {
     memset(gc_env.r, 0, sizeof(gc_env.r));
     memset(gc_env.f, 0, sizeof(gc_env.f));
     gc_env.lr = 0;
-    memset(gc_env.cr, 0, sizeof(gc_env.cr);
+    memset(gc_env.cr, 0, sizeof(gc_env.cr));
+    gc_env.ctr = 0;
 
     // Allocate RAM
-    gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1));
+    gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);
     if (!gc_env.ram) {
         // Handle allocation failure
         exit(1);
     }
 
     // Set stack pointer (r1) to top of RAM (simplified)
-    gc_env.r[1] = GC_RAM_BASE + GC_RAM_SIZE - 4; // 4 byte aligned
+    gc_env.r[1] = GC_RAM_BASE + GC_RAM_SIZE - 4; // 4-byte aligned
     gc_env.sp = &gc_env.r[1];
 }
 
