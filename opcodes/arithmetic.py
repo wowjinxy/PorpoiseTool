@@ -1,18 +1,15 @@
 """
-Arithmetic operations handler for PowerPC assembly - Fixed version
+Arithmetic operations handler for PowerPC assembly
 """
 
 from typing import List, Optional, Union
 
-# Handle import for both package and standalone execution
 try:
     from . import Instruction
 except ImportError:
-    # Fallback for standalone execution
     try:
         from instruction import Instruction
     except ImportError:
-        # If neither works, define a minimal class for type hints
         class Instruction:
             def __init__(self):
                 self.opcode = ""
@@ -20,7 +17,8 @@ except ImportError:
 
 opcodes = [
     'add', 'addi', 'addis', 'sub', 'subi', 'subis',
-    'mulli', 'mullw', 'divw', 'divwu', 'lis', 'li'
+    'mulli', 'mullw', 'divw', 'divwu', 'lis', 'li',
+    'subf', 'addic', 'subic', 'subic.'
 ]
 
 
@@ -63,7 +61,6 @@ class ArithmeticHandler:
         if not current_operand.endswith('@l'):
             return None
         
-        # Check if transpiler has previous_instruction attribute
         if not hasattr(self.transpiler, 'previous_instruction') or not self.transpiler.previous_instruction:
             return None
         
@@ -71,15 +68,13 @@ class ArithmeticHandler:
         if prev.opcode.lower() != 'lis' or len(prev.operands) < 2:
             return None
         
-        # Check if previous lis targets the same register as current addi source
         try:
             prev_dst = self.parse_register(prev.operands[0])
-            if prev_dst != dst_reg:  # For addi r3, r3, symbol@l pattern
+            if prev_dst != dst_reg:
                 return None
         except ValueError:
             return None
         
-        # Extract symbols and check if they match
         current_symbol, _ = self.extract_symbol(current_operand)
         prev_symbol, prev_suffix = self.extract_symbol(prev.operands[1])
         
@@ -96,12 +91,12 @@ class ArithmeticHandler:
 
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
-    """Handle arithmetic operations with improved structure."""
+    """Handle arithmetic operations."""
     handler = ArithmeticHandler(transpiler)
-    opcode = instruction.opcode.lower().rstrip('.')
+    original_opcode = instruction.opcode.lower()
+    opcode = original_opcode.rstrip('.')
+    has_dot = original_opcode.endswith('.')
     ops = instruction.operands
-    
-    print(f"Processing opcode: {opcode}, operands: {ops}")
     
     try:
         if opcode == 'li':
@@ -128,12 +123,10 @@ def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[st
             src_reg = handler.parse_register(ops[1])
             imm_str = ops[2].strip()
             
-            # Check for symbol reference pattern
             symbol_code = handler.handle_symbol_reference(dst_reg, imm_str)
             if symbol_code:
                 return [symbol_code]
             
-            # Regular immediate addition
             return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {imm_str};"]
         
         elif opcode == 'addis':
@@ -198,6 +191,46 @@ def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[st
             src_reg1 = handler.parse_register(ops[1])
             src_reg2 = handler.parse_register(ops[2])
             return [f"gc_env.r[{dst_reg}] = (uint32_t)gc_env.r[{src_reg1}] / (uint32_t)gc_env.r[{src_reg2}];"]
+        
+        elif opcode == 'subf':
+            handler.validate_operand_count(ops, 3, opcode)
+            dst_reg = handler.parse_register(ops[0])
+            src_reg1 = handler.parse_register(ops[1])
+            src_reg2 = handler.parse_register(ops[2])
+            return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg2}] - gc_env.r[{src_reg1}];"]  # Note: subf is rB - rA
+        
+        elif opcode == 'addic':
+            handler.validate_operand_count(ops, 3, opcode)
+            dst_reg = handler.parse_register(ops[0])
+            src_reg = handler.parse_register(ops[1])
+            imm = handler.parse_immediate(ops[2])
+            result = [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {imm};"]
+            
+            # Set carry bit in XER register
+            result.append(f"gc_env.xer = (gc_env.xer & ~0x20000000) | (((uint64_t)gc_env.r[{src_reg}] + {imm}) > 0xFFFFFFFF ? 0x20000000 : 0);")
+            
+            if has_dot:
+                # Update condition register CR0
+                result.append(f"gc_env.cr[0] = (gc_env.r[{dst_reg}] == 0) ? 0x2 : ((int32_t)gc_env.r[{dst_reg}] < 0 ? 0x8 : 0x4);")
+            
+            return result
+        
+        elif opcode == 'subic':
+            handler.validate_operand_count(ops, 3, opcode)
+            dst_reg = handler.parse_register(ops[0])
+            src_reg = handler.parse_register(ops[1])
+            imm = handler.parse_immediate(ops[2])
+            
+            result = [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] - {imm};"]
+            
+            # Set carry bit in XER register (carry set if no borrow occurred)
+            result.append(f"gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[{src_reg}] >= {imm} ? 0x20000000 : 0);")
+            
+            if has_dot:
+                # Update condition register CR0
+                result.append(f"gc_env.cr[0] = (gc_env.r[{dst_reg}] == 0) ? 0x2 : ((int32_t)gc_env.r[{dst_reg}] < 0 ? 0x8 : 0x4);")
+            
+            return result
         
         else:
             return [f"// Unknown arithmetic opcode: {instruction.opcode} {' '.join(ops)}"]

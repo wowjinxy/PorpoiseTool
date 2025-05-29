@@ -64,10 +64,10 @@ void __start(void) {
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
-    // Unknown opcode: beq+ .L_8000320C
+    if (gc_env.cr[0] == 0) goto L_8000320C;
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8);
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
-    // Unknown opcode: beq+ .L_8000320C
+    if (gc_env.cr[0] == 0) goto L_8000320C;
     gc_env.r[6] = gc_env.r[5] + gc_env.r[6];
     gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[14] == 0x0) ? 0 : ((uint32_t)gc_env.r[14] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -145,7 +145,7 @@ void __init_data(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0);
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4);
     if (gc_env.cr[0] == 0) goto L_800032D4;
-    // Unknown opcode: cmplw r31 r4
+    gc_env.cr[0] = ((uint32_t)gc_env.r[31] == (uint32_t)gc_env.r[4]) ? 0 : ((uint32_t)gc_env.r[31] < (uint32_t)gc_env.r[4] ? -1 : 1); // Logical compare word
     if (gc_env.cr[0] == 0) goto L_800032D4;
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[5] = gc_env.r[30]; // Move register
@@ -187,9 +187,9 @@ void __init_data(void) {
 // Function: __init_hardware
 // Address: 0x80003330
 void __init_hardware(void) {
-    // Unknown opcode: mfmsr r0
+    gc_env.r[0] = gc_env.msr; // Move from machine state register
     r0 |= 8192; // ori r0, r0, 0x2000
-    // Unknown opcode: mtmsr r0
+    gc_env.msr = gc_env.r[0]; // Move to machine state register
     gc_env.r[31] = gc_env.lr; // Move from link register
     __OSPSInit();
     __OSCacheInit();
@@ -202,17 +202,20 @@ void __init_hardware(void) {
 void __flush_cache(void) {
     r5 = 65535 << 16; // lis r5, 0xffff
     r5 |= 65521; // ori r5, r5, 0xfff1
-    // Unknown opcode: and r5 r5 r3
-    // Unknown opcode: subf r3 r5 r3
+    gc_env.r[5] = gc_env.r[5] & gc_env.r[3];
+    gc_env.r[3] = gc_env.r[3] - gc_env.r[5];
     gc_env.r[4] = gc_env.r[4] + gc_env.r[3];
     L_80003364:
-    // Unknown opcode: dcbst r0 r5
-    // Unknown opcode: sync 
-    // Unknown opcode: icbi r0 r5
-    // Unknown opcode: addic r5 r5 0x8
-    // Unknown opcode: subic. r4 r4 0x8
-    // Unknown opcode: bge .L_80003364
-    // Unknown opcode: isync 
+    // dcbst: Data cache block store (no-op in this context)
+    // sync: Memory barrier (no-op in this context)
+    // icbi: Instruction cache block invalidate (no-op in this context)
+    gc_env.r[5] = gc_env.r[5] + 8;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (((uint64_t)gc_env.r[5] + 8) > 0xFFFFFFFF ? 0x20000000 : 0);
+    gc_env.r[4] = gc_env.r[4] - 8;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[4] >= 8 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[4] == 0) ? 0x2 : ((int32_t)gc_env.r[4] < 0 ? 0x8 : 0x4);
+    if (gc_env.cr[0] >= 0) goto L_80003364;
+    // isync: Instruction synchronize (no-op in this context)
     return;
 }
 
@@ -246,10 +249,12 @@ void __fill_mem(void) {
     // Unknown opcode: clrlwi. r0 r0 30
     gc_env.r[3] = gc_env.r[0]; // Move register
     if (gc_env.cr[0] == 0) goto L_800033EC;
-    // Unknown opcode: subf r5 r3 r5
+    gc_env.r[5] = gc_env.r[5] - gc_env.r[3];
     // Unknown opcode: clrlwi r0 r7 24
     L_800033E0:
-    // Unknown opcode: subic. r3 r3 0x1
+    gc_env.r[3] = gc_env.r[3] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[3] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);
     gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
     gc_env.r[6] = gc_env.r[6] + 0x1;
     if (gc_env.cr[0] != 0) goto L_800033E0;
@@ -268,7 +273,9 @@ void __fill_mem(void) {
     if (gc_env.cr[0] == 0) goto L_80003440;
     L_80003418:
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
-    // Unknown opcode: subic. r0 r0 0x1
+    gc_env.r[0] = gc_env.r[0] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[0] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[7]);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xc, gc_env.r[7]);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10, gc_env.r[7]);
@@ -282,7 +289,9 @@ void __fill_mem(void) {
     // Unknown opcode: extrwi. r0 r5 3 27
     if (gc_env.cr[0] == 0) goto L_80003454;
     L_80003448:
-    // Unknown opcode: subic. r0 r0 0x1
+    gc_env.r[0] = gc_env.r[0] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[0] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
     gc_env.r[3] = gc_env.r[3] + 0x4;
     if (gc_env.cr[0] != 0) goto L_80003448;
@@ -294,7 +303,9 @@ void __fill_mem(void) {
     // Unknown opcode: beqlr 
     // Unknown opcode: clrlwi r0 r7 24
     L_80003468:
-    // Unknown opcode: subic. r5 r5 0x1
+    gc_env.r[5] = gc_env.r[5] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
     gc_env.r[6] = gc_env.r[6] + 0x1;
     if (gc_env.cr[0] != 0) goto L_80003468;
@@ -304,7 +315,7 @@ void __fill_mem(void) {
 // Function: memcpy
 // Address: 0x80003478
 void memcpy(void) {
-    // Unknown opcode: cmplw r4 r3
+    gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[3]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[3] ? -1 : 1); // Logical compare word
     // Unknown opcode: blt .L_800034A4
     gc_env.r[4] = gc_env.r[4] - 1;
     gc_env.r[6] = gc_env.r[3] - 1;
@@ -315,7 +326,9 @@ void memcpy(void) {
     gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
     gc_env.r[6] = gc_env.r[6] + 0x1;
     L_80003498:
-    // Unknown opcode: subic. r5 r5 0x1
+    gc_env.r[5] = gc_env.r[5] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_80003490;
     return;
     L_800034A4:
@@ -328,7 +341,9 @@ void memcpy(void) {
     gc_mem_write8(gc_env.ram, gc_env.r[6] + -0x1, gc_env.r[0]);
     gc_env.r[6] = gc_env.r[6] + -0x1;
     L_800034BC:
-    // Unknown opcode: subic. r5 r5 0x1
+    gc_env.r[5] = gc_env.r[5] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_800034B4;
     return;
 }
@@ -345,7 +360,9 @@ void fn_800034C8(void) {
     gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
     gc_env.r[6] = gc_env.r[6] + 0x1;
     L_800034E0:
-    // Unknown opcode: subic. r5 r5 0x1
+    gc_env.r[5] = gc_env.r[5] - 1;
+    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
+    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_800034D8;
     return;
 }
