@@ -19,7 +19,7 @@ void __check_pad3(void) {
     gc_env.r[3] = 0x0;
     gc_env.r[4] = 0x0;
     gc_env.r[5] = 0x0;
-    OSResetSystem();
+    //OSResetSystem();
 L_80003130:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
     gc_env.r[1] += 8; // addi r1, r1, 0x8
@@ -90,8 +90,8 @@ L_8000320C:
     gc_env.r[14] = 0x0;
     gc_env.r[15] = 0x0;
 L_80003214:
-    DBInit();
-    OSInit();
+    //DBInit();
+    //OSInit();
     gc_env.r[4] = -32768 << 16; // lis r4, 0x8000
     gc_env.r[4] += 12518; // addi r4, r4, 0x30e6
     gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
@@ -103,7 +103,7 @@ L_80003214:
 L_8000323C:
     __check_pad3();
 L_80003240:
-    __init_user();
+    //__init_user();
     gc_env.r[3] = gc_env.r[14]; // Move register
     gc_env.r[4] = gc_env.r[15]; // Move register
     main();
@@ -191,8 +191,8 @@ void __init_hardware(void) {
     gc_env.r[0] |= 8192; // ori r0, r0, 0x2000
     gc_env.msr = gc_env.r[0]; // Move to machine state register
     gc_env.r[31] = gc_env.lr; // Move from link register
-    __OSPSInit();
-    __OSCacheInit();
+    //__OSPSInit();
+    //__OSCacheInit();
     gc_env.lr = gc_env.r[31]; // Move to link register
     return;
 }
