@@ -8,7 +8,7 @@
 // Address: 0x80003100
 void __check_pad3(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[3] = ((uint32_t)0x8000) << 16;
+    r3 = 32768 << 16; // lis r3, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x8;
@@ -39,10 +39,10 @@ void __start(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x0, gc_env.r[0]);
     __init_data();
     gc_env.r[0] = 0x0;
-    gc_env.r[6] = ((uint32_t)0x8000) << 16;
+    r6 = 32768 << 16; // lis r6, 0x8000
     gc_env.r[6] = gc_env.r[6] + 0x44;
     gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[0]);
-    gc_env.r[6] = ((uint32_t)0x8000) << 16;
+    r6 = 32768 << 16; // lis r6, 0x8000
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x0) ? 0 : ((uint32_t)gc_env.r[6] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -55,12 +55,12 @@ void __start(void) {
     if (gc_env.cr[0] != 0) goto L_800031AC;
     gc_env.r[5] = 0x1;
     L_8000319C:
-    gc_env.r[6] = ((uint32_t)InitMetroTRK) << 16;
-    gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
+    r6 = (uint32_t)&InitMetroTRKa >> 16; // lis r6, InitMetroTRK@ha
+    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
     gc_env.lr = gc_env.r[6]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_800031AC:
-    gc_env.r[6] = ((uint32_t)0x8000) << 16;
+    r6 = 32768 << 16; // lis r6, 0x8000
     gc_env.r[6] = gc_env.r[6] + 0xf4;
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x0) ? 0 : ((uint32_t)gc_env.r[5] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -81,7 +81,7 @@ void __start(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[7]);
     gc_env.ctr -= 1;
     if (gc_env.ctr != 0) goto L_800031E4;
-    gc_env.r[5] = ((uint32_t)0x8000) << 16;
+    r5 = 32768 << 16; // lis r5, 0x8000
     gc_env.r[5] = gc_env.r[5] + 0x34;
     gc_env.r[7] = gc_env.r[15] & ~((1ULL << 5) - 1); // Clear rightmost 5 bits
     gc_mem_write32(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[7]);
@@ -92,7 +92,7 @@ void __start(void) {
     L_80003214:
     DBInit();
     OSInit();
-    gc_env.r[4] = ((uint32_t)0x8000) << 16;
+    r4 = 32768 << 16; // lis r4, 0x8000
     gc_env.r[4] = gc_env.r[4] + 0x30e6;
     gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);
     gc_env.r[5] = gc_env.r[3] & 0x8000;
@@ -113,12 +113,12 @@ void __start(void) {
 // Function: __init_registers
 // Address: 0x80003254
 void __init_registers(void) {
-    gc_env.r[1] = ((uint32_t)_stack_addr) << 16;
-    // Unknown opcode: ori r1 r1 _stack_addr@l
-    gc_env.r[2] = ((uint32_t)_SDA2_BASE_) << 16;
-    // Unknown opcode: ori r2 r2 _SDA2_BASE_@l
-    gc_env.r[13] = ((uint32_t)_SDA_BASE_) << 16;
-    // Unknown opcode: ori r13 r13 _SDA_BASE_@l
+    r1 = (uint32_t)&stack_base >> 16; // lis r1, _stack_addr@h
+    r1 |= (uint32_t)&stack_base & 0xFFFF; // ori r1, r1, _stack_addr@l
+    r2 = (uint32_t)&_SDA2_BASE_ >> 16; // lis r2, _SDA2_BASE_@h
+    r2 |= (uint32_t)&_SDA2_BASE_ & 0xFFFF; // ori r2, r2, _SDA2_BASE_@l
+    r13 = (uint32_t)&_SDA_BASE_ >> 16; // lis r13, _SDA_BASE_@h
+    r13 |= (uint32_t)&_SDA_BASE_ & 0xFFFF; // ori r13, r13, _SDA_BASE_@l
     return;
 }
 
@@ -132,8 +132,8 @@ void __init_data(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);
-    gc_env.r[3] = ((uint32_t)_rom_copy_info) << 16;
-    gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;
+    r3 = (uint32_t)&_rom_copy_infoa >> 16; // lis r3, _rom_copy_info@ha
+    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_80003298;
     L_80003298:
@@ -157,8 +157,8 @@ void __init_data(void) {
     gc_env.r[29] = gc_env.r[29] + 0xc;
     goto L_8000329C;
     L_800032DC:
-    gc_env.r[3] = ((uint32_t)_bss_init_info) << 16;
-    gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;
+    r3 = (uint32_t)&_bss_init_infoa >> 16; // lis r3, _bss_init_info@ha
+    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_800032EC;
     L_800032EC:
@@ -188,7 +188,7 @@ void __init_data(void) {
 // Address: 0x80003330
 void __init_hardware(void) {
     // Unknown opcode: mfmsr r0
-    // Unknown opcode: ori r0 r0 0x2000
+    r0 |= 8192; // ori r0, r0, 0x2000
     // Unknown opcode: mtmsr r0
     gc_env.r[31] = gc_env.lr; // Move from link register
     __OSPSInit();
@@ -200,8 +200,8 @@ void __init_hardware(void) {
 // Function: __flush_cache
 // Address: 0x80003350
 void __flush_cache(void) {
-    gc_env.r[5] = ((uint32_t)0xffff) << 16;
-    // Unknown opcode: ori r5 r5 0xfff1
+    r5 = 65535 << 16; // lis r5, 0xffff
+    r5 |= 65521; // ori r5, r5, 0xfff1
     // Unknown opcode: and r5 r5 r3
     // Unknown opcode: subf r3 r5 r3
     gc_env.r[4] = gc_env.r[4] + gc_env.r[3];
@@ -240,7 +240,7 @@ void __fill_mem(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[5] == 0x20) ? 0 : ((uint32_t)gc_env.r[5] < 0x20 ? -1 : 1); // Logical compare with immediate
     // Unknown opcode: clrlwi r0 r4 24
     gc_env.r[7] = gc_env.r[0]; // Move register
-    // Unknown opcode: subi r6 r3 0x1
+    gc_env.r[6] = gc_env.r[3] - 1;
     // Unknown opcode: blt .L_8000345C
     // Unknown opcode: nor r0 r6 r6
     // Unknown opcode: clrlwi. r0 r0 30
@@ -250,7 +250,8 @@ void __fill_mem(void) {
     // Unknown opcode: clrlwi r0 r7 24
     L_800033E0:
     // Unknown opcode: subic. r3 r3 0x1
-    // Unknown opcode: stbu r0 0x1(r6)
+    gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
+    gc_env.r[6] = gc_env.r[6] + 0x1;
     if (gc_env.cr[0] != 0) goto L_800033E0;
     L_800033EC:
     gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x0) ? 0 : ((uint32_t)gc_env.r[7] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -263,7 +264,7 @@ void __fill_mem(void) {
     // Unknown opcode: or r7 r7 r0
     L_8000340C:
     // Unknown opcode: srwi. r0 r5 5
-    // Unknown opcode: subi r3 r6 0x3
+    gc_env.r[3] = gc_env.r[6] - 3;
     if (gc_env.cr[0] == 0) goto L_80003440;
     L_80003418:
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[7]);
@@ -294,7 +295,8 @@ void __fill_mem(void) {
     // Unknown opcode: clrlwi r0 r7 24
     L_80003468:
     // Unknown opcode: subic. r5 r5 0x1
-    // Unknown opcode: stbu r0 0x1(r6)
+    gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
+    gc_env.r[6] = gc_env.r[6] + 0x1;
     if (gc_env.cr[0] != 0) goto L_80003468;
     return;
 }
@@ -304,13 +306,14 @@ void __fill_mem(void) {
 void memcpy(void) {
     // Unknown opcode: cmplw r4 r3
     // Unknown opcode: blt .L_800034A4
-    // Unknown opcode: subi r4 r4 0x1
-    // Unknown opcode: subi r6 r3 0x1
+    gc_env.r[4] = gc_env.r[4] - 1;
+    gc_env.r[6] = gc_env.r[3] - 1;
     gc_env.r[5] = gc_env.r[5] + 0x1;
     goto L_80003498;
     L_80003490:
     // Unknown opcode: lbzu r0 0x1(r4)
-    // Unknown opcode: stbu r0 0x1(r6)
+    gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
+    gc_env.r[6] = gc_env.r[6] + 0x1;
     L_80003498:
     // Unknown opcode: subic. r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_80003490;
@@ -322,7 +325,8 @@ void memcpy(void) {
     goto L_800034BC;
     L_800034B4:
     // Unknown opcode: lbzu r0 -0x1(r4)
-    // Unknown opcode: stbu r0 -0x1(r6)
+    gc_mem_write8(gc_env.ram, gc_env.r[6] + -0x1, gc_env.r[0]);
+    gc_env.r[6] = gc_env.r[6] + -0x1;
     L_800034BC:
     // Unknown opcode: subic. r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_800034B4;
@@ -332,13 +336,14 @@ void memcpy(void) {
 // Function: fn_800034C8
 // Address: 0x800034C8
 void fn_800034C8(void) {
-    // Unknown opcode: subi r4 r4 0x1
-    // Unknown opcode: subi r6 r3 0x1
+    gc_env.r[4] = gc_env.r[4] - 1;
+    gc_env.r[6] = gc_env.r[3] - 1;
     gc_env.r[5] = gc_env.r[5] + 0x1;
     goto L_800034E0;
     L_800034D8:
     // Unknown opcode: lbzu r0 0x1(r4)
-    // Unknown opcode: stbu r0 0x1(r6)
+    gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]);
+    gc_env.r[6] = gc_env.r[6] + 0x1;
     L_800034E0:
     // Unknown opcode: subic. r5 r5 0x1
     if (gc_env.cr[0] != 0) goto L_800034D8;

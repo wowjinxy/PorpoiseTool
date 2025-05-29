@@ -375,19 +375,27 @@ class ModularTranspiler:
             '#include <stdint.h>',
             ''
         ]
-
+    
+        # Add system symbols if they were used
+        if any('stack_base' in var or '_SDA' in var for var in self.variables):
+            h_lines.append('// System symbols')
+            h_lines.append('extern uint32_t stack_base;')
+            h_lines.append('extern uint32_t _SDA_BASE_;')
+            h_lines.append('extern uint32_t _SDA2_BASE_;')
+            h_lines.append('')
+    
         h_lines.append('// Function declarations')
         for func in self.functions:
             h_lines.append(f'void {func.name}(void);')
-
+    
         h_lines.append('')
         h_lines.append('// Data section declarations')
         for data in self.data_sections:
             h_lines.append(f'extern uint32_t {data.name}[];')
-
+    
         h_lines.extend(['', f'#endif // {guard_name}'])
         return '\n'.join(h_lines)
-
+    
     def transpile_file(self, input_file: str) -> None:
         """Transpile an assembly file to C source and header files."""
         input_path = Path(input_file)
@@ -425,6 +433,14 @@ class ModularTranspiler:
             print(f"Error writing output files: {str(e)}")
             sys.exit(1)
 
+    def add_gamecube_symbols(self):
+        """Add common GameCube/Wii system symbols to the includes/variables."""
+        # Add common system symbols that might be referenced
+        self.variables.update([
+            "extern uint32_t stack_base",
+            "extern uint32_t _SDA_BASE_",
+            "extern uint32_t _SDA2_BASE_"
+        ])
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
