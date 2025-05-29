@@ -2392,7 +2392,7 @@ Processing opcode: li, operands: ['r5', '0x1']
 Translated li r5 0x1 to: ['gc_env.r[5] = 0x1;']
 Translated lis r6 InitMetroTRK@ha to: r6 = (uint32_t)&InitMetroTRKa >> 16; // lis r6, InitMetroTRK@ha
 Processing opcode: addi, operands: ['r6', 'r6', 'InitMetroTRK@l']
-Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+Translated addi r6 r6 InitMetroTRK@l to: ['gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;']
 Translated mtlr r6 to: gc_env.lr = gc_env.r[6]; // Move to link register
 Translated blrl  to: // Call function at gc_env.lr; // Branch to link register
 Translated lis r6 0x8000 to: r6 = 32768 << 16; // lis r6, 0x8000
@@ -2473,7 +2473,7 @@ Processing opcode: stw, operands: ['r29', '0xc(r1)']
 Translated stw r29 0xc(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);']
 Translated lis r3 _rom_copy_info@ha to: r3 = (uint32_t)&_rom_copy_infoa >> 16; // lis r3, _rom_copy_info@ha
 Processing opcode: addi, operands: ['r0', 'r3', '_rom_copy_info@l']
-Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+Translated addi r0 r3 _rom_copy_info@l to: ['gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;']
 Translated mr r29 r0 to: gc_env.r[29] = gc_env.r[0]; // Move register
 Translated b .L_80003298 to: goto L_80003298;
 Translated b .L_8000329C to: goto L_8000329C;
@@ -2499,7 +2499,7 @@ Translated addi r29 r29 0xc to: ['gc_env.r[29] = gc_env.r[29] + 0xc;']
 Translated b .L_8000329C to: goto L_8000329C;
 Translated lis r3 _bss_init_info@ha to: r3 = (uint32_t)&_bss_init_infoa >> 16; // lis r3, _bss_init_info@ha
 Processing opcode: addi, operands: ['r0', 'r3', '_bss_init_info@l']
-Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+Translated addi r0 r3 _bss_init_info@l to: ['gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;']
 Translated mr r29 r0 to: gc_env.r[29] = gc_env.r[0]; // Move register
 Translated b .L_800032EC to: goto L_800032EC;
 Translated b .L_800032F0 to: goto L_800032F0;

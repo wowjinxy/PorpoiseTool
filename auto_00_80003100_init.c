@@ -56,7 +56,7 @@ void __start(void) {
     gc_env.r[5] = 0x1;
     L_8000319C:
     r6 = (uint32_t)&InitMetroTRKa >> 16; // lis r6, InitMetroTRK@ha
-    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+    gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
     gc_env.lr = gc_env.r[6]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_800031AC:
@@ -133,7 +133,7 @@ void __init_data(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);
     r3 = (uint32_t)&_rom_copy_infoa >> 16; // lis r3, _rom_copy_info@ha
-    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+    gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_80003298;
     L_80003298:
@@ -158,7 +158,7 @@ void __init_data(void) {
     goto L_8000329C;
     L_800032DC:
     r3 = (uint32_t)&_bss_init_infoa >> 16; // lis r3, _bss_init_info@ha
-    // Error in handler for addi: 'ModularTranspiler' object has no attribute 'previous_instruction'
+    gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_800032EC;
     L_800032EC:

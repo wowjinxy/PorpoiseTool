@@ -52,6 +52,7 @@ class ModularTranspiler:
         self.data_sections: List[DataSection] = []
         self.variables: Set[str] = set()
         self.includes: Set[str] = set(['"gc_env.h"'])
+        self.previous_instruction = None
         self._load_opcode_handlers()
 
     def _load_opcode_handlers(self):

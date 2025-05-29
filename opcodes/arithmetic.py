@@ -1,5 +1,5 @@
 """
-Arithmetic operations handler for PowerPC assembly - Refactored
+Arithmetic operations handler for PowerPC assembly - Fixed version
 """
 
 from typing import List, Optional, Union
@@ -60,7 +60,11 @@ class ArithmeticHandler:
         Handle lis/addi symbol reference pattern.
         Returns C code if pattern matches, None otherwise.
         """
-        if not current_operand.endswith('@l') or not self.transpiler.previous_instruction:
+        if not current_operand.endswith('@l'):
+            return None
+        
+        # Check if transpiler has previous_instruction attribute
+        if not hasattr(self.transpiler, 'previous_instruction') or not self.transpiler.previous_instruction:
             return None
         
         prev = self.transpiler.previous_instruction
