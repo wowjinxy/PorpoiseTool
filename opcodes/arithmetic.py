@@ -31,7 +31,7 @@ class ArithmeticHandler:
     def parse_register(self, reg_str: str) -> int:
         """Parse register string to integer, handling 'r' prefix."""
         try:
-            return int(reg_str.lstrip('rR'))
+            return int(reg_str.lstrip('rR').rstrip(','))
         except ValueError:
             raise ValueError(f"Invalid register format: {reg_str}")
     
@@ -45,13 +45,45 @@ class ArithmeticHandler:
     
     def extract_symbol(self, operand: str) -> tuple[str, str]:
         """Extract symbol name and suffix from operand like 'symbol@h'."""
-        if operand.endswith('@ha'):
+        operand = operand.strip()
+        if operand.endswith('@l'):
+            return operand[:-2], '@l'
+        elif operand.endswith('@ha'):
             return operand[:-3], '@ha'
         elif operand.endswith('@h'):
             return operand[:-2], '@h'
-        elif operand.endswith('@l'):
-            return operand[:-2], '@l'
         return operand, ''
+    
+    def clean_symbol_name(self, symbol: str) -> str:
+        """Clean up symbol names by replacing invalid C characters."""
+        # Replace *bss* with _bss_ and other common patterns
+        symbol = symbol.replace('*bss*', '_bss_')
+        symbol = symbol.replace('*', '_')
+        return symbol
+    
+    def check_lis_pattern(self, src_reg: int, symbol: str) -> bool:
+        """Check if previous instruction was a matching lis instruction."""
+        if not hasattr(self.transpiler, 'previous_instruction') or not self.transpiler.previous_instruction:
+            return False
+            
+        prev = self.transpiler.previous_instruction
+        if prev.opcode.lower() != 'lis' or len(prev.operands) < 2:
+            return False
+            
+        try:
+            prev_dst = self.parse_register(prev.operands[0])
+            prev_symbol, prev_suffix = self.extract_symbol(prev.operands[1])
+            
+            # Clean both symbols for comparison
+            prev_symbol_clean = self.clean_symbol_name(prev_symbol)
+            symbol_clean = self.clean_symbol_name(symbol)
+            
+            # Check if it's the same symbol and the source register matches the lis destination
+            return (prev_symbol_clean == symbol_clean and 
+                    prev_suffix in ('@h', '@ha') and 
+                    src_reg == prev_dst)
+        except (ValueError, IndexError):
+            return False
     
     def handle_symbol_reference(self, dst_reg: int, current_operand: str) -> Optional[str]:
         """
@@ -78,9 +110,13 @@ class ArithmeticHandler:
         current_symbol, _ = self.extract_symbol(current_operand)
         prev_symbol, prev_suffix = self.extract_symbol(prev.operands[1])
         
-        if (current_symbol == prev_symbol and 
+        # Clean symbol names for comparison
+        current_symbol_clean = self.clean_symbol_name(current_symbol)
+        prev_symbol_clean = self.clean_symbol_name(prev_symbol)
+        
+        if (current_symbol_clean == prev_symbol_clean and 
             prev_suffix in ('@h', '@ha')):
-            return f"gc_env.r[{dst_reg}] = (uint32_t)&{current_symbol};"
+            return f"gc_env.r[{dst_reg}] = (uint32_t)&{current_symbol_clean}; // lis + addi {current_symbol}"
         
         return None
     
@@ -121,13 +157,56 @@ def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[st
             handler.validate_operand_count(ops, 3, opcode)
             dst_reg = handler.parse_register(ops[0])
             src_reg = handler.parse_register(ops[1])
-            imm_str = ops[2].strip()
+            value = ops[2].strip()
             
-            symbol_code = handler.handle_symbol_reference(dst_reg, imm_str)
-            if symbol_code:
-                return [symbol_code]
+            # Handle @l modifier (low 16 bits of symbol)
+            symbol, suffix = handler.extract_symbol(value)
+            if suffix == '@l':
+                symbol_clean = handler.clean_symbol_name(symbol)
+                
+                # Check for lis + addi pattern
+                if handler.check_lis_pattern(src_reg, symbol):
+                    # This completes a lis + addi pattern
+                    # Replace both instructions with a single address load
+                    if hasattr(transpiler, 'replace_previous_and_current'):
+                        # Advanced transpiler that can replace multiple lines
+                        transpiler.replace_previous_and_current(
+                            f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol}"
+                        )
+                        return []  # No additional line needed
+                    elif hasattr(transpiler, 'replace_previous_instruction'):
+                        # Transpiler that can replace the previous line
+                        transpiler.replace_previous_instruction(
+                            f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol}"
+                        )
+                        return []  # No additional line needed
+                    else:
+                        # Fallback: generate the complete address load here
+                        # This will result in two lines, but at least it's correct
+                        return [f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol} (completing pattern)"]
+                else:
+                    # Standalone addi with symbol reference
+                    return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + ((uint32_t)&{symbol_clean} & 0xFFFF); // addi r{dst_reg}, r{src_reg}, {value}"]
             
-            return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {imm_str};"]
+            # Handle immediate values
+            try:
+                imm = handler.parse_immediate(value)
+                
+                # Special case: addi with r0 as source (li pseudo-instruction)
+                if src_reg == 0:
+                    return [f"gc_env.r[{dst_reg}] = {imm}; // li r{dst_reg}, {value} (addi r{dst_reg}, r0, {value})"]
+                
+                # Regular addi
+                if dst_reg == src_reg and imm != 0:
+                    if imm > 0:
+                        return [f"gc_env.r[{dst_reg}] += {imm}; // addi r{dst_reg}, r{src_reg}, {value}"]
+                    else:
+                        return [f"gc_env.r[{dst_reg}] -= {-imm}; // addi r{dst_reg}, r{src_reg}, {value}"]
+                else:
+                    return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {imm}; // addi r{dst_reg}, r{src_reg}, {value}"]
+            except ValueError:
+                # If we can't parse as immediate, treat as symbol without suffix
+                return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {value}; // addi r{dst_reg}, r{src_reg}, {value}"]
         
         elif opcode == 'addis':
             handler.validate_operand_count(ops, 3, opcode)
