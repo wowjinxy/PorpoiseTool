@@ -17,6 +17,8 @@ typedef struct {
     uint32_t lr; // Link register
     uint32_t cr[8]; // Condition register fields (cr0-cr7, 4 bits each)
     uint32_t ctr; // Count register
+    uint32_t msr; // Machine State Register
+    uint32_t xer; // Fixed-Point Exception Register (for carry/overflow)
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
@@ -66,6 +68,22 @@ static inline void gc_mem_write16(uint8_t* ram, uint32_t addr, uint16_t data) {
     addr -= GC_RAM_BASE;
     ram[addr] = (data >> 8) & 0xFF;
     ram[addr + 1] = data & 0xFF;
+}
+
+static inline uint8_t gc_mem_read8(uint8_t* ram, uint32_t addr) {
+    if (addr < GC_RAM_BASE || addr >= GC_RAM_BASE + GC_RAM_SIZE) {
+        return 0;
+    }
+    addr -= GC_RAM_BASE;
+    return ram[addr];
+}
+
+static inline void gc_mem_write8(uint8_t* ram, uint32_t addr, uint8_t data) {
+    if (addr < GC_RAM_BASE || addr >= GC_RAM_BASE + GC_RAM_SIZE) {
+        return;
+    }
+    addr -= GC_RAM_BASE;
+    ram[addr] = data;
 }
 
 #endif // __GC_ENV_H__

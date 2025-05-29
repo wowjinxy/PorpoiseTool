@@ -12,6 +12,8 @@ void gc_env_init(void) {
     gc_env.lr = 0;
     memset(gc_env.cr, 0, sizeof(gc_env.cr));
     gc_env.ctr = 0;
+    gc_env.msr = 0; // Initialize Machine State Register
+    gc_env.xer = 0; // Initialize Fixed-Point Exception Register
 
     // Allocate RAM
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);

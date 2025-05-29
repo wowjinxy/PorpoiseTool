@@ -2332,7 +2332,7 @@ Parsed instruction at 80005468: mtlr r0
 Parsed instruction at 8000546C: blr 
 End of function: fn_80005450, 8 instructions
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
-Translated lis r3 0x8000 to: r3 = 32768 << 16; // lis r3, 0x8000
+Translated lis r3 0x8000 to: ['gc_env.r[3] = -32768 << 16; // lis r3, 0x8000']
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
 Processing opcode: stwu, operands: ['r1', '-0x8(r1)']
@@ -2362,11 +2362,11 @@ Processing opcode: stw, operands: ['r0', '0x0(r1)']
 Translated stw r0 0x0(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x0, gc_env.r[0]);']
 Translated bl __init_data to: __init_data();
 Translated li r0 0x0 to: ['gc_env.r[0] = 0x0;']
-Translated lis r6 0x8000 to: r6 = 32768 << 16; // lis r6, 0x8000
+Translated lis r6 0x8000 to: ['gc_env.r[6] = -32768 << 16; // lis r6, 0x8000']
 Translated addi r6 r6 0x44 to: ['gc_env.r[6] = gc_env.r[6] + 0x44;']
 Processing opcode: stw, operands: ['r0', '0x0(r6)']
 Translated stw r0 0x0(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[0]);']
-Translated lis r6 0x8000 to: r6 = 32768 << 16; // lis r6, 0x8000
+Translated lis r6 0x8000 to: ['gc_env.r[6] = -32768 << 16; // lis r6, 0x8000']
 Translated addi r6 r6 0xf4 to: ['gc_env.r[6] = gc_env.r[6] + 0xf4;']
 Processing opcode: lwz, operands: ['r6', '0x0(r6)']
 Translated lwz r6 0x0(r6) to: ['gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);']
@@ -2380,11 +2380,11 @@ Translated beq .L_8000319C to: if (gc_env.cr[0] == 0) goto L_8000319C;
 Translated cmplwi r7 0x3 to: gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x3) ? 0 : ((uint32_t)gc_env.r[7] < 0x3 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_800031AC to: if (gc_env.cr[0] != 0) goto L_800031AC;
 Translated li r5 0x1 to: ['gc_env.r[5] = 0x1;']
-Translated lis r6 InitMetroTRK@ha to: r6 = (uint32_t)&InitMetroTRKa >> 16; // lis r6, InitMetroTRK@ha
+Translated lis r6 InitMetroTRK@ha to: ['gc_env.r[6] = ((uint32_t)&InitMetroTRK >> 16) & 0xFFFF; // lis r6, InitMetroTRK@ha']
 Translated addi r6 r6 InitMetroTRK@l to: ['gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;']
 Translated mtlr r6 to: gc_env.lr = gc_env.r[6]; // Move to link register
 Translated blrl  to: // Call function at gc_env.lr; // Branch to link register
-Translated lis r6 0x8000 to: r6 = 32768 << 16; // lis r6, 0x8000
+Translated lis r6 0x8000 to: ['gc_env.r[6] = -32768 << 16; // lis r6, 0x8000']
 Translated addi r6 r6 0xf4 to: ['gc_env.r[6] = gc_env.r[6] + 0xf4;']
 Processing opcode: lwz, operands: ['r5', '0x0(r6)']
 Translated lwz r5 0x0(r6) to: ['gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0);']
@@ -2408,7 +2408,7 @@ Translated add r7 r7 r5 to: ['gc_env.r[7] = gc_env.r[7] + gc_env.r[5];']
 Processing opcode: stw, operands: ['r7', '0x0(r6)']
 Translated stw r7 0x0(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x0, gc_env.r[7]);']
 Translated bdnz .L_800031E4 to: ['gc_env.ctr -= 1;', 'if (gc_env.ctr != 0) goto L_800031E4;']
-Translated lis r5 0x8000 to: r5 = 32768 << 16; // lis r5, 0x8000
+Translated lis r5 0x8000 to: ['gc_env.r[5] = -32768 << 16; // lis r5, 0x8000']
 Translated addi r5 r5 0x34 to: ['gc_env.r[5] = gc_env.r[5] + 0x34;']
 Translated clrrwi r7 r15 5 to: gc_env.r[7] = gc_env.r[15] & ~((1ULL << 5) - 1); // Clear rightmost 5 bits
 Processing opcode: stw, operands: ['r7', '0x0(r5)']
@@ -2418,7 +2418,7 @@ Translated li r14 0x0 to: ['gc_env.r[14] = 0x0;']
 Translated li r15 0x0 to: ['gc_env.r[15] = 0x0;']
 Translated bl DBInit to: DBInit();
 Translated bl OSInit to: OSInit();
-Translated lis r4 0x8000 to: r4 = 32768 << 16; // lis r4, 0x8000
+Translated lis r4 0x8000 to: ['gc_env.r[4] = -32768 << 16; // lis r4, 0x8000']
 Translated addi r4 r4 0x30e6 to: ['gc_env.r[4] = gc_env.r[4] + 0x30e6;']
 Processing opcode: lhz, operands: ['r3', '0x0(r4)']
 Translated lhz r3 0x0(r4) to: ['gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x0);']
@@ -2433,12 +2433,12 @@ Translated mr r3 r14 to: gc_env.r[3] = gc_env.r[14]; // Move register
 Translated mr r4 r15 to: gc_env.r[4] = gc_env.r[15]; // Move register
 Translated bl main to: main();
 Translated b exit to: goto exit;
-Translated lis r1 _stack_addr@h to: r1 = (uint32_t)&stack_base >> 16; // lis r1, _stack_addr@h
-Translated ori r1 r1 _stack_addr@l to: r1 |= (uint32_t)&stack_base & 0xFFFF; // ori r1, r1, _stack_addr@l
-Translated lis r2 _SDA2_BASE_@h to: r2 = (uint32_t)&_SDA2_BASE_ >> 16; // lis r2, _SDA2_BASE_@h
-Translated ori r2 r2 _SDA2_BASE_@l to: r2 |= (uint32_t)&_SDA2_BASE_ & 0xFFFF; // ori r2, r2, _SDA2_BASE_@l
-Translated lis r13 _SDA_BASE_@h to: r13 = (uint32_t)&_SDA_BASE_ >> 16; // lis r13, _SDA_BASE_@h
-Translated ori r13 r13 _SDA_BASE_@l to: r13 |= (uint32_t)&_SDA_BASE_ & 0xFFFF; // ori r13, r13, _SDA_BASE_@l
+Translated lis r1 _stack_addr@h to: ['gc_env.r[1] = ((uint32_t)&_stack_addr >> 16) & 0xFFFF; // lis r1, _stack_addr@h']
+Translated ori r1 r1 _stack_addr@l to: ['gc_env.r[1] = gc_env.r[1] | ((uint32_t)&_stack_addr & 0xFFFF); // ori r1, r1, _stack_addr@l']
+Translated lis r2 _SDA2_BASE_@h to: ['gc_env.r[2] = ((uint32_t)&_SDA2_BASE_ >> 16) & 0xFFFF; // lis r2, _SDA2_BASE_@h']
+Translated ori r2 r2 _SDA2_BASE_@l to: ['gc_env.r[2] = gc_env.r[2] | ((uint32_t)&_SDA2_BASE_ & 0xFFFF); // ori r2, r2, _SDA2_BASE_@l']
+Translated lis r13 _SDA_BASE_@h to: ['gc_env.r[13] = ((uint32_t)&_SDA_BASE_ >> 16) & 0xFFFF; // lis r13, _SDA_BASE_@h']
+Translated ori r13 r13 _SDA_BASE_@l to: ['gc_env.r[13] = gc_env.r[13] | ((uint32_t)&_SDA_BASE_ & 0xFFFF); // ori r13, r13, _SDA_BASE_@l']
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
@@ -2451,7 +2451,7 @@ Processing opcode: stw, operands: ['r30', '0x10(r1)']
 Translated stw r30 0x10(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]);']
 Processing opcode: stw, operands: ['r29', '0xc(r1)']
 Translated stw r29 0xc(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]);']
-Translated lis r3 _rom_copy_info@ha to: r3 = (uint32_t)&_rom_copy_infoa >> 16; // lis r3, _rom_copy_info@ha
+Translated lis r3 _rom_copy_info@ha to: ['gc_env.r[3] = ((uint32_t)&_rom_copy_info >> 16) & 0xFFFF; // lis r3, _rom_copy_info@ha']
 Translated addi r0 r3 _rom_copy_info@l to: ['gc_env.r[0] = gc_env.r[3] + _rom_copy_info@l;']
 Translated mr r29 r0 to: gc_env.r[29] = gc_env.r[0]; // Move register
 Translated b .L_80003298 to: goto L_80003298;
@@ -2475,7 +2475,7 @@ Translated mr r4 r30 to: gc_env.r[4] = gc_env.r[30]; // Move register
 Translated bl __flush_cache to: __flush_cache();
 Translated addi r29 r29 0xc to: ['gc_env.r[29] = gc_env.r[29] + 0xc;']
 Translated b .L_8000329C to: goto L_8000329C;
-Translated lis r3 _bss_init_info@ha to: r3 = (uint32_t)&_bss_init_infoa >> 16; // lis r3, _bss_init_info@ha
+Translated lis r3 _bss_init_info@ha to: ['gc_env.r[3] = ((uint32_t)&_bss_init_info >> 16) & 0xFFFF; // lis r3, _bss_init_info@ha']
 Translated addi r0 r3 _bss_init_info@l to: ['gc_env.r[0] = gc_env.r[3] + _bss_init_info@l;']
 Translated mr r29 r0 to: gc_env.r[29] = gc_env.r[0]; // Move register
 Translated b .L_800032EC to: goto L_800032EC;
@@ -2503,15 +2503,15 @@ Translated addi r1 r1 0x18 to: ['gc_env.r[1] = gc_env.r[1] + 0x18;']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mfmsr r0 to: gc_env.r[0] = gc_env.msr; // Move from machine state register
-Translated ori r0 r0 0x2000 to: r0 |= 8192; // ori r0, r0, 0x2000
+Translated ori r0 r0 0x2000 to: ['gc_env.r[0] |= 8192; // ori r0, r0, 0x2000']
 Translated mtmsr r0 to: gc_env.msr = gc_env.r[0]; // Move to machine state register
 Translated mflr r31 to: gc_env.r[31] = gc_env.lr; // Move from link register
 Translated bl __OSPSInit to: __OSPSInit();
 Translated bl __OSCacheInit to: __OSCacheInit();
 Translated mtlr r31 to: gc_env.lr = gc_env.r[31]; // Move to link register
 Translated blr  to: return;
-Translated lis r5 0xffff to: r5 = 65535 << 16; // lis r5, 0xffff
-Translated ori r5 r5 0xfff1 to: r5 |= 65521; // ori r5, r5, 0xfff1
+Translated lis r5 0xffff to: ['gc_env.r[5] = -1 << 16; // lis r5, 0xffff']
+Translated ori r5 r5 0xfff1 to: ['gc_env.r[5] |= 65521; // ori r5, r5, 0xfff1']
 Translated and r5 r5 r3 to: gc_env.r[5] = gc_env.r[5] & gc_env.r[3];
 Translated subf r3 r5 r3 to: ['gc_env.r[3] = gc_env.r[3] - gc_env.r[5];']
 Translated add r4 r4 r3 to: ['gc_env.r[4] = gc_env.r[4] + gc_env.r[3];']

@@ -1,83 +1,156 @@
-#!/usr/bin/env python3
 """
 Handler for PowerPC ori (OR Immediate) instruction.
 Handles ori instruction including @l modifier for loading low 16 bits.
+Also handles lis + addi pattern detection.
 """
 
-import re
+from typing import List, Optional, Tuple
+
+try:
+    from . import Instruction
+except ImportError:
+    try:
+        from instruction import Instruction
+    except ImportError:
+        class Instruction:
+            def __init__(self):
+                self.opcode = ""
+                self.operands = []
 
 opcodes = ['ori']
 
-def handle(instruction, transpiler):
-    """
-    Handle ori instruction.
+class OriHandler:
+    """Handles PowerPC ori instruction transpilation."""
     
-    ori rD, rS, value@l    -> OR rS with low 16 bits of value, store in rD
-    ori rD, rS, immediate  -> OR rS with immediate value, store in rD
+    def __init__(self, transpiler: 'ModularTranspiler'):
+        self.transpiler = transpiler
     
-    Common pattern (following lis):
-    lis rD, symbol@h       -> Load high 16 bits
-    ori rD, rD, symbol@l   -> OR in low 16 bits (complete 32-bit address)
-    """
-    if len(instruction.operands) < 3:
-        return f"// Invalid ori instruction: {instruction.opcode} {' '.join(instruction.operands)}"
-    
-    dest_reg = instruction.operands[0].rstrip(',')
-    src_reg = instruction.operands[1].rstrip(',')
-    value = instruction.operands[2]
-    
-    # Handle @l modifier (low 16 bits)
-    if '@l' in value:
-        symbol = value.replace('@l', '')
-        # Clean up common symbol prefixes
-        if symbol.startswith('*') and symbol.endswith('*'):
-            symbol = symbol[1:-1]
-        
-        # Check if this completes a lis + ori pattern
-        if dest_reg == src_reg:
-            # This is completing a 32-bit address load
-            if 'stack' in symbol.lower():
-                return f"{dest_reg} |= (uint32_t)&stack_base & 0xFFFF; // ori {dest_reg}, {src_reg}, {value}"
-            elif 'sda2' in symbol.lower():
-                return f"{dest_reg} |= (uint32_t)&_SDA2_BASE_ & 0xFFFF; // ori {dest_reg}, {src_reg}, {value}"
-            elif 'sda' in symbol.lower() and 'sda2' not in symbol.lower():
-                return f"{dest_reg} |= (uint32_t)&_SDA_BASE_ & 0xFFFF; // ori {dest_reg}, {src_reg}, {value}"
-            else:
-                return f"{dest_reg} |= (uint32_t)&{symbol} & 0xFFFF; // ori {dest_reg}, {src_reg}, {value}"
-        else:
-            # Different registers
-            if 'stack' in symbol.lower():
-                return f"{dest_reg} = {src_reg} | ((uint32_t)&stack_base & 0xFFFF); // ori {dest_reg}, {src_reg}, {value}"
-            elif 'sda2' in symbol.lower():
-                return f"{dest_reg} = {src_reg} | ((uint32_t)&_SDA2_BASE_ & 0xFFFF); // ori {dest_reg}, {src_reg}, {value}"
-            elif 'sda' in symbol.lower() and 'sda2' not in symbol.lower():
-                return f"{dest_reg} = {src_reg} | ((uint32_t)&_SDA_BASE_ & 0xFFFF); // ori {dest_reg}, {src_reg}, {value}"
-            else:
-                return f"{dest_reg} = {src_reg} | ((uint32_t)&{symbol} & 0xFFFF); // ori {dest_reg}, {src_reg}, {value}"
-    
-    # Handle immediate values
-    if value.startswith('0x'):
+    def parse_register(self, reg_str: str) -> int:
+        """Parse register string to integer, handling 'r' prefix."""
         try:
-            imm_val = int(value, 16)
-            if dest_reg == src_reg:
-                return f"{dest_reg} |= {imm_val}; // ori {dest_reg}, {src_reg}, {value}"
-            else:
-                return f"{dest_reg} = {src_reg} | {imm_val}; // ori {dest_reg}, {src_reg}, {value}"
+            return int(reg_str.lstrip('rR').rstrip(','))
         except ValueError:
-            pass
+            raise ValueError(f"Invalid register format: {reg_str}")
     
-    # Handle decimal immediate
-    try:
-        imm_val = int(value)
-        if dest_reg == src_reg:
-            return f"{dest_reg} |= {imm_val}; // ori {dest_reg}, {src_reg}, {value}"
-        else:
-            return f"{dest_reg} = {src_reg} | {imm_val}; // ori {dest_reg}, {src_reg}, {value}"
-    except ValueError:
-        pass
+    def parse_immediate(self, imm_str: str) -> int:
+        """Parse immediate value, handling hex/decimal formats."""
+        imm_str = imm_str.strip()
+        try:
+            return int(imm_str, 0)  # Handles 0x prefix automatically
+        except ValueError:
+            raise ValueError(f"Invalid immediate value: {imm_str}")
     
-    # Default case
-    if dest_reg == src_reg:
-        return f"{dest_reg} |= {value}; // ori {dest_reg}, {src_reg}, {value}"
-    else:
-        return f"{dest_reg} = {src_reg} | {value}; // ori {dest_reg}, {src_reg}, {value}"
+    def extract_symbol(self, operand: str) -> Tuple[str, str]:
+        """Extract symbol name and suffix from operand like 'symbol@l'."""
+        if operand.endswith('@l'):
+            return operand[:-2], '@l'
+        elif operand.endswith('@h'):
+            return operand[:-2], '@h'
+        elif operand.endswith('@ha'):
+            return operand[:-3], '@ha'
+        return operand, ''
+    
+    def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
+        """Validate operand count for instruction."""
+        if len(ops) < expected:
+            raise ValueError(f"{opcode} requires at least {expected} operands, got {len(ops)}")
+
+    def check_lis_pattern(self, dst_reg: int, symbol: str) -> bool:
+        """Check if previous instruction was a matching lis instruction."""
+        if not hasattr(self.transpiler, 'previous_instruction') or not self.transpiler.previous_instruction:
+            return False
+            
+        prev = self.transpiler.previous_instruction
+        if prev.opcode.lower() != 'lis' or len(prev.operands) < 2:
+            return False
+            
+        try:
+            prev_dst = self.parse_register(prev.operands[0])
+            prev_symbol, prev_suffix = self.extract_symbol(prev.operands[1])
+            
+            # Check if it's the same symbol and compatible registers
+            # Note: lis + ori can use different destination registers
+            return prev_symbol == symbol and prev_suffix in ('@h', '@ha')
+        except (ValueError, IndexError):
+            return False
+
+    def handle(self, instruction: Instruction) -> List[str]:
+        """Handle ori instruction."""
+        opcode = instruction.opcode.lower()
+        ops = instruction.operands
+        
+        self.validate_operand_count(ops, 3, opcode)
+        
+        try:
+            dst_reg = self.parse_register(ops[0])
+            src_reg = self.parse_register(ops[1])
+            value = ops[2].strip()
+            
+            # Handle @l modifier (low 16 bits)
+            symbol, suffix = self.extract_symbol(value)
+            if suffix == '@l':
+                # Check for lis + ori pattern
+                if self.check_lis_pattern(dst_reg, symbol):
+                    # Complete the lis + ori pattern
+                    # Replace the incomplete lis instruction with complete address load
+                    if hasattr(self.transpiler, 'replace_previous_instruction'):
+                        self.transpiler.replace_previous_instruction(
+                            f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol}; // lis + ori {symbol}"
+                        )
+                        return []  # No additional instruction needed
+                    else:
+                        # Fallback: generate the complete instruction here
+                        return [f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol}; // lis + ori {symbol}"]
+                else:
+                    # Standalone ori with @l (OR with low 16 bits of symbol)
+                    return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] | ((uint32_t)&{symbol} & 0xFFFF); // ori r{dst_reg}, r{src_reg}, {value}"]
+            
+            # Handle immediate values
+            imm = self.parse_immediate(value)
+            if dst_reg == src_reg:
+                return [f"gc_env.r[{dst_reg}] |= {imm}; // ori r{dst_reg}, r{src_reg}, {value}"]
+            else:
+                return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] | {imm}; // ori r{dst_reg}, r{src_reg}, {value}"]
+        
+        except ValueError as e:
+            return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
+
+def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
+    """Entry point for ori instruction handling."""
+    return OriHandler(transpiler).handle(instruction)
+
+
+# Additional helper class for better pattern detection
+class PatternDetector:
+    """Helper class to detect instruction patterns like lis+ori, lis+addi."""
+    
+    @staticmethod
+    def is_address_load_pattern(prev_instr: Optional[Instruction], curr_instr: Instruction) -> Tuple[bool, str]:
+        """
+        Detect if current instruction completes an address loading pattern.
+        Returns (is_pattern, pattern_type).
+        """
+        if not prev_instr:
+            return False, ""
+            
+        prev_op = prev_instr.opcode.lower()
+        curr_op = curr_instr.opcode.lower()
+        
+        if prev_op == 'lis':
+            if curr_op in ['ori', 'addi']:
+                # Check if they're working with the same symbol
+                if len(prev_instr.operands) >= 2 and len(curr_instr.operands) >= 3:
+                    try:
+                        prev_symbol = prev_instr.operands[1].strip()
+                        curr_symbol = curr_instr.operands[2].strip()
+                        
+                        # Extract base symbol names
+                        prev_base = prev_symbol.replace('@ha', '').replace('@h', '')
+                        curr_base = curr_symbol.replace('@l', '')
+                        
+                        if prev_base == curr_base:
+                            return True, f"lis+{curr_op}"
+                    except (IndexError, AttributeError):
+                        pass
+        
+        return False, ""

@@ -1,62 +1,187 @@
-#!/usr/bin/env python3
 """
 Handler for PowerPC lis (Load Immediate Shifted) instruction.
-Handles both standalone lis and lis + ori patterns for loading 32-bit addresses.
+Handles both standalone lis and proper pattern detection for lis + addi/ori.
 """
 
-import re
+from typing import List, Optional
+
+try:
+    from . import Instruction
+except ImportError:
+    try:
+        from instruction import Instruction
+    except ImportError:
+        class Instruction:
+            def __init__(self):
+                self.opcode = ""
+                self.operands = []
 
 opcodes = ['lis']
 
-def handle(instruction, transpiler):
-    """
-    Handle lis instruction.
+class LisHandler:
+    """Handles PowerPC lis instruction transpilation."""
     
-    lis rD, value@h    -> Load high 16 bits of value into rD (shifted left 16 bits)
-    lis rD, immediate  -> Load immediate value into high 16 bits of rD
+    def __init__(self, transpiler: 'ModularTranspiler'):
+        self.transpiler = transpiler
     
-    Common pattern:
-    lis rD, symbol@h
-    ori rD, rD, symbol@l
-    -> Load full 32-bit address of symbol into rD
-    """
-    if len(instruction.operands) < 2:
-        return f"// Invalid lis instruction: {instruction.opcode} {' '.join(instruction.operands)}"
-    
-    dest_reg = instruction.operands[0].rstrip(',')
-    value = instruction.operands[1]
-    
-    # Handle @h modifier (high 16 bits)
-    if '@h' in value:
-        symbol = value.replace('@h', '')
-        # Clean up common symbol prefixes
-        if symbol.startswith('*') and symbol.endswith('*'):
-            symbol = symbol[1:-1]
-        
-        # Check if this is a known symbol pattern
-        if 'stack' in symbol.lower():
-            return f"{dest_reg} = (uint32_t)&stack_base >> 16; // lis {dest_reg}, {value}"
-        elif 'sda2' in symbol.lower():
-            return f"{dest_reg} = (uint32_t)&_SDA2_BASE_ >> 16; // lis {dest_reg}, {value}"
-        elif 'sda' in symbol.lower() and 'sda2' not in symbol.lower():
-            return f"{dest_reg} = (uint32_t)&_SDA_BASE_ >> 16; // lis {dest_reg}, {value}"
-        else:
-            return f"{dest_reg} = (uint32_t)&{symbol} >> 16; // lis {dest_reg}, {value}"
-    
-    # Handle immediate values
-    if value.startswith('0x') or value.startswith('-0x'):
+    def parse_register(self, reg_str: str) -> int:
+        """Parse register string to integer, handling 'r' prefix."""
         try:
-            imm_val = int(value, 16) if value.startswith('0x') else int(value, 16)
-            return f"{dest_reg} = {imm_val} << 16; // lis {dest_reg}, {value}"
+            return int(reg_str.lstrip('rR').rstrip(','))
         except ValueError:
-            pass
+            raise ValueError(f"Invalid register format: {reg_str}")
     
-    # Handle decimal immediate
-    try:
-        imm_val = int(value)
-        return f"{dest_reg} = {imm_val} << 16; // lis {dest_reg}, {value}"
-    except ValueError:
-        pass
+    def parse_immediate(self, imm_str: str) -> int:
+        """Parse immediate value, handling hex/decimal formats."""
+        imm_str = imm_str.strip()
+        try:
+            return int(imm_str, 0)  # Handles 0x prefix automatically
+        except ValueError:
+            raise ValueError(f"Invalid immediate value: {imm_str}")
     
-    # Default case
-    return f"{dest_reg} = (uint32_t){value} << 16; // lis {dest_reg}, {value}"
+    def extract_symbol(self, operand: str) -> tuple[str, str]:
+        """Extract symbol name and suffix from operand like 'symbol@h'."""
+        if operand.endswith('@ha'):
+            return operand[:-3], '@ha'
+        elif operand.endswith('@h'):
+            return operand[:-2], '@h'
+        return operand, ''
+    
+    def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
+        """Validate operand count for instruction."""
+        if len(ops) < expected:
+            raise ValueError(f"{opcode} requires at least {expected} operands, got {len(ops)}")
+
+    def handle(self, instruction: Instruction) -> List[str]:
+        """Handle lis instruction."""
+        opcode = instruction.opcode.lower()
+        ops = instruction.operands
+        
+        self.validate_operand_count(ops, 2, opcode)
+        
+        try:
+            dst_reg = self.parse_register(ops[0])
+            value = ops[1].strip()
+            
+            # Handle @h or @ha modifier (high 16 bits)
+            symbol, suffix = self.extract_symbol(value)
+            if suffix in ('@h', '@ha'):
+                # Store this as a pending instruction for pattern matching
+                if hasattr(self.transpiler, 'set_pending_lis'):
+                    # Modern pattern-aware transpiler
+                    self.transpiler.set_pending_lis({
+                        'dst_reg': dst_reg,
+                        'symbol': symbol,
+                        'suffix': suffix,
+                        'full_operand': value
+                    })
+                    # Generate placeholder that can be replaced
+                    return [f"__LIS_PENDING__{dst_reg}__{symbol}__"]
+                else:
+                    # Fallback: generate standalone lis instruction
+                    # This loads the high 16 bits of the symbol address
+                    return [f"gc_env.r[{dst_reg}] = ((uint32_t)&{symbol} >> 16) & 0xFFFF; // lis r{dst_reg}, {value}"]
+            
+            # Handle immediate values
+            imm = self.parse_immediate(value)
+            # Sign-extend 16-bit immediate if necessary
+            if imm > 0x7FFF:
+                imm = imm - 0x10000  # Convert to signed
+            return [f"gc_env.r[{dst_reg}] = {imm} << 16; // lis r{dst_reg}, {value}"]
+        
+        except ValueError as e:
+            return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
+
+def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
+    """Entry point for lis instruction handling."""
+    return LisHandler(transpiler).handle(instruction)
+
+
+# Alternative simpler approach - always generate working C code
+class SimpleLisHandler:
+    """Simplified LIS handler that always generates working C code."""
+    
+    def __init__(self, transpiler: 'ModularTranspiler'):
+        self.transpiler = transpiler
+    
+    def parse_register(self, reg_str: str) -> int:
+        """Parse register string to integer, handling 'r' prefix."""
+        try:
+            return int(reg_str.lstrip('rR').rstrip(','))
+        except ValueError:
+            raise ValueError(f"Invalid register format: {reg_str}")
+    
+    def parse_immediate(self, imm_str: str) -> int:
+        """Parse immediate value, handling hex/decimal formats."""
+        imm_str = imm_str.strip()
+        try:
+            return int(imm_str, 0)
+        except ValueError:
+            raise ValueError(f"Invalid immediate value: {imm_str}")
+    
+    def extract_symbol(self, operand: str) -> tuple[str, str]:
+        """Extract symbol name and suffix from operand."""
+        if operand.endswith('@ha'):
+            return operand[:-3], '@ha'
+        elif operand.endswith('@h'):
+            return operand[:-2], '@h'
+        return operand, ''
+    
+    def handle(self, instruction: Instruction) -> List[str]:
+        """Handle lis instruction - always generate working C code."""
+        ops = instruction.operands
+        
+        if len(ops) < 2:
+            return [f"// Error: lis requires 2 operands, got {len(ops)}"]
+        
+        try:
+            dst_reg = self.parse_register(ops[0])
+            value = ops[1].strip()
+            
+            # Handle symbol references
+            symbol, suffix = self.extract_symbol(value)
+            if suffix in ('@h', '@ha'):
+                # Generate working C code that loads high 16 bits
+                return [f"gc_env.r[{dst_reg}] = ((uint32_t)&{symbol} >> 16) & 0xFFFF; // lis r{dst_reg}, {value}"]
+            
+            # Handle immediate values
+            imm = self.parse_immediate(value)
+            # Handle negative values properly
+            if imm > 0x7FFF:
+                imm = imm - 0x10000
+            return [f"gc_env.r[{dst_reg}] = {imm} << 16; // lis r{dst_reg}, {value}"]
+        
+        except ValueError as e:
+            return [f"// Error processing lis: {str(e)}"]
+
+
+# Quick fix function to replace the problematic line in your output
+def fix_broken_lis_line(c_code: str) -> str:
+    """
+    Quick fix to replace broken lis+addi patterns in generated C code.
+    This is a temporary solution until proper pattern detection is implemented.
+    """
+    import re
+    
+    # Pattern to match broken lines like:
+    # gc_env.r[6] = gc_env.r[6] + InitMetroTRK@l;
+    pattern = r'gc_env\.r\[(\d+)\]\s*=\s*gc_env\.r\[\d+\]\s*\+\s*(\w+)@l;'
+    
+    def replace_broken_pattern(match):
+        reg_num = match.group(1)
+        symbol = match.group(2)
+        return f'gc_env.r[{reg_num}] = (uint32_t)&{symbol}; // lis + addi {symbol}'
+    
+    # Replace the broken pattern
+    fixed_code = re.sub(pattern, replace_broken_pattern, c_code)
+    
+    # Also fix comment-only lines that should be replaced
+    comment_pattern = r'//\s*lis\s+r(\d+),\s*(\w+)@ha\s*\(waiting for ori @l\)'
+    def replace_comment(match):
+        reg_num = match.group(1)
+        symbol = match.group(2)
+        return f'gc_env.r[{reg_num}] = ((uint32_t)&{symbol} >> 16) & 0xFFFF; // lis r{reg_num}, {symbol}@ha'
+    
+    fixed_code = re.sub(comment_pattern, replace_comment, fixed_code)
+    
+    return fixed_code
