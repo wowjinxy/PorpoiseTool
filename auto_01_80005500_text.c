@@ -423,15 +423,15 @@ void OSInit(void) {
     __OSInitMemoryProtection();
     L_800059FC:
     gc_env.r[3] = gc_env.r[31]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[31] + 32; // addi r3, r31, 0x20
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[31] + 56; // addi r4, r31, 0x38
     gc_env.r[5] = gc_env.r[31] + 68; // addi r5, r31, 0x44
     OSReport();
     gc_env.r[3] = gc_env.r[31] + 80; // addi r3, r31, 0x50
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + BootInfo_8001EE68@sda21);
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -447,7 +447,7 @@ void OSInit(void) {
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x10000000; // rlwinm r0, r4, 0, 3, 3
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80005A68;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[31] + 96; // addi r3, r31, 0x60
     OSReport();
     goto L_80005AF0;
@@ -468,34 +468,34 @@ void OSInit(void) {
     goto L_80005ACC;
     L_80005A9C:
     gc_env.r[3] = gc_env.r[31] + 108; // addi r3, r31, 0x6c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_80005AF0;
     L_80005AAC:
     gc_env.r[3] = gc_env.r[31] + 124; // addi r3, r31, 0x7c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_80005AF0;
     L_80005ABC:
     gc_env.r[3] = gc_env.r[31] + 140; // addi r3, r31, 0x8c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_80005AF0;
     L_80005ACC:
     gc_env.r[3] = gc_env.r[31] + 156; // addi r3, r31, 0x9c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_80005AF0;
     L_80005ADC:
     gc_env.r[4] = gc_env.r[4] - (4096 << 16);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[31] + 172; // addi r3, r31, 0xac
     gc_env.r[4] = gc_env.r[4] - 3;
     OSReport();
     L_80005AF0:
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[0] + BootInfo_8001EE68@sda21);
     gc_env.r[3] = gc_env.r[31] + 192; // addi r3, r31, 0xc0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x28);
     gc_env.r[4] = gc_env.r[0] >> 20; // srwi r4, r0, 20
     OSReport();
@@ -503,7 +503,7 @@ void OSInit(void) {
     gc_env.r[30] = gc_env.r[3]; // Move register
     OSGetArenaLo();
     gc_env.r[4] = gc_env.r[3]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[5] = gc_env.r[30]; // Move register
     gc_env.r[3] = gc_env.r[31] + 208; // addi r3, r31, 0xd0
     OSReport();
@@ -562,7 +562,7 @@ void OSExceptionInit(void) {
     gc_env.r[20] = gc_env.r[3] + 96; // addi r20, r3, 0x60
     if (gc_env.cr[0] != 0) goto L_80005BFC;
     gc_env.r[3] = gc_env.r[29] + 292; // addi r3, r29, 0x124
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     gc_env.r[4] = ((uint32_t)&__OSDBINTSTART >> 16) & 0xFFFF; // lis r4, __OSDBINTSTART@ha
     gc_env.r[3] = ((uint32_t)&__OSDBINTEND >> 16) & 0xFFFF; // lis r3, __OSDBINTEND@ha
@@ -607,7 +607,7 @@ void OSExceptionInit(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_80005C6C;
     gc_env.r[3] = gc_env.r[29] + 320; // addi r3, r29, 0x140
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[26] & 0xFF; // clrlwi r4, r26, 24
     DBPrintf();
     goto L_80005D6C;
@@ -620,7 +620,7 @@ void OSExceptionInit(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_80005CAC;
     gc_env.r[4] = gc_env.r[20]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[29] + 368; // addi r3, r29, 0x170
     DBPrintf();
     gc_env.r[3] = gc_env.r[21]; // Move register
@@ -713,7 +713,7 @@ void OSExceptionInit(void) {
     if (gc_env.cr[0] & 0x8) goto L_80005DA4; // blt .L_80005DA4
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[25]);
     gc_env.r[3] = gc_env.r[29] + 416; // addi r3, r29, 0x1a0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     // Unknown opcode: lmw r20 0x8(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c);
@@ -1852,7 +1852,7 @@ void L2GlobalInvalidate(void) {
     goto L_80006AA8;
     L_80006A9C:
     gc_env.r[3] = gc_env.r[31]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     L_80006AA8:
     PPCMfl2cr();
@@ -1899,13 +1899,13 @@ void DMAErrorHandler(void) {
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&"@69_8001A920" & 0xFFFF); // addi r31, r3, "@69_8001A920"@l
     PPCMfhid2();
     gc_env.r[30] = gc_env.r[3]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[31] + 44; // addi r3, r31, 0x2c
     OSReport();
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x19c);
     gc_env.r[4] = gc_env.r[30]; // Move register
     gc_env.r[3] = gc_env.r[31] + 68; // addi r3, r31, 0x44
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[0] = (gc_env.r[30] << 0) & 0xF00000; // rlwinm r0, r30, 0, 8, 11
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -1916,44 +1916,44 @@ void DMAErrorHandler(void) {
     if (gc_env.cr[0] != 0) goto L_80006B90;
     L_80006B78:
     gc_env.r[3] = gc_env.r[31] + 96; // addi r3, r31, 0x60
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[29]; // Move register
     OSDumpContext();
     PPCHalt();
     L_80006B90:
     gc_env.r[3] = gc_env.r[31] + 144; // addi r3, r31, 0x90
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[31] + 204; // addi r3, r31, 0xcc
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[0] = (gc_env.r[30] << 0) & 0x800000; // rlwinm r0, r30, 0, 8, 8
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_80006BC0;
     gc_env.r[3] = gc_env.r[31] + 260; // addi r3, r31, 0x104
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_80006BC0:
     gc_env.r[0] = (gc_env.r[30] << 0) & 0x400000; // rlwinm r0, r30, 0, 9, 9
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_80006BD8;
     gc_env.r[3] = gc_env.r[31] + 324; // addi r3, r31, 0x144
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_80006BD8:
     gc_env.r[0] = (gc_env.r[30] << 0) & 0x200000; // rlwinm r0, r30, 0, 10, 10
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_80006BF0;
     gc_env.r[3] = gc_env.r[31] + 368; // addi r3, r31, 0x170
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_80006BF0:
     gc_env.r[0] = (gc_env.r[30] << 0) & 0x100000; // rlwinm r0, r30, 0, 11, 11
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_80006C08;
     gc_env.r[3] = gc_env.r[31] + 400; // addi r3, r31, 0x190
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_80006C08:
     gc_env.r[3] = gc_env.r[30]; // Move register
@@ -1984,7 +1984,7 @@ void __OSCacheInit(void) {
     if (gc_env.cr[0] != 0) goto L_80006C68;
     ICEnable();
     gc_env.r[3] = gc_env.r[31] + 428; // addi r3, r31, 0x1ac
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     L_80006C68:
     PPCMfhid0();
@@ -1993,7 +1993,7 @@ void __OSCacheInit(void) {
     if (gc_env.cr[0] != 0) goto L_80006C88;
     DCEnable();
     gc_env.r[3] = gc_env.r[31] + 456; // addi r3, r31, 0x1c8
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     L_80006C88:
     PPCMfl2cr();
@@ -2019,7 +2019,7 @@ void __OSCacheInit(void) {
     gc_env.r[3] = (gc_env.r[0] << 0) & 0x-200001; // rlwinm r3, r0, 0, 11, 9
     PPCMtl2cr();
     gc_env.r[3] = gc_env.r[31] + 484; // addi r3, r31, 0x1e4
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     L_80006CEC:
     gc_env.r[3] = ((uint32_t)&DMAErrorHandler >> 16) & 0xFFFF; // lis r3, DMAErrorHandler@ha
@@ -2027,7 +2027,7 @@ void __OSCacheInit(void) {
     gc_env.r[3] = 0x1;
     OSSetErrorHandler();
     gc_env.r[3] = gc_env.r[31] + 508; // addi r3, r31, 0x1fc
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     DBPrintf();
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14);
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);
@@ -2385,7 +2385,7 @@ void OSDumpContext(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2F4, gc_env.r[31]); // stmw r25, 0x2DC(r1)
     gc_env.r[28] = gc_env.r[3]; // Move register
     gc_env.r[3] = ((uint32_t)&lbl_8001AB50 >> 16) & 0xFFFF; // lis r3, lbl_8001AB50@ha
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&lbl_8001AB50 & 0xFFFF); // addi r31, r3, lbl_8001AB50@l
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[4] = gc_env.r[28]; // Move register
@@ -2403,7 +2403,7 @@ void OSDumpContext(void) {
     gc_env.r[4] = gc_env.r[25]; // Move register
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0);
     gc_env.r[3] = gc_env.r[31] + 68; // addi r3, r31, 0x44
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[6] = gc_env.r[5]; // Move register
     gc_env.r[9] = gc_env.r[8]; // Move register
     gc_env.r[7] = gc_env.r[25] + 16; // addi r7, r25, 0x10
@@ -2415,15 +2415,15 @@ void OSDumpContext(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x84);
     gc_env.r[3] = gc_env.r[31] + 116; // addi r3, r31, 0x74
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x80);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x198);
     gc_env.r[3] = gc_env.r[31] + 164; // addi r3, r31, 0xa4
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x19c);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[31] + 212; // addi r3, r31, 0xd4
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[25] = 0x0;
     gc_env.r[0] = gc_env.r[25] << 2; // slwi r0, r25, 2
@@ -2439,7 +2439,7 @@ void OSDumpContext(void) {
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x1b4);
     gc_env.r[3] = gc_env.r[31] + 232; // addi r3, r31, 0xe8
     gc_env.r[6] = gc_env.r[25] + 4; // addi r6, r25, 0x4
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[27] += 4; // addi r27, r27, 0x4
     gc_env.r[25] += 1; // addi r25, r25, 0x1
@@ -2466,7 +2466,7 @@ void OSDumpContext(void) {
     gc_env.r[3] = gc_env.r[1] + 16; // addi r3, r1, 0x10
     OSSetCurrentContext();
     gc_env.r[3] = gc_env.r[31] + 268; // addi r3, r31, 0x10c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[25] = 0x0;
     gc_env.r[0] = gc_env.r[25] << 3; // slwi r0, r25, 3
@@ -2483,7 +2483,7 @@ void OSDumpContext(void) {
     // Unknown opcode: lfd f1 0x90(r26)
     fn_800114CC();
     gc_env.r[5] = gc_env.r[3]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[25]; // Move register
     gc_env.r[7] = gc_env.r[27]; // Move register
     gc_env.r[3] = gc_env.r[31] + 288; // addi r3, r31, 0x120
@@ -2494,7 +2494,7 @@ void OSDumpContext(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[25] == 0x20) ? 0 : ((uint32_t)gc_env.r[25] < 0x20 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & 0x8) goto L_800072B0; // blt .L_800072B0
     gc_env.r[3] = gc_env.r[31] + 316; // addi r3, r31, 0x13c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[25] = 0x0;
     gc_env.r[0] = gc_env.r[25] << 3; // slwi r0, r25, 3
@@ -2511,7 +2511,7 @@ void OSDumpContext(void) {
     // Unknown opcode: lfd f1 0x1c8(r26)
     fn_800114CC();
     gc_env.r[5] = gc_env.r[3]; // Move register
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[25]; // Move register
     gc_env.r[7] = gc_env.r[27]; // Move register
     gc_env.r[3] = gc_env.r[31] + 336; // addi r3, r31, 0x150
@@ -2537,7 +2537,7 @@ void OSDumpContext(void) {
     OSRestoreInterrupts();
     L_80007388:
     gc_env.r[3] = gc_env.r[31] + 368; // addi r3, r31, 0x170
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x4);
     gc_env.r[26] = 0x0;
@@ -2551,7 +2551,7 @@ void OSDumpContext(void) {
     gc_env.r[4] = gc_env.r[25]; // Move register
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[25] + 0x4);
     gc_env.r[3] = gc_env.r[31] + 408; // addi r3, r31, 0x198
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[25] + 0x0);
     L_800073C4:
@@ -2623,7 +2623,7 @@ void __OSContextInit(void) {
     gc_env.r[3] = 0x7;
     __OSSetExceptionHandler();
     gc_env.r[0] = 0x0;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = -32768 << 16; // lis r4, 0x8000
     gc_env.r[3] = ((uint32_t)&"@74_8001AD04" >> 16) & 0xFFFF; // lis r3, "@74_8001AD04"@ha
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0xd8, gc_env.r[0]);
@@ -2711,7 +2711,7 @@ void __OSUnhandledException(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_800075A8;
     gc_env.r[3] = gc_env.r[29] + 92; // addi r3, r29, 0x5c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[25] & 0xFF; // clrlwi r4, r25, 24
     OSReport();
     goto L_80007620;
@@ -2728,7 +2728,7 @@ void __OSUnhandledException(void) {
     gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0);
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
     gc_env.r[4] = gc_env.r[31] + 0; // addi r4, r31, 0x0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.lr = gc_env.r[12]; // Move to link register
     gc_env.r[5] = gc_env.r[26] + 0; // addi r5, r26, 0x0
     gc_env.r[6] = gc_env.r[27] + 0; // addi r6, r27, 0x0
@@ -2745,23 +2745,23 @@ void __OSUnhandledException(void) {
     OSLoadContext();
     L_80007610:
     gc_env.r[3] = gc_env.r[29] + 124; // addi r3, r29, 0x7c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[4] = gc_env.r[25] & 0xFF; // clrlwi r4, r25, 24
     OSReport();
     L_80007620:
     gc_env.r[3] = "@32_8001EE10"@sda21;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[31]; // Move register
     OSDumpContext();
     gc_env.r[4] = gc_env.r[26] + 0; // addi r4, r26, 0x0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[5] = gc_env.r[27] + 0; // addi r5, r27, 0x0
     gc_env.r[3] = gc_env.r[29] + 148; // addi r3, r29, 0x94
     OSReport();
     OSGetTime();
     gc_env.r[5] = gc_env.r[3] + 0; // addi r5, r3, 0x0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[6] = gc_env.r[4] + 0; // addi r6, r4, 0x0
     gc_env.r[3] = gc_env.r[29] + 200; // addi r3, r29, 0xc8
     OSReport();
@@ -2777,31 +2777,31 @@ void __OSUnhandledException(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x198);
     gc_env.r[5] = gc_env.r[27] + 0; // addi r5, r27, 0x0
     gc_env.r[3] = gc_env.r[29] + 216; // addi r3, r29, 0xd8
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_8000772C;
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x198);
     gc_env.r[3] = gc_env.r[29] + 312; // addi r3, r29, 0x138
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_8000772C;
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x198);
     gc_env.r[5] = gc_env.r[27] + 0; // addi r5, r27, 0x0
     gc_env.r[3] = gc_env.r[29] + 388; // addi r3, r29, 0x184
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_8000772C;
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x198);
     gc_env.r[5] = gc_env.r[27] + 0; // addi r5, r27, 0x0
     gc_env.r[3] = gc_env.r[29] + 488; // addi r3, r29, 0x1e8
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_8000772C;
     gc_env.r[3] = "@32_8001EE10"@sda21;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[30] = -13312 << 16; // lis r30, 0xcc00
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[31] = gc_env.r[30] + 20480; // addi r31, r30, 0x5000
     gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[30] + 0x5030);
     gc_env.r[3] = gc_env.r[29] + 584; // addi r3, r29, 0x248
@@ -2810,16 +2810,16 @@ void __OSUnhandledException(void) {
     gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x20);
     gc_env.r[3] = gc_env.r[29] + 616; // addi r3, r29, 0x268
     gc_env.r[5] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x22);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x6014);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[29] + 648; // addi r3, r29, 0x288
     OSReport();
     L_8000772C:
     // Unknown opcode: lha r4 __OSLastInterrupt@sda21(r0)
     gc_env.r[3] = gc_env.r[29] + 676; // addi r3, r29, 0x2a4
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[0] + __OSLastInterruptSrr0@sda21);
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[0] + __OSLastInterruptTime@sda21);
     gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[0] + __OSLastInterruptTime+0x4@sda21);
@@ -3591,7 +3591,7 @@ void MEMIntrruptHandler(void) {
     if (gc_env.cr[0] == 0) goto L_80008070;
     gc_env.lr = gc_env.r[12]; // Move to link register
     gc_env.r[3] = 0xf;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     // Call function at gc_env.lr; // Branch to link register
     goto L_80008078;
     L_80008070:
@@ -8795,7 +8795,7 @@ void SISetSamplingRate(void) {
     goto L_8000C288;
     L_8000C274:
     gc_env.r[3] = gc_env.r[31] + 96; // addi r3, r31, 0x60
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[29] = 0x0;
     gc_env.r[4] = gc_env.r[31] + 0; // addi r4, r31, 0x0
@@ -8863,7 +8863,7 @@ void fn_8000C32C(void) {
     gc_env.r[3] = ((uint32_t)&lbl_8001B1F0 >> 16) & 0xFFFF; // lis r3, lbl_8001B1F0@ha
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&lbl_8001B1F0 & 0xFFFF); // addi r3, r3, lbl_8001B1F0@l
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x18, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x18;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]);
@@ -10090,10 +10090,10 @@ void fn_8000D27C(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x7c22) ? 0 : ((uint32_t)gc_env.r[0] < 0x7c22 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8000D334;
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[30] + 24; // addi r3, r30, 0x18
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     fn_8000F8A0();
     goto L_8000D360;
@@ -10102,13 +10102,13 @@ void fn_8000D27C(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0xea5e) ? 0 : ((uint32_t)gc_env.r[0] < 0xea5e ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8000D350;
     gc_env.r[3] = gc_env.r[30] + 36; // addi r3, r30, 0x24
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     goto L_8000D360;
     L_8000D350:
     gc_mem_write32(gc_env.ram, gc_env.r[0] + lbl_8001EFC4@sda21, gc_env.r[31]);
     gc_env.r[3] = gc_env.r[30] + 64; // addi r3, r30, 0x40
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_8000D360:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14);
@@ -13029,12 +13029,12 @@ void fn_8000F8A0(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[0] + lbl_8001EFD8@sda21);
     memcpy();
     gc_env.r[3] = lbl_8001EE28@sda21;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[5] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x1);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[6] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x2);
     gc_env.r[7] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x3);
     // Unknown opcode: extsb r4 r4
@@ -13045,17 +13045,17 @@ void fn_8000F8A0(void) {
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x4);
     gc_env.r[3] = gc_env.r[31] + 28; // addi r3, r31, 0x1c
     gc_env.r[5] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x5);
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     // Unknown opcode: extsb r4 r4
     // Unknown opcode: extsb r5 r5
     OSReport();
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x6);
     gc_env.r[3] = gc_env.r[31] + 52; // addi r3, r31, 0x34
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x7);
     gc_env.r[3] = gc_env.r[31] + 72; // addi r3, r31, 0x48
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x8);
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -13065,11 +13065,11 @@ void fn_8000F8A0(void) {
     L_8000F9C4:
     gc_env.r[4] = lbl_8001EE30@sda21;
     L_8000F9C8:
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[31] + 92; // addi r3, r31, 0x5c
     OSReport();
     gc_env.r[3] = lbl_8001EE28@sda21;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + lbl_8001EFD4@sda21);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x10);
@@ -14146,27 +14146,27 @@ void fn_800107F8(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_800108C8;
     gc_env.r[0] = 0x1;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_mem_write32(gc_env.ram, gc_env.r[0] + lbl_8001F02C@sda21, gc_env.r[0]);
     gc_env.r[3] = gc_env.r[15] + 444; // addi r3, r15, 0x1bc
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 488; // addi r3, r15, 0x1e8
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 532; // addi r3, r15, 0x214
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 576; // addi r3, r15, 0x240
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 620; // addi r3, r15, 0x26c
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 664; // addi r3, r15, 0x298
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[3] = gc_env.r[15] + 444; // addi r3, r15, 0x1bc
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     L_800108C8:
     gc_env.cr[0] = ((uint32_t)gc_env.r[16] == 0x0) ? 0 : ((uint32_t)gc_env.r[16] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -24879,7 +24879,7 @@ void TRK_board_display(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]);
     gc_env.r[1] = gc_env.r[1] + -0x8;
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     OSReport();
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4);
@@ -25535,7 +25535,7 @@ void EXI2_Poll(void) {
     if (gc_env.cr[0] == 0) goto L_80019324;
     if (gc_env.cr[0] != 0) goto L_8001934C;
     gc_env.r[3] = ((uint32_t)&lbl_8001BB28 >> 16) & 0xFFFF; // lis r3, lbl_8001BB28@ha
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&lbl_8001BB28 & 0xFFFF); // addi r3, r3, lbl_8001BB28@l
     fn_80012694();
     goto L_8001938C;
@@ -25614,7 +25614,7 @@ void EXI2_ReadN(void) {
     gc_env.r[27] = gc_env.r[3]; // Move register
     if (gc_env.cr[0] != 0) goto L_80019444;
     gc_env.r[3] = ((uint32_t)&lbl_8001BB28 >> 16) & 0xFFFF; // lis r3, lbl_8001BB28@ha
-    // Unknown opcode: crclr cr1eq
+    gc_env.cr[1] &= ~0x2; // crclr cr1eq
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&lbl_8001BB28 & 0xFFFF); // addi r3, r3, lbl_8001BB28@l
     fn_80012694();
     gc_env.r[27] = 0x0;

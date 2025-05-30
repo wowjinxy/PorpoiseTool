@@ -1,0 +1,408 @@
+#ifndef __GC_WII_MEMORY_MAP_H__
+#define __GC_WII_MEMORY_MAP_H__
+
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+
+// ============================================================================
+// GAMECUBE MEMORY MAP
+// ============================================================================
+
+// Main Memory (MEM1)
+#define GC_MEM1_BASE        0x80000000
+#define GC_MEM1_SIZE        0x01800000  // 24MB
+
+// Audio RAM (ARAM)
+#define GC_ARAM_BASE        0x00000000
+#define GC_ARAM_SIZE        0x01000000  // 16MB
+
+// Embedded Frame Buffer (EFB)
+#define GC_EFB_BASE         0xC8000000
+#define GC_EFB_SIZE         0x00200000  // 2MB
+
+// Hardware Registers
+#define GC_HW_REG_BASE      0xCC000000
+#define GC_HW_REG_SIZE      0x00010000  // 64KB
+
+// GameCube IPL ROM
+#define GC_IPL_ROM_BASE     0xFFF00000
+#define GC_IPL_ROM_SIZE     0x00100000  // 1MB
+
+// ============================================================================
+// WII MEMORY MAP (extends GameCube)
+// ============================================================================
+
+// Main Memory (MEM1) - same as GC
+#define WII_MEM1_BASE       GC_MEM1_BASE
+#define WII_MEM1_SIZE       GC_MEM1_SIZE
+
+// Extended Memory (MEM2)
+#define WII_MEM2_BASE       0x90000000
+#define WII_MEM2_SIZE       0x04000000  // 64MB
+
+// IOS Memory
+#define WII_IOS_BASE        0x93000000
+#define WII_IOS_SIZE        0x01000000  // 16MB
+
+// Boot ROM
+#define WII_BOOT_ROM_BASE   0xFFF00000
+#define WII_BOOT_ROM_SIZE   0x00100000  // 1MB
+
+// NAND Flash
+#define WII_NAND_BASE       0xF0000000
+#define WII_NAND_SIZE       0x00800000  // 8MB
+
+// ============================================================================
+// SPECIFIC HARDWARE REGISTERS AND IMPORTANT ADDRESSES
+// ============================================================================
+
+// Video Interface (VI) Registers
+#define VI_CONTROL          0xCC002000
+#define VI_ORIGIN           0xCC002004
+#define VI_WIDTH            0xCC002008
+#define VI_INTERRUPT        0xCC00200C
+#define VI_CURRENT          0xCC002010
+#define VI_TIMING           0xCC002014
+#define VI_HSYNC            0xCC00201C
+#define VI_VSYNC            0xCC002020
+#define VI_BURST            0xCC002024
+#define VI_PRERETRACE       0xCC002028
+#define VI_POSTRETRACE      0xCC00202C
+#define VI_DISPLAY_CFG      0xCC002030
+#define VI_HORIZONTAL       0xCC002034
+#define VI_VERTICAL         0xCC002038
+
+// Audio Interface (AI) Registers
+#define AI_CONTROL          0xCC005000
+#define AI_VOLUME           0xCC005004
+#define AI_SAMPLE_COUNTER   0xCC005008
+#define AI_INTERRUPT_TIMING 0xCC00500C
+
+// Digital Signal Processor (DSP) Registers
+#define DSP_MAIL_TO_DSP     0xCC005000
+#define DSP_MAIL_FROM_DSP   0xCC005004
+#define DSP_CONTROL         0xCC005008
+#define DSP_STATUS          0xCC00500C
+
+// DVD Interface (DI) Registers
+#define DI_STATUS           0xCC006000
+#define DI_COVER            0xCC006004
+#define DI_COMMAND_0        0xCC006008
+#define DI_COMMAND_1        0xCC00600C
+#define DI_COMMAND_2        0xCC006010
+#define DI_DMA_ADDRESS      0xCC006014
+#define DI_DMA_LENGTH       0xCC006018
+#define DI_CONTROL          0xCC00601C
+#define DI_IMMEDIATE_DATA   0xCC006020
+#define DI_CONFIG           0xCC006024
+
+// Serial Interface (SI) Registers
+#define SI_CHANNEL_0        0xCC006400
+#define SI_CHANNEL_1        0xCC006404
+#define SI_CHANNEL_2        0xCC006408
+#define SI_CHANNEL_3        0xCC00640C
+#define SI_POLL             0xCC006410
+#define SI_CONTROL          0xCC006414
+#define SI_STATUS           0xCC006418
+#define SI_EXI_CLOCK        0xCC00641C
+
+// External Interface (EXI) Registers
+#define EXI_0_CSR           0xCC006800
+#define EXI_0_MAR           0xCC006804
+#define EXI_0_LENGTH        0xCC006808
+#define EXI_0_CR            0xCC00680C
+#define EXI_0_DATA          0xCC006810
+#define EXI_1_CSR           0xCC006814
+#define EXI_1_MAR           0xCC006818
+#define EXI_1_LENGTH        0xCC00681C
+#define EXI_1_CR            0xCC006820
+#define EXI_1_DATA          0xCC006824
+#define EXI_2_CSR           0xCC006828
+#define EXI_2_MAR           0xCC00682C
+#define EXI_2_LENGTH        0xCC006830
+#define EXI_2_CR            0xCC006834
+#define EXI_2_DATA          0xCC006838
+
+// Memory Interface (MI) Registers
+#define MI_MODE             0xCC004000
+#define MI_CONFIG           0xCC004004
+#define MI_REFRESH          0xCC004008
+#define MI_UNKNOWN          0xCC00400C
+
+// Pixel Engine (PE) Registers
+#define PE_ZCONF            0xCC001000
+#define PE_ALPHACONF        0xCC001002
+#define PE_DSTALPHACONF     0xCC001004
+#define PE_ALPHAMODE        0xCC001006
+#define PE_ALPHAREAD        0xCC001008
+#define PE_CONTROL          0xCC00100A
+#define PE_TOKEN            0xCC00100E
+
+// Command Processor (CP) Registers
+#define CP_STATUS           0xCC000000
+#define CP_ENABLE           0xCC000004
+#define CP_CLEAR            0xCC000008
+#define CP_PERF_SELECT      0xCC00000C
+
+// Graphics FIFO Registers
+#define GX_FIFO_BASE        0xCC008000
+#define GX_FIFO_END         0xCC008004
+#define GX_FIFO_HI_MARK     0xCC008008
+#define GX_FIFO_LO_MARK     0xCC00800C
+#define GX_FIFO_RW_PTR      0xCC008010
+#define GX_FIFO_WR_PTR      0xCC008014
+
+// Important System Memory Locations
+#define GC_SYS_INFO_BASE    0x80000000  // System info structure
+#define GC_ARENA_INFO       0x80000020  // Arena info
+#define GC_GAME_ID          0x80000000  // Game ID (first 6 bytes)
+#define GC_COMPANY_ID       0x80000004  // Company ID (2 bytes)
+#define GC_DISC_ID          0x80000006  // Disc ID (1 byte)
+#define GC_VERSION          0x80000007  // Game version (1 byte)
+#define GC_STREAMING        0x80000008  // Audio streaming flag
+#define GC_STREAM_BUF_SIZE  0x80000009  // Stream buffer size
+#define GC_APPLOADER_ENTRY  0x80000010  // Apploader entry point
+#define GC_GAME_ENTRY       0x80000014  // Game entry point
+#define GC_FST_LOCATION     0x80000018  // File system table location
+#define GC_FST_SIZE         0x8000001C  // File system table size
+
+// Wii-specific addresses
+#define WII_IPC_BUFFER      0x93000000  // IPC buffer area
+#define WII_SYSCONF         0x93010000  // System configuration
+#define WII_NAND_LOADER     0x93020000  // NAND loader area
+
+// ============================================================================
+// POINTER STRUCTURE FOR TRANSPILER
+// ============================================================================
+
+typedef struct {
+    // Memory regions
+    uint8_t* mem1;          // Main memory (24MB GC, 24MB Wii)
+    uint8_t* mem2;          // Extended memory (Wii only, 64MB)
+    uint8_t* aram;          // Audio RAM (16MB)
+    uint8_t* efb;           // Embedded Frame Buffer (2MB)
+    uint8_t* hw_regs;       // Hardware registers (64KB)
+    uint8_t* ipl_rom;       // IPL ROM (1MB)
+    uint8_t* nand;          // NAND Flash (Wii only, 8MB)
+    uint8_t* ios_mem;       // IOS Memory (Wii only, 16MB)
+    
+    // Video Interface pointers
+    uint32_t* vi_control;
+    uint32_t* vi_origin;
+    uint32_t* vi_width;
+    uint32_t* vi_interrupt;
+    uint32_t* vi_current;
+    uint32_t* vi_timing;
+    uint32_t* vi_hsync;
+    uint32_t* vi_vsync;
+    uint32_t* vi_burst;
+    uint32_t* vi_preretrace;
+    uint32_t* vi_postretrace;
+    uint32_t* vi_display_cfg;
+    uint32_t* vi_horizontal;
+    uint32_t* vi_vertical;
+    
+    // Audio Interface pointers
+    uint32_t* ai_control;
+    uint32_t* ai_volume;
+    uint32_t* ai_sample_counter;
+    uint32_t* ai_interrupt_timing;
+    
+    // DSP pointers
+    uint32_t* dsp_mail_to_dsp;
+    uint32_t* dsp_mail_from_dsp;
+    uint32_t* dsp_control;
+    uint32_t* dsp_status;
+    
+    // DVD Interface pointers
+    uint32_t* di_status;
+    uint32_t* di_cover;
+    uint32_t* di_command_0;
+    uint32_t* di_command_1;
+    uint32_t* di_command_2;
+    uint32_t* di_dma_address;
+    uint32_t* di_dma_length;
+    uint32_t* di_control;
+    uint32_t* di_immediate_data;
+    uint32_t* di_config;
+    
+    // Serial Interface pointers
+    uint32_t* si_channel[4];
+    uint32_t* si_poll;
+    uint32_t* si_control;
+    uint32_t* si_status;
+    uint32_t* si_exi_clock;
+    
+    // External Interface pointers
+    struct {
+        uint32_t* csr;
+        uint32_t* mar;
+        uint32_t* length;
+        uint32_t* cr;
+        uint32_t* data;
+    } exi[3];
+    
+    // Memory Interface pointers
+    uint32_t* mi_mode;
+    uint32_t* mi_config;
+    uint32_t* mi_refresh;
+    uint32_t* mi_unknown;
+    
+    // Pixel Engine pointers
+    uint16_t* pe_zconf;
+    uint16_t* pe_alphaconf;
+    uint16_t* pe_dstalphaconf;
+    uint16_t* pe_alphamode;
+    uint16_t* pe_alpharead;
+    uint16_t* pe_control;
+    uint16_t* pe_token;
+    
+    // Command Processor pointers
+    uint32_t* cp_status;
+    uint32_t* cp_enable;
+    uint32_t* cp_clear;
+    uint32_t* cp_perf_select;
+    
+    // Graphics FIFO pointers
+    uint32_t* gx_fifo_base;
+    uint32_t* gx_fifo_end;
+    uint32_t* gx_fifo_hi_mark;
+    uint32_t* gx_fifo_lo_mark;
+    uint32_t* gx_fifo_rw_ptr;
+    uint32_t* gx_fifo_wr_ptr;
+    
+    // System memory pointers
+    uint32_t* game_id;
+    uint16_t* company_id;
+    uint8_t* disc_id;
+    uint8_t* version;
+    uint8_t* streaming;
+    uint8_t* stream_buf_size;
+    uint32_t* apploader_entry;
+    uint32_t* game_entry;
+    uint32_t* fst_location;
+    uint32_t* fst_size;
+    
+    // Wii-specific pointers
+    uint8_t* ipc_buffer;
+    uint8_t* sysconf;
+    uint8_t* nand_loader;
+    
+} GCWiiMemoryMap;
+
+// Global memory map instance
+extern GCWiiMemoryMap gc_wii_mem;
+
+// ============================================================================
+// INITIALIZATION FUNCTIONS
+// ============================================================================
+
+// Initialize GameCube memory map
+int gc_memory_init(void);
+
+// Initialize Wii memory map (includes GameCube compatibility)
+int wii_memory_init(void);
+
+// Cleanup memory map
+void gc_wii_memory_cleanup(void);
+
+// ============================================================================
+// MEMORY ACCESS MACROS
+// ============================================================================
+
+// Use these macros in your transpiled code instead of hardcoded addresses
+#define GC_READ_VI_CONTROL()        (*gc_wii_mem.vi_control)
+#define GC_WRITE_VI_CONTROL(val)    (*gc_wii_mem.vi_control = (val))
+#define GC_READ_VI_ORIGIN()         (*gc_wii_mem.vi_origin)
+#define GC_WRITE_VI_ORIGIN(val)     (*gc_wii_mem.vi_origin = (val))
+
+#define GC_READ_AI_CONTROL()        (*gc_wii_mem.ai_control)
+#define GC_WRITE_AI_CONTROL(val)    (*gc_wii_mem.ai_control = (val))
+
+#define GC_READ_DI_STATUS()         (*gc_wii_mem.di_status)
+#define GC_WRITE_DI_STATUS(val)     (*gc_wii_mem.di_status = (val))
+
+#define GC_READ_SI_CHANNEL(n)       (*gc_wii_mem.si_channel[n])
+#define GC_WRITE_SI_CHANNEL(n, val) (*gc_wii_mem.si_channel[n] = (val))
+
+#define GC_READ_EXI_CSR(n)          (*gc_wii_mem.exi[n].csr)
+#define GC_WRITE_EXI_CSR(n, val)    (*gc_wii_mem.exi[n].csr = (val))
+
+// More convenience macros for common operations
+#define GC_READ_GAME_ID()           (*gc_wii_mem.game_id)
+#define GC_WRITE_GAME_ID(val)       (*gc_wii_mem.game_id = (val))
+#define GC_READ_COMPANY_ID()        (*gc_wii_mem.company_id)
+#define GC_WRITE_COMPANY_ID(val)    (*gc_wii_mem.company_id = (val))
+
+// Memory region access macros
+#define GC_MEM1_PTR(offset)         (gc_wii_mem.mem1 + (offset))
+#define GC_MEM2_PTR(offset)         (gc_wii_mem.mem2 + (offset))
+#define GC_ARAM_PTR(offset)         (gc_wii_mem.aram + (offset))
+#define GC_EFB_PTR(offset)          (gc_wii_mem.efb + (offset))
+
+// Hardware register access by original address
+#define GC_HW_REG_PTR(addr)         ((uint32_t*)(gc_wii_mem.hw_regs + ((addr) - GC_HW_REG_BASE)))
+#define GC_READ_HW_REG(addr)        (*GC_HW_REG_PTR(addr))
+#define GC_WRITE_HW_REG(addr, val)  (*GC_HW_REG_PTR(addr) = (val))
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+// Address translation functions
+void* gc_wii_translate_address(uint32_t original_addr);
+uint32_t gc_wii_get_original_address(void* ptr);
+
+// Debug and utility functions
+void gc_wii_memory_debug_info(void);
+
+// Memory access wrappers that handle endianness and bounds checking
+uint32_t gc_safe_read32(uint32_t addr);
+void gc_safe_write32(uint32_t addr, uint32_t value);
+uint16_t gc_safe_read16(uint32_t addr);
+void gc_safe_write16(uint32_t addr, uint16_t value);
+uint8_t gc_safe_read8(uint32_t addr);
+void gc_safe_write8(uint32_t addr, uint8_t value);
+
+// ============================================================================
+// TRANSPILER HELPER MACROS
+// ============================================================================
+
+// Use these in your transpiled code to replace hardcoded addresses
+// Example: Instead of *(uint32_t*)0xCC002000, use GC_VI_CONTROL_REG
+#define GC_VI_CONTROL_REG           (*gc_wii_mem.vi_control)
+#define GC_VI_ORIGIN_REG            (*gc_wii_mem.vi_origin)
+#define GC_VI_WIDTH_REG             (*gc_wii_mem.vi_width)
+#define GC_VI_INTERRUPT_REG         (*gc_wii_mem.vi_interrupt)
+#define GC_VI_CURRENT_REG           (*gc_wii_mem.vi_current)
+
+#define GC_AI_CONTROL_REG           (*gc_wii_mem.ai_control)
+#define GC_AI_VOLUME_REG            (*gc_wii_mem.ai_volume)
+#define GC_AI_SAMPLE_COUNTER_REG    (*gc_wii_mem.ai_sample_counter)
+
+#define GC_DI_STATUS_REG            (*gc_wii_mem.di_status)
+#define GC_DI_COVER_REG             (*gc_wii_mem.di_cover)
+#define GC_DI_COMMAND_0_REG         (*gc_wii_mem.di_command_0)
+#define GC_DI_COMMAND_1_REG         (*gc_wii_mem.di_command_1)
+#define GC_DI_COMMAND_2_REG         (*gc_wii_mem.di_command_2)
+
+#define GC_SI_CHANNEL_0_REG         (*gc_wii_mem.si_channel[0])
+#define GC_SI_CHANNEL_1_REG         (*gc_wii_mem.si_channel[1])
+#define GC_SI_CHANNEL_2_REG         (*gc_wii_mem.si_channel[2])
+#define GC_SI_CHANNEL_3_REG         (*gc_wii_mem.si_channel[3])
+
+#define GC_EXI_0_CSR_REG            (*gc_wii_mem.exi[0].csr)
+#define GC_EXI_0_MAR_REG            (*gc_wii_mem.exi[0].mar)
+#define GC_EXI_0_LENGTH_REG         (*gc_wii_mem.exi[0].length)
+#define GC_EXI_0_CR_REG             (*gc_wii_mem.exi[0].cr)
+#define GC_EXI_0_DATA_REG           (*gc_wii_mem.exi[0].data)
+
+// Pattern for transpiler: Replace hardcoded memory accesses like this:
+// OLD: *(uint32_t*)0xCC002000 = value;
+// NEW: GC_VI_CONTROL_REG = value;
+//
+// OLD: uint32_t val = *(uint32_t*)0x80000000;
+// NEW: uint32_t val = *(uint32_t*)GC_MEM1_PTR(0);
+
+#endif // __GC_WII_MEMORY_MAP_H__

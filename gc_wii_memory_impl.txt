@@ -1,0 +1,452 @@
+#include "gc_wii_memory_map.h"
+#include <stdio.h>
+
+// Global memory map instance
+GCWiiMemoryMap gc_wii_mem;
+
+// Helper function to allocate and zero memory
+static void* safe_calloc(size_t size) {
+    void* ptr = calloc(size, 1);
+    if (!ptr) {
+        fprintf(stderr, "Memory allocation failed for size %zu\n", size);
+        exit(1);
+    }
+    return ptr;
+}
+
+// Initialize GameCube memory map
+int gc_memory_init(void) {
+    // Zero out the structure
+    memset(&gc_wii_mem, 0, sizeof(GCWiiMemoryMap));
+    
+    printf("Initializing GameCube memory map...\n");
+    
+    // Allocate main memory regions
+    gc_wii_mem.mem1 = (uint8_t*)safe_calloc(GC_MEM1_SIZE);
+    gc_wii_mem.aram = (uint8_t*)safe_calloc(GC_ARAM_SIZE);
+    gc_wii_mem.efb = (uint8_t*)safe_calloc(GC_EFB_SIZE);
+    gc_wii_mem.hw_regs = (uint8_t*)safe_calloc(GC_HW_REG_SIZE);
+    gc_wii_mem.ipl_rom = (uint8_t*)safe_calloc(GC_IPL_ROM_SIZE);
+    
+    printf("Allocated memory regions:\n");
+    printf("  MEM1: %p (%d MB)\n", gc_wii_mem.mem1, GC_MEM1_SIZE / (1024*1024));
+    printf("  ARAM: %p (%d MB)\n", gc_wii_mem.aram, GC_ARAM_SIZE / (1024*1024));
+    printf("  EFB:  %p (%d KB)\n", gc_wii_mem.efb, GC_EFB_SIZE / 1024);
+    printf("  HW:   %p (%d KB)\n", gc_wii_mem.hw_regs, GC_HW_REG_SIZE / 1024);
+    printf("  ROM:  %p (%d KB)\n", gc_wii_mem.ipl_rom, GC_IPL_ROM_SIZE / 1024);
+    
+    // Set up Video Interface pointers (offset into hw_regs)
+    size_t vi_offset = 0x2000; // VI starts at 0xCC002000, hw_regs at 0xCC000000
+    gc_wii_mem.vi_control = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x00);
+    gc_wii_mem.vi_origin = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x04);
+    gc_wii_mem.vi_width = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x08);
+    gc_wii_mem.vi_interrupt = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x0C);
+    gc_wii_mem.vi_current = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x10);
+    gc_wii_mem.vi_timing = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x14);
+    gc_wii_mem.vi_hsync = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x1C);
+    gc_wii_mem.vi_vsync = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x20);
+    gc_wii_mem.vi_burst = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x24);
+    gc_wii_mem.vi_preretrace = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x28);
+    gc_wii_mem.vi_postretrace = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x2C);
+    gc_wii_mem.vi_display_cfg = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x30);
+    gc_wii_mem.vi_horizontal = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x34);
+    gc_wii_mem.vi_vertical = (uint32_t*)(gc_wii_mem.hw_regs + vi_offset + 0x38);
+    
+    // Set up Audio Interface pointers
+    size_t ai_offset = 0x5000;
+    gc_wii_mem.ai_control = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x00);
+    gc_wii_mem.ai_volume = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x04);
+    gc_wii_mem.ai_sample_counter = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x08);
+    gc_wii_mem.ai_interrupt_timing = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x0C);
+    
+    // Set up DSP pointers
+    gc_wii_mem.dsp_mail_to_dsp = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x00);
+    gc_wii_mem.dsp_mail_from_dsp = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x04);
+    gc_wii_mem.dsp_control = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x08);
+    gc_wii_mem.dsp_status = (uint32_t*)(gc_wii_mem.hw_regs + ai_offset + 0x0C);
+    
+    // Set up DVD Interface pointers
+    size_t di_offset = 0x6000;
+    gc_wii_mem.di_status = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x00);
+    gc_wii_mem.di_cover = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x04);
+    gc_wii_mem.di_command_0 = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x08);
+    gc_wii_mem.di_command_1 = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x0C);
+    gc_wii_mem.di_command_2 = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x10);
+    gc_wii_mem.di_dma_address = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x14);
+    gc_wii_mem.di_dma_length = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x18);
+    gc_wii_mem.di_control = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x1C);
+    gc_wii_mem.di_immediate_data = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x20);
+    gc_wii_mem.di_config = (uint32_t*)(gc_wii_mem.hw_regs + di_offset + 0x24);
+    
+    // Set up Serial Interface pointers
+    size_t si_offset = 0x6400;
+    for (int i = 0; i < 4; i++) {
+        gc_wii_mem.si_channel[i] = (uint32_t*)(gc_wii_mem.hw_regs + si_offset + (i * 4));
+    }
+    gc_wii_mem.si_poll = (uint32_t*)(gc_wii_mem.hw_regs + si_offset + 0x10);
+    gc_wii_mem.si_control = (uint32_t*)(gc_wii_mem.hw_regs + si_offset + 0x14);
+    gc_wii_mem.si_status = (uint32_t*)(gc_wii_mem.hw_regs + si_offset + 0x18);
+    gc_wii_mem.si_exi_clock = (uint32_t*)(gc_wii_mem.hw_regs + si_offset + 0x1C);
+    
+    // Set up External Interface pointers
+    size_t exi_offset = 0x6800;
+    for (int i = 0; i < 3; i++) {
+        size_t base = exi_offset + (i * 0x14);
+        gc_wii_mem.exi[i].csr = (uint32_t*)(gc_wii_mem.hw_regs + base + 0x00);
+        gc_wii_mem.exi[i].mar = (uint32_t*)(gc_wii_mem.hw_regs + base + 0x04);
+        gc_wii_mem.exi[i].length = (uint32_t*)(gc_wii_mem.hw_regs + base + 0x08);
+        gc_wii_mem.exi[i].cr = (uint32_t*)(gc_wii_mem.hw_regs + base + 0x0C);
+        gc_wii_mem.exi[i].data = (uint32_t*)(gc_wii_mem.hw_regs + base + 0x10);
+    }
+    
+    // Set up Memory Interface pointers
+    size_t mi_offset = 0x4000;
+    gc_wii_mem.mi_mode = (uint32_t*)(gc_wii_mem.hw_regs + mi_offset + 0x00);
+    gc_wii_mem.mi_config = (uint32_t*)(gc_wii_mem.hw_regs + mi_offset + 0x04);
+    gc_wii_mem.mi_refresh = (uint32_t*)(gc_wii_mem.hw_regs + mi_offset + 0x08);
+    gc_wii_mem.mi_unknown = (uint32_t*)(gc_wii_mem.hw_regs + mi_offset + 0x0C);
+    
+    // Set up Pixel Engine pointers
+    size_t pe_offset = 0x1000;
+    gc_wii_mem.pe_zconf = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x00);
+    gc_wii_mem.pe_alphaconf = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x02);
+    gc_wii_mem.pe_dstalphaconf = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x04);
+    gc_wii_mem.pe_alphamode = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x06);
+    gc_wii_mem.pe_alpharead = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x08);
+    gc_wii_mem.pe_control = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x0A);
+    gc_wii_mem.pe_token = (uint16_t*)(gc_wii_mem.hw_regs + pe_offset + 0x0E);
+    
+    // Set up Command Processor pointers
+    size_t cp_offset = 0x0000;
+    gc_wii_mem.cp_status = (uint32_t*)(gc_wii_mem.hw_regs + cp_offset + 0x00);
+    gc_wii_mem.cp_enable = (uint32_t*)(gc_wii_mem.hw_regs + cp_offset + 0x04);
+    gc_wii_mem.cp_clear = (uint32_t*)(gc_wii_mem.hw_regs + cp_offset + 0x08);
+    gc_wii_mem.cp_perf_select = (uint32_t*)(gc_wii_mem.hw_regs + cp_offset + 0x0C);
+    
+    // Set up Graphics FIFO pointers
+    size_t gx_offset = 0x8000;
+    gc_wii_mem.gx_fifo_base = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x00);
+    gc_wii_mem.gx_fifo_end = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x04);
+    gc_wii_mem.gx_fifo_hi_mark = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x08);
+    gc_wii_mem.gx_fifo_lo_mark = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x0C);
+    gc_wii_mem.gx_fifo_rw_ptr = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x10);
+    gc_wii_mem.gx_fifo_wr_ptr = (uint32_t*)(gc_wii_mem.hw_regs + gx_offset + 0x14);
+    
+    // Set up system memory pointers (in MEM1)
+    gc_wii_mem.game_id = (uint32_t*)(gc_wii_mem.mem1 + 0x00);
+    gc_wii_mem.company_id = (uint16_t*)(gc_wii_mem.mem1 + 0x04);
+    gc_wii_mem.disc_id = (uint8_t*)(gc_wii_mem.mem1 + 0x06);
+    gc_wii_mem.version = (uint8_t*)(gc_wii_mem.mem1 + 0x07);
+    gc_wii_mem.streaming = (uint8_t*)(gc_wii_mem.mem1 + 0x08);
+    gc_wii_mem.stream_buf_size = (uint8_t*)(gc_wii_mem.mem1 + 0x09);
+    gc_wii_mem.apploader_entry = (uint32_t*)(gc_wii_mem.mem1 + 0x10);
+    gc_wii_mem.game_entry = (uint32_t*)(gc_wii_mem.mem1 + 0x14);
+    gc_wii_mem.fst_location = (uint32_t*)(gc_wii_mem.mem1 + 0x18);
+    gc_wii_mem.fst_size = (uint32_t*)(gc_wii_mem.mem1 + 0x1C);
+    
+    // Initialize some default values
+    *gc_wii_mem.vi_control = 0x00000000;  // Video disabled initially
+    *gc_wii_mem.ai_control = 0x00000000;  // Audio disabled initially
+    
+    printf("GameCube memory map initialized successfully!\n");
+    return 0;
+}
+
+// Initialize Wii memory map (includes GameCube compatibility)
+int wii_memory_init(void) {
+    // First initialize GameCube memory map
+    if (gc_memory_init() != 0) {
+        return -1;
+    }
+    
+    printf("Initializing Wii-specific memory regions...\n");
+    
+    // Allocate Wii-specific memory regions
+    gc_wii_mem.mem2 = (uint8_t*)safe_calloc(WII_MEM2_SIZE);
+    gc_wii_mem.nand = (uint8_t*)safe_calloc(WII_NAND_SIZE);
+    gc_wii_mem.ios_mem = (uint8_t*)safe_calloc(WII_IOS_SIZE);
+    
+    printf("Allocated Wii memory regions:\n");
+    printf("  MEM2: %p (%d MB)\n", gc_wii_mem.mem2, WII_MEM2_SIZE / (1024*1024));
+    printf("  NAND: %p (%d MB)\n", gc_wii_mem.nand, WII_NAND_SIZE / (1024*1024));
+    printf("  IOS:  %p (%d MB)\n", gc_wii_mem.ios_mem, WII_IOS_SIZE / (1024*1024));
+    
+    // Set up Wii-specific pointers
+    gc_wii_mem.ipc_buffer = gc_wii_mem.ios_mem + 0x00000000;  // IPC buffer at start of IOS mem
+    gc_wii_mem.sysconf = gc_wii_mem.ios_mem + 0x00010000;     // System config area
+    gc_wii_mem.nand_loader = gc_wii_mem.ios_mem + 0x00020000; // NAND loader area
+    
+    printf("Wii memory map initialized successfully!\n");
+    return 0;
+}
+
+// Cleanup memory map
+void gc_wii_memory_cleanup(void) {
+    printf("Cleaning up memory map...\n");
+    
+    // Free GameCube memory regions
+    if (gc_wii_mem.mem1) {
+        free(gc_wii_mem.mem1);
+        gc_wii_mem.mem1 = NULL;
+    }
+    if (gc_wii_mem.aram) {
+        free(gc_wii_mem.aram);
+        gc_wii_mem.aram = NULL;
+    }
+    if (gc_wii_mem.efb) {
+        free(gc_wii_mem.efb);
+        gc_wii_mem.efb = NULL;
+    }
+    if (gc_wii_mem.hw_regs) {
+        free(gc_wii_mem.hw_regs);
+        gc_wii_mem.hw_regs = NULL;
+    }
+    if (gc_wii_mem.ipl_rom) {
+        free(gc_wii_mem.ipl_rom);
+        gc_wii_mem.ipl_rom = NULL;
+    }
+    
+    // Free Wii-specific memory regions
+    if (gc_wii_mem.mem2) {
+        free(gc_wii_mem.mem2);
+        gc_wii_mem.mem2 = NULL;
+    }
+    if (gc_wii_mem.nand) {
+        free(gc_wii_mem.nand);
+        gc_wii_mem.nand = NULL;
+    }
+    if (gc_wii_mem.ios_mem) {
+        free(gc_wii_mem.ios_mem);
+        gc_wii_mem.ios_mem = NULL;
+    }
+    
+    // Zero out the structure
+    memset(&gc_wii_mem, 0, sizeof(GCWiiMemoryMap));
+    
+    printf("Memory map cleanup complete.\n");
+}
+
+// ============================================================================
+// UTILITY FUNCTIONS FOR MEMORY MANAGEMENT
+// ============================================================================
+
+// Function to translate original GameCube/Wii addresses to our pointers
+void* gc_wii_translate_address(uint32_t original_addr) {
+    // MEM1 (Main Memory)
+    if (original_addr >= GC_MEM1_BASE && original_addr < GC_MEM1_BASE + GC_MEM1_SIZE) {
+        return gc_wii_mem.mem1 + (original_addr - GC_MEM1_BASE);
+    }
+    
+    // MEM2 (Wii Extended Memory)
+    if (original_addr >= WII_MEM2_BASE && original_addr < WII_MEM2_BASE + WII_MEM2_SIZE) {
+        if (gc_wii_mem.mem2) {
+            return gc_wii_mem.mem2 + (original_addr - WII_MEM2_BASE);
+        }
+    }
+    
+    // ARAM (Audio RAM)
+    if (original_addr >= GC_ARAM_BASE && original_addr < GC_ARAM_BASE + GC_ARAM_SIZE) {
+        return gc_wii_mem.aram + (original_addr - GC_ARAM_BASE);
+    }
+    
+    // EFB (Embedded Frame Buffer)
+    if (original_addr >= GC_EFB_BASE && original_addr < GC_EFB_BASE + GC_EFB_SIZE) {
+        return gc_wii_mem.efb + (original_addr - GC_EFB_BASE);
+    }
+    
+    // Hardware Registers
+    if (original_addr >= GC_HW_REG_BASE && original_addr < GC_HW_REG_BASE + GC_HW_REG_SIZE) {
+        return gc_wii_mem.hw_regs + (original_addr - GC_HW_REG_BASE);
+    }
+    
+    // IPL ROM
+    if (original_addr >= GC_IPL_ROM_BASE && original_addr < GC_IPL_ROM_BASE + GC_IPL_ROM_SIZE) {
+        return gc_wii_mem.ipl_rom + (original_addr - GC_IPL_ROM_BASE);
+    }
+    
+    // NAND Flash (Wii)
+    if (original_addr >= WII_NAND_BASE && original_addr < WII_NAND_BASE + WII_NAND_SIZE) {
+        if (gc_wii_mem.nand) {
+            return gc_wii_mem.nand + (original_addr - WII_NAND_BASE);
+        }
+    }
+    
+    // IOS Memory (Wii)
+    if (original_addr >= WII_IOS_BASE && original_addr < WII_IOS_BASE + WII_IOS_SIZE) {
+        if (gc_wii_mem.ios_mem) {
+            return gc_wii_mem.ios_mem + (original_addr - WII_IOS_BASE);
+        }
+    }
+    
+    // Address not found in any region
+    printf("Warning: Address 0x%08X not found in any memory region\n", original_addr);
+    return NULL;
+}
+
+// Function to get the original address from a pointer (reverse translation)
+uint32_t gc_wii_get_original_address(void* ptr) {
+    uint8_t* byte_ptr = (uint8_t*)ptr;
+    
+    // Check MEM1
+    if (byte_ptr >= gc_wii_mem.mem1 && byte_ptr < gc_wii_mem.mem1 + GC_MEM1_SIZE) {
+        return GC_MEM1_BASE + (byte_ptr - gc_wii_mem.mem1);
+    }
+    
+    // Check MEM2
+    if (gc_wii_mem.mem2 && byte_ptr >= gc_wii_mem.mem2 && byte_ptr < gc_wii_mem.mem2 + WII_MEM2_SIZE) {
+        return WII_MEM2_BASE + (byte_ptr - gc_wii_mem.mem2);
+    }
+    
+    // Check ARAM
+    if (byte_ptr >= gc_wii_mem.aram && byte_ptr < gc_wii_mem.aram + GC_ARAM_SIZE) {
+        return GC_ARAM_BASE + (byte_ptr - gc_wii_mem.aram);
+    }
+    
+    // Check EFB
+    if (byte_ptr >= gc_wii_mem.efb && byte_ptr < gc_wii_mem.efb + GC_EFB_SIZE) {
+        return GC_EFB_BASE + (byte_ptr - gc_wii_mem.efb);
+    }
+    
+    // Check Hardware Registers
+    if (byte_ptr >= gc_wii_mem.hw_regs && byte_ptr < gc_wii_mem.hw_regs + GC_HW_REG_SIZE) {
+        return GC_HW_REG_BASE + (byte_ptr - gc_wii_mem.hw_regs);
+    }
+    
+    // Check IPL ROM
+    if (byte_ptr >= gc_wii_mem.ipl_rom && byte_ptr < gc_wii_mem.ipl_rom + GC_IPL_ROM_SIZE) {
+        return GC_IPL_ROM_BASE + (byte_ptr - gc_wii_mem.ipl_rom);
+    }
+    
+    // Check NAND
+    if (gc_wii_mem.nand && byte_ptr >= gc_wii_mem.nand && byte_ptr < gc_wii_mem.nand + WII_NAND_SIZE) {
+        return WII_NAND_BASE + (byte_ptr - gc_wii_mem.nand);
+    }
+    
+    // Check IOS Memory
+    if (gc_wii_mem.ios_mem && byte_ptr >= gc_wii_mem.ios_mem && byte_ptr < gc_wii_mem.ios_mem + WII_IOS_SIZE) {
+        return WII_IOS_BASE + (byte_ptr - gc_wii_mem.ios_mem);
+    }
+    
+    return 0x00000000; // Invalid address
+}
+
+// Debug function to print memory map status
+void gc_wii_memory_debug_info(void) {
+    printf("\n=== GameCube/Wii Memory Map Debug Info ===\n");
+    printf("MEM1 (Main):     %p -> 0x%08X (%d MB)\n", 
+           gc_wii_mem.mem1, GC_MEM1_BASE, GC_MEM1_SIZE / (1024*1024));
+    printf("ARAM (Audio):    %p -> 0x%08X (%d MB)\n", 
+           gc_wii_mem.aram, GC_ARAM_BASE, GC_ARAM_SIZE / (1024*1024));
+    printf("EFB (Graphics):  %p -> 0x%08X (%d KB)\n", 
+           gc_wii_mem.efb, GC_EFB_BASE, GC_EFB_SIZE / 1024);
+    printf("HW Registers:    %p -> 0x%08X (%d KB)\n", 
+           gc_wii_mem.hw_regs, GC_HW_REG_BASE, GC_HW_REG_SIZE / 1024);
+    printf("IPL ROM:         %p -> 0x%08X (%d KB)\n", 
+           gc_wii_mem.ipl_rom, GC_IPL_ROM_BASE, GC_IPL_ROM_SIZE / 1024);
+    
+    if (gc_wii_mem.mem2) {
+        printf("MEM2 (Extended): %p -> 0x%08X (%d MB)\n", 
+               gc_wii_mem.mem2, WII_MEM2_BASE, WII_MEM2_SIZE / (1024*1024));
+    }
+    if (gc_wii_mem.nand) {
+        printf("NAND Flash:      %p -> 0x%08X (%d MB)\n", 
+               gc_wii_mem.nand, WII_NAND_BASE, WII_NAND_SIZE / (1024*1024));
+    }
+    if (gc_wii_mem.ios_mem) {
+        printf("IOS Memory:      %p -> 0x%08X (%d MB)\n", 
+               gc_wii_mem.ios_mem, WII_IOS_BASE, WII_IOS_SIZE / (1024*1024));
+    }
+    
+    printf("\nKey Hardware Register Pointers:\n");
+    printf("VI Control:      %p (0x%08X)\n", gc_wii_mem.vi_control, VI_CONTROL);
+    printf("AI Control:      %p (0x%08X)\n", gc_wii_mem.ai_control, AI_CONTROL);
+    printf("DI Status:       %p (0x%08X)\n", gc_wii_mem.di_status, DI_STATUS);
+    printf("SI Channel 0:    %p (0x%08X)\n", gc_wii_mem.si_channel[0], SI_CHANNEL_0);
+    printf("EXI 0 CSR:       %p (0x%08X)\n", gc_wii_mem.exi[0].csr, EXI_0_CSR);
+    
+    printf("\nSystem Memory Pointers:\n");
+    printf("Game ID:         %p\n", gc_wii_mem.game_id);
+    printf("Company ID:      %p\n", gc_wii_mem.company_id);
+    printf("Game Entry:      %p\n", gc_wii_mem.game_entry);
+    printf("==========================================\n\n");
+}
+
+// ============================================================================
+// SAFE MEMORY ACCESS FUNCTIONS
+// ============================================================================
+
+// Safe 32-bit read with bounds checking and endianness handling
+uint32_t gc_safe_read32(uint32_t addr) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid read32 from address 0x%08X\n", addr);
+        return 0;
+    }
+    
+    // GameCube/Wii use big-endian, so we need to handle endianness
+    uint8_t* bytes = (uint8_t*)ptr;
+    return (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+}
+
+// Safe 32-bit write with bounds checking and endianness handling  
+void gc_safe_write32(uint32_t addr, uint32_t value) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid write32 to address 0x%08X\n", addr);
+        return;
+    }
+    
+    // Handle big-endian format
+    uint8_t* bytes = (uint8_t*)ptr;
+    bytes[0] = (value >> 24) & 0xFF;
+    bytes[1] = (value >> 16) & 0xFF;
+    bytes[2] = (value >> 8) & 0xFF;
+    bytes[3] = value & 0xFF;
+}
+
+// Safe 16-bit read with bounds checking and endianness handling
+uint16_t gc_safe_read16(uint32_t addr) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid read16 from address 0x%08X\n", addr);
+        return 0;
+    }
+    
+    uint8_t* bytes = (uint8_t*)ptr;
+    return (bytes[0] << 8) | bytes[1];
+}
+
+// Safe 16-bit write with bounds checking and endianness handling
+void gc_safe_write16(uint32_t addr, uint16_t value) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid write16 to address 0x%08X\n", addr);
+        return;
+    }
+    
+    uint8_t* bytes = (uint8_t*)ptr;
+    bytes[0] = (value >> 8) & 0xFF;
+    bytes[1] = value & 0xFF;
+}
+
+// Safe 8-bit read with bounds checking
+uint8_t gc_safe_read8(uint32_t addr) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid read8 from address 0x%08X\n", addr);
+        return 0;
+    }
+    
+    return *(uint8_t*)ptr;
+}
+
+// Safe 8-bit write with bounds checking
+void gc_safe_write8(uint32_t addr, uint8_t value) {
+    void* ptr = gc_wii_translate_address(addr);
+    if (!ptr) {
+        printf("Warning: Invalid write8 to address 0x%08X\n", addr);
+        return;
+    }
+    
+    *(uint8_t*)ptr = value;
+}

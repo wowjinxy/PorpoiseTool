@@ -275,14 +275,34 @@ class ModularTranspiler:
             if simple_instr_match and current_function:
                 opcode, operands_str = simple_instr_match.groups()
                 opcode = opcode.rstrip('.')
-                operands = [op.strip() for op in re.split(r'[,\s]+', operands_str.strip()) if op.strip()]
+                processed_operands = []
+                
+                # Preprocess operands for SDA relocations
+                for op in re.split(r'[,\s]+', operands_str.strip()):
+                    op = op.strip()
+                    if not op:
+                        continue
+                    if '@sda21' in op:
+                        # Example: cm_804D7E14@sda21(r0)
+                        symbol_match = re.match(r'(\w+)@sda21\((r\d+)\)', op)
+                        if symbol_match:
+                            symbol, base_reg = symbol_match.groups()
+                            processed_operands.append(f"sda:{symbol}")  # Mark as SDA symbol
+                            self.variables.add(f"extern float {symbol}")  # Declare as float
+                            print(f"Detected SDA symbol: {symbol}")
+                        else:
+                            processed_operands.append(op)
+                            print(f"Warning: Invalid SDA format: {op}")
+                    else:
+                        processed_operands.append(op)
+                
                 current_function.instructions.append(Instruction(
                     opcode=opcode,
-                    operands=operands,
+                    operands=processed_operands,
                     address=None,
                     raw_bytes=None
                 ))
-                print(f"Parsed simple instruction: {opcode} {' '.join(operands)}")
+                print(f"Parsed simple instruction: {opcode} {' '.join(processed_operands)}")
                 continue
 
             # Handle labels
