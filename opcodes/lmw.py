@@ -1,5 +1,5 @@
 """
-Handler for PowerPC rlwimi (Rotate Left Word Immediate then Mask Insert) instruction.
+Handler for PowerPC lmw (Load Multiple Word) instruction.
 """
 
 from typing import List
@@ -15,10 +15,10 @@ except ImportError:
                 self.opcode = ""
                 self.operands = []
 
-opcodes = ['rlwimi']
+opcodes = ['lmw']
 
-class RlwimiHandler:
-    """Handles PowerPC rlwimi instruction transpilation."""
+class LmwHandler:
+    """Handles PowerPC lmw instruction transpilation."""
     
     def __init__(self, transpiler: 'ModularTranspiler'):
         self.transpiler = transpiler
@@ -31,9 +31,9 @@ class RlwimiHandler:
             raise ValueError(f"Invalid register: {reg_str}")
     
     def parse_immediate(self, imm_str: str) -> int:
-        """Parse immediate value, handling decimal formats."""
+        """Parse immediate value, handling hex/decimal formats."""
         try:
-            return int(imm_str.strip())
+            return int(imm_str, 0)
         except ValueError:
             raise ValueError(f"Invalid immediate: {imm_str}")
     
@@ -43,29 +43,28 @@ class RlwimiHandler:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
     def handle(self, instruction: Instruction) -> List[str]:
-        """Handle rlwimi instruction."""
+        """Handle lmw instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
         
-        self.validate_operand_count(ops, 5, opcode)
+        self.validate_operand_count(ops, 2, opcode)
         
         try:
-            dst_reg = self.parse_register(ops[0])
-            src_reg = self.parse_register(ops[1])
-            sh = self.parse_immediate(ops[2])  # Shift amount
-            mb = self.parse_immediate(ops[3])  # Mask begin
-            me = self.parse_immediate(ops[4])  # Mask end
+            start_reg = self.parse_register(ops[0])
+            offset_base = ops[1].split('(')
+            if len(offset_base) != 2 or not offset_base[1].endswith(')'):
+                raise ValueError(f"Invalid lmw format: {ops[1]}")
             
-            if opcode == 'rlwimi':
-                # Compute mask: 1s from mb to me (inclusive), 0s elsewhere
-                mask = ((1 << (32 - mb)) - 1) ^ ((1 << (32 - me - 1)) - 1) if me >= mb else ((1 << (32 - mb)) - 1) | ~((1 << (32 - me - 1)) - 1)
-                result = [
-                    f"uint32_t rotated = gc_env.r[{src_reg}] << {sh}; // rlwimi r{dst_reg}, r{src_reg}, {sh}, {mb}, {me}",
-                    f"gc_env.r[{dst_reg}] = (gc_env.r[{dst_reg}] & ~0x{mask:X}) | (rotated & 0x{mask:X});"
-                ]
-                # Handle dot (.) for cr0 update
-                if instruction.opcode.endswith('.'):
-                    result.append(f"gc_env.cr[0] = (gc_env.r[{dst_reg}] == 0) ? 0x2 : ((int32_t)gc_env.r[{dst_reg}] < 0 ? 0x8 : 0x4);")
+            offset = self.parse_immediate(offset_base[0])
+            base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            
+            if opcode == 'lmw':
+                result = []
+                for reg in range(start_reg, 32):
+                    current_offset = offset + (reg - start_reg) * 4
+                    result.append(
+                        f"gc_env.r[{reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + 0x{current_offset:X}); // lmw r{start_reg}, 0x{offset:X}(r{base_reg})"
+                    )
                 return result
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
@@ -74,5 +73,5 @@ class RlwimiHandler:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
-    """Entry point for rlwimi instruction handling."""
-    return RlwimiHandler(transpiler).handle(instruction)
+    """Entry point for lmw instruction handling."""
+    return LmwHandler(transpiler).handle(instruction)
