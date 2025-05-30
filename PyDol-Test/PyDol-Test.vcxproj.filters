@@ -21,12 +21,18 @@
     <ClInclude Include="gc_env.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="auto_00_80003100_init.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="gc_env.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
