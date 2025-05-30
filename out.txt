@@ -11711,9 +11711,9 @@ Translated bgt .L_8002A74C to: ['if (gc_env.cr[0] & 0x4) goto L_8002A74C; // bgt
 Translated lis r3 jumptable_803BCC4C@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_803BCC4C >> 16) & 0xFFFF; // lis r3, jumptable_803BCC4C@ha']
 Translated addi r3 r3 jumptable_803BCC4C@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_803BCC4C & 0xFFFF); // addi r3, r3, jumptable_803BCC4C@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
-Unknown opcode: lwzx r0 r3 r0
+Translated lwzx r0 r3 r0 to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + gc_env.r[0]); // lwzx r0, r3, r0']
 Translated mtctr r0 to: gc_env.ctr = gc_env.r[0]; // Move to count register
-Unknown opcode: bctr 
+Translated bctr  to: ['return gc_env.ctr; // bctr']
 Translated addi r3 r30 0x0 to: ['gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0']
 Translated addi r4 r29 0x0 to: ['gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0']
 Translated bl Camera_8002AF68 to: Camera_8002AF68();
@@ -12600,7 +12600,7 @@ Translated b .L_8002B1A0 to: goto L_8002B1A0;
 Translated lis r3 cm_803BCCA0@ha to: ['gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha']
 Translated addi r3 r3 cm_803BCCA0@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l']
 Translated lfs f0 0xe0(r3) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xE0); // lfs f0, 0xE0(r3)', 'gc_env.f[0] = *(float*)&temp;']
-Unknown opcode: fctiwz f0 f0
+Translated fctiwz f0 f0 to: ['gc_env.f[0] = (double)(int32_t)gc_env.f[0]; // fctiwz f0, f0']
 Translated stfd f0 0x10(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[0], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x10, temp); // stfd f0, 0x10(r1)']
 Processing opcode: lwz, operands: ['r0', '0x14(r1)']
 Translated lwz r0 0x14(r1) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14);']
@@ -13286,22 +13286,22 @@ Translated fadds f2 f3 f2 to: ['gc_env.f[2] = (float)gc_env.f[3] + (float)gc_env
 Translated fadds f5 f4 f2 to: ['gc_env.f[5] = (float)gc_env.f[4] + (float)gc_env.f[2]; // fadds f5, f4, f2']
 Translated fcmpo cr0 f5 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[5]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[5] < gc_env.f[0] ? 0x8 : (gc_env.f[5] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f5, f0']
 Translated ble .L_8002BB80 to: ['if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002BB80; // ble .L_8002BB80']
-Unknown opcode: frsqrte f2 f5
+Translated frsqrte f2 f5 to: ['gc_env.f[2] = 1.0 / sqrt(gc_env.f[5]); // frsqrte f2, f5']
 Translated lfd f4 cm_804D7E78@sda21(r0) to: ['gc_env.d[4] = cm_804D7E78; // lfd f4, cm_804D7E78@sda21(r0)']
 Translated lfd f3 cm_804D7E80@sda21(r0) to: ['gc_env.d[3] = cm_804D7E80; // lfd f3, cm_804D7E80@sda21(r0)']
-Unknown opcode: fmul f0 f2 f2
-Unknown opcode: fmul f2 f4 f2
-Unknown opcode: fnmsub f0 f5 f0 f3
-Unknown opcode: fmul f2 f2 f0
-Unknown opcode: fmul f0 f2 f2
-Unknown opcode: fmul f2 f4 f2
-Unknown opcode: fnmsub f0 f5 f0 f3
-Unknown opcode: fmul f2 f2 f0
-Unknown opcode: fmul f0 f2 f2
-Unknown opcode: fmul f2 f4 f2
-Unknown opcode: fnmsub f0 f5 f0 f3
-Unknown opcode: fmul f0 f2 f0
-Unknown opcode: fmul f0 f5 f0
+Translated fmul f0 f2 f2 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[2]; // fmul f0, f2, f2']
+Translated fmul f2 f4 f2 to: ['gc_env.f[2] = gc_env.f[4] * gc_env.f[2]; // fmul f2, f4, f2']
+Translated fnmsub f0 f5 f0 f3 to: ['gc_env.f[0] = -(gc_env.f[5] * gc_env.f[0] - gc_env.f[3]); // fnmsub f0, f5, f0, f3']
+Translated fmul f2 f2 f0 to: ['gc_env.f[2] = gc_env.f[2] * gc_env.f[0]; // fmul f2, f2, f0']
+Translated fmul f0 f2 f2 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[2]; // fmul f0, f2, f2']
+Translated fmul f2 f4 f2 to: ['gc_env.f[2] = gc_env.f[4] * gc_env.f[2]; // fmul f2, f4, f2']
+Translated fnmsub f0 f5 f0 f3 to: ['gc_env.f[0] = -(gc_env.f[5] * gc_env.f[0] - gc_env.f[3]); // fnmsub f0, f5, f0, f3']
+Translated fmul f2 f2 f0 to: ['gc_env.f[2] = gc_env.f[2] * gc_env.f[0]; // fmul f2, f2, f0']
+Translated fmul f0 f2 f2 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[2]; // fmul f0, f2, f2']
+Translated fmul f2 f4 f2 to: ['gc_env.f[2] = gc_env.f[4] * gc_env.f[2]; // fmul f2, f4, f2']
+Translated fnmsub f0 f5 f0 f3 to: ['gc_env.f[0] = -(gc_env.f[5] * gc_env.f[0] - gc_env.f[3]); // fnmsub f0, f5, f0, f3']
+Translated fmul f0 f2 f0 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[0]; // fmul f0, f2, f0']
+Translated fmul f0 f5 f0 to: ['gc_env.f[0] = gc_env.f[5] * gc_env.f[0]; // fmul f0, f5, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x10(r1) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)', 'gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);']
 Translated lfs f5 0x10(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f5, 0x10(r1)', 'gc_env.f[5] = *(float*)&temp;']
@@ -13803,7 +13803,7 @@ Processing opcode: stw, operands: ['r30', '0x30(r1)']
 Translated stw r30 0x30(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[30]);']
 Processing opcode: lbz, operands: ['r0', '0x305(r31)']
 Translated lbz r0 0x305(r31) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x305);']
-Unknown opcode: extsb r4 r0
+Translated extsb r4 r0 to: ['gc_env.r[4] = (int32_t)(int8_t)(gc_env.r[0] & 0xFF); // extsb r4, r0']
 Translated cmpwi r4 0x5 to: gc_env.cr[0] = (gc_env.r[4] == 0x5) ? 0 : (gc_env.r[4] < 0x5 ? -1 : 1); // Compare with immediate
 Translated beq .L_8002C584 to: if (gc_env.cr[0] == 0) goto L_8002C584;
 Translated addi r3 r1 0x10 to: ['gc_env.r[3] = gc_env.r[1] + 16; // addi r3, r1, 0x10']
@@ -13817,11 +13817,11 @@ Translated fmr f28 f27 to: ['gc_env.f[28] = gc_env.f[27]; // fmr f28, f27']
 Processing opcode: lwz, operands: ['r4', '0x28(r1)']
 Translated lwz r4 0x28(r1) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28);']
 Translated and r0 r6 r0 to: gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
-Unknown opcode: xor r3 r0 r8
+Translated xor r3 r0 r8 to: ['gc_env.r[3] = gc_env.r[0] ^ gc_env.r[8]; // xor r3, r0, r8']
 Translated lfs f2 0x10(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f2, 0x10(r1)', 'gc_env.f[2] = *(float*)&temp;']
 Translated fmr f29 f28 to: ['gc_env.f[29] = gc_env.f[28]; // fmr f29, f28']
 Translated and r7 r4 r8 to: gc_env.r[7] = gc_env.r[4] & gc_env.r[8];
-Unknown opcode: xor r0 r7 r8
+Translated xor r0 r7 r8 to: ['gc_env.r[0] = gc_env.r[7] ^ gc_env.r[8]; // xor r0, r7, r8']
 Translated lfs f3 0x14(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f3, 0x14(r1)', 'gc_env.f[3] = *(float*)&temp;']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated fmr f30 f29 to: ['gc_env.f[30] = gc_env.f[29]; // fmr f30, f29']
@@ -13838,8 +13838,8 @@ Translated li r4 0x1 to: ['gc_env.r[4] = 0x1;']
 Translated b .L_8002C270 to: goto L_8002C270;
 Translated li r5 0x40 to: ['gc_env.r[5] = 0x40;']
 Translated and r5 r6 r5 to: gc_env.r[5] = gc_env.r[6] & gc_env.r[5];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C270 to: if (gc_env.cr[0] == 0) goto L_8002C270;
 Translated li r4 -0x1 to: ['gc_env.r[4] = -0x1;']
@@ -13847,16 +13847,16 @@ Translated li r5 0x8 to: ['gc_env.r[5] = 0x8;']
 Translated li r8 0x0 to: ['gc_env.r[8] = 0x0;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
 Translated and r7 r0 r8 to: gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C298 to: if (gc_env.cr[0] == 0) goto L_8002C298;
 Translated lfs f29 cm_804D7E04@sda21(r0) to: ['gc_env.f[29] = cm_804D7E04; // lfs f29, cm_804D7E04@sda21(r0)']
 Translated b .L_8002C2B4 to: goto L_8002C2B4;
 Translated li r5 0x4 to: ['gc_env.r[5] = 0x4;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C2B4 to: if (gc_env.cr[0] == 0) goto L_8002C2B4;
 Translated lfs f29 cm_804D7E10@sda21(r0) to: ['gc_env.f[29] = cm_804D7E10; // lfs f29, cm_804D7E10@sda21(r0)']
@@ -13864,16 +13864,16 @@ Translated li r5 0x1 to: ['gc_env.r[5] = 0x1;']
 Translated li r8 0x0 to: ['gc_env.r[8] = 0x0;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
 Translated and r7 r0 r8 to: gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C2DC to: if (gc_env.cr[0] == 0) goto L_8002C2DC;
 Translated lfs f30 cm_804D7E10@sda21(r0) to: ['gc_env.f[30] = cm_804D7E10; // lfs f30, cm_804D7E10@sda21(r0)']
 Translated b .L_8002C2F8 to: goto L_8002C2F8;
 Translated li r5 0x2 to: ['gc_env.r[5] = 0x2;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C2F8 to: if (gc_env.cr[0] == 0) goto L_8002C2F8;
 Translated lfs f30 cm_804D7E04@sda21(r0) to: ['gc_env.f[30] = cm_804D7E04; // lfs f30, cm_804D7E04@sda21(r0)']
@@ -13881,16 +13881,16 @@ Translated li r5 0x400 to: ['gc_env.r[5] = 0x400;']
 Translated li r8 0x0 to: ['gc_env.r[8] = 0x0;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
 Translated and r7 r0 r8 to: gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C320 to: if (gc_env.cr[0] == 0) goto L_8002C320;
 Translated lfs f31 cm_804D7E04@sda21(r0) to: ['gc_env.f[31] = cm_804D7E04; // lfs f31, cm_804D7E04@sda21(r0)']
 Translated b .L_8002C33C to: goto L_8002C33C;
 Translated li r5 0x800 to: ['gc_env.r[5] = 0x800;']
 Translated and r5 r3 r5 to: gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
-Unknown opcode: xor r6 r5 r8
-Unknown opcode: xor r5 r7 r8
+Translated xor r6 r5 r8 to: ['gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8']
+Translated xor r5 r7 r8 to: ['gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8']
 Translated or. r5 r6 r5 to: ['gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5']
 Translated beq .L_8002C33C to: if (gc_env.cr[0] == 0) goto L_8002C33C;
 Translated lfs f31 cm_804D7E10@sda21(r0) to: ['gc_env.f[31] = cm_804D7E10; // lfs f31, cm_804D7E10@sda21(r0)']
@@ -13898,8 +13898,8 @@ Translated li r6 0x100 to: ['gc_env.r[6] = 0x100;']
 Translated li r5 0x0 to: ['gc_env.r[5] = 0x0;']
 Translated and r3 r3 r6 to: gc_env.r[3] = gc_env.r[3] & gc_env.r[6];
 Translated and r0 r0 r5 to: gc_env.r[0] = gc_env.r[0] & gc_env.r[5];
-Unknown opcode: xor r3 r3 r5
-Unknown opcode: xor r0 r0 r5
+Translated xor r3 r3 r5 to: ['gc_env.r[3] = gc_env.r[3] ^ gc_env.r[5]; // xor r3, r3, r5']
+Translated xor r0 r0 r5 to: ['gc_env.r[0] = gc_env.r[0] ^ gc_env.r[5]; // xor r0, r0, r5']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated beq .L_8002C3B0 to: if (gc_env.cr[0] == 0) goto L_8002C3B0;
 Translated lfs f0 cm_804D7E14@sda21(r0) to: ['gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)']
@@ -13964,9 +13964,9 @@ Translated lfs f0 0x90(r3) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_en
 Processing opcode: lbz, operands: ['r3', '0x304(r31)']
 Translated lbz r3 0x304(r31) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x304);']
 Translated fmadds f26 f2 f1 f0 to: ['gc_env.f[26] = (float)gc_env.f[2] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f26, f2, f1, f0']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stb, operands: ['r0', '0x0(r30)']
 Translated stb r0 0x0(r30) to: ['gc_mem_write8(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[0]);']
 Processing opcode: lbz, operands: ['r0', '0x0(r30)']
@@ -14184,22 +14184,22 @@ Translated fadds f1 f2 f1 to: ['gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env
 Translated fadds f4 f3 f1 to: ['gc_env.f[4] = (float)gc_env.f[3] + (float)gc_env.f[1]; // fadds f4, f3, f1']
 Translated fcmpo cr0 f4 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0']
 Translated ble .L_8002C7B8 to: ['if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C7B8; // ble .L_8002C7B8']
-Unknown opcode: frsqrte f1 f4
+Translated frsqrte f1 f4 to: ['gc_env.f[1] = 1.0 / sqrt(gc_env.f[4]); // frsqrte f1, f4']
 Translated lfd f3 cm_804D7E78@sda21(r0) to: ['gc_env.d[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)']
 Translated lfd f2 cm_804D7E80@sda21(r0) to: ['gc_env.d[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)']
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f1 f1 f0
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f1 f1 f0
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f0 f1 f0
-Unknown opcode: fmul f0 f4 f0
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f1 f1 f0 to: ['gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0']
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f1 f1 f0 to: ['gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0']
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f0 f1 f0 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[0]; // fmul f0, f1, f0']
+Translated fmul f0 f4 f0 to: ['gc_env.f[0] = gc_env.f[4] * gc_env.f[0]; // fmul f0, f4, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x10(r1) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)', 'gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);']
 Translated lfs f0 0x10(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)', 'gc_env.f[0] = *(float*)&temp;']
@@ -14211,22 +14211,22 @@ Translated fmuls f1 f1 f1 to: ['gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env
 Translated fadds f4 f2 f1 to: ['gc_env.f[4] = (float)gc_env.f[2] + (float)gc_env.f[1]; // fadds f4, f2, f1']
 Translated fcmpo cr0 f4 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0']
 Translated ble .L_8002C824 to: ['if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C824; // ble .L_8002C824']
-Unknown opcode: frsqrte f1 f4
+Translated frsqrte f1 f4 to: ['gc_env.f[1] = 1.0 / sqrt(gc_env.f[4]); // frsqrte f1, f4']
 Translated lfd f3 cm_804D7E78@sda21(r0) to: ['gc_env.d[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)']
 Translated lfd f2 cm_804D7E80@sda21(r0) to: ['gc_env.d[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)']
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f1 f1 f0
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f1 f1 f0
-Unknown opcode: fmul f0 f1 f1
-Unknown opcode: fmul f1 f3 f1
-Unknown opcode: fnmsub f0 f4 f0 f2
-Unknown opcode: fmul f0 f1 f0
-Unknown opcode: fmul f0 f4 f0
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f1 f1 f0 to: ['gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0']
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f1 f1 f0 to: ['gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0']
+Translated fmul f0 f1 f1 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1']
+Translated fmul f1 f3 f1 to: ['gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1']
+Translated fnmsub f0 f4 f0 f2 to: ['gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2']
+Translated fmul f0 f1 f0 to: ['gc_env.f[0] = gc_env.f[1] * gc_env.f[0]; // fmul f0, f1, f0']
+Translated fmul f0 f4 f0 to: ['gc_env.f[0] = gc_env.f[4] * gc_env.f[0]; // fmul f0, f4, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x18(r1) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)', 'gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);']
 Translated lfs f4 0x18(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f4, 0x18(r1)', 'gc_env.f[4] = *(float*)&temp;']
@@ -14309,15 +14309,15 @@ Translated b .L_8002C960 to: goto L_8002C960;
 Processing opcode: lbz, operands: ['r3', '0x0(r28)']
 Translated lbz r3 0x0(r28) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
 Translated li r4 0x1 to: ['gc_env.r[4] = 0x1;']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stb, operands: ['r0', '0x0(r28)']
 Translated stb r0 0x0(r28) to: ['gc_mem_write8(gc_env.ram, gc_env.r[28] + 0x0, gc_env.r[0]);']
 Processing opcode: lbz, operands: ['r3', '0x0(r28)']
 Translated lbz r3 0x0(r28) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
 Translated li r29 0x1 to: ['gc_env.r[29] = 0x1;']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
 Translated bne .L_8002C97C to: if (gc_env.cr[0] != 0) goto L_8002C97C;
 Translated li r29 0x0 to: ['gc_env.r[29] = 0x0;']
@@ -14454,7 +14454,7 @@ Translated stmw r27 0x3c(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C
 Translated addi r31 r3 cm_80452C68@l to: ['gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l']
 Processing opcode: lbz, operands: ['r0', '0x2c5(r31)']
 Translated lbz r0 0x2c5(r31) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x2c5);']
-Unknown opcode: extsb r4 r0
+Translated extsb r4 r0 to: ['gc_env.r[4] = (int32_t)(int8_t)(gc_env.r[0] & 0xFF); // extsb r4, r0']
 Translated cmpwi r4 0x5 to: gc_env.cr[0] = (gc_env.r[4] == 0x5) ? 0 : (gc_env.r[4] < 0x5 ? -1 : 1); // Compare with immediate
 Translated beq .L_8002CDBC to: if (gc_env.cr[0] == 0) goto L_8002CDBC;
 Translated addi r3 r1 0x18 to: ['gc_env.r[3] = gc_env.r[1] + 24; // addi r3, r1, 0x18']
@@ -14470,8 +14470,8 @@ Translated fmr f31 f30 to: ['gc_env.f[31] = gc_env.f[30]; // fmr f31, f30']
 Translated and r0 r6 r0 to: gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
 Translated and r4 r3 r5 to: gc_env.r[4] = gc_env.r[3] & gc_env.r[5];
 Translated lfs f2 0x18(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f2, 0x18(r1)', 'gc_env.f[2] = *(float*)&temp;']
-Unknown opcode: xor r3 r0 r5
-Unknown opcode: xor r0 r4 r5
+Translated xor r3 r0 r5 to: ['gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5']
+Translated xor r0 r4 r5 to: ['gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5']
 Translated fmr f29 f31 to: ['gc_env.f[29] = gc_env.f[31]; // fmr f29, f31']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated lfs f3 0x1c(r1) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f3, 0x1C(r1)', 'gc_env.f[3] = *(float*)&temp;']
@@ -14485,8 +14485,8 @@ Translated li r30 0x1 to: ['gc_env.r[30] = 0x1;']
 Translated b .L_8002CBB4 to: goto L_8002CBB4;
 Translated li r0 0x40 to: ['gc_env.r[0] = 0x40;']
 Translated and r0 r6 r0 to: gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
-Unknown opcode: xor r3 r0 r5
-Unknown opcode: xor r0 r4 r5
+Translated xor r3 r0 r5 to: ['gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5']
+Translated xor r0 r4 r5 to: ['gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated beq .L_8002CBB4 to: if (gc_env.cr[0] == 0) goto L_8002CBB4;
 Translated li r30 -0x1 to: ['gc_env.r[30] = -0x1;']
@@ -14494,16 +14494,16 @@ Translated li r0 0x400 to: ['gc_env.r[0] = 0x400;']
 Translated li r5 0x0 to: ['gc_env.r[5] = 0x0;']
 Translated and r0 r8 r0 to: gc_env.r[0] = gc_env.r[8] & gc_env.r[0];
 Translated and r4 r7 r5 to: gc_env.r[4] = gc_env.r[7] & gc_env.r[5];
-Unknown opcode: xor r3 r0 r5
-Unknown opcode: xor r0 r4 r5
+Translated xor r3 r0 r5 to: ['gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5']
+Translated xor r0 r4 r5 to: ['gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated beq .L_8002CBDC to: if (gc_env.cr[0] == 0) goto L_8002CBDC;
 Translated lfs f29 cm_804D7E04@sda21(r0) to: ['gc_env.f[29] = cm_804D7E04; // lfs f29, cm_804D7E04@sda21(r0)']
 Translated b .L_8002CBF8 to: goto L_8002CBF8;
 Translated li r0 0x800 to: ['gc_env.r[0] = 0x800;']
 Translated and r0 r8 r0 to: gc_env.r[0] = gc_env.r[8] & gc_env.r[0];
-Unknown opcode: xor r3 r0 r5
-Unknown opcode: xor r0 r4 r5
+Translated xor r3 r0 r5 to: ['gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5']
+Translated xor r0 r4 r5 to: ['gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5']
 Translated or. r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Translated beq .L_8002CBF8 to: if (gc_env.cr[0] == 0) goto L_8002CBF8;
 Translated lfs f29 cm_804D7E10@sda21(r0) to: ['gc_env.f[29] = cm_804D7E10; // lfs f29, cm_804D7E10@sda21(r0)']
@@ -14533,9 +14533,9 @@ Translated addi r28 r31 0x2c4 to: ['gc_env.r[28] = gc_env.r[31] + 708; // addi r
 Processing opcode: lbz, operands: ['r3', '0x2c4(r31)']
 Translated lbz r3 0x2c4(r31) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x2c4);']
 Translated addi r4 r30 0x0 to: ['gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stb, operands: ['r0', '0x0(r28)']
 Translated stb r0 0x0(r28) to: ['gc_mem_write8(gc_env.ram, gc_env.r[28] + 0x0, gc_env.r[0]);']
 Translated addi r27 r31 0x308 to: ['gc_env.r[27] = gc_env.r[31] + 776; // addi r27, r31, 0x308']
@@ -14543,14 +14543,14 @@ Translated b .L_8002CC8C to: goto L_8002CC8C;
 Processing opcode: lbz, operands: ['r3', '0x0(r28)']
 Translated lbz r3 0x0(r28) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
 Translated addi r4 r30 0x0 to: ['gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stb, operands: ['r0', '0x0(r28)']
 Translated stb r0 0x0(r28) to: ['gc_mem_write8(gc_env.ram, gc_env.r[28] + 0x0, gc_env.r[0]);']
 Processing opcode: lbz, operands: ['r0', '0x0(r28)']
 Translated lbz r0 0x0(r28) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
-Unknown opcode: extsb r3 r0
+Translated extsb r3 r0 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[0] & 0xFF); // extsb r3, r0']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002CC74 to: if (gc_env.cr[0] == 0) goto L_8002CC74;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -14587,7 +14587,7 @@ Translated cmpwi r29 0x0 to: gc_env.cr[0] = (gc_env.r[29] == 0x0) ? 0 : (gc_env.
 Translated beq .L_8002CC74 to: if (gc_env.cr[0] == 0) goto L_8002CC74;
 Processing opcode: lbz, operands: ['r3', '0x0(r28)']
 Translated lbz r3 0x0(r28) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002CC74 to: if (gc_env.cr[0] == 0) goto L_8002CC74;
@@ -14596,7 +14596,7 @@ Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[
 Translated bne .L_8002CC74 to: if (gc_env.cr[0] != 0) goto L_8002CC74;
 Processing opcode: lbz, operands: ['r29', '0x0(r28)']
 Translated lbz r29 0x0(r28) to: ['gc_env.r[29] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0);']
-Unknown opcode: extsb r29 r29
+Translated extsb r29 r29 to: ['gc_env.r[29] = (int32_t)(int8_t)(gc_env.r[29] & 0xFF); // extsb r29, r29']
 Translated bl Stage_GetPauseCamZPosInit to: Stage_GetPauseCamZPosInit();
 Translated lfs f2 cm_804D7E14@sda21(r0) to: ['gc_env.f[2] = cm_804D7E14; // lfs f2, cm_804D7E14@sda21(r0)']
 Translated cmpwi r29 0xa to: gc_env.cr[0] = (gc_env.r[29] == 0xa) ? 0 : (gc_env.r[29] < 0xa ? -1 : 1); // Compare with immediate
@@ -14667,14 +14667,14 @@ Translated b .L_8002CE40 to: goto L_8002CE40;
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
 Translated li r4 0x1 to: ['gc_env.r[4] = 0x1;']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stb, operands: ['r0', '0x0(r29)']
 Translated stb r0 0x0(r29) to: ['gc_mem_write8(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[0]);']
 Processing opcode: lbz, operands: ['r0', '0x0(r29)']
 Translated lbz r0 0x0(r29) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r0
+Translated extsb r3 r0 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[0] & 0xFF); // extsb r3, r0']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002CE28 to: if (gc_env.cr[0] == 0) goto L_8002CE28;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -14711,7 +14711,7 @@ Translated cmpwi r28 0x0 to: gc_env.cr[0] = (gc_env.r[28] == 0x0) ? 0 : (gc_env.
 Translated beq .L_8002CE28 to: if (gc_env.cr[0] == 0) goto L_8002CE28;
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002CE28 to: if (gc_env.cr[0] == 0) goto L_8002CE28;
@@ -14722,7 +14722,7 @@ Translated addi r3 r1 0x78 to: ['gc_env.r[3] = gc_env.r[1] + 120; // addi r3, r1
 Translated bl Camera_8002CB0C to: Camera_8002CB0C();
 Processing opcode: lbz, operands: ['r0', '0x0(r29)']
 Translated lbz r0 0x0(r29) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r0
+Translated extsb r3 r0 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[0] & 0xFF); // extsb r3, r0']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002D078 to: if (gc_env.cr[0] == 0) goto L_8002D078;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -15022,7 +15022,7 @@ Translated addi r31 r3 cm_80452C68@l to: ['gc_env.r[31] = gc_env.r[3] + ((uint32
 Translated addi r29 r31 0x2c4 to: ['gc_env.r[29] = gc_env.r[31] + 708; // addi r29, r31, 0x2c4']
 Processing opcode: lbz, operands: ['r3', '0x2c4(r31)']
 Translated lbz r3 0x2c4(r31) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x2c4);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated mr. r26 r3 to: gc_env.r[26] = gc_env.r[3]; // Move register
 Translated beq .L_8002D5B4 to: if (gc_env.cr[0] == 0) goto L_8002D5B4;
@@ -15054,7 +15054,7 @@ Translated bge .L_8002D5B4 to: if (gc_env.cr[0] >= 0) goto L_8002D5B4;
 Translated bl Camera_80030DF8 to: Camera_80030DF8();
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002D474 to: if (gc_env.cr[0] == 0) goto L_8002D474;
@@ -15113,7 +15113,7 @@ Translated fmadds f0 f1 f0 f2 to: ['gc_env.f[0] = (float)gc_env.f[1] * (float)gc
 Translated stfs f0 0x44(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)', 'gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);']
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002D504 to: if (gc_env.cr[0] == 0) goto L_8002D504;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -15369,7 +15369,7 @@ Translated addi r31 r3 cm_80452C68@l to: ['gc_env.r[31] = gc_env.r[3] + ((uint32
 Translated addi r29 r31 0x2c4 to: ['gc_env.r[29] = gc_env.r[31] + 708; // addi r29, r31, 0x2c4']
 Processing opcode: lbz, operands: ['r3', '0x2c4(r31)']
 Translated lbz r3 0x2c4(r31) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x2c4);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002DB1C to: if (gc_env.cr[0] == 0) goto L_8002DB1C;
@@ -15392,7 +15392,7 @@ Translated bge .L_8002DB1C to: if (gc_env.cr[0] >= 0) goto L_8002DB1C;
 Translated bl Camera_80030DF8 to: Camera_80030DF8();
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002D964 to: if (gc_env.cr[0] == 0) goto L_8002D964;
@@ -15439,7 +15439,7 @@ Translated fmadds f0 f1 f0 f2 to: ['gc_env.f[0] = (float)gc_env.f[1] * (float)gc
 Translated stfs f0 0x44(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)', 'gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);']
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002D9F4 to: if (gc_env.cr[0] == 0) goto L_8002D9F4;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -15911,7 +15911,7 @@ Translated b .L_8002E0B8 to: goto L_8002E0B8;
 Translated lfs f1 0x378(r6) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x378); // lfs f1, 0x378(r6)', 'gc_env.f[1] = *(float*)&temp;']
 Translated lfs f0 cm_804D7E04@sda21(r0) to: ['gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)']
 Translated fcmpo cr0 f1 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0']
-Unknown opcode: cror eq gt eq
+Translated cror eq gt eq to: ['gc_env.cr[0] = (gc_env.cr[0] & ~(1 << 2)) | ((((gc_env.cr[0] >> 1) & 1) | ((gc_env.cr[0] >> 2) & 1)) << 2); // cror eq, gt, eq']
 Translated bne .L_8002E0B4 to: if (gc_env.cr[0] != 0) goto L_8002E0B4;
 Translated li r31 0x1 to: ['gc_env.r[31] = 0x1;']
 Translated b .L_8002E0B8 to: goto L_8002E0B8;
@@ -16020,7 +16020,7 @@ Translated b .L_8002E20C to: goto L_8002E20C;
 Translated lfs f3 0x378(r4) to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x378); // lfs f3, 0x378(r4)', 'gc_env.f[3] = *(float*)&temp;']
 Translated lfs f0 cm_804D7E04@sda21(r0) to: ['gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)']
 Translated fcmpo cr0 f3 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0']
-Unknown opcode: cror eq gt eq
+Translated cror eq gt eq to: ['gc_env.cr[0] = (gc_env.cr[0] & ~(1 << 2)) | ((((gc_env.cr[0] >> 1) & 1) | ((gc_env.cr[0] >> 2) & 1)) << 2); // cror eq, gt, eq']
 Translated bne .L_8002E208 to: if (gc_env.cr[0] != 0) goto L_8002E208;
 Translated li r6 0x1 to: ['gc_env.r[6] = 0x1;']
 Translated b .L_8002E20C to: goto L_8002E20C;
@@ -17071,7 +17071,7 @@ Translated lbz r0 0x35c(r31) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env
 Translated rlwimi r0 r3 5 26 26 to: ['uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 26, 26', 'gc_env.r[0] = (gc_env.r[0] & ~0x20) | (rotated & 0x20);']
 Processing opcode: stb, operands: ['r0', '0x35c(r31)']
 Translated stb r0 0x35c(r31) to: ['gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x35c, gc_env.r[0]);']
-Unknown opcode: fctiwz f0 f31
+Translated fctiwz f0 f31 to: ['gc_env.f[0] = (double)(int32_t)gc_env.f[31]; // fctiwz f0, f31']
 Translated addi r5 r31 0x35c to: ['gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c']
 Translated li r3 0x1 to: ['gc_env.r[3] = 0x1;']
 Translated stfd f0 0x18(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[0], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x18, temp); // stfd f0, 0x18(r1)']
@@ -17426,7 +17426,7 @@ Translated fmuls f2 f2 f2 to: ['gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env
 Translated fadds f0 f1 f0 to: ['gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0']
 Translated fadds f1 f2 f0 to: ['gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0']
 Translated bl sqrtf__Ff to: sqrtf__Ff();
-Unknown opcode: fctiwz f0 f1
+Translated fctiwz f0 f1 to: ['gc_env.f[0] = (double)(int32_t)gc_env.f[1]; // fctiwz f0, f1']
 Translated stfd f0 0x20(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[0], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x20, temp); // stfd f0, 0x20(r1)']
 Processing opcode: lwz, operands: ['r0', '0x24(r1)']
 Translated lwz r0 0x24(r1) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24);']
@@ -17680,7 +17680,7 @@ Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
 Translated lis r6 cm_80452C68@ha to: ['gc_env.r[6] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r6, cm_80452C68@ha']
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
-Unknown opcode: extsb. r0 r3
+Translated extsb. r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Processing opcode: stwu, operands: ['r1', '-0x50(r1)']
 Translated stwu r1 -0x50(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x50, gc_env.r[1]);', 'gc_env.r[1] = gc_env.r[1] + -0x50;']
 Translated stfd f31 0x48(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[31], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x48, temp); // stfd f31, 0x48(r1)']
@@ -17688,7 +17688,7 @@ Translated stmw r27 0x34(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34
 Translated addi r27 r5 0x0 to: ['gc_env.r[27] = gc_env.r[5] + 0; // addi r27, r5, 0x0']
 Translated addi r31 r6 cm_80452C68@l to: ['gc_env.r[31] = gc_env.r[6] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r6, cm_80452C68@l']
 Translated blt .L_8002F508 to: ['if (gc_env.cr[0] & 0x8) goto L_8002F508; // blt .L_8002F508']
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Translated cmpwi r0 0x6 to: gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
 Translated blt .L_8002F51C to: ['if (gc_env.cr[0] & 0x8) goto L_8002F51C; // blt .L_8002F51C']
 Translated subi r0 r3 0xa to: ['gc_env.r[0] = gc_env.r[3] - 10;']
@@ -17696,9 +17696,9 @@ Translated clrlwi r0 r0 24 to: ['gc_env.r[0] = gc_env.r[0] & 0xFF; // clrlwi r0,
 Translated cmplwi r0 0x1 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
 Translated ble .L_8002F51C to: ['if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002F51C; // ble .L_8002F51C']
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
-Unknown opcode: extsb. r0 r4
+Translated extsb. r0 r4 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[4] & 0xFF); // extsb r0, r4']
 Translated blt .L_8002F530 to: ['if (gc_env.cr[0] & 0x8) goto L_8002F530; // blt .L_8002F530']
-Unknown opcode: extsb r0 r4
+Translated extsb r0 r4 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[4] & 0xFF); // extsb r0, r4']
 Translated cmpwi r0 0x4 to: gc_env.cr[0] = (gc_env.r[0] == 0x4) ? 0 : (gc_env.r[0] < 0x4 ? -1 : 1); // Compare with immediate
 Translated blt .L_8002F544 to: ['if (gc_env.cr[0] & 0x8) goto L_8002F544; // blt .L_8002F544']
 Translated subi r0 r4 0x4 to: ['gc_env.r[0] = gc_env.r[4] - 4;']
@@ -17761,7 +17761,7 @@ Translated li r5 cm_804D3938@sda21 to: ['gc_env.r[5] = cm_804D3938@sda21;']
 Translated bl __assert to: __assert();
 Processing opcode: lbz, operands: ['r3', '0x0(r29)']
 Translated lbz r3 0x0(r29) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated cmpwi r3 0xa to: gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
 Translated beq .L_8002F658 to: if (gc_env.cr[0] == 0) goto L_8002F658;
 Translated cmpwi r3 0xb to: gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
@@ -17905,7 +17905,7 @@ Processing opcode: stb, operands: ['r3', '0x2c4(r31)']
 Translated stb r3 0x2c4(r31) to: ['gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x2c4, gc_env.r[3]);']
 Processing opcode: lbz, operands: ['r3', '0x2c4(r31)']
 Translated lbz r3 0x2c4(r31) to: ['gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x2c4);']
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Translated bl Player_GetEntity to: Player_GetEntity();
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_8002F8AC to: if (gc_env.cr[0] == 0) goto L_8002F8AC;
@@ -17954,20 +17954,20 @@ Translated stfs f0 0x2cc(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0,
 Translated bl HSD_Randf to: HSD_Randf();
 Translated lfd f2 cm_804D7EC8@sda21(r0) to: ['gc_env.d[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)']
 Translated lfd f0 cm_804D7ED0@sda21(r0) to: ['gc_env.d[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)']
-Unknown opcode: fmsub f0 f2 f1 f0
+Translated fmsub f0 f2 f1 f0 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x2c8(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x2C8(r31)', 'gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C8, *(uint32_t*)&temp);']
 Translated b .L_8002F8DC to: goto L_8002F8DC;
 Translated bl HSD_Randf to: HSD_Randf();
 Translated lfd f2 cm_804D7EC8@sda21(r0) to: ['gc_env.d[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)']
 Translated lfd f0 cm_804D7ED0@sda21(r0) to: ['gc_env.d[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)']
-Unknown opcode: fmsub f0 f2 f1 f0
+Translated fmsub f0 f2 f1 f0 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x2c8(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x2C8(r31)', 'gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C8, *(uint32_t*)&temp);']
 Translated bl HSD_Randf to: HSD_Randf();
 Translated lfd f2 cm_804D7ED8@sda21(r0) to: ['gc_env.d[2] = cm_804D7ED8; // lfd f2, cm_804D7ED8@sda21(r0)']
 Translated lfd f0 cm_804D7EE0@sda21(r0) to: ['gc_env.d[0] = cm_804D7EE0; // lfd f0, cm_804D7EE0@sda21(r0)']
-Unknown opcode: fmsub f0 f2 f1 f0
+Translated fmsub f0 f2 f1 f0 to: ['gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0']
 Translated frsp f0 f0 to: ['gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0']
 Translated stfs f0 0x2cc(r31) to: ['float temp = (float)gc_env.f[0]; // stfs f0, 0x2CC(r31)', 'gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2CC, *(uint32_t*)&temp);']
 Processing opcode: lwz, operands: ['r0', '0x24(r1)']
@@ -18047,7 +18047,7 @@ Translated addi r1 r1 0x28 to: ['gc_env.r[1] += 40; // addi r1, r1, 0x28']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
 Translated lis r5 cm_80452C68@ha to: ['gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha']
@@ -18062,7 +18062,7 @@ Translated li r4 0x1 to: ['gc_env.r[4] = 0x1;']
 Processing opcode: stw, operands: ['r0', '0x4(r30)']
 Translated stw r0 0x4(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]);']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Translated addi r28 r30 0x304 to: ['gc_env.r[28] = gc_env.r[30] + 772; // addi r28, r30, 0x304']
 Processing opcode: stb, operands: ['r0', '0x304(r30)']
 Translated stb r0 0x304(r30) to: ['gc_mem_write8(gc_env.ram, gc_env.r[30] + 0x304, gc_env.r[0]);']
@@ -18240,7 +18240,7 @@ Translated addi r1 r1 0x28 to: ['gc_env.r[1] += 40; // addi r1, r1, 0x28']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
-Unknown opcode: extsb r3 r3
+Translated extsb r3 r3 to: ['gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3']
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
 Translated lis r5 cm_80452C68@ha to: ['gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha']
@@ -18255,7 +18255,7 @@ Translated li r4 0x1 to: ['gc_env.r[4] = 0x1;']
 Processing opcode: stw, operands: ['r0', '0x4(r30)']
 Translated stw r0 0x4(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]);']
 Translated bl Camera_8002BA00 to: Camera_8002BA00();
-Unknown opcode: extsb r0 r3
+Translated extsb r0 r3 to: ['gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3']
 Translated addi r28 r30 0x304 to: ['gc_env.r[28] = gc_env.r[30] + 772; // addi r28, r30, 0x304']
 Processing opcode: stb, operands: ['r0', '0x304(r30)']
 Translated stb r0 0x304(r30) to: ['gc_mem_write8(gc_env.ram, gc_env.r[30] + 0x304, gc_env.r[0]);']
@@ -19188,7 +19188,7 @@ Translated addi r4 r1 0x30 to: ['gc_env.r[4] = gc_env.r[1] + 48; // addi r4, r1,
 Translated fmuls f1 f2 f1 to: ['gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1']
 Translated li r30 0x1 to: ['gc_env.r[30] = 0x1;']
 Translated fmuls f1 f1 f30 to: ['gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[30]; // fmuls f1, f1, f30']
-Unknown opcode: fmul f31 f0 f1
+Translated fmul f31 f0 f1 to: ['gc_env.f[31] = gc_env.f[0] * gc_env.f[1]; // fmul f31, f0, f1']
 Translated frsp f31 f31 to: ['gc_env.f[31] = (float)gc_env.f[31]; // frsp f31, f31']
 Translated bl HSD_CObjGetEyePosition to: HSD_CObjGetEyePosition();
 Translated addi r3 r31 0x0 to: ['gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0']
@@ -19351,7 +19351,7 @@ Translated rlwimi r0 r3 3 28 28 to: ['uint32_t rotated = gc_env.r[3] << 3; // rl
 Processing opcode: stb, operands: ['r0', '0x399(r4)']
 Translated stb r0 0x399(r4) to: ['gc_mem_write8(gc_env.ram, gc_env.r[4] + 0x399, gc_env.r[0]);']
 Translated blr  to: return;
-Unknown opcode: cntlzw r0 r3
+Translated cntlzw r0 r3 to: ['uint32_t val = gc_env.r[3]; int count = 0; while (val && !(val & 0x80000000)) { val <<= 1; count++; } gc_env.r[0] = count; // cntlzw r0, r3']
 Translated lis r3 cm_80452C68@ha to: ['gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha']
 Translated addi r3 r3 cm_80452C68@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l']
 Translated extrwi r4 r0 8 19 to: ['gc_env.r[4] = (gc_env.r[0] >> 5) & 0xFF; // extrwi r4, r0, 8, 19']
@@ -19366,7 +19366,7 @@ Translated addi r3 r3 cm_80452C68@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t
 Processing opcode: lbz, operands: ['r0', '0x399(r3)']
 Translated lbz r0 0x399(r3) to: ['gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[3] + 0x399);']
 Translated extrwi r0 r0 1 29 to: ['gc_env.r[0] = (gc_env.r[0] >> 2) & 0x1; // extrwi r0, r0, 1, 29']
-Unknown opcode: cntlzw r0 r0
+Translated cntlzw r0 r0 to: ['uint32_t val = gc_env.r[0]; int count = 0; while (val && !(val & 0x80000000)) { val <<= 1; count++; } gc_env.r[0] = count; // cntlzw r0, r0']
 Translated srwi r3 r0 5 to: ['gc_env.r[3] = gc_env.r[0] >> 5; // srwi r3, r0, 5']
 Translated blr  to: return;
 Translated lis r4 cm_80452C68@ha to: ['gc_env.r[4] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r4, cm_80452C68@ha']
@@ -19482,9 +19482,9 @@ Translated fcmpo cr0 f3 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_e
 Translated bge .L_80030C48 to: if (gc_env.cr[0] >= 0) goto L_80030C48;
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
 Translated b .L_80030CB8 to: goto L_80030CB8;
-Unknown opcode: fctiwz f1 f2
+Translated fctiwz f1 f2 to: ['gc_env.f[1] = (double)(int32_t)gc_env.f[2]; // fctiwz f1, f2']
 Translated cmplwi r28 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[28] == 0x0) ? 0 : ((uint32_t)gc_env.r[28] < 0x0 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: fctiwz f0 f3
+Translated fctiwz f0 f3 to: ['gc_env.f[0] = (double)(int32_t)gc_env.f[3]; // fctiwz f0, f3']
 Translated stfd f1 0x40(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[1], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x40, temp); // stfd f1, 0x40(r1)']
 Translated stfd f0 0x38(r1) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[0], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x38, temp); // stfd f0, 0x38(r1)']
 Processing opcode: lwz, operands: ['r30', '0x44(r1)']
@@ -19919,7 +19919,7 @@ Translated addi r1 r1 0x8 to: ['gc_env.r[1] += 8; // addi r1, r1, 0x8']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
-Unknown opcode: fctiwz f0 f1
+Translated fctiwz f0 f1 to: ['gc_env.f[0] = (double)(int32_t)gc_env.f[1]; // fctiwz f0, f1']
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
 Processing opcode: stwu, operands: ['r1', '-0x18(r1)']
