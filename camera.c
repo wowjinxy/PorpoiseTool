@@ -479,7 +479,7 @@ void Camera_80029124(void) {
     Ground_801C4368();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f1, 0x14(r1)
     gc_env.f[1] = *(float*)&temp;
-    gc_env.d[0] = cm_804D7E18; // lfd f0, cm_804D7E18@sda21(r0)
+    gc_env.f[0] = cm_804D7E18; // lfd f0, cm_804D7E18@sda21(r0)
     gc_env.f[0] = gc_env.f[1] + gc_env.f[0]; // fadd f0, f1, f0
     gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
@@ -501,14 +501,14 @@ void Camera_80029124(void) {
     gc_env.f[1] = gc_env.f[0]; // fmr f1, f0
     L_800291A8:
     gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f3, 0x0(r29)
     gc_env.f[3] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
     gc_env.f[0] = (float)gc_env.f[29] - (float)gc_env.f[0]; // fsubs f0, f29, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
@@ -516,12 +516,12 @@ void Camera_80029124(void) {
     gc_env.r[31] |= 4; // ori r31, r31, 0x4
     L_800291D8:
     gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
     gc_env.f[0] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f0, f30, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
@@ -529,14 +529,14 @@ void Camera_80029124(void) {
     gc_env.r[31] |= 8; // ori r31, r31, 0x8
     L_80029204:
     gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lfs f3, 0x4(r29)
     gc_env.f[3] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
     gc_env.f[0] = (float)gc_env.f[31] + (float)gc_env.f[0]; // fadds f0, f31, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
@@ -544,12 +544,12 @@ void Camera_80029124(void) {
     gc_env.r[31] |= 1; // ori r31, r31, 0x1
     L_80029234:
     gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
     gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
@@ -559,11 +559,11 @@ void Camera_80029124(void) {
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r0, 0x54(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f31, 0x48(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f30, 0x40(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f29, 0x38(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r29, 0x2C(r1)
@@ -675,11 +675,11 @@ void Camera_8002928C(void) {
     L_800293C0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f31, 0x28(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f30, 0x20(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f29, 0x18(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -838,11 +838,11 @@ void Camera_800293E0(void) {
     if (gc_env.cr[0] != 0) goto L_80029410;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f29, 0x10(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r31, 0xC(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -916,7 +916,7 @@ void Camera_8002958C(void) {
     gc_env.f[31] = gc_env.f[30]; // fmr f31, f30
     gc_env.f[29] = gc_env.f[28]; // fmr f29, f28
     gc_env.r[31] = cm_804D6468; // lwz r31, cm_804D6468@sda21(r0)
-    gc_env.d[26] = cm_804D7E18; // lfd f26, cm_804D7E18@sda21(r0)
+    gc_env.f[26] = cm_804D7E18; // lfd f26, cm_804D7E18@sda21(r0)
     goto L_800299DC;
     L_8002963C:
     gc_env.r[3] = gc_env.r[31]; // Move register
@@ -1313,17 +1313,17 @@ void Camera_8002958C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x14, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x98); // lfd f29, 0x98(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x90); // lfd f28, 0x90(r1)
-    gc_env.d[28] = *(double*)&temp;
+    gc_env.f[28] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x88); // lfd f27, 0x88(r1)
-    gc_env.d[27] = *(double*)&temp;
+    gc_env.f[27] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f26, 0x80(r1)
-    gc_env.d[26] = *(double*)&temp;
+    gc_env.f[26] = *(double*)&temp;
     gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lmw r27, 0x6C(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x70); // lmw r27, 0x6C(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lmw r27, 0x6C(r1)
@@ -1497,7 +1497,7 @@ void Camera_80029BC4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x14, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f31, 0x18(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r30, 0x10(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
@@ -1856,17 +1856,17 @@ void Camera_80029CF8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2C, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x84); // lwz r0, 0x84(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x78); // lfd f31, 0x78(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x70); // lfd f30, 0x70(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x68); // lfd f29, 0x68(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f28, 0x60(r1)
-    gc_env.d[28] = *(double*)&temp;
+    gc_env.f[28] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f27, 0x58(r1)
-    gc_env.d[27] = *(double*)&temp;
+    gc_env.f[27] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f26, 0x50(r1)
-    gc_env.d[26] = *(double*)&temp;
+    gc_env.f[26] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r31, 0x4C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lwz r30, 0x48(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r29, 0x44(r1)
@@ -1954,17 +1954,17 @@ void Camera_8002A0C0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[5]); // stw r5, 0x1C(r1)
     gc_env.f[5] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f5, f0, f1
     gc_env.r[0] = gc_env.r[0] - gc_env.r[3]; // subf r0, r3, r0
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]); // stw r4, 0x18(r1)
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[0]); // stw r0, 0x14(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f0, 0x18(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[4]); // stw r4, 0x10(r1)
     gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f1, f0, f2
     gc_env.f[3] = cm_804D7E30; // lfs f3, cm_804D7E30@sda21(r0)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f0, 0x10(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x80); // lfs f4, 0x80(r28)
     gc_env.f[4] = *(float*)&temp;
     gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f1, f3, f1
@@ -2015,15 +2015,15 @@ void Camera_8002A0C0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lwz r0, 0x64(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f31, 0x58(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f30, 0x50(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f29, 0x48(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f28, 0x40(r1)
-    gc_env.d[28] = *(double*)&temp;
+    gc_env.f[28] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f27, 0x38(r1)
-    gc_env.d[27] = *(double*)&temp;
+    gc_env.f[27] = *(double*)&temp;
     gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lmw r26, 0x20(r1)
     gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lmw r26, 0x20(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lmw r26, 0x20(r1)
@@ -3071,13 +3071,13 @@ void Camera_8002A768(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x7C); // lmw r27, 0x6C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xA4); // lwz r0, 0xA4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x98); // lfd f31, 0x98(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x90); // lfd f30, 0x90(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x88); // lfd f29, 0x88(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f28, 0x80(r1)
-    gc_env.d[28] = *(double*)&temp;
+    gc_env.f[28] = *(double*)&temp;
     gc_env.r[1] += 160; // addi r1, r1, 0xa0
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -3438,7 +3438,7 @@ void Camera_8002B1F8(void) {
     L_8002B3B0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f31, 0x28(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r31, 0x24(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r30, 0x20(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r29, 0x1C(r1)
@@ -3654,14 +3654,14 @@ void Camera_8002B3D4(void) {
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[3]); // sth r3, 0x0(r27)
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
-    gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
+    gc_env.f[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x64, gc_env.r[3]); // stw r3, 0x64(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x60, gc_env.r[0]); // stw r0, 0x60(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f0, 0x60(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
@@ -3673,7 +3673,7 @@ void Camera_8002B3D4(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x7C); // lmw r27, 0x6C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8C); // lwz r0, 0x8C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f31, 0x80(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[1] += 136; // addi r1, r1, 0x88
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -4062,8 +4062,8 @@ void Camera_8002BAA8(void) {
     gc_env.cr[0] = isnan(gc_env.f[5]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[5] < gc_env.f[0] ? 0x8 : (gc_env.f[5] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f5, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002BB80; // ble .L_8002BB80
     gc_env.f[2] = 1.0 / sqrt(gc_env.f[5]); // frsqrte f2, f5
-    gc_env.d[4] = cm_804D7E78; // lfd f4, cm_804D7E78@sda21(r0)
-    gc_env.d[3] = cm_804D7E80; // lfd f3, cm_804D7E80@sda21(r0)
+    gc_env.f[4] = cm_804D7E78; // lfd f4, cm_804D7E78@sda21(r0)
+    gc_env.f[3] = cm_804D7E80; // lfd f3, cm_804D7E80@sda21(r0)
     gc_env.f[0] = gc_env.f[2] * gc_env.f[2]; // fmul f0, f2, f2
     gc_env.f[2] = gc_env.f[4] * gc_env.f[2]; // fmul f2, f4, f2
     gc_env.f[0] = -(gc_env.f[5] * gc_env.f[0] - gc_env.f[3]); // fnmsub f0, f5, f0, f3
@@ -4170,7 +4170,7 @@ void Camera_8002BAA8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x8, gc_env.r[0]); // stw r0, 0x8(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x30); // lfd f31, 0x30(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[1] += 56; // addi r1, r1, 0x38
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -4463,11 +4463,11 @@ void Camera_8002BD88(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x8, gc_env.r[0]); // stw r0, 0x8(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lwz r0, 0x64(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f31, 0x58(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f30, 0x50(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f29, 0x48(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r31, 0x44(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x40); // lwz r30, 0x40(r1)
     gc_env.r[1] += 96; // addi r1, r1, 0x60
@@ -4609,11 +4609,11 @@ void Camera_8002C010(void) {
     L_8002C188:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lwz r0, 0x5C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f31, 0x50(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f30, 0x48(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f29, 0x40(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[1] += 88; // addi r1, r1, 0x58
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -4764,7 +4764,7 @@ void Camera_8002C1A8(void) {
     L_8002C370:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
     L_8002C374:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C384; // ble .L_8002C384
     gc_env.f[30] = gc_env.f[2]; // fmr f30, f2
@@ -4777,7 +4777,7 @@ void Camera_8002C1A8(void) {
     L_8002C398:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
     L_8002C39C:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C3AC; // ble .L_8002C3AC
     gc_env.f[29] = gc_env.f[3]; // fmr f29, f3
@@ -4792,7 +4792,7 @@ void Camera_8002C1A8(void) {
     L_8002C3C4:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
     L_8002C3C8:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C3D8; // ble .L_8002C3D8
     gc_env.f[31] = -gc_env.f[3]; // fneg f31, f3
@@ -4805,7 +4805,7 @@ void Camera_8002C1A8(void) {
     L_8002C3EC:
     gc_env.f[1] = gc_env.f[4]; // fmr f1, f4
     L_8002C3F0:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C400; // ble .L_8002C400
     gc_env.f[28] = gc_env.f[4]; // fmr f28, f4
@@ -4818,7 +4818,7 @@ void Camera_8002C1A8(void) {
     L_8002C414:
     gc_env.f[1] = gc_env.f[5]; // fmr f1, f5
     L_8002C418:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C428; // ble .L_8002C428
     gc_env.f[27] = gc_env.f[5]; // fmr f27, f5
@@ -4945,17 +4945,17 @@ void Camera_8002C1A8(void) {
     L_8002C584:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f30, 0x58(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f29, 0x50(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f28, 0x48(r1)
-    gc_env.d[28] = *(double*)&temp;
+    gc_env.f[28] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f27, 0x40(r1)
-    gc_env.d[27] = *(double*)&temp;
+    gc_env.f[27] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f26, 0x38(r1)
-    gc_env.d[26] = *(double*)&temp;
+    gc_env.f[26] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
     gc_env.r[1] += 104; // addi r1, r1, 0x68
@@ -5130,8 +5130,8 @@ void Camera_8002C5B4(void) {
     gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C7B8; // ble .L_8002C7B8
     gc_env.f[1] = 1.0 / sqrt(gc_env.f[4]); // frsqrte f1, f4
-    gc_env.d[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)
-    gc_env.d[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)
+    gc_env.f[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)
+    gc_env.f[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)
     gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1
     gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1
     gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2
@@ -5162,8 +5162,8 @@ void Camera_8002C5B4(void) {
     gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C824; // ble .L_8002C824
     gc_env.f[1] = 1.0 / sqrt(gc_env.f[4]); // frsqrte f1, f4
-    gc_env.d[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)
-    gc_env.d[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)
+    gc_env.f[3] = cm_804D7E78; // lfd f3, cm_804D7E78@sda21(r0)
+    gc_env.f[2] = cm_804D7E80; // lfd f2, cm_804D7E80@sda21(r0)
     gc_env.f[0] = gc_env.f[1] * gc_env.f[1]; // fmul f0, f1, f1
     gc_env.f[1] = gc_env.f[3] * gc_env.f[1]; // fmul f1, f3, f1
     gc_env.f[0] = -(gc_env.f[4] * gc_env.f[0] - gc_env.f[2]); // fnmsub f0, f4, f0, f2
@@ -5253,7 +5253,7 @@ void Camera_8002C5B4(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lmw r26, 0x48(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[1] += 104; // addi r1, r1, 0x68
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -5515,7 +5515,7 @@ void Camera_8002CB0C(void) {
     L_8002CC0C:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
     L_8002CC10:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002CC20; // ble .L_8002CC20
     gc_env.f[31] = gc_env.f[2]; // fmr f31, f2
@@ -5528,7 +5528,7 @@ void Camera_8002CB0C(void) {
     L_8002CC34:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
     L_8002CC38:
-    gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
+    gc_env.f[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002CC48; // ble .L_8002CC48
     gc_env.f[30] = gc_env.f[3]; // fmr f30, f3
@@ -5656,11 +5656,11 @@ void Camera_8002CB0C(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lmw r27, 0x3C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f30, 0x58(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f29, 0x50(r1)
-    gc_env.d[29] = *(double*)&temp;
+    gc_env.f[29] = *(double*)&temp;
     gc_env.r[1] += 104; // addi r1, r1, 0x68
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -6062,14 +6062,14 @@ void Camera_8002CDDC(void) {
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[3]); // sth r3, 0x0(r26)
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
-    gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
+    gc_env.f[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x94, gc_env.r[3]); // stw r3, 0x94(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x90, gc_env.r[0]); // stw r0, 0x90(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x90); // lfd f0, 0x90(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
@@ -6083,7 +6083,7 @@ void Camera_8002CDDC(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xAC); // lmw r26, 0x98(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xBC); // lwz r0, 0xBC(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xB0); // lfd f31, 0xB0(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[1] += 184; // addi r1, r1, 0xb8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -6515,14 +6515,14 @@ void Camera_8002D318(void) {
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[3]); // sth r3, 0x0(r26)
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
-    gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
+    gc_env.f[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x84, gc_env.r[3]); // stw r3, 0x84(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x80, gc_env.r[0]); // stw r0, 0x80(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f0, 0x80(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
@@ -6536,9 +6536,9 @@ void Camera_8002D318(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x9C); // lmw r26, 0x88(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[1] += 176; // addi r1, r1, 0xb0
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -6987,14 +6987,14 @@ void Camera_8002D85C(void) {
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[3]); // sth r3, 0x0(r27)
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
-    gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
+    gc_env.f[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x84, gc_env.r[3]); // stw r3, 0x84(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x80, gc_env.r[0]); // stw r0, 0x80(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f0, 0x80(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
@@ -7007,9 +7007,9 @@ void Camera_8002D85C(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x9C); // lmw r27, 0x8C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[1] += 176; // addi r1, r1, 0xb0
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -7271,7 +7271,7 @@ void Camera_8002DFE4(void) {
     goto L_8002E0B8;
     L_8002E060:
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[3]); // stw r3, 0x2C(r1)
     gc_env.r[3] = 17200 << 16; // lis r3, 0x4330
@@ -7279,9 +7279,9 @@ void Camera_8002DFE4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[3]); // stw r3, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[3]); // stw r3, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f1, 0x28(r1)
-    gc_env.d[1] = *(double*)&temp;
+    gc_env.f[1] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
     gc_env.f[31] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f31, f1, f0
@@ -7340,7 +7340,7 @@ void Camera_8002DFE4(void) {
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
@@ -7380,7 +7380,7 @@ void Camera_8002E158(void) {
     goto L_8002E20C;
     L_8002E1B4:
     gc_env.r[4] = gc_env.r[5] ^ 0x80000000; // xoris r4, r5, 0x8000
-    gc_env.d[4] = cm_804D7E20; // lfd f4, cm_804D7E20@sda21(r0)
+    gc_env.f[4] = cm_804D7E20; // lfd f4, cm_804D7E20@sda21(r0)
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[4]); // stw r4, 0x24(r1)
     gc_env.r[4] = 17200 << 16; // lis r4, 0x4330
@@ -7388,9 +7388,9 @@ void Camera_8002E158(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[4]); // stw r4, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]); // stw r4, 0x18(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f3, 0x20(r1)
-    gc_env.d[3] = *(double*)&temp;
+    gc_env.f[3] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f0, 0x18(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[4]; // fsubs f3, f3, f4
     gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[4]; // fsubs f0, f0, f4
     gc_env.f[4] = (float)gc_env.f[3] / (float)gc_env.f[0]; // fdivs f4, f3, f0
@@ -7494,14 +7494,14 @@ void Camera_8002E234(void) {
     gc_env.r[5] = gc_env.r[5] ^ 0x80000000; // xoris r5, r5, 0x8000
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[5]); // stw r5, 0x2C(r1)
-    gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
+    gc_env.f[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[4]); // stw r4, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[4]); // stw r4, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f1, 0x28(r1)
-    gc_env.d[1] = *(double*)&temp;
+    gc_env.f[1] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
     gc_env.f[2] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f2, f0, f2
     Camera_8002E158();
@@ -7528,13 +7528,13 @@ void Camera_8002E234(void) {
     lbVector_Rotate();
     gc_env.r[4] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x35E); // lha r4, 0x35E(r31)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
-    gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
+    gc_env.f[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
     gc_env.r[4] = gc_env.r[4] ^ 0x80000000; // xoris r4, r4, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[4]); // stw r4, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
-    gc_env.d[0] = *(double*)&temp;
+    gc_env.f[0] = *(double*)&temp;
     gc_env.f[31] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f31, f0, f1
     lbVector_Normalize();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
@@ -7613,7 +7613,7 @@ void Camera_8002E234(void) {
     gc_env.r[3] = gc_env.r[30]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
@@ -8218,7 +8218,7 @@ void Camera_8002EB5C(void) {
     L_8002EC64:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8309,7 +8309,7 @@ void Camera_8002EC7C(void) {
     L_8002ED84:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8404,7 +8404,7 @@ void Camera_8002ED9C(void) {
     L_8002EEB0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f31, 0x28(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r31, 0x24(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8434,7 +8434,7 @@ void Camera_8002EEC8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x48, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f31, 0x10(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -8694,9 +8694,9 @@ void Camera_8002F0E4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x374, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r0, 0x44(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f31, 0x38(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x30); // lfd f30, 0x30(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r30, 0x28(r1)
     gc_env.r[1] += 64; // addi r1, r1, 0x40
@@ -9105,7 +9105,7 @@ void Camera_8002F4D4(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lmw r27, 0x34(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r0, 0x54(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f31, 0x48(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[1] += 80; // addi r1, r1, 0x50
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -9194,10 +9194,10 @@ void Camera_8002F7AC(void) {
     HSD_Randi();
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F830;
-    gc_env.d[0] = cm_804D7E18; // lfd f0, cm_804D7E18@sda21(r0)
+    gc_env.f[0] = cm_804D7E18; // lfd f0, cm_804D7E18@sda21(r0)
     goto L_8002F834;
     L_8002F830:
-    gc_env.d[0] = cm_804D7EB8; // lfd f0, cm_804D7EB8@sda21(r0)
+    gc_env.f[0] = cm_804D7EB8; // lfd f0, cm_804D7EB8@sda21(r0)
     L_8002F834:
     gc_env.f[31] = (float)gc_env.f[0]; // frsp f31, f0
     L_8002F838:
@@ -9229,8 +9229,8 @@ void Camera_8002F7AC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2CC, *(uint32_t*)&temp);
     L_8002F890:
     HSD_Randf();
-    gc_env.d[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)
-    gc_env.d[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)
+    gc_env.f[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)
+    gc_env.f[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)
     gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0
     gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C8(r31)
@@ -9238,15 +9238,15 @@ void Camera_8002F7AC(void) {
     goto L_8002F8DC;
     L_8002F8AC:
     HSD_Randf();
-    gc_env.d[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)
-    gc_env.d[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)
+    gc_env.f[2] = cm_804D7EC8; // lfd f2, cm_804D7EC8@sda21(r0)
+    gc_env.f[0] = cm_804D7ED0; // lfd f0, cm_804D7ED0@sda21(r0)
     gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0
     gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C8(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C8, *(uint32_t*)&temp);
     HSD_Randf();
-    gc_env.d[2] = cm_804D7ED8; // lfd f2, cm_804D7ED8@sda21(r0)
-    gc_env.d[0] = cm_804D7EE0; // lfd f0, cm_804D7EE0@sda21(r0)
+    gc_env.f[2] = cm_804D7ED8; // lfd f2, cm_804D7ED8@sda21(r0)
+    gc_env.f[0] = cm_804D7EE0; // lfd f0, cm_804D7EE0@sda21(r0)
     gc_env.f[0] = gc_env.f[2] * gc_env.f[1] - gc_env.f[0]; // fmsub f0, f2, f1, f0
     gc_env.f[0] = (float)gc_env.f[0]; // frsp f0, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2CC(r31)
@@ -9254,7 +9254,7 @@ void Camera_8002F7AC(void) {
     L_8002F8DC:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f31, 0x18(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -9332,9 +9332,9 @@ void fn_8002F908(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r30, 0x10(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
@@ -9562,9 +9562,9 @@ void fn_8002FBA0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r30, 0x10(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
@@ -9899,7 +9899,7 @@ void Camera_8002FEEC(void) {
     L_8003004C:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
@@ -10546,7 +10546,7 @@ void Camera_800307D0(void) {
     HSD_CObjGetFov();
     gc_env.f[2] = cm_804D7E60; // lfs f2, cm_804D7E60@sda21(r0)
     gc_env.r[3] = gc_env.r[31]; // Move register
-    gc_env.d[0] = cm_804D7E78; // lfd f0, cm_804D7E78@sda21(r0)
+    gc_env.f[0] = cm_804D7E78; // lfd f0, cm_804D7E78@sda21(r0)
     gc_env.r[4] = gc_env.r[1] + 48; // addi r4, r1, 0x30
     gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1
     gc_env.r[30] = 0x1; // li r30, 0x1
@@ -10567,7 +10567,7 @@ void Camera_800307D0(void) {
     if (gc_env.cr[0] >= 0) goto L_8003086C;
     gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8003086C:
-    gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
+    gc_env.f[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030A14; // ble .L_80030A14
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f1, 0x50(r1)
@@ -10577,7 +10577,7 @@ void Camera_800307D0(void) {
     if (gc_env.cr[0] >= 0) goto L_8003088C;
     gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8003088C:
-    gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
+    gc_env.f[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030A14; // ble .L_80030A14
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lfs f0, 0x48(r1)
@@ -10629,11 +10629,11 @@ void Camera_800307D0(void) {
     L_8003091C:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
     L_80030920:
-    gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
+    gc_env.f[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030954; // ble .L_80030954
     gc_env.f[1] = (float)gc_env.f[5] * (float)gc_env.f[2]; // fmuls f1, f5, f2
-    gc_env.d[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
+    gc_env.f[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030954; // ble .L_80030954
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f1, 0x38(r1)
@@ -10680,11 +10680,11 @@ void Camera_800307D0(void) {
     L_800309B8:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
     L_800309BC:
-    gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
+    gc_env.f[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_800309F0; // ble .L_800309F0
     gc_env.f[1] = (float)gc_env.f[5] * (float)gc_env.f[2]; // fmuls f1, f5, f2
-    gc_env.d[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
+    gc_env.f[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_800309F0; // ble .L_800309F0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f1, 0x38(r1)
@@ -10729,9 +10729,9 @@ void Camera_800307D0(void) {
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lmw r27, 0x5C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x84); // lwz r0, 0x84(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x78); // lfd f31, 0x78(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x70); // lfd f30, 0x70(r1)
-    gc_env.d[30] = *(double*)&temp;
+    gc_env.f[30] = *(double*)&temp;
     gc_env.r[1] += 128; // addi r1, r1, 0x80
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11071,7 +11071,7 @@ void Camera_80030CFC(void) {
     L_80030DC8:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lwz r0, 0x74(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x68); // lfd f31, 0x68(r1)
-    gc_env.d[31] = *(double*)&temp;
+    gc_env.f[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lwz r31, 0x64(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x60); // lwz r30, 0x60(r1)
     gc_env.r[1] += 112; // addi r1, r1, 0x70

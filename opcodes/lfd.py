@@ -62,7 +62,7 @@ class LfdHandler:
             # Check for SDA symbol (e.g., sda:cm_804D7E18)
             if ops[1].startswith('sda:'):
                 symbol = ops[1][4:].strip()
-                return [f"gc_env.d[{dst_fpreg}] = {symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
+                return [f"gc_env.f[{dst_fpreg}] = {symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
             
             # Handle direct SDA relocation format (e.g., cm_804D7E18@sda21(r0))
             if '@sda21(' in ops[1]:
@@ -76,9 +76,9 @@ class LfdHandler:
                     self.transpiler.variables.add(f"extern double {symbol}")
                     
                     if base_reg == 0:  # r0 means absolute SDA access
-                        return [f"gc_env.d[{dst_fpreg}] = {symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
+                        return [f"gc_env.f[{dst_fpreg}] = {symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
                     else:
-                        return [f"gc_env.d[{dst_fpreg}] = *((double*)(gc_env.r[{base_reg}] + (uint32_t)&{symbol})); // lfd f{dst_fpreg}, {symbol}@sda21(r{base_reg})"]
+                        return [f"gc_env.f[{dst_fpreg}] = *((double*)(gc_env.r[{base_reg}] + (uint32_t)&{symbol})); // lfd f{dst_fpreg}, {symbol}@sda21(r{base_reg})"]
                 
             # Handle numeric offset (e.g., 0x2bc(r3))
             if '(' in ops[1] and ops[1].endswith(')'):
@@ -89,7 +89,7 @@ class LfdHandler:
                     
                     return [
                         f"uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // lfd f{dst_fpreg}, 0x{offset:X}(r{base_reg})",
-                        f"gc_env.d[{dst_fpreg}] = *(double*)&temp;"
+                        f"gc_env.f[{dst_fpreg}] = *(double*)&temp;"
                     ]
             
             # If we get here, the format wasn't recognized
