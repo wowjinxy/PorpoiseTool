@@ -24486,18 +24486,18 @@ Translated mfspr r3 HID0 to: ['gc_env.r[3] = gc_env.hid0; // mfspr r3, HID0']
 Translated blr  to: return;
 Translated mfspr r3 L2CR to: ['// Unsupported SPR: L2CR for mfspr r3, L2CR']
 Translated blr  to: return;
-Unknown opcode: mtspr L2CR r3
+Translated mtspr L2CR r3 to: ['gc_env.l2cr = gc_env.r[3]; // mtspr L2CR, r3']
 Translated blr  to: return;
-Unknown opcode: mtdec r3
+Translated mtdec r3 to: ['gc_env.dec = gc_env.r[3]; // mtdec r3']
 Translated blr  to: return;
 Translated sync  to: // sync: Memory barrier (no-op in this context)
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated b .L_800056C0 to: goto L_800056C0;
-Translated mfspr r3 HID2 to: ['// Unsupported SPR: HID2 for mfspr r3, HID2']
+Translated mfspr r3 HID2 to: ['gc_env.r[3] = gc_env.hid2; // mfspr r3, HID2']
 Translated blr  to: return;
-Unknown opcode: mtspr HID2 r3
+Translated mtspr HID2 r3 to: ['gc_env.hid2 = gc_env.r[3]; // mtspr HID2, r3']
 Translated blr  to: return;
 Processing opcode: lwz, operands: ['r3', 'BootInfo_8001EE68@sda21(r0)']
 Translated lwz r3 BootInfo_8001EE68@sda21(r0) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + BootInfo_8001EE68@sda21);']
@@ -24554,7 +24554,7 @@ Translated cmplw r3 r31 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == (uint32_t)g
 Translated bge .L_800057FC to: if (gc_env.cr[0] >= 0) goto L_800057FC;
 Translated bl OSGetArenaHi to: OSGetArenaHi();
 Translated cmplw r3 r31 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == (uint32_t)gc_env.r[31]) ? 0 : ((uint32_t)gc_env.r[3] < (uint32_t)gc_env.r[31] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_800057C4
+Translated bgt .L_800057C4 to: ['if (gc_env.cr[0] & 0x4) goto L_800057C4; // bgt .L_800057C4']
 Translated bl OSGetArenaHi to: OSGetArenaHi();
 Translated mr r31 r3 to: gc_env.r[31] = gc_env.r[3]; // Move register
 Translated bl OSGetArenaLo to: OSGetArenaLo();
@@ -25094,7 +25094,7 @@ Unknown opcode: mfsrr1 r3
 Processing opcode: stw, operands: ['r3', '0x19c(r4)']
 Translated stw r3 0x19c(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x19c, gc_env.r[3]);']
 Translated mr r5 r3 to: gc_env.r[5] = gc_env.r[3]; // Move register
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated mfmsr r3 to: gc_env.r[3] = gc_env.msr; // Move from machine state register
 Translated ori r3 r3 0x30 to: ['gc_env.r[3] |= 48; // ori r3, r3, 0x30']
 Unknown opcode: mtsrr1 r3
@@ -25112,7 +25112,7 @@ Processing opcode: lwz, operands: ['r5', '0x3000(r5)']
 Translated lwz r5 0x3000(r5) to: ['gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x3000);']
 Unknown opcode: mtsrr0 r5
 Unknown opcode: rfi 
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Processing opcode: stw, operands: ['r0', '0x0(r4)']
 Translated stw r0 0x0(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[0]);']
 Processing opcode: stw, operands: ['r1', '0x4(r4)']
@@ -25155,7 +25155,7 @@ Translated bl PPCMthid2 to: PPCMthid2();
 Translated bl ICFlashInvalidate to: ICFlashInvalidate();
 Translated sync  to: // sync: Memory barrier (no-op in this context)
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
-Unknown opcode: mtspr GQR0 r3
+Translated mtspr GQR0 r3 to: ['// Unsupported SPR: GQR0 for mtspr GQR0, r3']
 Processing opcode: lwz, operands: ['r0', '0xc(r1)']
 Translated lwz r0 0xc(r1) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);']
 Translated addi r1 r1 0x8 to: ['gc_env.r[1] += 8; // addi r1, r1, 0x8']
@@ -25935,7 +25935,7 @@ Translated blr  to: return;
 Translated sync  to: // sync: Memory barrier (no-op in this context)
 Translated mfspr r3 HID0 to: ['gc_env.r[3] = gc_env.hid0; // mfspr r3, HID0']
 Translated ori r3 r3 0x4000 to: ['gc_env.r[3] |= 16384; // ori r3, r3, 0x4000']
-Unknown opcode: mtspr HID0 r3
+Translated mtspr HID0 r3 to: ['// Unsupported SPR: HID0 for mtspr HID0, r3']
 Translated blr  to: return;
 Translated cmplwi r4 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[4] == 0x0) ? 0 : ((uint32_t)gc_env.r[4] < 0x0 ? -1 : 1); // Logical compare with immediate
 Unknown opcode: blelr 
@@ -26003,12 +26003,12 @@ Translated isync  to: // isync: Instruction synchronize (no-op in this context)
 Translated blr  to: return;
 Translated mfspr r3 HID0 to: ['gc_env.r[3] = gc_env.hid0; // mfspr r3, HID0']
 Translated ori r3 r3 0x800 to: ['gc_env.r[3] |= 2048; // ori r3, r3, 0x800']
-Unknown opcode: mtspr HID0 r3
+Translated mtspr HID0 r3 to: ['// Unsupported SPR: HID0 for mtspr HID0, r3']
 Translated blr  to: return;
 Translated isync  to: // isync: Instruction synchronize (no-op in this context)
 Translated mfspr r3 HID0 to: ['gc_env.r[3] = gc_env.hid0; // mfspr r3, HID0']
 Translated ori r3 r3 0x8000 to: ['gc_env.r[3] |= 32768; // ori r3, r3, 0x8000']
-Unknown opcode: mtspr HID0 r3
+Translated mtspr HID0 r3 to: ['// Unsupported SPR: HID0 for mtspr HID0, r3']
 Translated blr  to: return;
 Translated lis r3 0xe000 to: ['gc_env.r[3] = -8192 << 16; // lis r3, 0xe000']
 Translated li r4 0x200 to: ['gc_env.r[4] = 0x200;']
@@ -26016,9 +26016,9 @@ Translated mtctr r4 to: gc_env.ctr = gc_env.r[4]; // Move to count register
 Unknown opcode: dcbi r0 r3
 Translated addi r3 r3 0x20 to: ['gc_env.r[3] += 32; // addi r3, r3, 0x20']
 Translated bdnz .L_80006A18 to: ['gc_env.ctr -= 1;', 'if (gc_env.ctr != 0) goto L_80006A18;']
-Translated mfspr r4 HID2 to: ['// Unsupported SPR: HID2 for mfspr r4, HID2']
+Translated mfspr r4 HID2 to: ['gc_env.r[4] = gc_env.hid2; // mfspr r4, HID2']
 Translated rlwinm r4 r4 0 4 2 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-10000001; // rlwinm r4, r4, 0, 4, 2']
-Unknown opcode: mtspr HID2 r4
+Translated mtspr HID2 r4 to: ['gc_env.hid2 = gc_env.r[4]; // mtspr HID2, r4']
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
@@ -26244,7 +26244,7 @@ Translated clrlwi. r5 r5 31 to: ['gc_env.r[5] = gc_env.r[5] & 0x1; // clrlwi r5,
 Translated beq .L_80006E40 to: if (gc_env.cr[0] == 0) goto L_80006E40;
 Unknown opcode: lfd f0 0x190(r4)
 Unknown opcode: mtfsf 255 f0
-Translated mfspr r5 HID2 to: ['// Unsupported SPR: HID2 for mfspr r5, HID2']
+Translated mfspr r5 HID2 to: ['gc_env.r[5] = gc_env.hid2; // mfspr r5, HID2']
 Translated extrwi. r5 r5 1 2 to: ['gc_env.r[5] = (gc_env.r[5] >> 29) & 0x1; // extrwi r5, r5, 1, 2', 'gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);']
 Translated beq .L_80006DC0 to: if (gc_env.cr[0] == 0) goto L_80006DC0;
 Unknown opcode: psq_l f0 0x1c8(r4) 0 qr0
@@ -26352,7 +26352,7 @@ Unknown opcode: stfd f31 0x188(r5)
 Unknown opcode: mffs f0
 Unknown opcode: stfd f0 0x190(r5)
 Unknown opcode: lfd f0 0x90(r5)
-Translated mfspr r3 HID2 to: ['// Unsupported SPR: HID2 for mfspr r3, HID2']
+Translated mfspr r3 HID2 to: ['gc_env.r[3] = gc_env.hid2; // mfspr r3, HID2']
 Translated extrwi. r3 r3 1 2 to: ['gc_env.r[3] = (gc_env.r[3] >> 29) & 0x1; // extrwi r3, r3, 1, 2', 'gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);']
 Translated beq .L_80006F68 to: if (gc_env.cr[0] == 0) goto L_80006F68;
 Unknown opcode: psq_st f0 0x1c8(r5) 0 qr0
@@ -26479,7 +26479,7 @@ Translated blt .L_8000707C to: ['if (gc_env.cr[0] & 0x8) goto L_8000707C; // blt
 Translated lis r4 OSDisableInterrupts+0x10@ha to: ['gc_env.r[4] = ((uint32_t)&OSDisableInterrupts+0x10 >> 16) & 0xFFFF; // lis r4, OSDisableInterrupts+0x10@ha']
 Translated addi r0 r4 OSDisableInterrupts+0x10@l to: ['gc_env.r[0] = gc_env.r[4] + ((uint32_t)&OSDisableInterrupts+0x10 & 0xFFFF); // addi r0, r4, OSDisableInterrupts+0x10@l']
 Translated cmplw r6 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[6] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[6] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_8000707C
+Translated bgt .L_8000707C to: ['if (gc_env.cr[0] & 0x4) goto L_8000707C; // bgt .L_8000707C']
 Processing opcode: stw, operands: ['r5', '0x198(r3)']
 Translated stw r5 0x198(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x198, gc_env.r[5]);']
 Processing opcode: lwz, operands: ['r0', '0x0(r3)']
@@ -26500,25 +26500,25 @@ Translated b .L_800070A8 to: goto L_800070A8;
 Unknown opcode: lmw r13 0x34(r3)
 Processing opcode: lwz, operands: ['r4', '0x1a8(r3)']
 Translated lwz r4 0x1a8(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1a8);']
-Unknown opcode: mtspr GQR1 r4
+Translated mtspr GQR1 r4 to: ['// Unsupported SPR: GQR1 for mtspr GQR1, r4']
 Processing opcode: lwz, operands: ['r4', '0x1ac(r3)']
 Translated lwz r4 0x1ac(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1ac);']
-Unknown opcode: mtspr GQR2 r4
+Translated mtspr GQR2 r4 to: ['// Unsupported SPR: GQR2 for mtspr GQR2, r4']
 Processing opcode: lwz, operands: ['r4', '0x1b0(r3)']
 Translated lwz r4 0x1b0(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1b0);']
-Unknown opcode: mtspr GQR3 r4
+Translated mtspr GQR3 r4 to: ['// Unsupported SPR: GQR3 for mtspr GQR3, r4']
 Processing opcode: lwz, operands: ['r4', '0x1b4(r3)']
 Translated lwz r4 0x1b4(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1b4);']
-Unknown opcode: mtspr GQR4 r4
+Translated mtspr GQR4 r4 to: ['// Unsupported SPR: GQR4 for mtspr GQR4, r4']
 Processing opcode: lwz, operands: ['r4', '0x1b8(r3)']
 Translated lwz r4 0x1b8(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1b8);']
-Unknown opcode: mtspr GQR5 r4
+Translated mtspr GQR5 r4 to: ['// Unsupported SPR: GQR5 for mtspr GQR5, r4']
 Processing opcode: lwz, operands: ['r4', '0x1bc(r3)']
 Translated lwz r4 0x1bc(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1bc);']
-Unknown opcode: mtspr GQR6 r4
+Translated mtspr GQR6 r4 to: ['// Unsupported SPR: GQR6 for mtspr GQR6, r4']
 Processing opcode: lwz, operands: ['r4', '0x1c0(r3)']
 Translated lwz r4 0x1c0(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c0);']
-Unknown opcode: mtspr GQR7 r4
+Translated mtspr GQR7 r4 to: ['// Unsupported SPR: GQR7 for mtspr GQR7, r4']
 Processing opcode: lwz, operands: ['r4', '0x80(r3)']
 Translated lwz r4 0x80(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x80);']
 Unknown opcode: mtcrf 255 r4
@@ -26948,7 +26948,7 @@ Translated addi r3 r29 0xc8 to: ['gc_env.r[3] = gc_env.r[29] + 200; // addi r3, 
 Translated bl OSReport to: OSReport();
 Translated clrlwi r0 r25 24 to: ['gc_env.r[0] = gc_env.r[25] & 0xFF; // clrlwi r0, r25, 24']
 Translated cmplwi r0 0xf to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0xf) ? 0 : ((uint32_t)gc_env.r[0] < 0xf ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000772C
+Translated bgt .L_8000772C to: ['if (gc_env.cr[0] & 0x4) goto L_8000772C; // bgt .L_8000772C']
 Translated lis r3 "@43_8001B004"@ha to: ['gc_env.r[3] = ((uint32_t)&"@43_8001B004" >> 16) & 0xFFFF; // lis r3, "@43_8001B004"@ha']
 Translated addi r3 r3 "@43_8001B004"@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&"@43_8001B004" & 0xFFFF); // addi r3, r3, "@43_8001B004"@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -27798,14 +27798,14 @@ Translated bl OSDisableInterrupts to: OSDisableInterrupts();
 Translated lis r0 0x180 to: ['gc_env.r[0] = 384 << 16; // lis r0, 0x180']
 Translated cmplw r29 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[29] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[29] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
 Translated mr r31 r3 to: gc_env.r[31] = gc_env.r[3]; // Move register
-Unknown opcode: bgt .L_800081E4
+Translated bgt .L_800081E4 to: ['if (gc_env.cr[0] & 0x4) goto L_800081E4; // bgt .L_800081E4']
 Translated lis r3 Config24MB@ha to: ['gc_env.r[3] = ((uint32_t)&Config24MB >> 16) & 0xFFFF; // lis r3, Config24MB@ha']
 Translated addi r3 r3 Config24MB@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&Config24MB & 0xFFFF); // addi r3, r3, Config24MB@l']
 Translated bl RealMode to: RealMode();
 Translated b .L_800081FC to: goto L_800081FC;
 Translated lis r0 0x300 to: ['gc_env.r[0] = 768 << 16; // lis r0, 0x300']
 Translated cmplw r29 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[29] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[29] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_800081FC
+Translated bgt .L_800081FC to: ['if (gc_env.cr[0] & 0x4) goto L_800081FC; // bgt .L_800081FC']
 Translated lis r3 Config48MB@ha to: ['gc_env.r[3] = ((uint32_t)&Config48MB >> 16) & 0xFFFF; // lis r3, Config48MB@ha']
 Translated addi r3 r3 Config48MB@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&Config48MB & 0xFFFF); // addi r3, r3, Config48MB@l']
 Translated bl RealMode to: RealMode();
@@ -28126,10 +28126,10 @@ Translated blr  to: return;
 Translated b .L_800085EC to: goto L_800085EC;
 Translated mfspr r8 HID0 to: ['gc_env.r[8] = gc_env.hid0; // mfspr r8, HID0']
 Translated ori r8 r8 0x8 to: ['gc_env.r[8] |= 8; // ori r8, r8, 0x8']
-Unknown opcode: mtspr HID0 r8
+Translated mtspr HID0 r8 to: ['// Unsupported SPR: HID0 for mtspr HID0, r8']
 Translated isync  to: // isync: Instruction synchronize (no-op in this context)
 Translated sync  to: // sync: Memory barrier (no-op in this context)
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated b .L_800085F0 to: goto L_800085F0;
 Translated b .L_8000860C to: goto L_8000860C;
 Unknown opcode: mftb r5 268
@@ -28137,7 +28137,7 @@ Unknown opcode: mftb r6 268
 Translated subf r7 r5 r6 to: ['gc_env.r[7] = gc_env.r[6] - gc_env.r[5];']
 Translated cmplwi r7 0x1124 to: gc_env.cr[0] = ((uint32_t)gc_env.r[7] == 0x1124) ? 0 : ((uint32_t)gc_env.r[7] < 0x1124 ? -1 : 1); // Logical compare with immediate
 Translated blt .L_800085F4 to: ['if (gc_env.cr[0] & 0x8) goto L_800085F4; // blt .L_800085F4']
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated b .L_80008610 to: goto L_80008610;
 Translated b .L_8000862C to: goto L_8000862C;
 Translated lis r8 0xcc00 to: ['gc_env.r[8] = -13312 << 16; // lis r8, 0xcc00']
@@ -28147,10 +28147,10 @@ Processing opcode: stw, operands: ['r4', '0x24(r8)']
 Translated stw r4 0x24(r8) to: ['gc_mem_write32(gc_env.ram, gc_env.r[8] + 0x24, gc_env.r[4]);']
 Processing opcode: stw, operands: ['r3', '0x24(r8)']
 Translated stw r3 0x24(r8) to: ['gc_mem_write32(gc_env.ram, gc_env.r[8] + 0x24, gc_env.r[3]);']
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated b .L_80008630 to: goto L_80008630;
 Translated b .L_80008638 to: goto L_80008638;
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated b .L_80008630 to: goto L_80008630;
 Translated b .L_800085D0 to: goto L_800085D0;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
@@ -29108,12 +29108,12 @@ Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mfspr r9 HID0 to: ['gc_env.r[9] = gc_env.hid0; // mfspr r9, HID0']
 Translated ori r10 r9 0x8 to: ['gc_env.r[10] = gc_env.r[9] | 8; // ori r10, r9, 0x8']
-Unknown opcode: mtspr HID0 r10
+Translated mtspr HID0 r10 to: ['// Unsupported SPR: HID0 for mtspr HID0, r10']
 Translated isync  to: // isync: Instruction synchronize (no-op in this context)
 Translated sync  to: // sync: Memory barrier (no-op in this context)
-Unknown opcode: mtspr HID0 r9
+Translated mtspr HID0 r9 to: ['// Unsupported SPR: HID0 for mtspr HID0, r9']
 Unknown opcode: rfi 
-Unknown opcode: nop 
+Translated nop  to: ['// nop']
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
 Translated stw r0 0x4(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]);']
@@ -29563,7 +29563,7 @@ Processing opcode: lwz, operands: ['r0', '0x2d0(r6)']
 Translated lwz r0 0x2d0(r6) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x2d0);']
 Unknown opcode: cntlzw r4 r4
 Unknown opcode: cmpw r0 r4
-Unknown opcode: bgt .L_80009730
+Translated bgt .L_80009730 to: ['if (gc_env.cr[0] & 0x4) goto L_80009730; // bgt .L_80009730']
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
 Translated b .L_8000988C to: goto L_8000988C;
 Translated li r0 0x1 to: ['gc_env.r[0] = 0x1;']
@@ -29740,7 +29740,7 @@ Translated b .L_80009948 to: goto L_80009948;
 Processing opcode: lwz, operands: ['r0', '0x2cc(r30)']
 Translated lwz r0 0x2cc(r30) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x2cc);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800099E8
+Translated bgt .L_800099E8 to: ['if (gc_env.cr[0] & 0x4) goto L_800099E8; // bgt .L_800099E8']
 Translated mr r3 r30 to: gc_env.r[3] = gc_env.r[30]; // Move register
 Translated bl fn_80009440 to: fn_80009440();
 Translated b .L_800099E8 to: goto L_800099E8;
@@ -29776,7 +29776,7 @@ Translated stw r0 0x2dc(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2
 Processing opcode: lwz, operands: ['r0', '0x2cc(r30)']
 Translated lwz r0 0x2cc(r30) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x2cc);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800099E8
+Translated bgt .L_800099E8 to: ['if (gc_env.cr[0] & 0x4) goto L_800099E8; // bgt .L_800099E8']
 Processing opcode: lwz, operands: ['r3', '0x2f0(r30)']
 Translated lwz r3 0x2f0(r30) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x2f0);']
 Translated cmplwi r3 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -29786,7 +29786,7 @@ Translated lwz r29 0x8(r3) to: ['gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env
 Processing opcode: lwz, operands: ['r0', '0x2cc(r29)']
 Translated lwz r0 0x2cc(r29) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x2cc);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800099E8
+Translated bgt .L_800099E8 to: ['if (gc_env.cr[0] & 0x4) goto L_800099E8; // bgt .L_800099E8']
 Translated mr r3 r29 to: gc_env.r[3] = gc_env.r[29]; // Move register
 Translated bl fn_800094A8 to: fn_800094A8();
 Processing opcode: lwz, operands: ['r0', '0x2d0(r29)']
@@ -29979,7 +29979,7 @@ Translated sth r0 0x2c8(r6) to: ['gc_mem_write16(gc_env.ram, gc_env.r[6] + 0x2c8
 Processing opcode: lwz, operands: ['r0', '0x2cc(r6)']
 Translated lwz r0 0x2cc(r6) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x2cc);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_80009C40
+Translated bgt .L_80009C40 to: ['if (gc_env.cr[0] & 0x4) goto L_80009C40; // bgt .L_80009C40']
 Processing opcode: lwz, operands: ['r0', '0x2d0(r6)']
 Translated lwz r0 0x2d0(r6) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x2d0);']
 Translated slwi r0 r0 3 to: ['gc_env.r[0] = gc_env.r[0] << 3; // slwi r0, r0, 3']
@@ -33689,7 +33689,7 @@ Translated b .L_8000CAA4 to: goto L_8000CAA4;
 Translated li r3 0xf to: ['gc_env.r[3] = 0xf;']
 Translated subi r0 r22 0x2 to: ['gc_env.r[0] = gc_env.r[22] - 2;']
 Translated cmplw r23 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[23] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[23] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_8000CAC0
+Translated bgt .L_8000CAC0 to: ['if (gc_env.cr[0] & 0x4) goto L_8000CAC0; // bgt .L_8000CAC0']
 Translated addi r0 r3 0x3 to: ['gc_env.r[0] = gc_env.r[3] + 3; // addi r0, r3, 0x3']
 Translated add r0 r22 r0 to: ['gc_env.r[0] = gc_env.r[22] + gc_env.r[0];']
 Translated cmplw r23 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[23] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[23] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
@@ -34738,7 +34738,7 @@ Translated bl fn_8000CDA4 to: fn_8000CDA4();
 Translated b .L_8000D8E0 to: goto L_8000D8E0;
 Translated subi r0 r31 0x2 to: ['gc_env.r[0] = gc_env.r[31] - 2;']
 Translated cmplwi r0 0x1 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000D740
+Translated bgt .L_8000D740 to: ['if (gc_env.cr[0] & 0x4) goto L_8000D740; // bgt .L_8000D740']
 Translated li r4 0x0 to: ['gc_env.r[4] = 0x0;']
 Translated b .L_8000D780 to: goto L_8000D780;
 Translated subis r0 r28 0x100 to: ['gc_env.r[0] = gc_env.r[28] - (256 << 16);']
@@ -35691,7 +35691,7 @@ Translated beq .L_8000E464 to: if (gc_env.cr[0] == 0) goto L_8000E464;
 Processing opcode: lwz, operands: ['r0', 'lbl_8001EFB0@sda21(r0)']
 Translated lwz r0 lbl_8001EFB0@sda21(r0) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + lbl_8001EFB0@sda21);']
 Translated cmplwi r0 0x7 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x7) ? 0 : ((uint32_t)gc_env.r[0] < 0x7 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000E458
+Translated bgt .L_8000E458 to: ['if (gc_env.cr[0] & 0x4) goto L_8000E458; // bgt .L_8000E458']
 Translated lis r3 jumptable_8001B254@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001B254 >> 16) & 0xFFFF; // lis r3, jumptable_8001B254@ha']
 Translated addi r3 r3 jumptable_8001B254@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001B254 & 0xFFFF); // addi r3, r3, jumptable_8001B254@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -35821,7 +35821,7 @@ Translated stw r0 lbl_8001EFCC@sda21(r0) to: ['gc_mem_write32(gc_env.ram, gc_env
 Processing opcode: lwz, operands: ['r0', '0x8(r3)']
 Translated lwz r0 0x8(r3) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x8);']
 Translated cmplwi r0 0xf to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0xf) ? 0 : ((uint32_t)gc_env.r[0] < 0xf ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000E738
+Translated bgt .L_8000E738 to: ['if (gc_env.cr[0] & 0x4) goto L_8000E738; // bgt .L_8000E738']
 Translated lis r3 jumptable_8001B274@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001B274 >> 16) & 0xFFFF; // lis r3, jumptable_8001B274@ha']
 Translated addi r3 r3 jumptable_8001B274@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001B274 & 0xFFFF); // addi r3, r3, jumptable_8001B274@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -36771,7 +36771,7 @@ Translated lwz r4 0xc(r29) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.
 Translated addi r31 r3 0x0 to: ['gc_env.r[31] = gc_env.r[3] + 0; // addi r31, r3, 0x0']
 Translated addi r0 r4 0x1 to: ['gc_env.r[0] = gc_env.r[4] + 1; // addi r0, r4, 0x1']
 Translated cmplwi r0 0xc to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0xc) ? 0 : ((uint32_t)gc_env.r[0] < 0xc ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000F208
+Translated bgt .L_8000F208 to: ['if (gc_env.cr[0] & 0x4) goto L_8000F208; // bgt .L_8000F208']
 Translated lis r3 jumptable_8001B2B4@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001B2B4 >> 16) & 0xFFFF; // lis r3, jumptable_8001B2B4@ha']
 Translated addi r3 r3 jumptable_8001B2B4@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001B2B4 & 0xFFFF); // addi r3, r3, jumptable_8001B2B4@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -36978,7 +36978,7 @@ Processing opcode: lwz, operands: ['r4', '0xc(r5)']
 Translated lwz r4 0xc(r5) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0xc);']
 Translated addi r0 r4 0x1 to: ['gc_env.r[0] = gc_env.r[4] + 1; // addi r0, r4, 0x1']
 Translated cmplwi r0 0xc to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0xc) ? 0 : ((uint32_t)gc_env.r[0] < 0xc ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8000F300
+Translated bgt .L_8000F300 to: ['if (gc_env.cr[0] & 0x4) goto L_8000F300; // bgt .L_8000F300']
 Translated lis r4 jumptable_8001B2E8@ha to: ['gc_env.r[4] = ((uint32_t)&jumptable_8001B2E8 >> 16) & 0xFFFF; // lis r4, jumptable_8001B2E8@ha']
 Translated addi r4 r4 jumptable_8001B2E8@l to: ['gc_env.r[4] = gc_env.r[4] + ((uint32_t)&jumptable_8001B2E8 & 0xFFFF); // addi r4, r4, jumptable_8001B2E8@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -37348,7 +37348,7 @@ Translated cmplw r3 r4 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == (uint32_t)gc
 Translated blt .L_8000F744 to: ['if (gc_env.cr[0] & 0x8) goto L_8000F744; // blt .L_8000F744']
 Translated addi r0 r4 0x8 to: ['gc_env.r[0] = gc_env.r[4] + 8; // addi r0, r4, 0x8']
 Translated cmplw r3 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[3] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_8000F744
+Translated bgt .L_8000F744 to: ['if (gc_env.cr[0] & 0x4) goto L_8000F744; // bgt .L_8000F744']
 Translated li r3 0x11 to: ['gc_env.r[3] = 0x11;']
 Translated blr  to: return;
 Translated li r3 0x1d to: ['gc_env.r[3] = 0x1d;']
@@ -37755,7 +37755,7 @@ Translated blr  to: return;
 Translated cmplwi r3 0x15 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x15) ? 0 : ((uint32_t)gc_env.r[3] < 0x15 ? -1 : 1); // Logical compare with immediate
 Translated lis r4 lbl_8001B3D8@ha to: ['gc_env.r[4] = ((uint32_t)&lbl_8001B3D8 >> 16) & 0xFFFF; // lis r4, lbl_8001B3D8@ha']
 Translated addi r5 r4 lbl_8001B3D8@l to: ['gc_env.r[5] = gc_env.r[4] + ((uint32_t)&lbl_8001B3D8 & 0xFFFF); // addi r5, r4, lbl_8001B3D8@l']
-Unknown opcode: bgt .L_8000FCB8
+Translated bgt .L_8000FCB8 to: ['if (gc_env.cr[0] & 0x4) goto L_8000FCB8; // bgt .L_8000FCB8']
 Translated lis r4 jumptable_8001B53C@ha to: ['gc_env.r[4] = ((uint32_t)&jumptable_8001B53C >> 16) & 0xFFFF; // lis r4, jumptable_8001B53C@ha']
 Translated addi r4 r4 jumptable_8001B53C@l to: ['gc_env.r[4] = gc_env.r[4] + ((uint32_t)&jumptable_8001B53C & 0xFFFF); // addi r4, r4, jumptable_8001B53C@l']
 Translated slwi r0 r3 2 to: ['gc_env.r[0] = gc_env.r[3] << 2; // slwi r0, r3, 2']
@@ -40057,7 +40057,7 @@ Translated bne .L_800115E8 to: if (gc_env.cr[0] != 0) goto L_800115E8;
 Translated addi r9 r10 0x20 to: ['gc_env.r[9] = gc_env.r[10] + 32; // addi r9, r10, 0x20']
 Unknown opcode: cmpw r0 r9
 Unknown opcode: subfic r10 r0 0x40
-Unknown opcode: bgt .L_800116A0
+Translated bgt .L_800116A0 to: ['if (gc_env.cr[0] & 0x4) goto L_800116A0; // bgt .L_800116A0']
 Translated addi r9 r9 0x1 to: ['gc_env.r[9] += 1; // addi r9, r9, 0x1']
 Unknown opcode: subfic r9 r9 0x40
 Translated add r0 r0 r9 to: ['gc_env.r[0] = gc_env.r[0] + gc_env.r[9];']
@@ -40130,7 +40130,7 @@ Translated bne .L_80011700 to: if (gc_env.cr[0] != 0) goto L_80011700;
 Translated addi r9 r10 0x20 to: ['gc_env.r[9] = gc_env.r[10] + 32; // addi r9, r10, 0x20']
 Unknown opcode: cmpw r0 r9
 Unknown opcode: subfic r10 r0 0x40
-Unknown opcode: bgt .L_800117D4
+Translated bgt .L_800117D4 to: ['if (gc_env.cr[0] & 0x4) goto L_800117D4; // bgt .L_800117D4']
 Translated addi r9 r9 0x1 to: ['gc_env.r[9] += 1; // addi r9, r9, 0x1']
 Unknown opcode: subfic r9 r9 0x40
 Translated add r0 r0 r9 to: ['gc_env.r[0] = gc_env.r[0] + gc_env.r[9];']
@@ -40199,7 +40199,7 @@ Translated bne .L_8001180C to: if (gc_env.cr[0] != 0) goto L_8001180C;
 Translated addi r9 r10 0x20 to: ['gc_env.r[9] = gc_env.r[10] + 32; // addi r9, r10, 0x20']
 Unknown opcode: cmpw r0 r9
 Unknown opcode: subfic r10 r0 0x40
-Unknown opcode: bgt .L_800118C4
+Translated bgt .L_800118C4 to: ['if (gc_env.cr[0] & 0x4) goto L_800118C4; // bgt .L_800118C4']
 Translated addi r9 r9 0x1 to: ['gc_env.r[9] += 1; // addi r9, r9, 0x1']
 Unknown opcode: subfic r9 r9 0x40
 Translated add r0 r0 r9 to: ['gc_env.r[0] = gc_env.r[0] + gc_env.r[9];']
@@ -40290,7 +40290,7 @@ Translated blrl  to: // Call function at gc_env.lr; // Branch to link register
 Processing opcode: lwz, operands: ['r0', 'atexit_curr_func_8001F044@sda21(r0)']
 Translated lwz r0 atexit_curr_func_8001F044@sda21(r0) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + atexit_curr_func_8001F044@sda21);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_80011938
+Translated bgt .L_80011938 to: ['if (gc_env.cr[0] & 0x4) goto L_80011938; // bgt .L_80011938']
 Translated bl __destroy_global_chain to: __destroy_global_chain();
 Translated lis r3 _dtors@ha to: ['gc_env.r[3] = ((uint32_t)&_dtors >> 16) & 0xFFFF; // lis r3, _dtors@ha']
 Translated addi r0 r3 _dtors@l to: ['gc_env.r[0] = gc_env.r[3] + ((uint32_t)&_dtors & 0xFFFF); // addi r0, r3, _dtors@l']
@@ -40329,7 +40329,7 @@ Translated blrl  to: // Call function at gc_env.lr; // Branch to link register
 Processing opcode: lwz, operands: ['r0', '__atexit_curr_func_8001F048@sda21(r0)']
 Translated lwz r0 __atexit_curr_func_8001F048@sda21(r0) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + __atexit_curr_func_8001F048@sda21);']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800119B8
+Translated bgt .L_800119B8 to: ['if (gc_env.cr[0] & 0x4) goto L_800119B8; // bgt .L_800119B8']
 Translated bl __kill_critical_regions to: __kill_critical_regions();
 Processing opcode: lwz, operands: ['r12', '__console_exit@sda21(r0)']
 Translated lwz r12 __console_exit@sda21(r0) to: ['gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[0] + __console_exit@sda21);']
@@ -40416,7 +40416,7 @@ Translated li r0 0x3 to: ['gc_env.r[0] = 0x3;']
 Translated b .L_80011AF8 to: goto L_80011AF8;
 Translated li r0 0x4 to: ['gc_env.r[0] = 0x4;']
 Translated cmpwi r0 0x2 to: gc_env.cr[0] = (gc_env.r[0] == 0x2) ? 0 : (gc_env.r[0] < 0x2 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_80011B90
+Translated bgt .L_80011B90 to: ['if (gc_env.cr[0] & 0x4) goto L_80011B90; // bgt .L_80011B90']
 Unknown opcode: stfd f31 0x20(r1)
 Translated lis r0 0x7ff0 to: ['gc_env.r[0] = 32752 << 16; // lis r0, 0x7ff0']
 Processing opcode: lwz, operands: ['r4', '0x20(r1)']
@@ -42517,7 +42517,7 @@ Processing opcode: lbz, operands: ['r5', '0x5(r24)']
 Translated lbz r5 0x5(r24) to: ['gc_env.r[5] = gc_mem_read8(gc_env.ram, gc_env.r[24] + 0x5);']
 Translated subi r0 r5 0x58 to: ['gc_env.r[0] = gc_env.r[5] - 88;']
 Translated cmplwi r0 0x20 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x20) ? 0 : ((uint32_t)gc_env.r[0] < 0x20 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_8001365C
+Translated bgt .L_8001365C to: ['if (gc_env.cr[0] & 0x4) goto L_8001365C; // bgt .L_8001365C']
 Translated lis r5 "@1009_8001B7B8"@ha to: ['gc_env.r[5] = ((uint32_t)&"@1009_8001B7B8" >> 16) & 0xFFFF; // lis r5, "@1009_8001B7B8"@ha']
 Translated addi r5 r5 "@1009_8001B7B8"@l to: ['gc_env.r[5] = gc_env.r[5] + ((uint32_t)&"@1009_8001B7B8" & 0xFFFF); // addi r5, r5, "@1009_8001B7B8"@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -42725,7 +42725,7 @@ Processing opcode: lbz, operands: ['r9', '0x5(r5)']
 Translated lbz r9 0x5(r5) to: ['gc_env.r[9] = gc_mem_read8(gc_env.ram, gc_env.r[5] + 0x5);']
 Translated subi r10 r9 0x58 to: ['gc_env.r[10] = gc_env.r[9] - 88;']
 Translated cmplwi r10 0x20 to: gc_env.cr[0] = ((uint32_t)gc_env.r[10] == 0x20) ? 0 : ((uint32_t)gc_env.r[10] < 0x20 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_800138E8
+Translated bgt .L_800138E8 to: ['if (gc_env.cr[0] & 0x4) goto L_800138E8; // bgt .L_800138E8']
 Translated lis r9 jumptable_8001B83C@ha to: ['gc_env.r[9] = ((uint32_t)&jumptable_8001B83C >> 16) & 0xFFFF; // lis r9, jumptable_8001B83C@ha']
 Translated addi r9 r9 jumptable_8001B83C@l to: ['gc_env.r[9] = gc_env.r[9] + ((uint32_t)&jumptable_8001B83C & 0xFFFF); // addi r9, r9, jumptable_8001B83C@l']
 Translated slwi r10 r10 2 to: ['gc_env.r[10] = gc_env.r[10] << 2; // slwi r10, r10, 2']
@@ -42929,7 +42929,7 @@ Translated addi r4 r4 jumptable_8001B990@l to: ['gc_env.r[4] = gc_env.r[4] + ((u
 Translated subi r0 r3 0x20 to: ['gc_env.r[0] = gc_env.r[3] - 32;']
 Translated cmplwi r0 0x10 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x10) ? 0 : ((uint32_t)gc_env.r[0] < 0x10 ? -1 : 1); // Logical compare with immediate
 Translated li r5 0x1 to: ['gc_env.r[5] = 0x1;']
-Unknown opcode: bgt .L_80013B58
+Translated bgt .L_80013B58 to: ['if (gc_env.cr[0] & 0x4) goto L_80013B58; // bgt .L_80013B58']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
 Unknown opcode: lwzx r0 r4 r0
 Translated mtctr r0 to: gc_env.ctr = gc_env.r[0]; // Move to count register
@@ -43123,7 +43123,7 @@ Translated subi r0 r3 0x45 to: ['gc_env.r[0] = gc_env.r[3] - 69;']
 Processing opcode: stb, operands: ['r3', '0x19(r1)']
 Translated stb r3 0x19(r1) to: ['gc_mem_write8(gc_env.ram, gc_env.r[1] + 0x19, gc_env.r[3]);']
 Translated cmplwi r0 0x33 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x33) ? 0 : ((uint32_t)gc_env.r[0] < 0x33 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_80013EE8
+Translated bgt .L_80013EE8 to: ['if (gc_env.cr[0] & 0x4) goto L_80013EE8; // bgt .L_80013EE8']
 Translated lis r3 jumptable_8001B8C0@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001B8C0 >> 16) & 0xFFFF; // lis r3, jumptable_8001B8C0@ha']
 Translated addi r3 r3 jumptable_8001B8C0@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001B8C0 & 0xFFFF); // addi r3, r3, jumptable_8001B8C0@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -43463,7 +43463,7 @@ Translated addi r29 r29 0x1 to: ['gc_env.r[29] += 1; // addi r29, r29, 0x1']
 Processing opcode: lwz, operands: ['r0', '0x0(r30)']
 Translated lwz r0 0x0(r30) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0);']
 Translated cmplw r0 r31 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == (uint32_t)gc_env.r[31]) ? 0 : ((uint32_t)gc_env.r[0] < (uint32_t)gc_env.r[31] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_80014180
+Translated bgt .L_80014180 to: ['if (gc_env.cr[0] & 0x4) goto L_80014180; // bgt .L_80014180']
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
 Translated beq .L_80014144 to: if (gc_env.cr[0] == 0) goto L_80014144;
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
@@ -44784,7 +44784,7 @@ Translated addi r3 r3 0x10 to: ['gc_env.r[3] += 16; // addi r3, r3, 0x10']
 Translated bl fn_80018A30 to: fn_80018A30();
 Translated subf r30 r31 r30 to: ['gc_env.r[30] = gc_env.r[30] - gc_env.r[31];']
 Translated cmpwi r30 0x0 to: gc_env.cr[0] = (gc_env.r[30] == 0x0) ? 0 : (gc_env.r[30] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800150D0
+Translated bgt .L_800150D0 to: ['if (gc_env.cr[0] & 0x4) goto L_800150D0; // bgt .L_800150D0']
 Processing opcode: lwz, operands: ['r3', '0xc(r1)']
 Translated lwz r3 0xc(r1) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);']
 Translated li r4 0xff to: ['gc_env.r[4] = 0xff;']
@@ -45024,7 +45024,7 @@ Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[
 Translated subi r31 r31 0x1 to: ['gc_env.r[31] = gc_env.r[31] - 1;']
 Translated beq .L_800153CC to: if (gc_env.cr[0] == 0) goto L_800153CC;
 Translated cmpwi r31 0x0 to: gc_env.cr[0] = (gc_env.r[31] == 0x0) ? 0 : (gc_env.r[31] < 0x0 ? -1 : 1); // Compare with immediate
-Unknown opcode: bgt .L_800153B0
+Translated bgt .L_800153B0 to: ['if (gc_env.cr[0] & 0x4) goto L_800153B0; // bgt .L_800153B0']
 Processing opcode: lwz, operands: ['r31', '0xc(r1)']
 Translated lwz r31 0xc(r1) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc);']
 Processing opcode: lwz, operands: ['r30', '0x8(r1)']
@@ -45611,7 +45611,7 @@ Translated cmpwi r30 0x0 to: gc_env.cr[0] = (gc_env.r[30] == 0x0) ? 0 : (gc_env.
 Translated beq .L_80015B54 to: if (gc_env.cr[0] == 0) goto L_80015B54;
 Translated subi r0 r30 0x700 to: ['gc_env.r[0] = gc_env.r[30] - 1792;']
 Translated cmplwi r0 0x6 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x6) ? 0 : ((uint32_t)gc_env.r[0] < 0x6 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_80015B40
+Translated bgt .L_80015B40 to: ['if (gc_env.cr[0] & 0x4) goto L_80015B40; // bgt .L_80015B40']
 Translated lis r3 jumptable_8001BA60@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001BA60 >> 16) & 0xFFFF; // lis r3, jumptable_8001BA60@ha']
 Translated addi r3 r3 jumptable_8001BA60@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001BA60 & 0xFFFF); // addi r3, r3, jumptable_8001BA60@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -45657,7 +45657,7 @@ Translated stw r30 0x818(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x81
 Processing opcode: lwz, operands: ['r0', '0x8(r3)']
 Translated lwz r0 0x8(r3) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x8);']
 Translated cmplwi r0 0x8 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x8) ? 0 : ((uint32_t)gc_env.r[0] < 0x8 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_80015BAC
+Translated bgt .L_80015BAC to: ['if (gc_env.cr[0] & 0x4) goto L_80015BAC; // bgt .L_80015BAC']
 Translated addi r3 r31 0x0 to: ['gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0']
 Translated li r4 0x80 to: ['gc_env.r[4] = 0x80;']
 Translated li r5 0x2 to: ['gc_env.r[5] = 0x2;']
@@ -45756,7 +45756,7 @@ Translated cmpwi r30 0x0 to: gc_env.cr[0] = (gc_env.r[30] == 0x0) ? 0 : (gc_env.
 Translated beq .L_80015D50 to: if (gc_env.cr[0] == 0) goto L_80015D50;
 Translated subi r0 r30 0x700 to: ['gc_env.r[0] = gc_env.r[30] - 1792;']
 Translated cmplwi r0 0x6 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x6) ? 0 : ((uint32_t)gc_env.r[0] < 0x6 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_80015D3C
+Translated bgt .L_80015D3C to: ['if (gc_env.cr[0] & 0x4) goto L_80015D3C; // bgt .L_80015D3C']
 Translated lis r3 jumptable_8001BA7C@ha to: ['gc_env.r[3] = ((uint32_t)&jumptable_8001BA7C >> 16) & 0xFFFF; // lis r3, jumptable_8001BA7C@ha']
 Translated addi r3 r3 jumptable_8001BA7C@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&jumptable_8001BA7C & 0xFFFF); // addi r3, r3, jumptable_8001BA7C@l']
 Translated slwi r0 r0 2 to: ['gc_env.r[0] = gc_env.r[0] << 2; // slwi r0, r0, 2']
@@ -45948,7 +45948,7 @@ Translated mr r30 r3 to: gc_env.r[30] = gc_env.r[3]; // Move register
 Processing opcode: lwz, operands: ['r0', '0x8(r3)']
 Translated lwz r0 0x8(r3) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x8);']
 Translated cmplwi r0 0x6 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x6) ? 0 : ((uint32_t)gc_env.r[0] < 0x6 ? -1 : 1); // Logical compare with immediate
-Unknown opcode: bgt .L_80015FAC
+Translated bgt .L_80015FAC to: ['if (gc_env.cr[0] & 0x4) goto L_80015FAC; // bgt .L_80015FAC']
 Translated addi r3 r30 0x0 to: ['gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0']
 Translated li r4 0x80 to: ['gc_env.r[4] = 0x80;']
 Translated li r5 0x2 to: ['gc_env.r[5] = 0x2;']
@@ -46535,7 +46535,7 @@ Translated stb r0 0x8(r1) to: ['gc_mem_write8(gc_env.ram, gc_env.r[1] + 0x8, gc_
 Processing opcode: lhz, operands: ['r5', '0xa(r1)']
 Translated lhz r5 0xa(r1) to: ['gc_env.r[5] = gc_mem_read16(gc_env.ram, gc_env.r[1] + 0xa);']
 Translated cmplw r5 r31 to: gc_env.cr[0] = ((uint32_t)gc_env.r[5] == (uint32_t)gc_env.r[31]) ? 0 : ((uint32_t)gc_env.r[5] < (uint32_t)gc_env.r[31] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_800167D0
+Translated bgt .L_800167D0 to: ['if (gc_env.cr[0] & 0x4) goto L_800167D0; // bgt .L_800167D0']
 Translated addi r3 r29 0x0 to: ['gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0']
 Translated add r4 r27 r28 to: ['gc_env.r[4] = gc_env.r[27] + gc_env.r[28];']
 Translated bl fn_80014FA8 to: fn_80014FA8();
@@ -46899,7 +46899,7 @@ Translated b .L_80016C64 to: goto L_80016C64;
 Processing opcode: lwz, operands: ['r0', '0x4(r4)']
 Translated lwz r0 0x4(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4);']
 Translated cmplw r3 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[3] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[3] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_80016D30
+Translated bgt .L_80016D30 to: ['if (gc_env.cr[0] & 0x4) goto L_80016D30; // bgt .L_80016D30']
 Processing opcode: lwz, operands: ['r0', '0x0(r4)']
 Translated lwz r0 0x0(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0);']
 Translated cmplw r31 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[31] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[31] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
@@ -47286,7 +47286,7 @@ Translated addi r0 r4 0x8 to: ['gc_env.r[0] = gc_env.r[4] + 8; // addi r0, r4, 0
 Processing opcode: stw, operands: ['r0', '0x0(r30)']
 Translated stw r0 0x0(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[0]);']
 Translated cmplw r27 r28 to: gc_env.cr[0] = ((uint32_t)gc_env.r[27] == (uint32_t)gc_env.r[28]) ? 0 : ((uint32_t)gc_env.r[27] < (uint32_t)gc_env.r[28] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_8001712C
+Translated bgt .L_8001712C to: ['if (gc_env.cr[0] & 0x4) goto L_8001712C; // bgt .L_8001712C']
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
 Translated beq .L_800170C4 to: if (gc_env.cr[0] == 0) goto L_800170C4;
 Processing opcode: lbz, operands: ['r0', '0x0(r26)']
@@ -47360,7 +47360,7 @@ Processing opcode: stb, operands: ['r0', '0x0(r31)']
 Translated stb r0 0x0(r31) to: ['gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]);']
 Processing opcode: stw, operands: ['r0', '0x0(r30)']
 Translated stw r0 0x0(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[0]);']
-Unknown opcode: bgt .L_800172A0
+Translated bgt .L_800172A0 to: ['if (gc_env.cr[0] & 0x4) goto L_800172A0; // bgt .L_800172A0']
 Translated subf r4 r3 r4 to: ['gc_env.r[4] = gc_env.r[4] - gc_env.r[3];']
 Processing opcode: lwz, operands: ['r0', '0x0(r30)']
 Translated lwz r0 0x0(r30) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0);']
@@ -47382,7 +47382,7 @@ Translated bl fn_80014D48 to: fn_80014D48();
 Translated b .L_800172A0 to: goto L_800172A0;
 Translated addi r0 r7 0x1ec to: ['gc_env.r[0] = gc_env.r[7] + 492; // addi r0, r7, 0x1ec']
 Translated cmplw r4 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_8001725C
+Translated bgt .L_8001725C to: ['if (gc_env.cr[0] & 0x4) goto L_8001725C; // bgt .L_8001725C']
 Translated subi r3 r6 0x4 to: ['gc_env.r[3] = gc_env.r[6] - 4;']
 Translated addi r0 r7 0x1e8 to: ['gc_env.r[0] = gc_env.r[7] + 488; // addi r0, r7, 0x1e8']
 Translated add r3 r4 r3 to: ['gc_env.r[3] = gc_env.r[4] + gc_env.r[3];']
@@ -47397,7 +47397,7 @@ Translated lis r3 gTRKCPUState@ha to: ['gc_env.r[3] = ((uint32_t)&gTRKCPUState >
 Translated addi r3 r3 gTRKCPUState@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&gTRKCPUState & 0xFFFF); // addi r3, r3, gTRKCPUState@l']
 Translated addi r6 r3 0x278 to: ['gc_env.r[6] = gc_env.r[3] + 632; // addi r6, r3, 0x278']
 Translated cmplw r4 r6 to: gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[6]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[6] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_80017294
+Translated bgt .L_80017294 to: ['if (gc_env.cr[0] & 0x4) goto L_80017294; // bgt .L_80017294']
 Translated slwi r3 r8 2 to: ['gc_env.r[3] = gc_env.r[8] << 2; // slwi r3, r8, 2']
 Translated subi r0 r3 0x4 to: ['gc_env.r[0] = gc_env.r[3] - 4;']
 Translated add r0 r4 r0 to: ['gc_env.r[0] = gc_env.r[4] + gc_env.r[0];']
@@ -47536,7 +47536,7 @@ Translated addi r0 r4 0x8 to: ['gc_env.r[0] = gc_env.r[4] + 8; // addi r0, r4, 0
 Processing opcode: stw, operands: ['r0', '0x0(r29)']
 Translated stw r0 0x0(r29) to: ['gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[0]);']
 Translated cmplw r26 r27 to: gc_env.cr[0] = ((uint32_t)gc_env.r[26] == (uint32_t)gc_env.r[27]) ? 0 : ((uint32_t)gc_env.r[26] < (uint32_t)gc_env.r[27] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_80017420
+Translated bgt .L_80017420 to: ['if (gc_env.cr[0] & 0x4) goto L_80017420; // bgt .L_80017420']
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
 Translated beq .L_800173B8 to: if (gc_env.cr[0] == 0) goto L_800173B8;
 Processing opcode: lbz, operands: ['r0', '0x0(r31)']
@@ -48193,7 +48193,7 @@ Translated blt .L_80017BD8 to: ['if (gc_env.cr[0] & 0x8) goto L_80017BD8; // blt
 Processing opcode: lwz, operands: ['r0', '0x10(r5)']
 Translated lwz r0 0x10(r5) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x10);']
 Translated cmplw r4 r0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[0]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[0] ? -1 : 1); // Logical compare word
-Unknown opcode: bgt .L_80017BD8
+Translated bgt .L_80017BD8 to: ['if (gc_env.cr[0] & 0x4) goto L_80017BD8; // bgt .L_80017BD8']
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0;']
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
@@ -48742,8 +48742,8 @@ Translated lis r3 gTRKCPUState@h to: ['gc_env.r[3] = ((uint32_t)&gTRKCPUState >>
 Translated ori r3 r3 gTRKCPUState@l to: ['gc_env.r[3] = gc_env.r[3] | ((uint32_t)&gTRKCPUState & 0xFFFF); // ori r3, r3, gTRKCPUState@l']
 Unknown opcode: .4byte 0xB8030000 /* illegal: lmw r0 0x0(r3) */
 Translated li r0 0x0 to: ['gc_env.r[0] = 0x0;']
-Unknown opcode: mtspr IABR r0
-Unknown opcode: mtspr DABR r0
+Translated mtspr IABR r0 to: ['// Unsupported SPR: IABR for mtspr IABR, r0']
+Translated mtspr DABR r0 to: ['// Unsupported SPR: DABR for mtspr DABR, r0']
 Translated lis r1 _db_stack_addr@h to: ['gc_env.r[1] = ((uint32_t)&_db_stack_addr >> 16) & 0xFFFF; // lis r1, _db_stack_addr@h']
 Translated ori r1 r1 _db_stack_addr@l to: ['gc_env.r[1] = gc_env.r[1] | ((uint32_t)&_db_stack_addr & 0xFFFF); // ori r1, r1, _db_stack_addr@l']
 Translated mr r3 r5 to: gc_env.r[3] = gc_env.r[5]; // Move register
@@ -48957,7 +48957,7 @@ Translated mfspr r24 GQR4 to: ['// Unsupported SPR: GQR4 for mfspr r24, GQR4']
 Translated mfspr r25 GQR5 to: ['// Unsupported SPR: GQR5 for mfspr r25, GQR5']
 Translated mfspr r26 GQR6 to: ['// Unsupported SPR: GQR6 for mfspr r26, GQR6']
 Translated mfspr r27 GQR7 to: ['// Unsupported SPR: GQR7 for mfspr r27, GQR7']
-Translated mfspr r28 HID2 to: ['// Unsupported SPR: HID2 for mfspr r28, HID2']
+Translated mfspr r28 HID2 to: ['gc_env.r[28] = gc_env.hid2; // mfspr r28, HID2']
 Translated mfspr r29 WPAR to: ['// Unsupported SPR: WPAR for mfspr r29, WPAR']
 Translated mfspr r30 DMA_U to: ['// Unsupported SPR: DMA_U for mfspr r30, DMA_U']
 Translated mfspr r31 DMA_L to: ['// Unsupported SPR: DMA_L for mfspr r31, DMA_L']
@@ -49029,52 +49029,52 @@ Translated lwz r25 0x1ec(r2) to: ['gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_e
 Unknown opcode: mttbl r24
 Unknown opcode: mttbu r25
 Unknown opcode: lmw r20 0x2fc(r2)
-Unknown opcode: mtspr GQR0 r20
-Unknown opcode: mtspr GQR1 r21
-Unknown opcode: mtspr GQR2 r22
-Unknown opcode: mtspr GQR3 r23
-Unknown opcode: mtspr GQR4 r24
-Unknown opcode: mtspr GQR5 r25
-Unknown opcode: mtspr GQR6 r26
-Unknown opcode: mtspr GQR7 r27
-Unknown opcode: mtspr HID2 r28
-Unknown opcode: mtspr DMA_U r30
-Unknown opcode: mtspr DMA_L r31
+Translated mtspr GQR0 r20 to: ['// Unsupported SPR: GQR0 for mtspr GQR0, r20']
+Translated mtspr GQR1 r21 to: ['// Unsupported SPR: GQR1 for mtspr GQR1, r21']
+Translated mtspr GQR2 r22 to: ['// Unsupported SPR: GQR2 for mtspr GQR2, r22']
+Translated mtspr GQR3 r23 to: ['// Unsupported SPR: GQR3 for mtspr GQR3, r23']
+Translated mtspr GQR4 r24 to: ['// Unsupported SPR: GQR4 for mtspr GQR4, r24']
+Translated mtspr GQR5 r25 to: ['// Unsupported SPR: GQR5 for mtspr GQR5, r25']
+Translated mtspr GQR6 r26 to: ['// Unsupported SPR: GQR6 for mtspr GQR6, r26']
+Translated mtspr GQR7 r27 to: ['// Unsupported SPR: GQR7 for mtspr GQR7, r27']
+Translated mtspr HID2 r28 to: ['gc_env.hid2 = gc_env.r[28]; // mtspr HID2, r28']
+Translated mtspr DMA_U r30 to: ['// Unsupported SPR: DMA_U for mtspr DMA_U, r30']
+Translated mtspr DMA_L r31 to: ['// Unsupported SPR: DMA_L for mtspr DMA_L, r31']
 Translated b .L_80018664 to: goto L_80018664;
 Unknown opcode: lmw r26 0x2e0(r2)
-Unknown opcode: mtspr 944 r26
-Unknown opcode: mtspr 951 r27
-Unknown opcode: mtspr 1014 r29
-Unknown opcode: mtspr 1015 r30
-Unknown opcode: mtspr 1023 r31
+Translated mtspr 944 r26 to: ['// Unsupported SPR: 944 for mtspr 944, r26']
+Translated mtspr 951 r27 to: ['// Unsupported SPR: 951 for mtspr 951, r27']
+Translated mtspr 1014 r29 to: ['// Unsupported SPR: 1014 for mtspr 1014, r29']
+Translated mtspr 1015 r30 to: ['// Unsupported SPR: 1015 for mtspr 1015, r30']
+Translated mtspr 1023 r31 to: ['// Unsupported SPR: 1023 for mtspr 1023, r31']
 Unknown opcode: lmw r19 0x284(r2)
-Unknown opcode: mtspr DABR r19
-Unknown opcode: mtspr PMC1 r20
-Unknown opcode: mtspr PMC2 r21
-Unknown opcode: mtspr PMC3 r22
-Unknown opcode: mtspr PMC4 r23
-Unknown opcode: mtspr SIA r24
-Unknown opcode: mtspr MMCR0 r25
-Unknown opcode: mtspr MMCR1 r26
-Unknown opcode: mtspr THRM1 r27
-Unknown opcode: mtspr THRM2 r28
-Unknown opcode: mtspr THRM3 r29
-Unknown opcode: mtspr ICTC r30
-Unknown opcode: mtspr L2CR r31
+Translated mtspr DABR r19 to: ['// Unsupported SPR: DABR for mtspr DABR, r19']
+Translated mtspr PMC1 r20 to: ['// Unsupported SPR: PMC1 for mtspr PMC1, r20']
+Translated mtspr PMC2 r21 to: ['// Unsupported SPR: PMC2 for mtspr PMC2, r21']
+Translated mtspr PMC3 r22 to: ['// Unsupported SPR: PMC3 for mtspr PMC3, r22']
+Translated mtspr PMC4 r23 to: ['// Unsupported SPR: PMC4 for mtspr PMC4, r23']
+Translated mtspr SIA r24 to: ['// Unsupported SPR: SIA for mtspr SIA, r24']
+Translated mtspr MMCR0 r25 to: ['// Unsupported SPR: MMCR0 for mtspr MMCR0, r25']
+Translated mtspr MMCR1 r26 to: ['// Unsupported SPR: MMCR1 for mtspr MMCR1, r26']
+Translated mtspr THRM1 r27 to: ['// Unsupported SPR: THRM1 for mtspr THRM1, r27']
+Translated mtspr THRM2 r28 to: ['// Unsupported SPR: THRM2 for mtspr THRM2, r28']
+Translated mtspr THRM3 r29 to: ['// Unsupported SPR: THRM3 for mtspr THRM3, r29']
+Translated mtspr ICTC r30 to: ['// Unsupported SPR: ICTC for mtspr ICTC, r30']
+Translated mtspr L2CR r31 to: ['gc_env.l2cr = gc_env.r[31]; // mtspr L2CR, r31']
 Translated b .L_800186D0 to: goto L_800186D0;
 Translated cmpwi r6 0x0 to: gc_env.cr[0] = (gc_env.r[6] == 0x0) ? 0 : (gc_env.r[6] < 0x0 ? -1 : 1); // Compare with immediate
 Translated beq .L_800186B0 to: if (gc_env.cr[0] == 0) goto L_800186B0;
 Processing opcode: lwz, operands: ['r26', '0x278(r2)']
 Translated lwz r26 0x278(r2) to: ['gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[2] + 0x278);']
-Unknown opcode: mtdec r26
+Translated mtdec r26 to: ['gc_env.dec = gc_env.r[26]; // mtdec r26']
 Unknown opcode: lmw r25 0x240(r2)
-Unknown opcode: mtspr 976 r25
-Unknown opcode: mtspr 977 r26
-Unknown opcode: mtspr 978 r27
-Unknown opcode: mtspr 979 r28
-Unknown opcode: mtspr 980 r29
-Unknown opcode: mtspr 981 r30
-Unknown opcode: mtspr 982 r31
+Translated mtspr 976 r25 to: ['// Unsupported SPR: 976 for mtspr 976, r25']
+Translated mtspr 977 r26 to: ['// Unsupported SPR: 977 for mtspr 977, r26']
+Translated mtspr 978 r27 to: ['// Unsupported SPR: 978 for mtspr 978, r27']
+Translated mtspr 979 r28 to: ['// Unsupported SPR: 979 for mtspr 979, r28']
+Translated mtspr 980 r29 to: ['// Unsupported SPR: 980 for mtspr 980, r29']
+Translated mtspr 981 r30 to: ['// Unsupported SPR: 981 for mtspr 981, r30']
+Translated mtspr 982 r31 to: ['// Unsupported SPR: 982 for mtspr 982, r31']
 Unknown opcode: lmw r16 0x1a8(r2)
 Unknown opcode: mtsr 0 r16
 Unknown opcode: mtsr 1 r17
@@ -49093,10 +49093,10 @@ Unknown opcode: mtsr 13 r29
 Unknown opcode: mtsr 14 r30
 Unknown opcode: mtsr 15 r31
 Unknown opcode: lmw r12 0x1f0(r2)
-Unknown opcode: mtspr HID0 r12
-Unknown opcode: mtspr HID1 r13
+Translated mtspr HID0 r12 to: ['// Unsupported SPR: HID0 for mtspr HID0, r12']
+Translated mtspr HID1 r13 to: ['// Unsupported SPR: HID1 for mtspr HID1, r13']
 Unknown opcode: mtsrr1 r14
-Unknown opcode: mtspr PVR r15
+Translated mtspr PVR r15 to: ['// Unsupported SPR: PVR for mtspr PVR, r15']
 Unknown opcode: mtibatu 0 r16
 Unknown opcode: mtibatl 0 r17
 Unknown opcode: mtibatu 1 r18
@@ -49121,7 +49121,7 @@ Unknown opcode: mtsprg 0 r25
 Unknown opcode: mtsprg 1 r26
 Unknown opcode: mtsprg 2 r27
 Unknown opcode: mtsprg 3 r28
-Unknown opcode: mtspr IABR r30
+Translated mtspr IABR r30 to: ['// Unsupported SPR: IABR for mtspr IABR, r30']
 Unknown opcode: mtear r31
 Translated blr  to: return;
 Translated li r3 0x54 to: ['gc_env.r[3] = 0x54;']

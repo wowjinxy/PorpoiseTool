@@ -1,5 +1,5 @@
 """
-Handler for PowerPC mfspr (Move from Special Purpose Register) instruction.
+Handler for PowerPC mtspr (Move to Special Purpose Register) instruction.
 """
 
 from typing import List
@@ -15,10 +15,10 @@ except ImportError:
                 self.opcode = ""
                 self.operands = []
 
-opcodes = ['mfspr']
+opcodes = ['mtspr']
 
-class MfsprHandler:
-    """Handles PowerPC mfspr instruction transpilation."""
+class MtsprHandler:
+    """Handles PowerPC mtspr instruction transpilation."""
     
     def __init__(self, transpiler: 'ModularTranspiler'):
         self.transpiler = transpiler
@@ -36,22 +36,26 @@ class MfsprHandler:
             raise ValueError(f"{opcode} requires at least {expected} operands, got {len(ops)}")
 
     def handle(self, instruction: Instruction) -> List[str]:
-        """Handle mfspr instruction."""
+        """Handle mtspr instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
+        
+        # Handle potential missing comma (e.g., 'HID2 r3' instead of 'HID2, r3')
+        if len(ops) == 1 and ' ' in ops[0]:
+            ops = [op.strip() for op in ops[0].replace(',', ' ').split()]
         
         self.validate_operand_count(ops, 2, opcode)
         
         try:
-            dst_reg = self.parse_register(ops[0])
-            spr = ops[1].strip().upper()
+            spr = ops[0].strip().upper()
+            src_reg = self.parse_register(ops[1])
             
-            if opcode == 'mfspr':
-                if spr == 'HID0':
-                    return [f"gc_env.r[{dst_reg}] = gc_env.hid0; // mfspr r{dst_reg}, {spr}"]
+            if opcode == 'mtspr':
+                if spr == 'L2CR':
+                    return [f"gc_env.l2cr = gc_env.r[{src_reg}]; // mtspr {spr}, r{src_reg}"]
                 elif spr == 'HID2':
-                    return [f"gc_env.r[{dst_reg}] = gc_env.hid2; // mfspr r{dst_reg}, {spr}"]
-                return [f"// Unsupported SPR: {spr} for mfspr r{dst_reg}, {spr}"]
+                    return [f"gc_env.hid2 = gc_env.r[{src_reg}]; // mtspr {spr}, r{src_reg}"]
+                return [f"// Unsupported SPR: {spr} for mtspr {spr}, r{src_reg}"]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
         
@@ -59,5 +63,5 @@ class MfsprHandler:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
-    """Entry point for mfspr instruction handling."""
-    return MfsprHandler(transpiler).handle(instruction)
+    """Entry point for mtspr instruction handling."""
+    return MtsprHandler(transpiler).handle(instruction)

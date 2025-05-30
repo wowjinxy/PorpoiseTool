@@ -19,6 +19,10 @@ typedef struct {
     uint32_t ctr; // Count register
     uint32_t msr; // Machine State Register
     uint32_t xer; // Fixed-Point Exception Register (for carry/overflow)
+    uint32_t hid0; // Hardware Implementation Dependent Register 0
+    uint32_t l2cr; // Level 2 Cache Control Register
+    uint32_t dec; // Decrementer Register
+    uint32_t hid2; // Hardware Implementation Dependent Register 2
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
