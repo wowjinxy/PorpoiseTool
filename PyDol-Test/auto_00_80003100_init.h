@@ -11,11 +11,13 @@ void __init_data(void);
 void __init_hardware(void);
 void __flush_cache(void);
 void memset(void);
-//void __fill_mem(void);
-//void memcpy(void);
-//void fn_800034C8(void);
-//void fn_800034EC(void);
-//void gap_00_8000351C_init(void);
-//void fn_80005450(void);
+void __fill_mem(void);
+void memcpy(void);
+void fn_800034C8(void);
+void fn_800034EC(void);
+void fn_80005450(void);
+
+// Data section declarations
+extern uint32_t gap_00_8000351C_init[];
 
 #endif // __AUTO_00_80003100_INIT_H__
