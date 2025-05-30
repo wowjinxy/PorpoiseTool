@@ -500,7 +500,7 @@ void Camera_80029124(void) {
     L_800291A4:
     gc_env.f[1] = gc_env.f[0]; // fmr f1, f0
     L_800291A8:
-    // Unknown opcode: xoris r0 r30 0x8000
+    gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
@@ -509,26 +509,26 @@ void Camera_80029124(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fsubs f0 f29 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[0] = (float)gc_env.f[29] - (float)gc_env.f[0]; // fsubs f0, f29, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_800291D8;
     gc_env.r[31] |= 4; // ori r31, r31, 0x4
     L_800291D8:
-    // Unknown opcode: xoris r0 r30 0x8000
+    gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fadds f0 f30 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[0] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f0, f30, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029204; // ble .L_80029204
     gc_env.r[31] |= 8; // ori r31, r31, 0x8
     L_80029204:
-    // Unknown opcode: xoris r0 r30 0x8000
+    gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
@@ -537,21 +537,21 @@ void Camera_80029124(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fadds f0 f31 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[0] = (float)gc_env.f[31] + (float)gc_env.f[0]; // fadds f0, f31, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029234; // ble .L_80029234
     gc_env.r[31] |= 1; // ori r31, r31, 0x1
     L_80029234:
-    // Unknown opcode: xoris r0 r30 0x8000
+    gc_env.r[0] = gc_env.r[30] ^ 0x80000000; // xoris r0, r30, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_80029260;
     gc_env.r[31] |= 2; // ori r31, r31, 0x2
@@ -598,7 +598,7 @@ void Camera_8002928C(void) {
     if (gc_env.cr[0] != 0) goto L_800293BC;
     gc_env.cr[0] = (gc_env.r[3] == 0x2) ? 0 : (gc_env.r[3] < 0x2 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_800293A4;
-    // Unknown opcode: lha r3 0xe(r31)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0xE); // lha r3, 0xE(r31)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_800292E8;
     gc_env.r[0] = gc_env.r[3] - 1;
@@ -615,11 +615,11 @@ void Camera_8002928C(void) {
     Stage_GetCamBoundsBottomOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x10); // lfs f3, 0x10(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f30 f29
+    gc_env.f[2] = (float)gc_env.f[30] - (float)gc_env.f[29]; // fsubs f2, f30, f29
     gc_env.f[0] = cm_804D7E28; // lfs f0, cm_804D7E28@sda21(r0)
     gc_env.r[0] = 0x1;
-    // Unknown opcode: fsubs f3 f3 f29
-    // Unknown opcode: fdivs f2 f3 f2
+    gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[29]; // fsubs f3, f3, f29
+    gc_env.f[2] = (float)gc_env.f[3] / (float)gc_env.f[2]; // fdivs f2, f3, f2
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_80029334; // bgt .L_80029334
     gc_env.f[0] = cm_804D7E2C; // lfs f0, cm_804D7E2C@sda21(r0)
@@ -631,11 +631,11 @@ void Camera_8002928C(void) {
     if (gc_env.cr[0] != 0) goto L_80029374;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x14); // lfs f3, 0x14(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f31 f1
+    gc_env.f[2] = (float)gc_env.f[31] - (float)gc_env.f[1]; // fsubs f2, f31, f1
     gc_env.f[0] = cm_804D7E28; // lfs f0, cm_804D7E28@sda21(r0)
     gc_env.r[0] = 0x1;
-    // Unknown opcode: fsubs f1 f3 f1
-    // Unknown opcode: fdivs f1 f1 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[1]; // fsubs f1, f3, f1
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & 0x4) goto L_8002936C; // bgt .L_8002936C
     gc_env.f[0] = cm_804D7E2C; // lfs f0, cm_804D7E2C@sda21(r0)
@@ -716,19 +716,19 @@ void Camera_800293E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2C); // lfs f0, 0x2C(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f1 f0
-    // Unknown opcode: fcmpu cr0 f29 f2
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f2, f1, f0
+    gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[2]) ? 0x1 : (gc_env.f[29] < gc_env.f[2] ? 0x8 : (gc_env.f[29] > gc_env.f[2] ? 0x4 : 0x2)); // fcmpu cr0, f29, f2
     if (gc_env.cr[0] == 0) goto L_80029460;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[2] < gc_env.f[30] ? 0x8 : (gc_env.f[2] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f2, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029448; // ble .L_80029448
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, *(uint32_t*)&temp);
     goto L_80029460;
     L_80029448:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[2] < gc_env.f[31] ? 0x8 : (gc_env.f[2] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f2, f31
     if (gc_env.cr[0] >= 0) goto L_8002945C;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, *(uint32_t*)&temp);
     goto L_80029460;
@@ -740,19 +740,19 @@ void Camera_800293E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lfs f0, 0x30(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f1 f0
-    // Unknown opcode: fcmpu cr0 f29 f2
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f2, f1, f0
+    gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[2]) ? 0x1 : (gc_env.f[29] < gc_env.f[2] ? 0x8 : (gc_env.f[29] > gc_env.f[2] ? 0x4 : 0x2)); // fcmpu cr0, f29, f2
     if (gc_env.cr[0] == 0) goto L_800294A0;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[2] < gc_env.f[30] ? 0x8 : (gc_env.f[2] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f2, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029488; // ble .L_80029488
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, *(uint32_t*)&temp);
     goto L_800294A0;
     L_80029488:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[2] < gc_env.f[31] ? 0x8 : (gc_env.f[2] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f2, f31
     if (gc_env.cr[0] >= 0) goto L_8002949C;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, *(uint32_t*)&temp);
     goto L_800294A0;
@@ -764,19 +764,19 @@ void Camera_800293E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f0, 0x34(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f1 f0
-    // Unknown opcode: fcmpu cr0 f29 f2
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f2, f1, f0
+    gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[2]) ? 0x1 : (gc_env.f[29] < gc_env.f[2] ? 0x8 : (gc_env.f[29] > gc_env.f[2] ? 0x4 : 0x2)); // fcmpu cr0, f29, f2
     if (gc_env.cr[0] == 0) goto L_800294E0;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[2] < gc_env.f[30] ? 0x8 : (gc_env.f[2] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f2, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_800294C8; // ble .L_800294C8
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, *(uint32_t*)&temp);
     goto L_800294E0;
     L_800294C8:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[2] < gc_env.f[31] ? 0x8 : (gc_env.f[2] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f2, f31
     if (gc_env.cr[0] >= 0) goto L_800294DC;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, *(uint32_t*)&temp);
     goto L_800294E0;
@@ -788,19 +788,19 @@ void Camera_800293E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lfs f0, 0x38(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f1 f0
-    // Unknown opcode: fcmpu cr0 f29 f2
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f2, f1, f0
+    gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[2]) ? 0x1 : (gc_env.f[29] < gc_env.f[2] ? 0x8 : (gc_env.f[29] > gc_env.f[2] ? 0x4 : 0x2)); // fcmpu cr0, f29, f2
     if (gc_env.cr[0] == 0) goto L_80029520;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[2] < gc_env.f[30] ? 0x8 : (gc_env.f[2] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f2, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029508; // ble .L_80029508
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, *(uint32_t*)&temp);
     goto L_80029520;
     L_80029508:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[2] < gc_env.f[31] ? 0x8 : (gc_env.f[2] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f2, f31
     if (gc_env.cr[0] >= 0) goto L_8002951C;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, *(uint32_t*)&temp);
     goto L_80029520;
@@ -812,19 +812,19 @@ void Camera_800293E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f0, 0x3C(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f1 f0
-    // Unknown opcode: fcmpu cr0 f29 f2
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f2, f1, f0
+    gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[2]) ? 0x1 : (gc_env.f[29] < gc_env.f[2] ? 0x8 : (gc_env.f[29] > gc_env.f[2] ? 0x4 : 0x2)); // fcmpu cr0, f29, f2
     if (gc_env.cr[0] == 0) goto L_80029560;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[2] < gc_env.f[30] ? 0x8 : (gc_env.f[2] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f2, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029548; // ble .L_80029548
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, *(uint32_t*)&temp);
     goto L_80029560;
     L_80029548:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[2] < gc_env.f[31] ? 0x8 : (gc_env.f[2] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f2, f31
     if (gc_env.cr[0] >= 0) goto L_8002955C;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, *(uint32_t*)&temp);
     goto L_80029560;
@@ -910,7 +910,7 @@ void Camera_8002958C(void) {
     L_80029614:
     Stage_GetCamTrackRatio();
     gc_env.f[30] = cm_804D7E38; // lfs f30, cm_804D7E38@sda21(r0)
-    // Unknown opcode: fmuls f27 f26 f1
+    gc_env.f[27] = (float)gc_env.f[26] * (float)gc_env.f[1]; // fmuls f27, f26, f1
     gc_env.f[28] = cm_804D7E00; // lfs f28, cm_804D7E00@sda21(r0)
     gc_env.r[30] = 0x0;
     gc_env.f[31] = gc_env.f[30]; // fmr f31, f30
@@ -992,7 +992,7 @@ void Camera_8002958C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f0, 0x50(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = 0x0;
-    // Unknown opcode: fmadds f0 f1 f27 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
     Camera_80029124();
@@ -1059,7 +1059,7 @@ void Camera_8002958C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f0, 0x50(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = 0x0;
-    // Unknown opcode: fmadds f0 f1 f27 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
     Camera_80029124();
@@ -1126,7 +1126,7 @@ void Camera_8002958C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lfs f0, 0x54(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = 0x0;
-    // Unknown opcode: fmadds f0 f1 f27 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
     Camera_80029124();
@@ -1193,7 +1193,7 @@ void Camera_8002958C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lfs f0, 0x54(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = 0x0;
-    // Unknown opcode: fmadds f0 f1 f27 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
     Camera_80029124();
@@ -1268,17 +1268,17 @@ void Camera_8002958C(void) {
     gc_env.f[0] = cm_804D7E3C; // lfs f0, cm_804D7E3C@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lfs f2, 0x3C(r1)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f31 f1 f0
-    // Unknown opcode: fsubs f30 f2 f0
-    // Unknown opcode: fadds f29 f0 f1
-    // Unknown opcode: fadds f28 f0 f2
+    gc_env.f[31] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f31, f1, f0
+    gc_env.f[30] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f30, f2, f0
+    gc_env.f[29] = (float)gc_env.f[0] + (float)gc_env.f[1]; // fadds f29, f0, f1
+    gc_env.f[28] = (float)gc_env.f[0] + (float)gc_env.f[2]; // fadds f28, f0, f2
     L_80029A10:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x20); // lfs f2, 0x20(r29)
     gc_env.f[2] = *(float*)&temp;
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] >= 0) goto L_80029A24;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_80029A24:
     gc_env.f[1] = cm_804D7E40; // lfs f1, cm_804D7E40@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[2] < gc_env.f[1] ? 0x8 : (gc_env.f[2] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f2, f1
@@ -1292,16 +1292,16 @@ void Camera_8002958C(void) {
     gc_env.f[3] = cm_804D7E04; // lfs f3, cm_804D7E04@sda21(r0)
     goto L_80029A58;
     L_80029A4C:
-    // Unknown opcode: fsubs f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
     gc_env.f[0] = cm_804D7E48; // lfs f0, cm_804D7E48@sda21(r0)
-    // Unknown opcode: fdivs f3 f1 f0
+    gc_env.f[3] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f3, f1, f0
     L_80029A58:
     float temp = (float)gc_env.f[31]; // stfs f31, 0x0(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
     gc_env.f[1] = cm_804D7E50; // lfs f1, cm_804D7E50@sda21(r0)
     gc_env.f[0] = cm_804D7E4C; // lfs f0, cm_804D7E4C@sda21(r0)
-    // Unknown opcode: fmadds f0 f1 f3 f0
-    // Unknown opcode: fsubs f0 f30 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[3] + (float)gc_env.f[0]; // fmadds f0, f1, f3, f0
+    gc_env.f[0] = (float)gc_env.f[30] - (float)gc_env.f[0]; // fsubs f0, f30, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x4, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[29]; // stfs f29, 0x8(r28)
@@ -1347,8 +1347,8 @@ void Camera_80029AAC(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lfs f0, 0x4(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f4 f3
-    // Unknown opcode: fsubs f0 f2 f0
+    gc_env.f[3] = (float)gc_env.f[4] - (float)gc_env.f[3]; // fsubs f3, f4, f3
+    gc_env.f[0] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f0, f2, f0
     gc_env.f[2] = gc_env.f[3]; // fmr f2, f3
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029AE4; // ble .L_80029AE4
@@ -1370,11 +1370,11 @@ void Camera_80029AAC(void) {
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x10); // lfs f2, 0x10(r4)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f6 f3 f0
+    gc_env.f[6] = (float)gc_env.f[3] - (float)gc_env.f[0]; // fsubs f6, f3, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lfs f0, 0x4(r4)
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[5]) || isnan(gc_env.f[4]) ? 0x1 : (gc_env.f[5] < gc_env.f[4] ? 0x8 : (gc_env.f[5] > gc_env.f[4] ? 0x4 : 0x2)); // fcmpo cr0, f5, f4
-    // Unknown opcode: fsubs f7 f2 f0
+    gc_env.f[7] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f7, f2, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029B24; // ble .L_80029B24
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x30); // lfs f2, 0x30(r3)
     gc_env.f[2] = *(float*)&temp;
@@ -1388,15 +1388,15 @@ void Camera_80029AAC(void) {
     gc_env.f[2] = *(float*)&temp;
     goto L_80029B54;
     L_80029B38:
-    // Unknown opcode: fsubs f2 f5 f0
+    gc_env.f[2] = (float)gc_env.f[5] - (float)gc_env.f[0]; // fsubs f2, f5, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f5, 0x2C(r3)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f4 f0
+    gc_env.f[0] = (float)gc_env.f[4] - (float)gc_env.f[0]; // fsubs f0, f4, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x30); // lfs f3, 0x30(r3)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f3 f5
-    // Unknown opcode: fdivs f0 f2 f0
-    // Unknown opcode: fmadds f2 f3 f0 f5
+    gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[5]; // fsubs f3, f3, f5
+    gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
+    gc_env.f[2] = (float)gc_env.f[3] * (float)gc_env.f[0] + (float)gc_env.f[5]; // fmadds f2, f3, f0, f5
     L_80029B54:
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.f[0] = cm_804D7E58; // lfs f0, cm_804D7E58@sda21(r0)
@@ -1406,14 +1406,14 @@ void Camera_80029AAC(void) {
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029B78; // ble .L_80029B78
     gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)
-    // Unknown opcode: fdivs f3 f0 f3
+    gc_env.f[3] = (float)gc_env.f[0] / (float)gc_env.f[3]; // fdivs f3, f0, f3
     goto L_80029B7C;
     L_80029B78:
     gc_env.f[3] = cm_804D7E5C; // lfs f3, cm_804D7E5C@sda21(r0)
     L_80029B7C:
-    // Unknown opcode: fmuls f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1
     gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)
-    // Unknown opcode: fmuls f1 f3 f1
+    gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f1, f3, f1
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029B98; // ble .L_80029B98
     gc_env.f[1] = gc_env.f[0]; // fmr f1, f0
@@ -1426,12 +1426,12 @@ void Camera_80029AAC(void) {
     L_80029BA8:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lfs f0, 0x0(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f6 f1 f0
+    gc_env.f[0] = (float)gc_env.f[6] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f6, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x0, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lfs f0, 0x4(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f7 f1 f0
+    gc_env.f[0] = (float)gc_env.f[7] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f7, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x4, *(uint32_t*)&temp);
     return;
@@ -1453,18 +1453,18 @@ void Camera_80029BC4(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x34); // lfs f0, 0x34(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0xC); // lfs f3, 0xC(r30)
     gc_env.f[3] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x4); // lfs f0, 0x4(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[2] = cm_804D7E60; // lfs f2, cm_804D7E60@sda21(r0)
-    // Unknown opcode: fsubs f3 f3 f0
+    gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[0]; // fsubs f3, f3, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f0, 0x34(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fdivs f31 f3 f1
-    // Unknown opcode: fmuls f1 f2 f0
+    gc_env.f[31] = (float)gc_env.f[3] / (float)gc_env.f[1]; // fdivs f31, f3, f1
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f1, f2, f0
     tanf();
     gc_env.r[3] = ((uint32_t)&cm_803BCB64 >> 16) & 0xFFFF; // lis r3, cm_803BCB64@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x8); // lfs f2, 0x8(r30)
@@ -1474,9 +1474,9 @@ void Camera_80029BC4(void) {
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lfs f3, 0x34(r3)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f2 f0
-    // Unknown opcode: fmuls f1 f3 f1
-    // Unknown opcode: fdivs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f0, f2, f0
+    gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f1, f3, f1
+    gc_env.f[0] = (float)gc_env.f[0] / (float)gc_env.f[1]; // fdivs f0, f0, f1
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f0, f31
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029C40; // ble .L_80029C40
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -1516,36 +1516,36 @@ void Camera_80029C88(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x18); // lfs f5, 0x18(r4)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fmuls f7 f2 f1
+    gc_env.f[7] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f7, f2, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x28); // lfs f4, 0x28(r4)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x1C); // lfs f3, 0x1C(r4)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f5 f6 f5
+    gc_env.f[5] = (float)gc_env.f[6] - (float)gc_env.f[5]; // fsubs f5, f6, f5
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2C); // lfs f2, 0x2C(r4)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x20); // lfs f1, 0x20(r4)
     gc_env.f[1] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[7]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[7] < gc_env.f[0] ? 0x8 : (gc_env.f[7] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f7, f0
     gc_env.f[6] = gc_env.f[7]; // fmr f6, f7
-    // Unknown opcode: fsubs f3 f4 f3
-    // Unknown opcode: fsubs f1 f2 f1
+    gc_env.f[3] = (float)gc_env.f[4] - (float)gc_env.f[3]; // fsubs f3, f4, f3
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029CD0; // ble .L_80029CD0
     gc_env.f[6] = gc_env.f[0]; // fmr f6, f0
     L_80029CD0:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x18); // lfs f0, 0x18(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f5 f6 f0
+    gc_env.f[0] = (float)gc_env.f[5] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f5, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x1C); // lfs f0, 0x1C(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f3 f6 f0
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f3, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x20); // lfs f0, 0x20(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x20, *(uint32_t*)&temp);
     return;
@@ -1592,8 +1592,8 @@ void Camera_80029CF8(void) {
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lfs f6, 0x4(r29)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f0
-    // Unknown opcode: fsubs f0 f4 f6
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f1, f1, f0
+    gc_env.f[0] = (float)gc_env.f[4] - (float)gc_env.f[6]; // fsubs f0, f4, f6
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029D64; // ble .L_80029D64
     goto L_80029D68;
@@ -1618,24 +1618,24 @@ void Camera_80029CF8(void) {
     gc_env.f[3] = *(float*)&temp;
     goto L_80029DB4;
     L_80029D98:
-    // Unknown opcode: fsubs f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f1, f1, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lfs f3, 0x1C(r3)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f0, f2, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lfs f2, 0x20(r3)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f2 f3
-    // Unknown opcode: fdivs f0 f1 f0
-    // Unknown opcode: fmadds f3 f2 f0 f3
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[3]; // fsubs f2, f2, f3
+    gc_env.f[0] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f0, f1, f0
+    gc_env.f[3] = (float)gc_env.f[2] * (float)gc_env.f[0] + (float)gc_env.f[3]; // fmadds f3, f2, f0, f3
     L_80029DB4:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f5, 0x28(r1)
     gc_env.f[5] = *(float*)&temp;
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fsubs f2 f6 f5
-    // Unknown opcode: fsubs f1 f4 f5
-    // Unknown opcode: fsubs f0 f0 f3
-    // Unknown opcode: fadds f1 f2 f1
-    // Unknown opcode: fmadds f29 f1 f0 f5
+    gc_env.f[2] = (float)gc_env.f[6] - (float)gc_env.f[5]; // fsubs f2, f6, f5
+    gc_env.f[1] = (float)gc_env.f[4] - (float)gc_env.f[5]; // fsubs f1, f4, f5
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[3]; // fsubs f0, f0, f3
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[1]; // fadds f1, f2, f1
+    gc_env.f[29] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[5]; // fmadds f29, f1, f0, f5
     Stage_GetCamInfoX24();
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.f[2] = cm_804D7E60; // lfs f2, cm_804D7E60@sda21(r0)
@@ -1644,11 +1644,11 @@ void Camera_80029CF8(void) {
     gc_env.f[3] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xC); // lfs f0, 0xC(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f3 f29 f3
-    // Unknown opcode: fmuls f4 f2 f0
-    // Unknown opcode: fmuls f0 f3 f1
-    // Unknown opcode: fmuls f0 f2 f0
-    // Unknown opcode: fneg f29 f0
+    gc_env.f[3] = (float)gc_env.f[29] + (float)gc_env.f[3]; // fadds f3, f29, f3
+    gc_env.f[4] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f4, f2, f0
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f0, f3, f1
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
+    gc_env.f[29] = -gc_env.f[0]; // fneg f29, f0
     gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[4]) ? 0x1 : (gc_env.f[29] < gc_env.f[4] ? 0x8 : (gc_env.f[29] > gc_env.f[4] ? 0x4 : 0x2)); // fcmpo cr0, f29, f4
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029E08; // ble .L_80029E08
     gc_env.f[29] = gc_env.f[4]; // fmr f29, f4
@@ -1658,21 +1658,21 @@ void Camera_80029CF8(void) {
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x10); // lfs f0, 0x10(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[29] < gc_env.f[0] ? 0x8 : (gc_env.f[29] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f29, f0
     if (gc_env.cr[0] >= 0) goto L_80029E28;
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
     L_80029E28:
     Stage_GetCamPanAngleRadians();
     gc_env.f[2] = cm_804D7E60; // lfs f2, cm_804D7E60@sda21(r0)
-    // Unknown opcode: fadds f29 f29 f1
+    gc_env.f[29] = (float)gc_env.f[29] + (float)gc_env.f[1]; // fadds f29, f29, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30); // lfs f0, 0x30(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[3] = cm_804D7E30; // lfs f3, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f1 f2 f0
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f1, f2, f0
     gc_env.f[0] = cm_804D7E64; // lfs f0, cm_804D7E64@sda21(r0)
     gc_env.f[30] = gc_env.f[29]; // fmr f30, f29
-    // Unknown opcode: fmadds f1 f3 f1 f29
+    gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1] + (float)gc_env.f[29]; // fmadds f1, f3, f1, f29
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.f[28] = gc_env.f[1]; // fmr f28, f1
     if (gc_env.cr[0] & 0x8) goto L_80029E68; // blt .L_80029E68
@@ -1685,9 +1685,9 @@ void Camera_80029CF8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30); // lfs f0, 0x30(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     gc_env.f[0] = cm_804D7E64; // lfs f0, cm_804D7E64@sda21(r0)
-    // Unknown opcode: fmsubs f1 f2 f1 f29
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1] - (float)gc_env.f[29]; // fmsubs f1, f2, f1, f29
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.f[29] = gc_env.f[1]; // fmr f29, f1
     if (gc_env.cr[0] & 0x8) goto L_80029E9C; // blt .L_80029E9C
@@ -1703,21 +1703,21 @@ void Camera_80029CF8(void) {
     tanf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lfs f2, 0xC(r29)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f31 f1
+    gc_env.f[0] = (float)gc_env.f[31] + (float)gc_env.f[1]; // fadds f0, f31, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lfs f1, 0x4(r29)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f2 f1
-    // Unknown opcode: fdivs f29 f1 f0
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
+    gc_env.f[29] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f29, f1, f0
     Stage_GetCamBoundsBottomOffset();
     Stage_GetCamBoundsTopOffset();
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
     tanf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lfs f0, 0xC(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f30 f29 f1
+    gc_env.f[30] = (float)gc_env.f[29] * (float)gc_env.f[1]; // fmuls f30, f29, f1
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    // Unknown opcode: fnmsubs f0 f29 f31 f0
-    // Unknown opcode: fadds f0 f30 f0
+    gc_env.f[0] = -((float)gc_env.f[29] * (float)gc_env.f[31] - (float)gc_env.f[0]); // fnmsubs f0, f29, f31, f0
+    gc_env.f[0] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f0, f30, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x10, *(uint32_t*)&temp);
     Stage_UnkSetVec3TCam_Offset();
@@ -1726,21 +1726,21 @@ void Camera_80029CF8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lfs f0, 0x8(r29)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fmuls f31 f2 f0
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[31] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f31, f2, f0
     Stage_GetCamInfoX20();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
     gc_env.f[2] = cm_804D7E60; // lfs f2, cm_804D7E60@sda21(r0)
-    // Unknown opcode: fsubs f3 f31 f0
+    gc_env.f[3] = (float)gc_env.f[31] - (float)gc_env.f[0]; // fsubs f3, f31, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lfs f0, 0x14(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f3 f1
-    // Unknown opcode: fmuls f3 f2 f0
-    // Unknown opcode: fmuls f0 f2 f1
-    // Unknown opcode: fneg f31 f0
+    gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f1, f3, f1
+    gc_env.f[3] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f3, f2, f0
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f0, f2, f1
+    gc_env.f[31] = -gc_env.f[0]; // fneg f31, f0
     gc_env.cr[0] = isnan(gc_env.f[31]) || isnan(gc_env.f[3]) ? 0x1 : (gc_env.f[31] < gc_env.f[3] ? 0x8 : (gc_env.f[31] > gc_env.f[3] ? 0x4 : 0x2)); // fcmpo cr0, f31, f3
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80029F3C; // ble .L_80029F3C
     gc_env.f[31] = gc_env.f[3]; // fmr f31, f3
@@ -1750,7 +1750,7 @@ void Camera_80029CF8(void) {
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lfs f0, 0x18(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[31]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[31] < gc_env.f[0] ? 0x8 : (gc_env.f[31] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f31, f0
     if (gc_env.cr[0] >= 0) goto L_80029F5C;
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -1759,9 +1759,9 @@ void Camera_80029CF8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30); // lfs f0, 0x30(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     gc_env.f[0] = cm_804D7E64; // lfs f0, cm_804D7E64@sda21(r0)
-    // Unknown opcode: fmsubs f1 f2 f1 f31
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1] - (float)gc_env.f[31]; // fmsubs f1, f2, f1, f31
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.f[28] = gc_env.f[1]; // fmr f28, f1
     if (gc_env.cr[0] & 0x8) goto L_80029F90; // blt .L_80029F90
@@ -1774,9 +1774,9 @@ void Camera_80029CF8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30); // lfs f0, 0x30(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     gc_env.f[0] = cm_804D7E64; // lfs f0, cm_804D7E64@sda21(r0)
-    // Unknown opcode: fmadds f1 f2 f1 f31
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1] + (float)gc_env.f[31]; // fmadds f1, f2, f1, f31
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.f[27] = gc_env.f[1]; // fmr f27, f1
     if (gc_env.cr[0] & 0x8) goto L_80029FC4; // blt .L_80029FC4
@@ -1787,33 +1787,35 @@ void Camera_80029CF8(void) {
     L_80029FC4:
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
     tanf();
-    // Unknown opcode: lfsu f0 0x80(r31)
-    // Unknown opcode: fmuls f26 f0 f1
+    uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x80); // lfsu f0, 0x80(r31)
+    gc_env.f[0] = *(float*)&temp;
+    gc_env.r[31] = gc_env.r[31] + 0x80;
+    gc_env.f[26] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f26, f0, f1
     gc_env.f[1] = gc_env.f[27]; // fmr f1, f27
     tanf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lfs f2, 0x8(r29)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmuls f3 f0 f1
+    gc_env.f[3] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f3, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f0, 0x0(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f2 f0
-    // Unknown opcode: fadds f0 f26 f3
-    // Unknown opcode: fdivs f28 f1 f0
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f1, f2, f0
+    gc_env.f[0] = (float)gc_env.f[26] + (float)gc_env.f[3]; // fadds f0, f26, f3
+    gc_env.f[28] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f28, f1, f0
     Stage_GetCamBoundsLeftOffset();
     Stage_GetCamBoundsRightOffset();
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     tanf();
-    // Unknown opcode: fmuls f2 f28 f1
+    gc_env.f[2] = (float)gc_env.f[28] * (float)gc_env.f[1]; // fmuls f2, f28, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f1, 0x0(r31)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lfs f0, 0x8(r29)
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[28]) ? 0x1 : (gc_env.f[29] < gc_env.f[28] ? 0x8 : (gc_env.f[29] > gc_env.f[28] ? 0x4 : 0x2)); // fcmpo cr0, f29, f28
-    // Unknown opcode: fmuls f31 f1 f2
-    // Unknown opcode: fnmsubs f0 f28 f26 f0
-    // Unknown opcode: fsubs f0 f0 f31
+    gc_env.f[31] = (float)gc_env.f[1] * (float)gc_env.f[2]; // fmuls f31, f1, f2
+    gc_env.f[0] = -((float)gc_env.f[28] * (float)gc_env.f[26] - (float)gc_env.f[0]); // fnmsubs f0, f28, f26, f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[31]; // fsubs f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0xC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0xC, *(uint32_t*)&temp);
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
@@ -1839,17 +1841,17 @@ void Camera_80029CF8(void) {
     L_8002A068:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0xC); // lfs f0, 0xC(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[31]; // fadds f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x24, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x10); // lfs f0, 0x10(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[30]; // fsubs f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x28, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x14); // lfs f0, 0x14(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f0 f28
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[28]; // fadds f0, f0, f28
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2C, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x84);
@@ -1914,11 +1916,11 @@ void Camera_8002A0C0(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0xA8); // lfs f1, 0xA8(r27)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fmuls f31 f2 f3
+    gc_env.f[31] = (float)gc_env.f[2] * (float)gc_env.f[3]; // fmuls f31, f2, f3
     gc_env.f[0] = cm_804D7E4C; // lfs f0, cm_804D7E4C@sda21(r0)
-    // Unknown opcode: fmuls f30 f1 f3
-    // Unknown opcode: fmuls f31 f31 f0
-    // Unknown opcode: fmuls f30 f30 f0
+    gc_env.f[30] = (float)gc_env.f[1] * (float)gc_env.f[3]; // fmuls f30, f1, f3
+    gc_env.f[31] = (float)gc_env.f[31] * (float)gc_env.f[0]; // fmuls f31, f31, f0
+    gc_env.f[30] = (float)gc_env.f[30] * (float)gc_env.f[0]; // fmuls f30, f30, f0
     gm_8016B41C();
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A144;
@@ -1926,55 +1928,55 @@ void Camera_8002A0C0(void) {
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xE8); // lfs f0, 0xE8(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f31 f31 f0
-    // Unknown opcode: fmuls f30 f30 f0
+    gc_env.f[31] = (float)gc_env.f[31] * (float)gc_env.f[0]; // fmuls f31, f31, f0
+    gc_env.f[30] = (float)gc_env.f[30] * (float)gc_env.f[0]; // fmuls f30, f30, f0
     L_8002A144:
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x30); // lfs f0, 0x30(r26)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x2BC); // lfs f2, 0x2BC(r27)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f31 f31 f2
-    // Unknown opcode: fmuls f30 f30 f2
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[31] = (float)gc_env.f[31] * (float)gc_env.f[2]; // fmuls f31, f31, f2
+    gc_env.f[30] = (float)gc_env.f[30] * (float)gc_env.f[2]; // fmuls f30, f30, f2
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
-    // Unknown opcode: lha r3 0x54(r28)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x54); // lha r3, 0x54(r28)
     gc_env.r[4] = 17200 << 16; // lis r4, 0x4330
-    // Unknown opcode: lha r0 0x56(r28)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x56); // lha r0, 0x56(r28)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x14); // lfs f0, 0x14(r29)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[0] = gc_env.r[0] - gc_env.r[3];
-    // Unknown opcode: lha r3 0x58(r28)
-    // Unknown opcode: xoris r5 r0 0x8000
-    // Unknown opcode: lha r0 0x5a(r28)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x58); // lha r3, 0x58(r28)
+    gc_env.r[5] = gc_env.r[0] ^ 0x80000000; // xoris r5, r0, 0x8000
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x5A); // lha r0, 0x5A(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[5]);
-    // Unknown opcode: fmuls f5 f0 f1
+    gc_env.f[5] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f5, f0, f1
     gc_env.r[0] = gc_env.r[0] - gc_env.r[3];
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]);
-    // Unknown opcode: xoris r0 r0 0x8000
+    gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f0, 0x18(r1)
     gc_env.d[0] = *(double*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[4]);
-    // Unknown opcode: fsubs f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f1, f0, f2
     gc_env.f[3] = cm_804D7E30; // lfs f3, cm_804D7E30@sda21(r0)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f0, 0x10(r1)
     gc_env.d[0] = *(double*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x80); // lfs f4, 0x80(r28)
     gc_env.f[4] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f3 f1
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fdivs f1 f5 f1
-    // Unknown opcode: fmuls f0 f3 f0
-    // Unknown opcode: fmuls f28 f4 f1
-    // Unknown opcode: fdivs f27 f5 f0
+    gc_env.f[1] = (float)gc_env.f[3] * (float)gc_env.f[1]; // fmuls f1, f3, f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[1] = (float)gc_env.f[5] / (float)gc_env.f[1]; // fdivs f1, f5, f1
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[0]; // fmuls f0, f3, f0
+    gc_env.f[28] = (float)gc_env.f[4] * (float)gc_env.f[1]; // fmuls f28, f4, f1
+    gc_env.f[27] = (float)gc_env.f[5] / (float)gc_env.f[0]; // fdivs f27, f5, f0
     Stage_GetCamZoomRate();
     gc_env.f[29] = gc_env.f[1]; // fmr f29, f1
     Stage_GetCamMaxDepth();
-    // Unknown opcode: fsubs f29 f1 f29
+    gc_env.f[29] = (float)gc_env.f[1] - (float)gc_env.f[29]; // fsubs f29, f1, f29
     gc_env.f[0] = cm_804D7E68; // lfs f0, cm_804D7E68@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[29]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[29] < gc_env.f[0] ? 0x8 : (gc_env.f[29] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f29, f0
     if (gc_env.cr[0] >= 0) goto L_8002A1F8;
@@ -1984,13 +1986,13 @@ void Camera_8002A0C0(void) {
     Stage_GetCamZoomRate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x14); // lfs f0, 0x14(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
-    // Unknown opcode: fdivs f6 f0 f29
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
+    gc_env.f[6] = (float)gc_env.f[0] / (float)gc_env.f[29]; // fdivs f6, f0, f29
     L_8002A208:
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
-    // Unknown opcode: fmuls f1 f31 f28
+    gc_env.f[1] = (float)gc_env.f[31] * (float)gc_env.f[28]; // fmuls f1, f31, f28
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
-    // Unknown opcode: fmuls f0 f30 f27
+    gc_env.f[0] = (float)gc_env.f[30] * (float)gc_env.f[27]; // fmuls f0, f30, f27
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x54); // lfs f4, 0x54(r3)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x5C); // lfs f3, 0x5C(r3)
@@ -1999,12 +2001,12 @@ void Camera_8002A0C0(void) {
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x60); // lfs f2, 0x60(r3)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f3 f4
-    // Unknown opcode: fsubs f2 f2 f5
-    // Unknown opcode: fmadds f3 f6 f3 f4
-    // Unknown opcode: fmadds f4 f6 f2 f5
-    // Unknown opcode: fmuls f2 f3 f0
-    // Unknown opcode: fmuls f1 f4 f1
+    gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[4]; // fsubs f3, f3, f4
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[5]; // fsubs f2, f2, f5
+    gc_env.f[3] = (float)gc_env.f[6] * (float)gc_env.f[3] + (float)gc_env.f[4]; // fmadds f3, f6, f3, f4
+    gc_env.f[4] = (float)gc_env.f[6] * (float)gc_env.f[2] + (float)gc_env.f[5]; // fmadds f4, f6, f2, f5
+    gc_env.f[2] = (float)gc_env.f[3] * (float)gc_env.f[0]; // fmuls f2, f3, f0
+    gc_env.f[1] = (float)gc_env.f[4] * (float)gc_env.f[1]; // fmuls f1, f4, f1
     Camera_80030DE4();
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r31)
@@ -2447,11 +2449,11 @@ void Camera_8002A768(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4c, gc_env.r[5]);
     gc_env.r[5] = gc_env.r[1] + 88; // addi r5, r1, 0x58
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x50, gc_env.r[0]);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x8);
-    // Unknown opcode: fmuls f30 f2 f0
+    gc_env.f[30] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f30, f2, f0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x54, gc_env.r[0]);
     lbVector_Diff();
     gc_env.r[3] = gc_env.r[1] + 88; // addi r3, r1, 0x58
@@ -2460,16 +2462,16 @@ void Camera_8002A768(void) {
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lfs f1, 0x5C(r1)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fneg f2 f0
+    gc_env.f[2] = -gc_env.f[0]; // fneg f2, f0
     atan2f();
     gc_env.f[2] = gc_env.f[1]; // fmr f2, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x58); // lfs f1, 0x58(r1)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x60); // lfs f0, 0x60(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     gc_env.f[28] = gc_env.f[2]; // fmr f28, f2
-    // Unknown opcode: fneg f2 f0
+    gc_env.f[2] = -gc_env.f[0]; // fneg f2, f0
     atan2f();
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c);
     gc_env.f[0] = gc_env.f[1]; // fmr f0, f1
@@ -2513,7 +2515,7 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lfs f0, 0x34(r3)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 64; // addi r3, r1, 0x40
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x40(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x40, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -2536,19 +2538,19 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x40); // lfs f0, 0x40(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[28] + 36; // addi r4, r28, 0x24
-    // Unknown opcode: fneg f1 f1
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x40(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x40, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lfs f0, 0x44(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lfs f0, 0x48(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
     lbVector_Add();
@@ -2560,7 +2562,7 @@ void Camera_8002A768(void) {
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
     gc_env.r[4] = 0x1;
     lbVector_Rotate();
-    // Unknown opcode: fneg f31 f30
+    gc_env.f[31] = -gc_env.f[30]; // fneg f31, f30
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
     gc_env.r[4] = 0x2;
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
@@ -2570,7 +2572,7 @@ void Camera_8002A768(void) {
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -2593,19 +2595,19 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f0, 0x34(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[28] + 36; // addi r4, r28, 0x24
-    // Unknown opcode: fneg f1 f1
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f0, 0x38(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lfs f0, 0x3C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, *(uint32_t*)&temp);
     lbVector_Add();
@@ -2626,7 +2628,7 @@ void Camera_8002A768(void) {
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -2649,19 +2651,19 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[28] + 36; // addi r4, r28, 0x24
-    // Unknown opcode: fneg f1 f1
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lfs f0, 0x2C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, *(uint32_t*)&temp);
     lbVector_Add();
@@ -2682,7 +2684,7 @@ void Camera_8002A768(void) {
     gc_env.r[3] = gc_env.r[1] + 28; // addi r3, r1, 0x1c
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -2705,19 +2707,19 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[28] + 36; // addi r4, r28, 0x24
-    // Unknown opcode: fneg f1 f1
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f0, 0x24(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, *(uint32_t*)&temp);
     lbVector_Add();
@@ -2741,7 +2743,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneLeftOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x40); // lfs f0, 0x40(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f0, f31
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AB84; // ble .L_8002AB84
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -2756,7 +2758,7 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lfs f2, 0x44(r1)
     gc_env.f[2] = *(float*)&temp;
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fsubs f1 f1 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002ABB4;
     gc_env.f[28] = gc_env.f[1]; // fmr f28, f1
@@ -2773,7 +2775,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneRightOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f0, 0x34(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpo cr0, f0, f29
     if (gc_env.cr[0] >= 0) goto L_8002ABE8;
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
@@ -2787,7 +2789,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneTopOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f0, 0x38(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[28]) ? 0x1 : (gc_env.f[0] < gc_env.f[28] ? 0x8 : (gc_env.f[0] > gc_env.f[28] ? 0x4 : 0x2)); // fcmpo cr0, f0, f28
     if (gc_env.cr[0] >= 0) goto L_8002AC14;
     gc_env.f[28] = gc_env.f[0]; // fmr f28, f0
@@ -2804,7 +2806,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneLeftOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f0, f31
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AC48; // ble .L_8002AC48
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -2818,7 +2820,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneBottomOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lfs f0, 0x2C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f0, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AC74; // ble .L_8002AC74
     gc_env.f[30] = gc_env.f[0]; // fmr f30, f0
@@ -2835,7 +2837,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneRightOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpo cr0, f0, f29
     if (gc_env.cr[0] >= 0) goto L_8002ACA8;
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
@@ -2849,7 +2851,7 @@ void Camera_8002A768(void) {
     Stage_GetBlastZoneBottomOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f0, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AE5C; // ble .L_8002AE5C
     gc_env.f[30] = gc_env.f[0]; // fmr f30, f0
@@ -2866,7 +2868,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsLeftOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x40); // lfs f0, 0x40(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f0, f31
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AD0C; // ble .L_8002AD0C
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -2881,7 +2883,7 @@ void Camera_8002A768(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lfs f2, 0x44(r1)
     gc_env.f[2] = *(float*)&temp;
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fsubs f1 f1 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002AD3C;
     gc_env.f[28] = gc_env.f[1]; // fmr f28, f1
@@ -2898,7 +2900,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsRightOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f0, 0x34(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpo cr0, f0, f29
     if (gc_env.cr[0] >= 0) goto L_8002AD70;
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
@@ -2912,7 +2914,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsTopOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f0, 0x38(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[28]) ? 0x1 : (gc_env.f[0] < gc_env.f[28] ? 0x8 : (gc_env.f[0] > gc_env.f[28] ? 0x4 : 0x2)); // fcmpo cr0, f0, f28
     if (gc_env.cr[0] >= 0) goto L_8002AD9C;
     gc_env.f[28] = gc_env.f[0]; // fmr f28, f0
@@ -2929,7 +2931,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsLeftOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpo cr0, f0, f31
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002ADD0; // ble .L_8002ADD0
     gc_env.f[31] = gc_env.f[0]; // fmr f31, f0
@@ -2943,7 +2945,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsBottomOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lfs f0, 0x2C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f0, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002ADFC; // ble .L_8002ADFC
     gc_env.f[30] = gc_env.f[0]; // fmr f30, f0
@@ -2960,7 +2962,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsRightOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpo cr0, f0, f29
     if (gc_env.cr[0] >= 0) goto L_8002AE30;
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
@@ -2974,7 +2976,7 @@ void Camera_8002A768(void) {
     Stage_GetCamBoundsBottomOffset();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f0, f1, f0
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpo cr0, f0, f30
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002AE5C; // ble .L_8002AE5C
     gc_env.f[30] = gc_env.f[0]; // fmr f30, f0
@@ -2996,9 +2998,9 @@ void Camera_8002A768(void) {
     gc_env.r[0] = (gc_env.r[31] << 0) & 0x8; // rlwinm r0, r31, 0, 28, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8002AEA8;
-    // Unknown opcode: fadds f0 f31 f29
+    gc_env.f[0] = (float)gc_env.f[31] + (float)gc_env.f[29]; // fadds f0, f31, f29
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     goto L_8002AEC4;
@@ -3020,9 +3022,9 @@ void Camera_8002A768(void) {
     gc_env.r[0] = (gc_env.r[31] << 0) & 0x2; // rlwinm r0, r31, 0, 30, 30
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8002AEE8;
-    // Unknown opcode: fadds f0 f30 f28
+    gc_env.f[0] = (float)gc_env.f[30] + (float)gc_env.f[28]; // fadds f0, f30, f28
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     goto L_8002AF04;
@@ -3044,17 +3046,17 @@ void Camera_8002A768(void) {
     gc_env.r[3] = gc_env.r[28] + 36; // addi r3, r28, 0x24
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     gc_env.r[4] = gc_env.r[1] + 16; // addi r4, r1, 0x10
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     lbVector_Add();
@@ -3112,14 +3114,14 @@ void Camera_8002AF68(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f1, 0x18(r1)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     HSD_CObjSetInterest();
@@ -3135,14 +3137,14 @@ void Camera_8002AF68(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f1, 0x18(r1)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f1 f0
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x88);
@@ -3235,14 +3237,14 @@ void Camera_8002B0E0(void) {
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.f[2] = gc_env.f[1]; // fmr f2, f1
     if (gc_env.cr[0] >= 0) goto L_8002B148;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002B148:
     gc_env.f[0] = cm_804D7E74; // lfs f0, cm_804D7E74@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002B184;
     gc_env.r[4] = gc_env.r[31] + 698; // addi r4, r31, 0x2ba
     gc_env.f[2] = cm_804D7E14; // lfs f2, cm_804D7E14@sda21(r0)
-    // Unknown opcode: lha r3 0x2ba(r31)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2BA); // lha r3, 0x2BA(r31)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B174; // ble .L_8002B174
     gc_env.r[0] = gc_env.r[3] - 1;
@@ -3273,7 +3275,7 @@ void Camera_8002B0E0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f0, 0x2BC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fnmsubs f0 f2 f1 f0
+    gc_env.f[0] = -((float)gc_env.f[2] * (float)gc_env.f[1] - (float)gc_env.f[0]); // fnmsubs f0, f2, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2BC(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2BC, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f1, 0x2BC(r31)
@@ -3320,7 +3322,7 @@ void Camera_8002B1F8(void) {
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2BC); // lfs f0, 0x2BC(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fcmpu cr0 f1 f0
+    gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] == 0) goto L_8002B3B0;
     gc_env.r[3] = 0x0;
     Player_GetEntity();
@@ -3375,18 +3377,18 @@ void Camera_8002B1F8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lfs f0, 0xC(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[29] + 28; // addi r4, r29, 0x1c
-    // Unknown opcode: fmuls f1 f1 f1
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0xC(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xC, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     lbVector_Add();
@@ -3407,23 +3409,23 @@ void Camera_8002B1F8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C0); // lfs f1, 0x2C0(r3)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 12; // addi r3, r1, 0xc
-    // Unknown opcode: fmuls f31 f1 f0
+    gc_env.f[31] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f31, f1, f0
     lbVector_Normalize();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lfs f0, 0xC(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 12; // addi r3, r1, 0xc
     gc_env.r[4] = gc_env.r[28] + 12; // addi r4, r28, 0xc
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0xC(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xC, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     lbVector_Add();
@@ -3485,8 +3487,8 @@ void Camera_8002B3D4(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -3503,7 +3505,7 @@ void Camera_8002B3D4(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002B47C;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002B47C:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -3538,8 +3540,8 @@ void Camera_8002B3D4(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x7C, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -3556,7 +3558,7 @@ void Camera_8002B3D4(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002B524;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002B524:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -3578,7 +3580,7 @@ void Camera_8002B3D4(void) {
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f0, 0x2BC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fcmpu cr0 f1 f0
+    gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] != 0) goto L_8002B5AC;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lfs f3, 0x38(r31)
     gc_env.f[3] = *(float*)&temp;
@@ -3586,20 +3588,20 @@ void Camera_8002B3D4(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f1, 0x3C(r31)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f3 f2
+    gc_env.f[4] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f4, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f2, 0x40(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f1 f0
+    gc_env.f[3] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f3, f1, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f0, 0x28(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f2 f0
-    // Unknown opcode: fmuls f1 f4 f4
-    // Unknown opcode: fmuls f0 f3 f3
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f2, f2, f0
+    gc_env.f[1] = (float)gc_env.f[4] * (float)gc_env.f[4]; // fmuls f1, f4, f4
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[3]; // fmuls f0, f3, f3
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x2C0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C0, *(uint32_t*)&temp);
@@ -3628,7 +3630,7 @@ void Camera_8002B3D4(void) {
     gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0
     Camera_8002A0C0();
     gc_env.r[27] = gc_env.r[31] + 696; // addi r27, r31, 0x2b8
-    // Unknown opcode: lha r0 0x2b8(r31)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2B8); // lha r0, 0x2B8(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x3e8) ? 0 : (gc_env.r[0] < 0x3e8 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B628; // ble .L_8002B628
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
@@ -3641,27 +3643,27 @@ void Camera_8002B3D4(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f0, 0x2B4(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
-    // Unknown opcode: fadds f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[1]; // fadds f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
-    // Unknown opcode: lha r3 0x0(r27)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[3]);
-    // Unknown opcode: lha r3 0x0(r27)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
     gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r3 r3 0x8000
+    gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x64, gc_env.r[3]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x60, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f0, 0x60(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
-    // Unknown opcode: fdivs f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
+    gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B0, *(uint32_t*)&temp);
     gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lmw r27, 0x6C(r1)
@@ -3722,13 +3724,13 @@ void Camera_8002B694(void) {
     gc_env.f[4] = gc_env.f[2]; // fmr f4, f2
     gc_env.f[5] = gc_env.f[3]; // fmr f5, f3
     if (gc_env.cr[0] >= 0) goto L_8002B724;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B724:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B738;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B738:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
@@ -3744,13 +3746,13 @@ void Camera_8002B694(void) {
     gc_env.f[4] = gc_env.f[2]; // fmr f4, f2
     gc_env.f[5] = gc_env.f[3]; // fmr f5, f3
     if (gc_env.cr[0] >= 0) goto L_8002B76C;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B76C:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B780;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B780:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
@@ -3766,13 +3768,13 @@ void Camera_8002B694(void) {
     gc_env.f[4] = gc_env.f[2]; // fmr f4, f2
     gc_env.f[5] = gc_env.f[3]; // fmr f5, f3
     if (gc_env.cr[0] >= 0) goto L_8002B7B4;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B7B4:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B7C8;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B7C8:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
@@ -3788,13 +3790,13 @@ void Camera_8002B694(void) {
     gc_env.f[4] = gc_env.f[2]; // fmr f4, f2
     gc_env.f[5] = gc_env.f[3]; // fmr f5, f3
     if (gc_env.cr[0] >= 0) goto L_8002B7FC;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B7FC:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B810;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B810:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
@@ -3820,13 +3822,13 @@ void Camera_8002B694(void) {
     gc_env.f[6] = gc_env.f[2]; // fmr f6, f2
     gc_env.f[7] = gc_env.f[3]; // fmr f7, f3
     if (gc_env.cr[0] >= 0) goto L_8002B864;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B864:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B878;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B878:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
@@ -3841,13 +3843,13 @@ void Camera_8002B694(void) {
     gc_env.f[6] = gc_env.f[2]; // fmr f6, f2
     gc_env.f[7] = gc_env.f[3]; // fmr f7, f3
     if (gc_env.cr[0] >= 0) goto L_8002B8A8;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B8A8:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B8BC;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B8BC:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
@@ -3862,13 +3864,13 @@ void Camera_8002B694(void) {
     gc_env.f[6] = gc_env.f[2]; // fmr f6, f2
     gc_env.f[7] = gc_env.f[3]; // fmr f7, f3
     if (gc_env.cr[0] >= 0) goto L_8002B8EC;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B8EC:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B900;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B900:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
@@ -3883,13 +3885,13 @@ void Camera_8002B694(void) {
     gc_env.f[6] = gc_env.f[2]; // fmr f6, f2
     gc_env.f[7] = gc_env.f[3]; // fmr f7, f3
     if (gc_env.cr[0] >= 0) goto L_8002B930;
-    // Unknown opcode: fneg f2 f2
+    gc_env.f[2] = -gc_env.f[2]; // fneg f2, f2
     L_8002B930:
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[3] < gc_env.f[1] ? 0x8 : (gc_env.f[3] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f3, f1
     if (gc_env.cr[0] >= 0) goto L_8002B944;
-    // Unknown opcode: fneg f3 f3
+    gc_env.f[3] = -gc_env.f[3]; // fneg f3, f3
     L_8002B944:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
@@ -4032,31 +4034,31 @@ void Camera_8002BAA8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f2, 0x18(r1)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f3 f2 f2
+    gc_env.f[3] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f3, f2, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f4, 0x20(r1)
     gc_env.f[4] = *(float*)&temp;
-    // Unknown opcode: fmuls f2 f0 f0
+    gc_env.f[2] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f2, f0, f0
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f4 f4 f4
-    // Unknown opcode: fadds f2 f3 f2
-    // Unknown opcode: fadds f5 f4 f2
+    gc_env.f[4] = (float)gc_env.f[4] * (float)gc_env.f[4]; // fmuls f4, f4, f4
+    gc_env.f[2] = (float)gc_env.f[3] + (float)gc_env.f[2]; // fadds f2, f3, f2
+    gc_env.f[5] = (float)gc_env.f[4] + (float)gc_env.f[2]; // fadds f5, f4, f2
     gc_env.cr[0] = isnan(gc_env.f[5]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[5] < gc_env.f[0] ? 0x8 : (gc_env.f[5] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f5, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002BB80; // ble .L_8002BB80
     // Unknown opcode: frsqrte f2 f5
@@ -4104,8 +4106,8 @@ void Camera_8002BAA8(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x330); // lfs f0, 0x330(r4)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f2 f5 f3 f2
-    // Unknown opcode: fmadds f0 f1 f2 f0
+    gc_env.f[2] = (float)gc_env.f[5] * (float)gc_env.f[3] + (float)gc_env.f[2]; // fmadds f2, f5, f3, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[2] + (float)gc_env.f[0]; // fmadds f0, f1, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x330, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x330); // lfs f1, 0x330(r4)
@@ -4131,33 +4133,33 @@ void Camera_8002BAA8(void) {
     lbVector_Normalize();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[1] = cm_804D7E10; // lfs f1, cm_804D7E10@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18);
@@ -4303,17 +4305,17 @@ void Camera_8002BD88(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[0]);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lfs f0, 0x2C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -4374,7 +4376,7 @@ void Camera_8002BD88(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c);
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33c, gc_env.r[0]);
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f30
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpu cr0, f0, f30
     if (gc_env.cr[0] == 0) goto L_8002BF4C;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f0, 0x34(r1)
@@ -4386,25 +4388,25 @@ void Camera_8002BD88(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xC0); // lfs f1, 0xC0(r4)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 52; // addi r4, r1, 0x34
-    // Unknown opcode: fmadds f1 f31 f2 f1
-    // Unknown opcode: fmuls f1 f30 f1
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = (float)gc_env.f[31] * (float)gc_env.f[2] + (float)gc_env.f[1]; // fmadds f1, f31, f2, f1
+    gc_env.f[1] = (float)gc_env.f[30] * (float)gc_env.f[1]; // fmuls f1, f30, f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f0, 0x38(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lfs f0, 0x3C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, *(uint32_t*)&temp);
     lbVector_Add();
     L_8002BF4C:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f29
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpu cr0, f0, f29
     if (gc_env.cr[0] == 0) goto L_8002BFA4;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f2, 0x1C(r1)
@@ -4416,20 +4418,20 @@ void Camera_8002BD88(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xC0); // lfs f0, 0xC0(r4)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 28; // addi r4, r1, 0x1c
-    // Unknown opcode: fmadds f0 f31 f1 f0
-    // Unknown opcode: fmuls f0 f29 f0
-    // Unknown opcode: fneg f1 f0
-    // Unknown opcode: fmuls f0 f2 f1
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
+    gc_env.f[0] = (float)gc_env.f[29] * (float)gc_env.f[0]; // fmuls f0, f29, f0
+    gc_env.f[1] = -gc_env.f[0]; // fneg f1, f0
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f0, f2, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f0, 0x24(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, *(uint32_t*)&temp);
     lbVector_Add();
@@ -4440,17 +4442,17 @@ void Camera_8002BD88(void) {
     lbVector_Normalize();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f29
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[29]; // fmuls f0, f0, f29
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f29
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[29]; // fmuls f0, f0, f29
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f29
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[29]; // fmuls f0, f0, f29
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10);
@@ -4511,17 +4513,17 @@ void Camera_8002C010(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[0]);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f0, 0x24(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f3
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[3]; // fmuls f0, f0, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     lbVector_Normalize();
@@ -4545,7 +4547,7 @@ void Camera_8002C010(void) {
     gc_env.r[5] = gc_env.r[1] + 20; // addi r5, r1, 0x14
     Camera_8002BC78();
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f29
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpu cr0, f0, f29
     if (gc_env.cr[0] == 0) goto L_8002C130;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lfs f0, 0x2C(r1)
@@ -4557,25 +4559,25 @@ void Camera_8002C010(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xB8); // lfs f1, 0xB8(r4)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 44; // addi r4, r1, 0x2c
-    // Unknown opcode: fmadds f1 f30 f2 f1
-    // Unknown opcode: fmuls f1 f29 f1
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = (float)gc_env.f[30] * (float)gc_env.f[2] + (float)gc_env.f[1]; // fmadds f1, f30, f2, f1
+    gc_env.f[1] = (float)gc_env.f[29] * (float)gc_env.f[1]; // fmuls f1, f29, f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f0, 0x34(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, *(uint32_t*)&temp);
     lbVector_Add();
     L_8002C130:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f31
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpu cr0, f0, f31
     if (gc_env.cr[0] == 0) goto L_8002C188;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f2, 0x14(r1)
@@ -4587,20 +4589,20 @@ void Camera_8002C010(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xB8); // lfs f0, 0xB8(r4)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 20; // addi r4, r1, 0x14
-    // Unknown opcode: fmadds f0 f30 f1 f0
-    // Unknown opcode: fmuls f0 f31 f0
-    // Unknown opcode: fneg f1 f0
-    // Unknown opcode: fmuls f0 f2 f1
+    gc_env.f[0] = (float)gc_env.f[30] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f30, f1, f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[0]; // fmuls f0, f31, f0
+    gc_env.f[1] = -gc_env.f[0]; // fneg f1, f0
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f0, f2, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Add();
@@ -4757,7 +4759,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] >= 0) goto L_8002C370;
-    // Unknown opcode: fneg f1 f2
+    gc_env.f[1] = -gc_env.f[2]; // fneg f1, f2
     goto L_8002C374;
     L_8002C370:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
@@ -4770,7 +4772,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_8002C398;
-    // Unknown opcode: fneg f1 f3
+    gc_env.f[1] = -gc_env.f[3]; // fneg f1, f3
     goto L_8002C39C;
     L_8002C398:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
@@ -4785,7 +4787,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_8002C3C4;
-    // Unknown opcode: fneg f1 f3
+    gc_env.f[1] = -gc_env.f[3]; // fneg f1, f3
     goto L_8002C3C8;
     L_8002C3C4:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
@@ -4793,12 +4795,12 @@ void Camera_8002C1A8(void) {
     gc_env.d[0] = cm_804D7EA0; // lfd f0, cm_804D7EA0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C3D8; // ble .L_8002C3D8
-    // Unknown opcode: fneg f31 f3
+    gc_env.f[31] = -gc_env.f[3]; // fneg f31, f3
     L_8002C3D8:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0
     if (gc_env.cr[0] >= 0) goto L_8002C3EC;
-    // Unknown opcode: fneg f1 f4
+    gc_env.f[1] = -gc_env.f[4]; // fneg f1, f4
     goto L_8002C3F0;
     L_8002C3EC:
     gc_env.f[1] = gc_env.f[4]; // fmr f1, f4
@@ -4811,7 +4813,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[5]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[5] < gc_env.f[0] ? 0x8 : (gc_env.f[5] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f5, f0
     if (gc_env.cr[0] >= 0) goto L_8002C414;
-    // Unknown opcode: fneg f1 f5
+    gc_env.f[1] = -gc_env.f[5]; // fneg f1, f5
     goto L_8002C418;
     L_8002C414:
     gc_env.f[1] = gc_env.f[5]; // fmr f1, f5
@@ -4833,7 +4835,7 @@ void Camera_8002C1A8(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x90); // lfs f0, 0x90(r3)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x304);
-    // Unknown opcode: fmadds f26 f2 f1 f0
+    gc_env.f[26] = (float)gc_env.f[2] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f26, f2, f1, f0
     // Unknown opcode: extsb r3 r3
     Camera_8002BA00();
     // Unknown opcode: extsb r0 r3
@@ -4864,7 +4866,7 @@ void Camera_8002C1A8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33C, *(uint32_t*)&temp);
     if (gc_env.cr[0] != 0) goto L_8002C4B0;
     gc_env.f[0] = cm_804D7E98; // lfs f0, cm_804D7E98@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f26
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[26]; // fmuls f0, f0, f26
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x330, *(uint32_t*)&temp);
     goto L_8002C4B4;
@@ -4876,15 +4878,15 @@ void Camera_8002C1A8(void) {
     Camera_8002BAA8();
     L_8002C4BC:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f31
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpu cr0, f0, f31
     if (gc_env.cr[0] == 0) goto L_8002C4D0;
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     Camera_8002BAA8();
     L_8002C4D0:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f30
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpu cr0, f0, f30
     if (gc_env.cr[0] != 0) goto L_8002C4E4;
-    // Unknown opcode: fcmpu cr0 f0 f29
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpu cr0, f0, f29
     if (gc_env.cr[0] == 0) goto L_8002C564;
     L_8002C4E4:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x304);
@@ -4894,13 +4896,13 @@ void Camera_8002C1A8(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x324); // lfs f0, 0x324(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f1
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x328); // lfs f2, 0x328(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f0
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f0, f0, f0
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -4909,20 +4911,20 @@ void Camera_8002C1A8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x330, *(uint32_t*)&temp);
     L_8002C524:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f29
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpu cr0, f0, f29
     if (gc_env.cr[0] == 0) goto L_8002C53C;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x318); // lfs f0, 0x318(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f0 f29
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[29]; // fadds f0, f0, f29
     float temp = (float)gc_env.f[0]; // stfs f0, 0x318(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x318, *(uint32_t*)&temp);
     L_8002C53C:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f30
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpu cr0, f0, f30
     if (gc_env.cr[0] == 0) goto L_8002C564;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x314); // lfs f0, 0x314(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f0 f30
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[30]; // fadds f0, f0, f30
     float temp = (float)gc_env.f[0]; // stfs f0, 0x314(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x314, *(uint32_t*)&temp);
     goto L_8002C564;
@@ -4932,9 +4934,9 @@ void Camera_8002C1A8(void) {
     Camera_8002C010();
     L_8002C564:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f28
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[28]) ? 0x1 : (gc_env.f[0] < gc_env.f[28] ? 0x8 : (gc_env.f[0] > gc_env.f[28] ? 0x4 : 0x2)); // fcmpu cr0, f0, f28
     if (gc_env.cr[0] != 0) goto L_8002C578;
-    // Unknown opcode: fcmpu cr0 f0 f27
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[27]) ? 0x1 : (gc_env.f[0] < gc_env.f[27] ? 0x8 : (gc_env.f[0] > gc_env.f[27] ? 0x4 : 0x2)); // fcmpu cr0, f0, f27
     if (gc_env.cr[0] == 0) goto L_8002C584;
     L_8002C578:
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
@@ -5119,12 +5121,12 @@ void Camera_8002C5B4(void) {
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x328); // lfs f3, 0x328(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmuls f2 f1 f1
-    // Unknown opcode: fmuls f1 f0 f0
+    gc_env.f[2] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f2, f1, f1
+    gc_env.f[1] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f1, f0, f0
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f3 f3 f3
-    // Unknown opcode: fadds f1 f2 f1
-    // Unknown opcode: fadds f4 f3 f1
+    gc_env.f[3] = (float)gc_env.f[3] * (float)gc_env.f[3]; // fmuls f3, f3, f3
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[1]; // fadds f1, f2, f1
+    gc_env.f[4] = (float)gc_env.f[3] + (float)gc_env.f[1]; // fadds f4, f3, f1
     gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C7B8; // ble .L_8002C7B8
     // Unknown opcode: frsqrte f1 f4
@@ -5153,10 +5155,10 @@ void Camera_8002C5B4(void) {
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f1, 0x0(r30)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fmuls f2 f0 f0
+    gc_env.f[2] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f2, f0, f0
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f1 f1 f1
-    // Unknown opcode: fadds f4 f2 f1
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
+    gc_env.f[4] = (float)gc_env.f[2] + (float)gc_env.f[1]; // fadds f4, f2, f1
     gc_env.cr[0] = isnan(gc_env.f[4]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[4] < gc_env.f[0] ? 0x8 : (gc_env.f[4] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f4, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C824; // ble .L_8002C824
     // Unknown opcode: frsqrte f1 f4
@@ -5202,7 +5204,7 @@ void Camera_8002C5B4(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C884; // ble .L_8002C884
-    // Unknown opcode: fsubs f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f1, f0, f1
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 40; // addi r4, r1, 0x28
     lbVector_RotateAboutUnitAxis();
@@ -5210,10 +5212,10 @@ void Camera_8002C5B4(void) {
     L_8002C884:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x18); // lfs f0, 0x18(r26)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fneg f0 f0
+    gc_env.f[0] = -gc_env.f[0]; // fneg f0, f0
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002C8A4;
-    // Unknown opcode: fsubs f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f1, f0, f1
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 40; // addi r4, r1, 0x28
     lbVector_RotateAboutUnitAxis();
@@ -5227,7 +5229,7 @@ void Camera_8002C5B4(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002C8D0; // ble .L_8002C8D0
-    // Unknown opcode: fsubs f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f1, f0, f1
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 28; // addi r4, r1, 0x1c
     lbVector_RotateAboutUnitAxis();
@@ -5235,10 +5237,10 @@ void Camera_8002C5B4(void) {
     L_8002C8D0:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x24); // lfs f0, 0x24(r26)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fneg f0 f0
+    gc_env.f[0] = -gc_env.f[0]; // fneg f0, f0
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002C8F0;
-    // Unknown opcode: fsubs f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f1, f0, f1
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 28; // addi r4, r1, 0x1c
     lbVector_RotateAboutUnitAxis();
@@ -5358,17 +5360,17 @@ void Camera_8002C908(void) {
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 28; // addi r4, r1, 0x1c
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f0, 0x24(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, *(uint32_t*)&temp);
     lbVector_Add();
@@ -5382,17 +5384,17 @@ void Camera_8002C908(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 16; // addi r4, r1, 0x10
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     lbVector_Add();
@@ -5407,8 +5409,8 @@ void Camera_8002C908(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x88); // lfs f0, 0x88(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     Camera_8002A28C();
@@ -5508,7 +5510,7 @@ void Camera_8002CB0C(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] >= 0) goto L_8002CC0C;
-    // Unknown opcode: fneg f1 f2
+    gc_env.f[1] = -gc_env.f[2]; // fneg f1, f2
     goto L_8002CC10;
     L_8002CC0C:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
@@ -5521,7 +5523,7 @@ void Camera_8002CB0C(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_8002CC34;
-    // Unknown opcode: fneg f1 f3
+    gc_env.f[1] = -gc_env.f[3]; // fneg f1, f3
     goto L_8002CC38;
     L_8002CC34:
     gc_env.f[1] = gc_env.f[3]; // fmr f1, f3
@@ -5620,7 +5622,7 @@ void Camera_8002CB0C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33C, *(uint32_t*)&temp);
     if (gc_env.cr[0] != 0) goto L_8002CD7C;
     gc_env.f[0] = cm_804D7E98; // lfs f0, cm_804D7E98@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x330, *(uint32_t*)&temp);
     goto L_8002CD80;
@@ -5632,15 +5634,15 @@ void Camera_8002CB0C(void) {
     Camera_8002BAA8();
     L_8002CD88:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f29
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[29]) ? 0x1 : (gc_env.f[0] < gc_env.f[29] ? 0x8 : (gc_env.f[0] > gc_env.f[29] ? 0x4 : 0x2)); // fcmpu cr0, f0, f29
     if (gc_env.cr[0] == 0) goto L_8002CD9C;
     gc_env.f[1] = gc_env.f[29]; // fmr f1, f29
     Camera_8002BAA8();
     L_8002CD9C:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fcmpu cr0 f0 f31
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[31]) ? 0x1 : (gc_env.f[0] < gc_env.f[31] ? 0x8 : (gc_env.f[0] > gc_env.f[31] ? 0x4 : 0x2)); // fcmpu cr0, f0, f31
     if (gc_env.cr[0] != 0) goto L_8002CDB0;
-    // Unknown opcode: fcmpu cr0 f0 f30
+    gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpu cr0, f0, f30
     if (gc_env.cr[0] == 0) goto L_8002CDBC;
     L_8002CDB0:
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
@@ -5775,7 +5777,7 @@ void Camera_8002CDDC(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002CF54;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002CF54:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -5817,17 +5819,17 @@ void Camera_8002CDDC(void) {
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[27] + 0; // addi r3, r27, 0x0
     gc_env.r[4] = gc_env.r[1] + 108; // addi r4, r1, 0x6c
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x6C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x6C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x70); // lfs f0, 0x70(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x70(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x70, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lfs f0, 0x74(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x74(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x74, *(uint32_t*)&temp);
     lbVector_Add();
@@ -5841,17 +5843,17 @@ void Camera_8002CDDC(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x60); // lfs f0, 0x60(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[1] + 96; // addi r4, r1, 0x60
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x60(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x60, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lfs f0, 0x64(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x64(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x64, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x68); // lfs f0, 0x68(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x68(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x68, *(uint32_t*)&temp);
     lbVector_Add();
@@ -5865,8 +5867,8 @@ void Camera_8002CDDC(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x70); // lfs f0, 0x70(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     goto L_8002D300;
@@ -5893,8 +5895,8 @@ void Camera_8002CDDC(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -5911,7 +5913,7 @@ void Camera_8002CDDC(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D100;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D100:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -5946,8 +5948,8 @@ void Camera_8002CDDC(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x7C, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -5964,7 +5966,7 @@ void Camera_8002CDDC(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D1A8;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D1A8:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -5986,7 +5988,7 @@ void Camera_8002CDDC(void) {
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f0, 0x2BC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fcmpu cr0 f1 f0
+    gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] != 0) goto L_8002D230;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lfs f3, 0x38(r31)
     gc_env.f[3] = *(float*)&temp;
@@ -5994,20 +5996,20 @@ void Camera_8002CDDC(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f1, 0x3C(r31)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f3 f2
+    gc_env.f[4] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f4, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f2, 0x40(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f1 f0
+    gc_env.f[3] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f3, f1, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f0, 0x28(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f2 f0
-    // Unknown opcode: fmuls f1 f4 f4
-    // Unknown opcode: fmuls f0 f3 f3
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f2, f2, f0
+    gc_env.f[1] = (float)gc_env.f[4] * (float)gc_env.f[4]; // fmuls f1, f4, f4
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[3]; // fmuls f0, f3, f3
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x2C0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C0, *(uint32_t*)&temp);
@@ -6036,7 +6038,7 @@ void Camera_8002CDDC(void) {
     gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0
     Camera_8002A0C0();
     gc_env.r[26] = gc_env.r[31] + 696; // addi r26, r31, 0x2b8
-    // Unknown opcode: lha r0 0x2b8(r31)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2B8); // lha r0, 0x2B8(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x3e8) ? 0 : (gc_env.r[0] < 0x3e8 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D2AC; // ble .L_8002D2AC
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
@@ -6049,27 +6051,27 @@ void Camera_8002CDDC(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f0, 0x2B4(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
-    // Unknown opcode: fadds f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[1]; // fadds f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
-    // Unknown opcode: lha r3 0x0(r26)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[3]);
-    // Unknown opcode: lha r3 0x0(r26)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
     gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r3 r3 0x8000
+    gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x94, gc_env.r[3]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x90, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x90); // lfd f0, 0x90(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
-    // Unknown opcode: fdivs f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
+    gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B0, *(uint32_t*)&temp);
     L_8002D300:
@@ -6135,7 +6137,7 @@ void Camera_8002D318(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D3A8;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D3A8:
     gc_env.f[0] = cm_804D7E4C; // lfs f0, cm_804D7E4C@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6156,13 +6158,13 @@ void Camera_8002D318(void) {
     gc_env.r[30] = gc_env.r[3] + 28; // addi r30, r3, 0x1c
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2CC); // lfs f1, 0x2CC(r31)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fmuls f31 f2 f0
+    gc_env.f[31] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f31, f2, f0
     cosf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[26] = gc_env.r[31] + 32; // addi r26, r31, 0x20
     gc_env.r[27] = gc_env.r[31] + 36; // addi r27, r31, 0x24
-    // Unknown opcode: fnmsubs f0 f31 f1 f0
+    gc_env.f[0] = -((float)gc_env.f[31] * (float)gc_env.f[1] - (float)gc_env.f[0]); // fnmsubs f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x4); // lfs f0, 0x4(r30)
@@ -6176,7 +6178,7 @@ void Camera_8002D318(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
-    // Unknown opcode: fmadds f0 f31 f1 f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x0); // lfs f0, 0x0(r26)
@@ -6185,28 +6187,28 @@ void Camera_8002D318(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x64); // lfs f6, 0x64(r3)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f5, 0x0(r27)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lfs f4, 0x18(r31)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f3, 0x28(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f6 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[6] + (float)gc_env.f[1]; // fmadds f0, f0, f6, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1C); // lfs f2, 0x1C(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f5 f4
+    gc_env.f[4] = (float)gc_env.f[5] - (float)gc_env.f[4]; // fsubs f4, f5, f4
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x14, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f3 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lfs f0, 0x18(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f4 f6 f0
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f4, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1C); // lfs f0, 0x1C(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1C, *(uint32_t*)&temp);
     L_8002D474:
@@ -6223,8 +6225,8 @@ void Camera_8002D318(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x70); // lfs f0, 0x70(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);
@@ -6246,13 +6248,13 @@ void Camera_8002D318(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x0); // lfs f0, 0x0(r26)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
     gc_env.f[2] = cm_804D7EA8; // lfs f2, cm_804D7EA8@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x3C); // lfs f0, 0x3C(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f2 f0
-    // Unknown opcode: fdivs f30 f0 f1
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
+    gc_env.f[30] = (float)gc_env.f[0] / (float)gc_env.f[1]; // fdivs f30, f0, f1
     goto L_8002D508;
     L_8002D504:
     gc_env.f[30] = cm_804D7E5C; // lfs f30, cm_804D7E5C@sda21(r0)
@@ -6261,7 +6263,7 @@ void Camera_8002D318(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2C8); // lfs f1, 0x2C8(r31)
     gc_env.f[1] = *(float*)&temp;
     cosf();
-    // Unknown opcode: fmuls f31 f30 f1
+    gc_env.f[31] = (float)gc_env.f[30] * (float)gc_env.f[1]; // fmuls f31, f30, f1
     gc_env.r[27] = gc_env.r[31] + 716; // addi r27, r31, 0x2cc
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2CC); // lfs f1, 0x2CC(r31)
     gc_env.f[1] = *(float*)&temp;
@@ -6269,7 +6271,7 @@ void Camera_8002D318(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x20); // lfs f0, 0x20(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[28] = gc_env.r[31] + 56; // addi r28, r31, 0x38
-    // Unknown opcode: fmadds f0 f31 f1 f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x0); // lfs f1, 0x0(r26)
@@ -6278,7 +6280,7 @@ void Camera_8002D318(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[26] = gc_env.r[31] + 60; // addi r26, r31, 0x3c
-    // Unknown opcode: fmadds f0 f30 f1 f0
+    gc_env.f[0] = (float)gc_env.f[30] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f30, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f1, 0x0(r27)
@@ -6288,7 +6290,7 @@ void Camera_8002D318(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
-    // Unknown opcode: fmadds f0 f31 f1 f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x40(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
@@ -6297,28 +6299,28 @@ void Camera_8002D318(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x68); // lfs f6, 0x68(r3)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[26] + 0x0); // lfs f5, 0x0(r26)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lfs f4, 0x30(r31)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f3, 0x40(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f6 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[6] + (float)gc_env.f[1]; // fmadds f0, f0, f6, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f2, 0x34(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f5 f4
+    gc_env.f[4] = (float)gc_env.f[5] - (float)gc_env.f[4]; // fsubs f4, f5, f4
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f3 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lfs f0, 0x30(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f4 f6 f0
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f4, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f0, 0x34(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, *(uint32_t*)&temp);
     goto L_8002D840;
@@ -6346,8 +6348,8 @@ void Camera_8002D318(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -6364,7 +6366,7 @@ void Camera_8002D318(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D640;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D640:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6399,8 +6401,8 @@ void Camera_8002D318(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x7C, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -6417,7 +6419,7 @@ void Camera_8002D318(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D6E8;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D6E8:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6439,7 +6441,7 @@ void Camera_8002D318(void) {
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f0, 0x2BC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fcmpu cr0 f1 f0
+    gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] != 0) goto L_8002D770;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lfs f3, 0x38(r31)
     gc_env.f[3] = *(float*)&temp;
@@ -6447,20 +6449,20 @@ void Camera_8002D318(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f1, 0x3C(r31)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f3 f2
+    gc_env.f[4] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f4, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f2, 0x40(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f1 f0
+    gc_env.f[3] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f3, f1, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f0, 0x28(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f2 f0
-    // Unknown opcode: fmuls f1 f4 f4
-    // Unknown opcode: fmuls f0 f3 f3
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f2, f2, f0
+    gc_env.f[1] = (float)gc_env.f[4] * (float)gc_env.f[4]; // fmuls f1, f4, f4
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[3]; // fmuls f0, f3, f3
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x2C0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C0, *(uint32_t*)&temp);
@@ -6489,7 +6491,7 @@ void Camera_8002D318(void) {
     gc_env.r[4] = gc_env.r[26] + 0; // addi r4, r26, 0x0
     Camera_8002A0C0();
     gc_env.r[26] = gc_env.r[31] + 696; // addi r26, r31, 0x2b8
-    // Unknown opcode: lha r0 0x2b8(r31)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2B8); // lha r0, 0x2B8(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x3e8) ? 0 : (gc_env.r[0] < 0x3e8 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D7EC; // ble .L_8002D7EC
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
@@ -6502,27 +6504,27 @@ void Camera_8002D318(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f0, 0x2B4(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
-    // Unknown opcode: fadds f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[1]; // fadds f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
-    // Unknown opcode: lha r3 0x0(r26)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[3]);
-    // Unknown opcode: lha r3 0x0(r26)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[26] + 0x0); // lha r3, 0x0(r26)
     gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r3 r3 0x8000
+    gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x84, gc_env.r[3]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x80, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f0, 0x80(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
-    // Unknown opcode: fdivs f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
+    gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B0, *(uint32_t*)&temp);
     L_8002D840:
@@ -6580,7 +6582,7 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002D8C8;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002D8C8:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6615,28 +6617,28 @@ void Camera_8002D85C(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x64); // lfs f6, 0x64(r3)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f5, 0x24(r31)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lfs f4, 0x18(r31)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f3, 0x28(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f6 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[6] + (float)gc_env.f[1]; // fmadds f0, f0, f6, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1C); // lfs f2, 0x1C(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f5 f4
+    gc_env.f[4] = (float)gc_env.f[5] - (float)gc_env.f[4]; // fsubs f4, f5, f4
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x14, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f3 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lfs f0, 0x18(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f4 f6 f0
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f4, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1C); // lfs f0, 0x1C(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1C, *(uint32_t*)&temp);
     L_8002D964:
@@ -6653,8 +6655,8 @@ void Camera_8002D85C(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x70); // lfs f0, 0x70(r3)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);
@@ -6676,13 +6678,13 @@ void Camera_8002D85C(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
     gc_env.f[2] = cm_804D7EA8; // lfs f2, cm_804D7EA8@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x3C); // lfs f0, 0x3C(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f2 f0
-    // Unknown opcode: fdivs f30 f0 f1
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
+    gc_env.f[30] = (float)gc_env.f[0] / (float)gc_env.f[1]; // fdivs f30, f0, f1
     goto L_8002D9F8;
     L_8002D9F4:
     gc_env.f[30] = cm_804D7E5C; // lfs f30, cm_804D7E5C@sda21(r0)
@@ -6699,13 +6701,13 @@ void Camera_8002D85C(void) {
     goto L_8002DA38;
     L_8002DA18:
     Stage_GetCamAngleRadiansDown();
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f0, 0x0(r28)
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[0] < gc_env.f[1] ? 0x8 : (gc_env.f[0] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f0, f1
     if (gc_env.cr[0] >= 0) goto L_8002DA38;
     Stage_GetCamAngleRadiansDown();
-    // Unknown opcode: fneg f0 f1
+    gc_env.f[0] = -gc_env.f[1]; // fneg f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
     L_8002DA38:
@@ -6721,27 +6723,27 @@ void Camera_8002D85C(void) {
     goto L_8002DA78;
     L_8002DA58:
     Stage_GetCamAngleRadiansRight();
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f0, 0x0(r29)
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[0] < gc_env.f[1] ? 0x8 : (gc_env.f[0] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f0, f1
     if (gc_env.cr[0] >= 0) goto L_8002DA78;
     Stage_GetCamAngleRadiansRight();
-    // Unknown opcode: fneg f0 f1
+    gc_env.f[0] = -gc_env.f[1]; // fneg f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, *(uint32_t*)&temp);
     L_8002DA78:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f1, 0x0(r28)
     gc_env.f[1] = *(float*)&temp;
     cosf();
-    // Unknown opcode: fmuls f31 f30 f1
+    gc_env.f[31] = (float)gc_env.f[30] * (float)gc_env.f[1]; // fmuls f31, f30, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f1, 0x0(r29)
     gc_env.f[1] = *(float*)&temp;
     sinf();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x20); // lfs f0, 0x20(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[30] = gc_env.r[31] + 56; // addi r30, r31, 0x38
-    // Unknown opcode: fmadds f0 f31 f1 f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x38(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f1, 0x0(r28)
@@ -6750,7 +6752,7 @@ void Camera_8002D85C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[28] = gc_env.r[31] + 60; // addi r28, r31, 0x3c
-    // Unknown opcode: fmadds f0 f30 f1 f0
+    gc_env.f[0] = (float)gc_env.f[30] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f30, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f1, 0x0(r29)
@@ -6760,7 +6762,7 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r3, r3, cm_803BCCA0@l
-    // Unknown opcode: fmadds f0 f31 f1 f0
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1] + (float)gc_env.f[0]; // fmadds f0, f31, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x40(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
@@ -6769,28 +6771,28 @@ void Camera_8002D85C(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x68); // lfs f6, 0x68(r3)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lfs f5, 0x0(r28)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lfs f4, 0x30(r31)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f3, 0x40(r31)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f6 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[6] + (float)gc_env.f[1]; // fmadds f0, f0, f6, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f2, 0x34(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f5 f4
+    gc_env.f[4] = (float)gc_env.f[5] - (float)gc_env.f[4]; // fsubs f4, f5, f4
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f3 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lfs f0, 0x30(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f4 f6 f0
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f4, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lfs f0, 0x34(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, *(uint32_t*)&temp);
     goto L_8002DDA8;
@@ -6818,8 +6820,8 @@ void Camera_8002D85C(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -6836,7 +6838,7 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002DBA8;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002DBA8:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6871,8 +6873,8 @@ void Camera_8002D85C(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x7C, *(uint32_t*)&temp);
     Camera_80029BC4();
@@ -6889,7 +6891,7 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002DC50;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8002DC50:
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -6911,7 +6913,7 @@ void Camera_8002D85C(void) {
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2BC); // lfs f0, 0x2BC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fcmpu cr0 f1 f0
+    gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] != 0) goto L_8002DCD8;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lfs f3, 0x38(r31)
     gc_env.f[3] = *(float*)&temp;
@@ -6919,20 +6921,20 @@ void Camera_8002D85C(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f1, 0x3C(r31)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f3 f2
+    gc_env.f[4] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f4, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lfs f0, 0x24(r31)
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lfs f2, 0x40(r31)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f1 f0
+    gc_env.f[3] = (float)gc_env.f[1] - (float)gc_env.f[0]; // fsubs f3, f1, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lfs f0, 0x28(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f2 f2 f0
-    // Unknown opcode: fmuls f1 f4 f4
-    // Unknown opcode: fmuls f0 f3 f3
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[2] = (float)gc_env.f[2] - (float)gc_env.f[0]; // fsubs f2, f2, f0
+    gc_env.f[1] = (float)gc_env.f[4] * (float)gc_env.f[4]; // fmuls f1, f4, f4
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[3]; // fmuls f0, f3, f3
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x2C0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C0, *(uint32_t*)&temp);
@@ -6961,7 +6963,7 @@ void Camera_8002D85C(void) {
     gc_env.r[4] = gc_env.r[28] + 0; // addi r4, r28, 0x0
     Camera_8002A0C0();
     gc_env.r[27] = gc_env.r[31] + 696; // addi r27, r31, 0x2b8
-    // Unknown opcode: lha r0 0x2b8(r31)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2B8); // lha r0, 0x2B8(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x3e8) ? 0 : (gc_env.r[0] < 0x3e8 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002DD54; // ble .L_8002DD54
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
@@ -6974,27 +6976,27 @@ void Camera_8002D85C(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f0, 0x2B4(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
-    // Unknown opcode: fadds f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[1]; // fadds f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
-    // Unknown opcode: lha r3 0x0(r27)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[3]);
-    // Unknown opcode: lha r3 0x0(r27)
+    gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[27] + 0x0); // lha r3, 0x0(r27)
     gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r3 r3 0x8000
+    gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B4); // lfs f2, 0x2B4(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x84, gc_env.r[3]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x80, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f0, 0x80(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
-    // Unknown opcode: fdivs f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
+    gc_env.f[0] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B0, *(uint32_t*)&temp);
     L_8002DDA8:
@@ -7040,7 +7042,7 @@ void Camera_8002DDC4(void) {
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[30] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r30, r3, cm_803BCCA0@l
     gc_env.r[26] = gc_env.r[29] + 76; // addi r26, r29, 0x4c
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x74); // lfs f5, 0x74(r30)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x24); // lfs f4, 0x24(r29)
@@ -7048,24 +7050,24 @@ void Camera_8002DDC4(void) {
     gc_env.r[27] = gc_env.r[30] + 116; // addi r27, r30, 0x74
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x18); // lfs f3, 0x18(r29)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f5 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[5] + (float)gc_env.f[1]; // fmadds f0, f0, f5, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x28); // lfs f2, 0x28(r29)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1C); // lfs f1, 0x1C(r29)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f4 f3
+    gc_env.f[3] = (float)gc_env.f[4] - (float)gc_env.f[3]; // fsubs f3, f4, f3
     gc_env.r[3] = gc_env.r[26] + 12; // addi r3, r26, 0xc
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x18); // lfs f0, 0x18(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f3 f5 f0
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f3, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1C); // lfs f0, 0x1C(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f5 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f1, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x1C, *(uint32_t*)&temp);
     Stage_80224CAC();
@@ -7075,28 +7077,28 @@ void Camera_8002DDC4(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f6, 0x0(r27)
     gc_env.f[6] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x5C); // lfs f5, 0x5C(r29)
     gc_env.f[5] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x50); // lfs f4, 0x50(r29)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x60); // lfs f3, 0x60(r29)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f6 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[6] + (float)gc_env.f[1]; // fmadds f0, f0, f6, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x54); // lfs f2, 0x54(r29)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fsubs f4 f5 f4
+    gc_env.f[4] = (float)gc_env.f[5] - (float)gc_env.f[4]; // fsubs f4, f5, f4
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r26)
     gc_mem_write32(gc_env.ram, gc_env.r[26] + 0x0, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f3 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x50); // lfs f0, 0x50(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f4 f6 f0
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f4, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x50(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x50, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x54); // lfs f0, 0x54(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f6 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[6] + (float)gc_env.f[0]; // fmadds f0, f1, f6, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x54(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x54, *(uint32_t*)&temp);
     Stage_GetCamFixedFov();
@@ -7109,8 +7111,8 @@ void Camera_8002DDC4(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x7C); // lfs f0, 0x7C(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x44, *(uint32_t*)&temp);
     Stage_GetCamFixedFov();
@@ -7124,8 +7126,8 @@ void Camera_8002DDC4(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f0, 0x0(r27)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x7C, *(uint32_t*)&temp);
     Stage_SetVecToFixedCamPos();
@@ -7137,28 +7139,28 @@ void Camera_8002DDC4(void) {
     gc_env.r[3] = gc_env.r[26] + 36; // addi r3, r26, 0x24
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x78); // lfs f5, 0x78(r30)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x3C); // lfs f4, 0x3C(r29)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x30); // lfs f3, 0x30(r29)
     gc_env.f[3] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x40); // lfs f2, 0x40(r29)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f5 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[5] + (float)gc_env.f[1]; // fmadds f0, f0, f5, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x34); // lfs f1, 0x34(r29)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f4 f3
+    gc_env.f[3] = (float)gc_env.f[4] - (float)gc_env.f[3]; // fsubs f3, f4, f3
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2C(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x2C, *(uint32_t*)&temp);
-    // Unknown opcode: fsubs f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x30); // lfs f0, 0x30(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f3 f5 f0
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f3, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x30(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x30, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x34); // lfs f0, 0x34(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f5 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f1, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x34(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x34, *(uint32_t*)&temp);
     Stage_SetVecToFixedCamPos();
@@ -7170,7 +7172,7 @@ void Camera_8002DDC4(void) {
     gc_env.r[4] = gc_env.r[25]; // Move register
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lfs f5, 0x0(r27)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fsubs f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f0, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x74); // lfs f4, 0x74(r29)
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x68); // lfs f3, 0x68(r29)
@@ -7178,21 +7180,21 @@ void Camera_8002DDC4(void) {
     gc_env.r[5] = gc_env.r[1] + 12; // addi r5, r1, 0xc
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x78); // lfs f2, 0x78(r29)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f0 f5 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[5] + (float)gc_env.f[1]; // fmadds f0, f0, f5, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x6C); // lfs f1, 0x6C(r29)
     gc_env.f[1] = *(float*)&temp;
-    // Unknown opcode: fsubs f3 f4 f3
-    // Unknown opcode: fsubs f1 f2 f1
+    gc_env.f[3] = (float)gc_env.f[4] - (float)gc_env.f[3]; // fsubs f3, f4, f3
+    gc_env.f[1] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f1, f2, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x64(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x64, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x68); // lfs f0, 0x68(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f3 f5 f0
+    gc_env.f[0] = (float)gc_env.f[3] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f3, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x68(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x68, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x6C); // lfs f0, 0x6C(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f0 f1 f5 f0
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[5] + (float)gc_env.f[0]; // fmadds f0, f1, f5, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x6C(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x6C, *(uint32_t*)&temp);
     lbVector_Diff();
@@ -7200,13 +7202,13 @@ void Camera_8002DDC4(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f1
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f2, 0x14(r1)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f0
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f0, f0, f0
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
@@ -7268,9 +7270,9 @@ void Camera_8002DFE4(void) {
     gc_env.r[31] = 0x1;
     goto L_8002E0B8;
     L_8002E060:
-    // Unknown opcode: xoris r3 r3 0x8000
+    gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r0 r0 0x8000
+    gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[3]);
     gc_env.r[3] = 17200 << 16; // lis r3, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
@@ -7280,9 +7282,9 @@ void Camera_8002DFE4(void) {
     gc_env.d[1] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fsubs f0 f0 f2
-    // Unknown opcode: fdivs f31 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f0, f0, f2
+    gc_env.f[31] = (float)gc_env.f[1] / (float)gc_env.f[0]; // fdivs f31, f1, f0
     goto L_8002E0B8;
     L_8002E098:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x378); // lfs f1, 0x378(r6)
@@ -7314,17 +7316,17 @@ void Camera_8002DFE4(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Add();
@@ -7377,9 +7379,9 @@ void Camera_8002E158(void) {
     gc_env.r[6] = 0x1;
     goto L_8002E20C;
     L_8002E1B4:
-    // Unknown opcode: xoris r4 r5 0x8000
+    gc_env.r[4] = gc_env.r[5] ^ 0x80000000; // xoris r4, r5, 0x8000
     gc_env.d[4] = cm_804D7E20; // lfd f4, cm_804D7E20@sda21(r0)
-    // Unknown opcode: xoris r0 r0 0x8000
+    gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[4]);
     gc_env.r[4] = 17200 << 16; // lis r4, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]);
@@ -7389,9 +7391,9 @@ void Camera_8002E158(void) {
     gc_env.d[3] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f0, 0x18(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f3 f3 f4
-    // Unknown opcode: fsubs f0 f0 f4
-    // Unknown opcode: fdivs f4 f3 f0
+    gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[4]; // fsubs f3, f3, f4
+    gc_env.f[0] = (float)gc_env.f[0] - (float)gc_env.f[4]; // fsubs f0, f0, f4
+    gc_env.f[4] = (float)gc_env.f[3] / (float)gc_env.f[0]; // fdivs f4, f3, f0
     goto L_8002E20C;
     L_8002E1EC:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x378); // lfs f3, 0x378(r4)
@@ -7411,8 +7413,8 @@ void Camera_8002E158(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, *(uint32_t*)&temp);
     goto L_8002E228;
     L_8002E21C:
-    // Unknown opcode: fsubs f0 f2 f1
-    // Unknown opcode: fmadds f0 f4 f0 f1
+    gc_env.f[0] = (float)gc_env.f[2] - (float)gc_env.f[1]; // fsubs f0, f2, f1
+    gc_env.f[0] = (float)gc_env.f[4] * (float)gc_env.f[0] + (float)gc_env.f[1]; // fmadds f0, f4, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, *(uint32_t*)&temp);
     L_8002E228:
@@ -7485,12 +7487,12 @@ void Camera_8002E234(void) {
     gc_env.r[0] = (gc_env.r[0] >> 7) & 0x1; // extrwi r0, r0, 1, 24
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8002E334;
-    // Unknown opcode: lha r5 0x368(r31)
+    gc_env.r[5] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x368); // lha r5, 0x368(r31)
     gc_env.r[4] = 17200 << 16; // lis r4, 0x4330
-    // Unknown opcode: lha r0 0x35e(r31)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x35E); // lha r0, 0x35E(r31)
     gc_env.r[3] = gc_env.r[1] + 8; // addi r3, r1, 0x8
-    // Unknown opcode: xoris r5 r5 0x8000
-    // Unknown opcode: xoris r0 r0 0x8000
+    gc_env.r[5] = gc_env.r[5] ^ 0x80000000; // xoris r5, r5, 0x8000
+    gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[5]);
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]);
@@ -7500,8 +7502,8 @@ void Camera_8002E234(void) {
     gc_env.d[1] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f1 f1 f2
-    // Unknown opcode: fsubs f2 f0 f2
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[2]; // fsubs f1, f1, f2
+    gc_env.f[2] = (float)gc_env.f[0] - (float)gc_env.f[2]; // fsubs f2, f0, f2
     Camera_8002E158();
     gc_env.r[30] = gc_env.r[30] & gc_env.r[3];
     L_8002E334:
@@ -7517,40 +7519,40 @@ void Camera_8002E234(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x360); // lfs f0, 0x360(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fneg f1 f0
+    gc_env.f[1] = -gc_env.f[0]; // fneg f1, f0
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x364); // lfs f1, 0x364(r31)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
     gc_env.r[4] = 0x2;
     lbVector_Rotate();
-    // Unknown opcode: lha r4 0x35e(r31)
+    gc_env.r[4] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x35E); // lha r4, 0x35E(r31)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
     gc_env.d[1] = cm_804D7E20; // lfd f1, cm_804D7E20@sda21(r0)
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    // Unknown opcode: xoris r4 r4 0x8000
+    gc_env.r[4] = gc_env.r[4] ^ 0x80000000; // xoris r4, r4, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[4]);
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]);
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f0, 0x20(r1)
     gc_env.d[0] = *(double*)&temp;
-    // Unknown opcode: fsubs f31 f0 f1
+    gc_env.f[31] = (float)gc_env.f[0] - (float)gc_env.f[1]; // fsubs f31, f0, f1
     lbVector_Normalize();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[29] = gc_env.r[31] + 20; // addi r29, r31, 0x14
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Add();
@@ -7572,7 +7574,7 @@ void Camera_8002E234(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fneg f1 f0
+    gc_env.f[1] = -gc_env.f[0]; // fneg f1, f0
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lfs f1, 0xC(r1)
     gc_env.f[1] = *(float*)&temp;
@@ -7587,17 +7589,17 @@ void Camera_8002E234(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f0, 0x1C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Add();
@@ -7772,8 +7774,8 @@ void Camera_8002E490(void) {
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x37C); // lfs f0, 0x37C(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fsubs f1 f3 f2
-    // Unknown opcode: fmadds f0 f1 f0 f2
+    gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[2]; // fsubs f1, f3, f2
+    gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0] + (float)gc_env.f[2]; // fmadds f0, f1, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x378(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x378, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x378); // lfs f1, 0x378(r31)
@@ -8648,9 +8650,9 @@ void Camera_8002F0E4(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f0, 0x14(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f1
-    // Unknown opcode: fmuls f0 f0 f0
-    // Unknown opcode: fadds f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f0, f0, f0
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f1, f1, f0
     sqrtf__Ff();
     gc_env.f[2] = gc_env.f[1]; // fmr f2, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f1, 0x10(r1)
@@ -8667,13 +8669,13 @@ void Camera_8002F0E4(void) {
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lfs f0, 0x10(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f2 f2
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f1, f2, f2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f2, 0x14(r1)
     gc_env.f[2] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f0
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f0, f0, f0
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
     // Unknown opcode: fctiwz f0 f1
     uint64_t temp;
@@ -9029,7 +9031,7 @@ void Camera_8002F4D4(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x48); // lfs f0, 0x48(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
     L_8002F658:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0);
@@ -9060,7 +9062,7 @@ void Camera_8002F4D4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33C, *(uint32_t*)&temp);
     if (gc_env.cr[0] != 0) goto L_8002F6B0;
     gc_env.f[0] = cm_804D7E98; // lfs f0, cm_804D7E98@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[31]; // fmuls f0, f0, f31
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x330, *(uint32_t*)&temp);
     goto L_8002F6B4;
@@ -9202,10 +9204,10 @@ void Camera_8002F7AC(void) {
     HSD_Randf();
     gc_env.f[2] = cm_804D7EC0; // lfs f2, cm_804D7EC0@sda21(r0)
     gc_env.f[0] = cm_804D7E04; // lfs f0, cm_804D7E04@sda21(r0)
-    // Unknown opcode: fmuls f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8002F854;
-    // Unknown opcode: fneg f31 f31
+    gc_env.f[31] = -gc_env.f[31]; // fneg f31, f31
     L_8002F854:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[31]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[31] < gc_env.f[0] ? 0x8 : (gc_env.f[31] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f31, f0
@@ -9213,7 +9215,7 @@ void Camera_8002F7AC(void) {
     HSD_Randf();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamAngleRadiansLeft();
-    // Unknown opcode: fmuls f0 f31 f1
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[1]; // fmuls f0, f31, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2CC(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2CC, *(uint32_t*)&temp);
     goto L_8002F890;
@@ -9221,8 +9223,8 @@ void Camera_8002F7AC(void) {
     HSD_Randf();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamAngleRadiansRight();
-    // Unknown opcode: fneg f0 f1
-    // Unknown opcode: fmuls f0 f31 f0
+    gc_env.f[0] = -gc_env.f[1]; // fneg f0, f1
+    gc_env.f[0] = (float)gc_env.f[31] * (float)gc_env.f[0]; // fmuls f0, f31, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2CC(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2CC, *(uint32_t*)&temp);
     L_8002F890:
@@ -9286,22 +9288,22 @@ void fn_8002F908(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fadds f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[31]; // fadds f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f30 f0 f1
+    gc_env.f[30] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f30, f0, f1
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r31, r3, cm_803BCCA0@l
-    // Unknown opcode: fmuls f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f1, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xAC); // lfs f0, 0xAC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
-    // Unknown opcode: fadds f1 f30 f0
-    // Unknown opcode: fsubs f0 f30 f0
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
+    gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
+    gc_env.f[0] = (float)gc_env.f[30] - (float)gc_env.f[0]; // fsubs f0, f30, f0
     float temp = (float)gc_env.f[1]; // stfs f1, 0xC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0xC, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x8(r30)
@@ -9309,21 +9311,21 @@ void fn_8002F908(void) {
     Stage_GetCamBoundsBottomOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsTopOffset();
-    // Unknown opcode: fadds f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[31]; // fadds f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f30 f0 f1
+    gc_env.f[30] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f30, f0, f1
     Stage_GetCamBoundsBottomOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsTopOffset();
-    // Unknown opcode: fsubs f2 f1 f31
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f2, f1, f31
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xB0); // lfs f0, 0xB0(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = 0x1;
-    // Unknown opcode: fmuls f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
-    // Unknown opcode: fadds f1 f30 f0
-    // Unknown opcode: fsubs f0 f30 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[2]; // fmuls f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
+    gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
+    gc_env.f[0] = (float)gc_env.f[30] - (float)gc_env.f[0]; // fsubs f0, f30, f0
     float temp = (float)gc_env.f[1]; // stfs f1, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r30)
@@ -9415,13 +9417,13 @@ void Camera_8002F9E4(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x94); // lfs f0, 0x94(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f2 f3 f2 f1
-    // Unknown opcode: fmuls f0 f2 f0
+    gc_env.f[2] = (float)gc_env.f[3] * (float)gc_env.f[2] + (float)gc_env.f[1]; // fmadds f2, f3, f2, f1
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2F8(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2F8, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x98); // lfs f0, 0x98(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2FC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2FC, *(uint32_t*)&temp);
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x300, gc_env.r[0]);
@@ -9451,7 +9453,7 @@ void Camera_8002F9E4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x33C, *(uint32_t*)&temp);
     if (gc_env.cr[0] != 0) goto L_8002FB18;
     gc_env.f[0] = cm_804D7E98; // lfs f0, cm_804D7E98@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x330, *(uint32_t*)&temp);
     goto L_8002FB1C;
@@ -9516,22 +9518,22 @@ void fn_8002FBA0(void) {
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fadds f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[31]; // fadds f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f30 f0 f1
+    gc_env.f[30] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f30, f0, f1
     Stage_GetCamBoundsLeftOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsRightOffset();
-    // Unknown opcode: fsubs f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
     gc_env.r[3] = ((uint32_t)&cm_803BCCA0 >> 16) & 0xFFFF; // lis r3, cm_803BCCA0@ha
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_803BCCA0 & 0xFFFF); // addi r31, r3, cm_803BCCA0@l
-    // Unknown opcode: fmuls f1 f0 f1
+    gc_env.f[1] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f1, f0, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xAC); // lfs f0, 0xAC(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
-    // Unknown opcode: fadds f1 f30 f0
-    // Unknown opcode: fsubs f0 f30 f0
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
+    gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
+    gc_env.f[0] = (float)gc_env.f[30] - (float)gc_env.f[0]; // fsubs f0, f30, f0
     float temp = (float)gc_env.f[1]; // stfs f1, 0xC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0xC, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x8(r30)
@@ -9539,21 +9541,21 @@ void fn_8002FBA0(void) {
     Stage_GetCamBoundsBottomOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsTopOffset();
-    // Unknown opcode: fadds f1 f1 f31
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[31]; // fadds f1, f1, f31
     gc_env.f[0] = cm_804D7E30; // lfs f0, cm_804D7E30@sda21(r0)
-    // Unknown opcode: fmuls f30 f0 f1
+    gc_env.f[30] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f30, f0, f1
     Stage_GetCamBoundsBottomOffset();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     Stage_GetCamBoundsTopOffset();
-    // Unknown opcode: fsubs f2 f1 f31
+    gc_env.f[2] = (float)gc_env.f[1] - (float)gc_env.f[31]; // fsubs f2, f1, f31
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xB0); // lfs f0, 0xB0(r31)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = 0x1;
-    // Unknown opcode: fmuls f1 f1 f2
-    // Unknown opcode: fmuls f0 f0 f1
-    // Unknown opcode: fadds f1 f30 f0
-    // Unknown opcode: fsubs f0 f30 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[2]; // fmuls f1, f1, f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
+    gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
+    gc_env.f[0] = (float)gc_env.f[30] - (float)gc_env.f[0]; // fsubs f0, f30, f0
     float temp = (float)gc_env.f[1]; // stfs f1, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r30)
@@ -9645,13 +9647,13 @@ void Camera_8002FC7C(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x94); // lfs f0, 0x94(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmadds f2 f3 f2 f1
-    // Unknown opcode: fmuls f0 f2 f0
+    gc_env.f[2] = (float)gc_env.f[3] * (float)gc_env.f[2] + (float)gc_env.f[1]; // fmadds f2, f3, f2, f1
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2F8(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2F8, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x98); // lfs f0, 0x98(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f2 f0
+    gc_env.f[0] = (float)gc_env.f[2] * (float)gc_env.f[0]; // fmuls f0, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2FC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x2FC, *(uint32_t*)&temp);
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x300, gc_env.r[0]);
@@ -9681,7 +9683,7 @@ void Camera_8002FC7C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x33C, *(uint32_t*)&temp);
     if (gc_env.cr[0] != 0) goto L_8002FDB0;
     gc_env.f[0] = cm_804D7E98; // lfs f0, cm_804D7E98@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x330(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x330, *(uint32_t*)&temp);
     goto L_8002FDB4;
@@ -9821,17 +9823,17 @@ void Camera_8002FEEC(void) {
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x48); // lfs f0, 0x48(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f1, f1, f0
     tanf();
     gc_env.f[3] = cm_804D7EA8; // lfs f3, cm_804D7EA8@sda21(r0)
     gc_env.r[4] = gc_env.r[1] + 24; // addi r4, r1, 0x18
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lfs f2, 0x3C(r31)
     gc_env.f[2] = *(float*)&temp;
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f2 f3 f2
+    gc_env.f[2] = (float)gc_env.f[3] * (float)gc_env.f[2]; // fmuls f2, f3, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3AC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3AC, *(uint32_t*)&temp);
-    // Unknown opcode: fdivs f31 f2 f1
+    gc_env.f[31] = (float)gc_env.f[2] / (float)gc_env.f[1]; // fdivs f31, f2, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3A8(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3A8, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3A4(r30)
@@ -9869,27 +9871,29 @@ void Camera_8002FEEC(void) {
     gc_env.r[29] = gc_env.r[30] + 948; // addi r29, r30, 0x3b4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x3B4); // lfs f0, 0x3B4(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f1 f1 f1
-    // Unknown opcode: lfsu f2 0x3b8(r30)
-    // Unknown opcode: fmuls f0 f0 f0
-    // Unknown opcode: fmuls f2 f2 f2
-    // Unknown opcode: fadds f0 f1 f0
-    // Unknown opcode: fadds f1 f2 f0
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[1]; // fmuls f1, f1, f1
+    uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x3B8); // lfsu f2, 0x3B8(r30)
+    gc_env.f[2] = *(float*)&temp;
+    gc_env.r[30] = gc_env.r[30] + 0x3B8;
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[0]; // fmuls f0, f0, f0
+    gc_env.f[2] = (float)gc_env.f[2] * (float)gc_env.f[2]; // fmuls f2, f2, f2
+    gc_env.f[0] = (float)gc_env.f[1] + (float)gc_env.f[0]; // fadds f0, f1, f0
+    gc_env.f[1] = (float)gc_env.f[2] + (float)gc_env.f[0]; // fadds f1, f2, f0
     sqrtf__Ff();
-    // Unknown opcode: fdivs f1 f31 f1
+    gc_env.f[1] = (float)gc_env.f[31] / (float)gc_env.f[1]; // fdivs f1, f31, f1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x0, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lfs f0, 0x0(r29)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lfs f0, 0x0(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     L_8003004C:
@@ -10544,9 +10548,9 @@ void Camera_800307D0(void) {
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_env.d[0] = cm_804D7E78; // lfd f0, cm_804D7E78@sda21(r0)
     gc_env.r[4] = gc_env.r[1] + 48; // addi r4, r1, 0x30
-    // Unknown opcode: fmuls f1 f2 f1
+    gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1
     gc_env.r[30] = 0x1;
-    // Unknown opcode: fmuls f1 f1 f30
+    gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[30]; // fmuls f1, f1, f30
     // Unknown opcode: fmul f31 f0 f1
     gc_env.f[31] = (float)gc_env.f[31]; // frsp f31, f31
     HSD_CObjGetEyePosition();
@@ -10561,7 +10565,7 @@ void Camera_800307D0(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8003086C;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8003086C:
     gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -10571,7 +10575,7 @@ void Camera_800307D0(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_8003088C;
-    // Unknown opcode: fneg f1 f1
+    gc_env.f[1] = -gc_env.f[1]; // fneg f1, f1
     L_8003088C:
     gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -10580,17 +10584,17 @@ void Camera_800307D0(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     gc_env.f[2] = cm_804D7E10; // lfs f2, cm_804D7E10@sda21(r0)
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lfs f0, 0x4C(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4C, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f0, 0x50(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f2
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[2]; // fmuls f0, f0, f2
     float temp = (float)gc_env.f[0]; // stfs f0, 0x50(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x50, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lfs f2, 0x38(r1)
@@ -10599,10 +10603,10 @@ void Camera_800307D0(void) {
     gc_env.f[0] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lfs f3, 0x48(r1)
     gc_env.f[3] = *(float*)&temp;
-    // Unknown opcode: fdivs f2 f2 f0
+    gc_env.f[2] = (float)gc_env.f[2] / (float)gc_env.f[0]; // fdivs f2, f2, f0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fnmsubs f0 f3 f2 f0
+    gc_env.f[0] = -((float)gc_env.f[3] * (float)gc_env.f[2] - (float)gc_env.f[0]); // fnmsubs f0, f3, f2, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
     sinf();
@@ -10613,14 +10617,14 @@ void Camera_800307D0(void) {
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f5, 0x50(r1)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fmuls f2 f4 f30
+    gc_env.f[2] = (float)gc_env.f[4] * (float)gc_env.f[30]; // fmuls f2, f4, f30
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f3 f5 f30
-    // Unknown opcode: fmsubs f2 f5 f1 f2
-    // Unknown opcode: fmadds f3 f4 f1 f3
+    gc_env.f[3] = (float)gc_env.f[5] * (float)gc_env.f[30]; // fmuls f3, f5, f30
+    gc_env.f[2] = (float)gc_env.f[5] * (float)gc_env.f[1] - (float)gc_env.f[2]; // fmsubs f2, f5, f1, f2
+    gc_env.f[3] = (float)gc_env.f[4] * (float)gc_env.f[1] + (float)gc_env.f[3]; // fmadds f3, f4, f1, f3
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] >= 0) goto L_8003091C;
-    // Unknown opcode: fneg f1 f2
+    gc_env.f[1] = -gc_env.f[2]; // fneg f1, f2
     goto L_80030920;
     L_8003091C:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
@@ -10628,7 +10632,7 @@ void Camera_800307D0(void) {
     gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030954; // ble .L_80030954
-    // Unknown opcode: fmuls f1 f5 f2
+    gc_env.f[1] = (float)gc_env.f[5] * (float)gc_env.f[2]; // fmuls f1, f5, f2
     gc_env.d[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80030954; // ble .L_80030954
@@ -10636,8 +10640,8 @@ void Camera_800307D0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fnmsubs f0 f3 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = -((float)gc_env.f[3] * (float)gc_env.f[1] - (float)gc_env.f[0]); // fnmsubs f0, f3, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, *(uint32_t*)&temp);
     goto L_80030974;
@@ -10654,7 +10658,7 @@ void Camera_800307D0(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, *(uint32_t*)&temp);
     L_80030974:
-    // Unknown opcode: fneg f30 f31
+    gc_env.f[30] = -gc_env.f[31]; // fneg f30, f31
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
     sinf();
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
@@ -10664,14 +10668,14 @@ void Camera_800307D0(void) {
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f5, 0x50(r1)
     gc_env.f[5] = *(float*)&temp;
-    // Unknown opcode: fmuls f2 f4 f31
+    gc_env.f[2] = (float)gc_env.f[4] * (float)gc_env.f[31]; // fmuls f2, f4, f31
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    // Unknown opcode: fmuls f3 f5 f31
-    // Unknown opcode: fmsubs f2 f5 f1 f2
-    // Unknown opcode: fmadds f3 f4 f1 f3
+    gc_env.f[3] = (float)gc_env.f[5] * (float)gc_env.f[31]; // fmuls f3, f5, f31
+    gc_env.f[2] = (float)gc_env.f[5] * (float)gc_env.f[1] - (float)gc_env.f[2]; // fmsubs f2, f5, f1, f2
+    gc_env.f[3] = (float)gc_env.f[4] * (float)gc_env.f[1] + (float)gc_env.f[3]; // fmadds f3, f4, f1, f3
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] >= 0) goto L_800309B8;
-    // Unknown opcode: fneg f1 f2
+    gc_env.f[1] = -gc_env.f[2]; // fneg f1, f2
     goto L_800309BC;
     L_800309B8:
     gc_env.f[1] = gc_env.f[2]; // fmr f1, f2
@@ -10679,7 +10683,7 @@ void Camera_800307D0(void) {
     gc_env.d[0] = cm_804D7EE8; // lfd f0, cm_804D7EE8@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_800309F0; // ble .L_800309F0
-    // Unknown opcode: fmuls f1 f5 f2
+    gc_env.f[1] = (float)gc_env.f[5] * (float)gc_env.f[2]; // fmuls f1, f5, f2
     gc_env.d[0] = cm_804D7EF0; // lfd f0, cm_804D7EF0@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_800309F0; // ble .L_800309F0
@@ -10687,8 +10691,8 @@ void Camera_800307D0(void) {
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f0, 0x30(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fdivs f1 f1 f2
-    // Unknown opcode: fnmsubs f0 f3 f1 f0
+    gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
+    gc_env.f[0] = -((float)gc_env.f[3] * (float)gc_env.f[1] - (float)gc_env.f[0]); // fnmsubs f0, f3, f1, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, *(uint32_t*)&temp);
     goto L_80030A30;
@@ -11028,7 +11032,7 @@ void Camera_80030CFC(void) {
     lbVector_8000E838();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x3C); // lfs f0, 0x3C(r30)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fadds f0 f0 f31
+    gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[31]; // fadds f0, f0, f31
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_80030D6C;
     gc_env.r[3] = 0x1;
@@ -11046,18 +11050,18 @@ void Camera_80030CFC(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lfs f0, 0x20(r1)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[4] = gc_env.r[30] + 28; // addi r4, r30, 0x1c
-    // Unknown opcode: fadds f1 f1 f31
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[1] = (float)gc_env.f[1] + (float)gc_env.f[31]; // fadds f1, f1, f31
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f0, 0x24(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, *(uint32_t*)&temp);
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
-    // Unknown opcode: fmuls f0 f0 f1
+    gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x28(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     lbVector_Add();
@@ -11102,7 +11106,7 @@ void Camera_80030DF8(void) {
 void Camera_80030E10(void) {
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
-    // Unknown opcode: lha r0 0x2b8(r3)
+    gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x2B8); // lha r0, 0x2B8(r3)
     gc_env.cr[0] = (gc_env.r[0] == 0x1) ? 0 : (gc_env.r[0] < 0x1 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] >= 0) goto L_80030E2C;
     gc_env.f[1] = cm_804D7F08; // lfs f1, cm_804D7F08@sda21(r0)
