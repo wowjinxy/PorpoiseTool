@@ -22,7 +22,7 @@ void Camera_80028B9C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[31]); // stmw r27, 0x14(r1)
     gc_env.r[31] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r5, cm_80452C68@l
     gc_env.r[27] = gc_env.r[3]; // Move register
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     gc_env.r[28] = gc_env.r[31] + 4; // addi r28, r31, 0x4
     gc_env.r[3] = gc_env.r[31] + 140; // addi r3, r31, 0x8c
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x68); // lwz r4, 0x68(r6)
@@ -30,11 +30,11 @@ void Camera_80028B9C(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r4, 0x4(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x4); // lwz r0, 0x4(r7)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x14, gc_env.r[4]); // stw r4, 0x14(r31)
-    gc_env.r[4] = 0x224;
+    gc_env.r[4] = 0x224; // li r4, 0x224
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x18, gc_env.r[0]); // stw r0, 0x18(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x8); // lwz r0, 0x8(r7)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r31)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x0); // lwz r5, 0x0(r7)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r31)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7]); // lwz r5, (r7)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x4); // lwz r0, 0x4(r7)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[5]); // stw r5, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -44,14 +44,14 @@ void Camera_80028B9C(void) {
     gc_env.r[8] = gc_env.r[5] + 4; // addi r8, r5, 0x4
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r5, 0x4(r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x4); // lwz r0, 0x4(r8)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2c, gc_env.r[5]); // stw r5, 0x2c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, gc_env.r[5]); // stw r5, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, gc_env.r[0]); // stw r0, 0x30(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x8); // lwz r0, 0x8(r8)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, gc_env.r[0]); // stw r0, 0x34(r31)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x0); // lwz r5, 0x0(r8)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8]); // lwz r5, (r8)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x4); // lwz r0, 0x4(r8)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[5]); // stw r5, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x8); // lwz r0, 0x8(r8)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x7C); // lfs f0, 0x7C(r6)
@@ -60,25 +60,25 @@ void Camera_80028B9C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x48, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x0); // lwz r5, 0x0(r7)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7]); // lwz r5, (r7)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x4); // lwz r0, 0x4(r7)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4c, gc_env.r[5]); // stw r5, 0x4c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4C, gc_env.r[5]); // stw r5, 0x4C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x50, gc_env.r[0]); // stw r0, 0x50(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x8); // lwz r0, 0x8(r7)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x54, gc_env.r[0]); // stw r0, 0x54(r31)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x0); // lwz r5, 0x0(r7)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[7]); // lwz r5, (r7)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x4); // lwz r0, 0x4(r7)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x58, gc_env.r[5]); // stw r5, 0x58(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x5c, gc_env.r[0]); // stw r0, 0x5c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x5C, gc_env.r[0]); // stw r0, 0x5C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[7] + 0x8); // lwz r0, 0x8(r7)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x60, gc_env.r[0]); // stw r0, 0x60(r31)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x0); // lwz r5, 0x0(r8)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8]); // lwz r5, (r8)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x4); // lwz r0, 0x4(r8)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x64, gc_env.r[5]); // stw r5, 0x64(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x68, gc_env.r[0]); // stw r0, 0x68(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x8); // lwz r0, 0x8(r8)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x6c, gc_env.r[0]); // stw r0, 0x6c(r31)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x0); // lwz r5, 0x0(r8)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x6C, gc_env.r[0]); // stw r0, 0x6C(r31)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[8]); // lwz r5, (r8)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[8] + 0x4); // lwz r0, 0x4(r8)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x70, gc_env.r[5]); // stw r5, 0x70(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x74, gc_env.r[0]); // stw r0, 0x74(r31)
@@ -104,7 +104,7 @@ void Camera_80028B9C(void) {
     gc_env.r[3] = gc_env.r[31] + 896; // addi r3, r31, 0x380
     float temp = (float)gc_env.f[0]; // stfs f0, 0xAC(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xAC, *(uint32_t*)&temp);
-    gc_env.r[4] = 0x18;
+    gc_env.r[4] = 0x18; // li r4, 0x18
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2BC(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2BC, *(uint32_t*)&temp);
     gc_env.f[0] = cm_804D7E10; // lfs f0, cm_804D7E10@sda21(r0)
@@ -142,8 +142,8 @@ void Camera_80028B9C(void) {
     uint32_t rotated = gc_env.r[30] << 5; // rlwimi r0, r30, 5, 26, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x20) | (rotated & 0x20);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x399, gc_env.r[0]); // stb r0, 0x399(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lwz r0, 0x0(r28)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x39c, gc_env.r[0]); // stw r0, 0x39c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28]); // lwz r0, (r28)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x39C, gc_env.r[0]); // stw r0, 0x39C(r31)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x399); // lbz r0, 0x399(r31)
     uint32_t rotated = gc_env.r[30] << 4; // rlwimi r0, r30, 4, 27, 27
     gc_env.r[0] = (gc_env.r[0] & ~0x10) | (rotated & 0x10);
@@ -164,7 +164,7 @@ void Camera_80028B9C(void) {
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0); // lbz r0, 0x0(r29)
     uint32_t rotated = gc_env.r[30] << 0; // rlwimi r0, r30, 0, 31, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x1) | (rotated & 0x1);
-    gc_env.r[28] = gc_env.r[27] * 108;
+    gc_env.r[28] = gc_env.r[27] * 108; // mulli r28, r27, 108
     gc_mem_write8(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[0]); // stb r0, 0x0(r29)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x39a); // lbz r0, 0x39a(r31)
     uint32_t rotated = gc_env.r[30] << 7; // rlwimi r0, r30, 7, 24, 24
@@ -179,21 +179,21 @@ void Camera_80028B9C(void) {
     uint32_t rotated = gc_env.r[30] << 5; // rlwimi r0, r30, 5, 26, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x20) | (rotated & 0x20);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x39a, gc_env.r[0]); // stb r0, 0x39a(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[30]); // stw r30, 0x0(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31], gc_env.r[30]); // stw r30, (r31)
     HSD_MemAlloc();
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21, gc_env.r[3]); // stw r3, cm_804D6458@sda21(r0)
+    cm_804D6458 = gc_env.r[3]; // stw r3, cm_804D6458@sda21(r0)
     gc_env.r[4] = gc_env.r[28]; // Move register
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21, gc_env.r[3]); // stw r3, cm_804D645C@sda21(r0)
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21); // lwz r3, cm_804D6458@sda21(r0)
+    cm_804D645C = gc_env.r[3]; // stw r3, cm_804D645C@sda21(r0)
+    gc_env.r[3] = cm_804D6458; // lwz r3, cm_804D6458@sda21(r0)
     lb_8000C160();
-    gc_env.r[0] = gc_env.r[27] - 1;
+    gc_env.r[0] = gc_env.r[27] - 1; // subic. r0, r27, 1
     gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[27] >= 1 ? 0x20000000 : 0);
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80028F20; // ble .L_80028F20
-    gc_env.r[0] = gc_env.r[27] - 1;
+    gc_env.r[0] = gc_env.r[27] - 1; // subi r0, r27, 1
     gc_env.cr[0] = (gc_env.r[0] == 0x8) ? 0 : (gc_env.r[0] < 0x8 ? -1 : 1); // Compare with immediate
-    gc_env.r[4] = gc_env.r[27] - 9;
+    gc_env.r[4] = gc_env.r[27] - 9; // subi r4, r27, 9
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80028F40; // ble .L_80028F40
     gc_env.r[0] = gc_env.r[4] + 7; // addi r0, r4, 0x7
     gc_env.r[0] = gc_env.r[0] >> 3; // srwi r0, r0, 3
@@ -202,52 +202,52 @@ void Camera_80028B9C(void) {
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_80028F40; // ble .L_80028F40
     L_80028E18:
     gc_env.r[0] = gc_env.r[3] + 1; // addi r0, r3, 0x1
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r5, cm_804D645C@sda21(r0)
-    gc_env.r[0] = gc_env.r[0] * 108;
-    gc_env.r[4] = gc_env.r[5] + gc_env.r[0];
+    gc_env.r[5] = cm_804D645C; // lwz r5, cm_804D645C@sda21(r0)
+    gc_env.r[0] = gc_env.r[0] * 108; // mulli r0, r0, 108
+    gc_env.r[4] = gc_env.r[5] + gc_env.r[0]; // add r4, r5, r0
     gc_env.r[0] = gc_env.r[30] + 4; // addi r0, r30, 0x4
     gc_mem_write32(gc_env.ram, gc_env.r[5] + gc_env.r[0], gc_env.r[4]); // stwx r4, r5, r0
     gc_env.r[0] = gc_env.r[3] + 2; // addi r0, r3, 0x2
-    gc_env.r[4] = gc_env.r[0] * 108;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[4] = gc_env.r[0] * 108; // mulli r4, r0, 108
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
     gc_env.r[0] = gc_env.r[3] + 3; // addi r0, r3, 0x3
-    gc_env.r[5] = gc_env.r[6] + gc_env.r[4];
+    gc_env.r[5] = gc_env.r[6] + gc_env.r[4]; // add r5, r6, r4
     gc_env.r[4] = gc_env.r[30] + 112; // addi r4, r30, 0x70
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[4], gc_env.r[5]); // stwx r5, r6, r4
-    gc_env.r[4] = gc_env.r[0] * 108;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[4] = gc_env.r[0] * 108; // mulli r4, r0, 108
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
     gc_env.r[0] = gc_env.r[3] + 4; // addi r0, r3, 0x4
-    gc_env.r[5] = gc_env.r[6] + gc_env.r[4];
+    gc_env.r[5] = gc_env.r[6] + gc_env.r[4]; // add r5, r6, r4
     gc_env.r[4] = gc_env.r[30] + 220; // addi r4, r30, 0xdc
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[4], gc_env.r[5]); // stwx r5, r6, r4
-    gc_env.r[4] = gc_env.r[0] * 108;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[4] = gc_env.r[0] * 108; // mulli r4, r0, 108
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
     gc_env.r[0] = gc_env.r[3] + 5; // addi r0, r3, 0x5
-    gc_env.r[5] = gc_env.r[6] + gc_env.r[4];
+    gc_env.r[5] = gc_env.r[6] + gc_env.r[4]; // add r5, r6, r4
     gc_env.r[4] = gc_env.r[30] + 328; // addi r4, r30, 0x148
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[4], gc_env.r[5]); // stwx r5, r6, r4
     gc_env.r[4] = gc_env.r[3] + 6; // addi r4, r3, 0x6
-    gc_env.r[0] = gc_env.r[0] * 108;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
-    gc_env.r[5] = gc_env.r[6] + gc_env.r[0];
+    gc_env.r[0] = gc_env.r[0] * 108; // mulli r0, r0, 108
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[5] = gc_env.r[6] + gc_env.r[0]; // add r5, r6, r0
     gc_env.r[0] = gc_env.r[30] + 436; // addi r0, r30, 0x1b4
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[0], gc_env.r[5]); // stwx r5, r6, r0
     gc_env.r[0] = gc_env.r[3] + 7; // addi r0, r3, 0x7
-    gc_env.r[5] = gc_env.r[4] * 108;
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r7, cm_804D645C@sda21(r0)
+    gc_env.r[5] = gc_env.r[4] * 108; // mulli r5, r4, 108
+    gc_env.r[7] = cm_804D645C; // lwz r7, cm_804D645C@sda21(r0)
     gc_env.r[4] = gc_env.r[3] + 8; // addi r4, r3, 0x8
-    gc_env.r[6] = gc_env.r[7] + gc_env.r[5];
+    gc_env.r[6] = gc_env.r[7] + gc_env.r[5]; // add r6, r7, r5
     gc_env.r[5] = gc_env.r[30] + 544; // addi r5, r30, 0x220
     gc_mem_write32(gc_env.ram, gc_env.r[7] + gc_env.r[5], gc_env.r[6]); // stwx r6, r7, r5
-    gc_env.r[5] = gc_env.r[0] * 108;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[5] = gc_env.r[0] * 108; // mulli r5, r0, 108
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
     gc_env.r[0] = gc_env.r[30] + 652; // addi r0, r30, 0x28c
-    gc_env.r[5] = gc_env.r[6] + gc_env.r[5];
+    gc_env.r[5] = gc_env.r[6] + gc_env.r[5]; // add r5, r6, r5
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[0], gc_env.r[5]); // stwx r5, r6, r0
     gc_env.r[0] = gc_env.r[30] + 760; // addi r0, r30, 0x2f8
-    gc_env.r[4] = gc_env.r[4] * 108;
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r5, cm_804D645C@sda21(r0)
-    gc_env.r[4] = gc_env.r[5] + gc_env.r[4];
+    gc_env.r[4] = gc_env.r[4] * 108; // mulli r4, r4, 108
+    gc_env.r[5] = cm_804D645C; // lwz r5, cm_804D645C@sda21(r0)
+    gc_env.r[4] = gc_env.r[5] + gc_env.r[4]; // add r4, r5, r4
     gc_mem_write32(gc_env.ram, gc_env.r[5] + gc_env.r[0], gc_env.r[4]); // stwx r4, r5, r0
     gc_env.r[30] += 864; // addi r30, r30, 0x360
     gc_env.r[3] += 8; // addi r3, r3, 0x8
@@ -255,33 +255,33 @@ void Camera_80028B9C(void) {
     if (gc_env.ctr != 0) goto L_80028E18;
     goto L_80028F40;
     L_80028EE8:
-    gc_env.r[4] = gc_env.r[27] - 1;
-    gc_env.r[0] = gc_env.r[4] - gc_env.r[3];
+    gc_env.r[4] = gc_env.r[27] - 1; // subi r4, r27, 1
+    gc_env.r[0] = gc_env.r[4] - gc_env.r[3]; // subf r0, r3, r4
     gc_env.cr[0] = (int32_t)gc_env.r[3] < (int32_t)gc_env.r[4] ? 0x8 : ((int32_t)gc_env.r[3] > (int32_t)gc_env.r[4] ? 0x4 : 0x2); // cmpw r3, r4
     gc_env.ctr = gc_env.r[0]; // Move to count register
     if (gc_env.cr[0] >= 0) goto L_80028F20;
     L_80028EFC:
     gc_env.r[0] = gc_env.r[3] + 1; // addi r0, r3, 0x1
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r6, cm_804D645C@sda21(r0)
-    gc_env.r[4] = gc_env.r[0] * 108;
+    gc_env.r[6] = cm_804D645C; // lwz r6, cm_804D645C@sda21(r0)
+    gc_env.r[4] = gc_env.r[0] * 108; // mulli r4, r0, 108
     gc_env.r[0] = gc_env.r[5] + 4; // addi r0, r5, 0x4
-    gc_env.r[4] = gc_env.r[6] + gc_env.r[4];
+    gc_env.r[4] = gc_env.r[6] + gc_env.r[4]; // add r4, r6, r4
     gc_mem_write32(gc_env.ram, gc_env.r[6] + gc_env.r[0], gc_env.r[4]); // stwx r4, r6, r0
     gc_env.r[5] += 108; // addi r5, r5, 0x6c
     gc_env.r[3] += 1; // addi r3, r3, 0x1
     gc_env.ctr -= 1;
     if (gc_env.ctr != 0) goto L_80028EFC;
     L_80028F20:
-    gc_env.r[0] = gc_env.r[3] * 108;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D645C@sda21); // lwz r3, cm_804D645C@sda21(r0)
-    gc_env.r[3] = gc_env.r[3] + gc_env.r[0];
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = gc_env.r[3] * 108; // mulli r0, r3, 108
+    gc_env.r[3] = cm_804D645C; // lwz r3, cm_804D645C@sda21(r0)
+    gc_env.r[3] = gc_env.r[3] + gc_env.r[0]; // add r3, r3, r0
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6460@sda21, gc_env.r[0]); // stw r0, cm_804D6460@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21, gc_env.r[0]); // stw r0, cm_804D6468@sda21(r0)
+    cm_804D6460 = gc_env.r[0]; // stw r0, cm_804D6460@sda21(r0)
+    cm_804D6468 = gc_env.r[0]; // stw r0, cm_804D6468@sda21(r0)
     goto L_80028F48;
     L_80028F40:
-    gc_env.r[5] = gc_env.r[3] * 108;
+    gc_env.r[5] = gc_env.r[3] * 108; // mulli r5, r3, 108
     goto L_80028EE8;
     L_80028F48:
     gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lmw r27, 0x14(r1)
@@ -289,7 +289,7 @@ void Camera_80028B9C(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lmw r27, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lmw r27, 0x14(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lmw r27, 0x14(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -300,7 +300,7 @@ void Camera_80028F5C(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & 0x2) return; // beqlr
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[4]); // stw r4, 0x8(r3)
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[2] = cm_804D7E14; // lfs f2, cm_804D7E14@sda21(r0)
     float temp = (float)gc_env.f[2]; // stfs f2, 0x18(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x18, *(uint32_t*)&temp);
@@ -310,7 +310,7 @@ void Camera_80028F5C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10, *(uint32_t*)&temp);
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x10); // lwz r5, 0x10(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lwz r0, 0x14(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c, gc_env.r[5]); // stw r5, 0x1c(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1C, gc_env.r[5]); // stw r5, 0x1C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20, gc_env.r[0]); // stw r0, 0x20(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lwz r0, 0x18(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x24, gc_env.r[0]); // stw r0, 0x24(r3)
@@ -341,15 +341,15 @@ void Camera_80028F5C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x38, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x3C, *(uint32_t*)&temp);
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2c); // lwz r4, 0x2c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lwz r4, 0x2C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x30); // lwz r0, 0x30(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x40, gc_env.r[4]); // stw r4, 0x40(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x44, gc_env.r[0]); // stw r0, 0x44(r3)
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lwz r4, 0x34(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x38); // lwz r0, 0x38(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x48, gc_env.r[4]); // stw r4, 0x48(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4c, gc_env.r[0]); // stw r0, 0x4c(r3)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3c); // lwz r0, 0x3c(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4C, gc_env.r[0]); // stw r0, 0x4C(r3)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3C); // lwz r0, 0x3C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x50, gc_env.r[0]); // stw r0, 0x50(r3)
     float temp = (float)gc_env.f[2]; // stfs f2, 0x54(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x54, *(uint32_t*)&temp);
@@ -369,12 +369,12 @@ void Camera_80028F5C(void) {
 // Function: Camera_80029020
 void Camera_80029020(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     Camera_80029044();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -388,7 +388,7 @@ void Camera_80029044(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x18, gc_env.r[1]); // stwu r1, -0x18(r1)
     gc_env.r[1] = gc_env.r[1] + -0x18;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]); // stw r31, 0x14(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21); // lwz r0, cm_804D6458@sda21(r0)
+    gc_env.r[0] = cm_804D6458; // lwz r0, cm_804D6458@sda21(r0)
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     gc_env.r[31] = gc_env.r[0]; // Move register
     if (gc_env.cr[0] != 0) goto L_8002907C;
@@ -400,25 +400,25 @@ void Camera_80029044(void) {
     goto L_80029078;
     L_8002907C:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r3, 0x4(r31)
-    gc_env.r[0] = 0x0;
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21, gc_env.r[3]); // stw r3, cm_804D6458@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stw r0, 0x0(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6460@sda21); // lwz r0, cm_804D6460@sda21(r0)
+    gc_env.r[0] = 0x0; // li r0, 0x0
+    cm_804D6458 = gc_env.r[3]; // stw r3, cm_804D6458@sda21(r0)
+    gc_mem_write32(gc_env.ram, gc_env.r[31], gc_env.r[0]); // stw r0, (r31)
+    gc_env.r[0] = cm_804D6460; // lwz r0, cm_804D6460@sda21(r0)
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_800290A4;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21); // lwz r3, cm_804D6468@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[31]); // stw r31, 0x0(r3)
+    gc_env.r[3] = cm_804D6468; // lwz r3, cm_804D6468@sda21(r0)
+    gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[31]); // stw r31, (r3)
     goto L_800290A8;
     L_800290A4:
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6460@sda21, gc_env.r[31]); // stw r31, cm_804D6460@sda21(r0)
+    cm_804D6460 = gc_env.r[31]; // stw r31, cm_804D6460@sda21(r0)
     L_800290A8:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21); // lwz r0, cm_804D6468@sda21(r0)
+    gc_env.r[0] = cm_804D6468; // lwz r0, cm_804D6468@sda21(r0)
     gc_env.r[3] = gc_env.r[31]; // Move register
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4, gc_env.r[0]); // stw r0, 0x4(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21, gc_env.r[31]); // stw r31, cm_804D6468@sda21(r0)
+    cm_804D6468 = gc_env.r[31]; // stw r31, cm_804D6468@sda21(r0)
     Camera_80028F5C();
     gc_env.r[3] = gc_env.r[31]; // Move register
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -427,7 +427,7 @@ void Camera_80029044(void) {
 
 // Function: Camera_800290D4
 void Camera_800290D4(void) {
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x0); // lwz r4, 0x0(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r4, (r3)
     gc_env.cr[0] = ((uint32_t)gc_env.r[4] == 0x0) ? 0 : ((uint32_t)gc_env.r[4] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_800290EC;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
@@ -435,21 +435,21 @@ void Camera_800290D4(void) {
     goto L_800290F4;
     L_800290EC:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21, gc_env.r[0]); // stw r0, cm_804D6468@sda21(r0)
+    cm_804D6468 = gc_env.r[0]; // stw r0, cm_804D6468@sda21(r0)
     L_800290F4:
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r4, 0x4(r3)
     gc_env.cr[0] = ((uint32_t)gc_env.r[4] == 0x0) ? 0 : ((uint32_t)gc_env.r[4] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002910C;
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x0); // lwz r0, 0x0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[0]); // stw r0, 0x0(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r0, (r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[4], gc_env.r[0]); // stw r0, (r4)
     goto L_80029114;
     L_8002910C:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x0); // lwz r0, 0x0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6460@sda21, gc_env.r[0]); // stw r0, cm_804D6460@sda21(r0)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r0, (r3)
+    cm_804D6460 = gc_env.r[0]; // stw r0, cm_804D6460@sda21(r0)
     L_80029114:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21); // lwz r0, cm_804D6458@sda21(r0)
+    gc_env.r[0] = cm_804D6458; // lwz r0, cm_804D6458@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6458@sda21, gc_env.r[3]); // stw r3, cm_804D6458@sda21(r0)
+    cm_804D6458 = gc_env.r[3]; // stw r3, cm_804D6458@sda21(r0)
     return;
 }
 
@@ -469,11 +469,11 @@ void Camera_80029124(void) {
     memcpy(&temp, &gc_env.f[29], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x38, temp); // stfd f29, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[31]); // stw r31, 0x34(r1)
-    gc_env.r[31] = 0x0;
+    gc_env.r[31] = 0x0; // li r31, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[30]); // stw r30, 0x30(r1)
     gc_env.r[30] = gc_env.r[4] + 0; // addi r30, r4, 0x0
     gc_env.r[4] = gc_env.r[1] + 16; // addi r4, r1, 0x10
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[29]); // stw r29, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[29]); // stw r29, 0x2C(r1)
     gc_env.r[29] = gc_env.r[3] + 0; // addi r29, r3, 0x0
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
     Ground_801C4368();
@@ -566,7 +566,7 @@ void Camera_80029124(void) {
     gc_env.d[29] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r29, 0x2c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r29, 0x2C(r1)
     gc_env.r[1] += 80; // addi r1, r1, 0x50
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -601,9 +601,9 @@ void Camera_8002928C(void) {
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0xE); // lha r3, 0xE(r31)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_800292E8;
-    gc_env.r[0] = gc_env.r[3] - 1;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0xe, gc_env.r[0]); // sth r0, 0xe(r31)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     goto L_800293C0;
     L_800292E8:
     Stage_GetCamBoundsLeftOffset();
@@ -617,7 +617,7 @@ void Camera_8002928C(void) {
     gc_env.f[3] = *(float*)&temp;
     gc_env.f[2] = (float)gc_env.f[30] - (float)gc_env.f[29]; // fsubs f2, f30, f29
     gc_env.f[0] = cm_804D7E28; // lfs f0, cm_804D7E28@sda21(r0)
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     gc_env.f[3] = (float)gc_env.f[3] - (float)gc_env.f[29]; // fsubs f3, f3, f29
     gc_env.f[2] = (float)gc_env.f[3] / (float)gc_env.f[2]; // fdivs f2, f3, f2
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
@@ -625,7 +625,7 @@ void Camera_8002928C(void) {
     gc_env.f[0] = cm_804D7E2C; // lfs f0, cm_804D7E2C@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[2] < gc_env.f[0] ? 0x8 : (gc_env.f[2] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f2, f0
     if (gc_env.cr[0] & 0x8) goto L_80029334; // blt .L_80029334
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_80029334:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80029374;
@@ -633,7 +633,7 @@ void Camera_8002928C(void) {
     gc_env.f[3] = *(float*)&temp;
     gc_env.f[2] = (float)gc_env.f[31] - (float)gc_env.f[1]; // fsubs f2, f31, f1
     gc_env.f[0] = cm_804D7E28; // lfs f0, cm_804D7E28@sda21(r0)
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     gc_env.f[1] = (float)gc_env.f[3] - (float)gc_env.f[1]; // fsubs f1, f3, f1
     gc_env.f[1] = (float)gc_env.f[1] / (float)gc_env.f[2]; // fdivs f1, f1, f2
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -641,7 +641,7 @@ void Camera_8002928C(void) {
     gc_env.f[0] = cm_804D7E2C; // lfs f0, cm_804D7E2C@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & 0x8) goto L_8002936C; // blt .L_8002936C
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002936C:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002939C;
@@ -650,28 +650,28 @@ void Camera_8002928C(void) {
     gc_env.r[0] = (gc_env.r[3] >> 5) & 0x1; // extrwi r0, r3, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80029394;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     uint32_t rotated = gc_env.r[0] << 5; // rlwimi r3, r0, 5, 26, 26
     gc_env.r[3] = (gc_env.r[3] & ~0x20) | (rotated & 0x20);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0xc, gc_env.r[3]); // stb r3, 0xc(r31)
-    gc_env.r[0] = 0x258;
+    gc_env.r[0] = 0x258; // li r0, 0x258
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0xe, gc_env.r[0]); // sth r0, 0xe(r31)
     L_80029394:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     goto L_800293C0;
     L_8002939C:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0xe, gc_env.r[0]); // sth r0, 0xe(r31)
     L_800293A4:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0xc); // lbz r0, 0xc(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 26, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x20) | (rotated & 0x20);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0xc, gc_env.r[0]); // stb r0, 0xc(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     goto L_800293C0;
     L_800293BC:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_800293C0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f31, 0x28(r1)
@@ -701,8 +701,8 @@ void Camera_800293E0(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[29], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x10, temp); // stfd f29, 0x10(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[31]); // stw r31, 0xc(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21); // lwz r31, cm_804D6468@sda21(r0)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xC, gc_env.r[31]); // stw r31, 0xC(r1)
+    gc_env.r[31] = cm_804D6468; // lwz r31, cm_804D6468@sda21(r0)
     gc_env.f[31] = cm_804D7E34; // lfs f31, cm_804D7E34@sda21(r0)
     gc_env.f[30] = cm_804D7E30; // lfs f30, cm_804D7E30@sda21(r0)
     gc_env.f[29] = cm_804D7E14; // lfs f29, cm_804D7E14@sda21(r0)
@@ -836,14 +836,14 @@ void Camera_800293E0(void) {
     L_80029564:
     gc_env.cr[0] = ((uint32_t)gc_env.r[31] == 0x0) ? 0 : ((uint32_t)gc_env.r[31] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80029410;
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
     gc_env.d[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f29, 0x10(r1)
     gc_env.d[29] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r31, 0xc(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r31, 0xC(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -880,8 +880,8 @@ void Camera_8002958C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x7C, gc_env.r[31]); // stmw r27, 0x6C(r1)
     gc_env.r[28] = gc_env.r[3] + 0; // addi r28, r3, 0x0
     gc_env.r[29] = gc_env.r[4] + 0; // addi r29, r4, 0x0
-    gc_env.r[30] = 0x0;
-    gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21); // lwz r27, cm_804D6468@sda21(r0)
+    gc_env.r[30] = 0x0; // li r30, 0x0
+    gc_env.r[27] = cm_804D6468; // lwz r27, cm_804D6468@sda21(r0)
     goto L_800295E0;
     L_800295C8:
     gc_env.r[3] = gc_env.r[27]; // Move register
@@ -901,7 +901,7 @@ void Camera_8002958C(void) {
     gc_env.r[3] = ((uint32_t)&cm_803BCB9C >> 16) & 0xFFFF; // lis r3, cm_803BCB9C@ha
     gc_env.r[4] = gc_env.r[30] << 2; // slwi r4, r30, 2
     gc_env.r[0] = gc_env.r[3] + ((uint32_t)&cm_803BCB9C & 0xFFFF); // addi r0, r3, cm_803BCB9C@l
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x0); // lfs f26, 0x0(r3)
     gc_env.f[26] = *(float*)&temp;
     goto L_80029614;
@@ -912,10 +912,10 @@ void Camera_8002958C(void) {
     gc_env.f[30] = cm_804D7E38; // lfs f30, cm_804D7E38@sda21(r0)
     gc_env.f[27] = (float)gc_env.f[26] * (float)gc_env.f[1]; // fmuls f27, f26, f1
     gc_env.f[28] = cm_804D7E00; // lfs f28, cm_804D7E00@sda21(r0)
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     gc_env.f[31] = gc_env.f[30]; // fmr f31, f30
     gc_env.f[29] = gc_env.f[28]; // fmr f29, f28
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6468@sda21); // lwz r31, cm_804D6468@sda21(r0)
+    gc_env.r[31] = cm_804D6468; // lwz r31, cm_804D6468@sda21(r0)
     gc_env.d[26] = cm_804D7E18; // lfd f26, cm_804D7E18@sda21(r0)
     goto L_800299DC;
     L_8002963C:
@@ -926,7 +926,7 @@ void Camera_8002958C(void) {
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x10); // lwz r5, 0x10(r31)
     gc_env.r[3] = gc_env.r[1] + 80; // addi r3, r1, 0x50
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x14); // lwz r0, 0x14(r31)
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.r[30] += 1; // addi r30, r30, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x50, gc_env.r[5]); // stw r5, 0x50(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x54, gc_env.r[0]); // stw r0, 0x54(r1)
@@ -937,7 +937,7 @@ void Camera_8002958C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, gc_env.r[5]); // stw r5, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, gc_env.r[0]); // stw r0, 0x48(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lwz r0, 0x18(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4c, gc_env.r[0]); // stw r0, 0x4c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4C, gc_env.r[0]); // stw r0, 0x4C(r1)
     Camera_80029124();
     gc_env.r[27] = gc_env.r[3]; // Move register
     if (gc_env.cr[0] == 0) goto L_80029708;
@@ -991,7 +991,7 @@ void Camera_8002958C(void) {
     gc_env.r[3] = gc_env.r[1] + 68; // addi r3, r1, 0x44
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f0, 0x50(r1)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
@@ -1058,7 +1058,7 @@ void Camera_8002958C(void) {
     gc_env.r[3] = gc_env.r[1] + 68; // addi r3, r1, 0x44
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lfs f0, 0x50(r1)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, *(uint32_t*)&temp);
@@ -1125,7 +1125,7 @@ void Camera_8002958C(void) {
     gc_env.r[3] = gc_env.r[1] + 68; // addi r3, r1, 0x44
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lfs f0, 0x54(r1)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
@@ -1192,7 +1192,7 @@ void Camera_8002958C(void) {
     gc_env.r[3] = gc_env.r[1] + 68; // addi r3, r1, 0x44
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lfs f0, 0x54(r1)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[27] + (float)gc_env.f[0]; // fmadds f0, f1, f27, f0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x48(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, *(uint32_t*)&temp);
@@ -1311,7 +1311,7 @@ void Camera_8002958C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x10, gc_env.r[30]); // stw r30, 0x10(r28)
     float temp = (float)gc_env.f[2]; // stfs f2, 0x14(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x14, *(uint32_t*)&temp);
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xb4); // lwz r0, 0xb4(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
@@ -1576,7 +1576,7 @@ void Camera_80029CF8(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[26], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x50, temp); // stfd f26, 0x50(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4c, gc_env.r[31]); // stw r31, 0x4c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4C, gc_env.r[31]); // stw r31, 0x4C(r1)
     gc_env.r[31] = gc_env.r[5] + ((uint32_t)&cm_803BCB18 & 0xFFFF); // addi r31, r5, cm_803BCB18@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, gc_env.r[30]); // stw r30, 0x48(r1)
     gc_env.r[30] = gc_env.r[4] + 0; // addi r30, r4, 0x0
@@ -1678,7 +1678,7 @@ void Camera_80029CF8(void) {
     if (gc_env.cr[0] & 0x8) goto L_80029E68; // blt .L_80029E68
     gc_env.r[3] = gc_env.r[31] + 184; // addi r3, r31, 0xb8
     gc_env.r[5] = gc_env.r[31] + 196; // addi r5, r31, 0xc4
-    gc_env.r[4] = 0x4fa;
+    gc_env.r[4] = 0x4fa; // li r4, 0x4fa
     __assert();
     L_80029E68:
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
@@ -1693,7 +1693,7 @@ void Camera_80029CF8(void) {
     if (gc_env.cr[0] & 0x8) goto L_80029E9C; // blt .L_80029E9C
     gc_env.r[3] = gc_env.r[31] + 184; // addi r3, r31, 0xb8
     gc_env.r[5] = gc_env.r[31] + 224; // addi r5, r31, 0xe0
-    gc_env.r[4] = 0x4fb;
+    gc_env.r[4] = 0x4fb; // li r4, 0x4fb
     __assert();
     L_80029E9C:
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
@@ -1767,7 +1767,7 @@ void Camera_80029CF8(void) {
     if (gc_env.cr[0] & 0x8) goto L_80029F90; // blt .L_80029F90
     gc_env.r[3] = gc_env.r[31] + 184; // addi r3, r31, 0xb8
     gc_env.r[5] = gc_env.r[31] + 252; // addi r5, r31, 0xfc
-    gc_env.r[4] = 0x508;
+    gc_env.r[4] = 0x508; // li r4, 0x508
     __assert();
     L_80029F90:
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
@@ -1782,7 +1782,7 @@ void Camera_80029CF8(void) {
     if (gc_env.cr[0] & 0x8) goto L_80029FC4; // blt .L_80029FC4
     gc_env.r[3] = gc_env.r[31] + 184; // addi r3, r31, 0xb8
     gc_env.r[5] = gc_env.r[31] + 280; // addi r5, r31, 0x118
-    gc_env.r[4] = 0x509;
+    gc_env.r[4] = 0x509; // li r4, 0x509
     __assert();
     L_80029FC4:
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
@@ -1867,7 +1867,7 @@ void Camera_80029CF8(void) {
     gc_env.d[27] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f26, 0x50(r1)
     gc_env.d[26] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r31, 0x4c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r31, 0x4C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lwz r30, 0x48(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r29, 0x44(r1)
     gc_env.r[1] += 128; // addi r1, r1, 0x80
@@ -1947,13 +1947,13 @@ void Camera_8002A0C0(void) {
     gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x56); // lha r0, 0x56(r28)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x14); // lfs f0, 0x14(r29)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[0] = gc_env.r[0] - gc_env.r[3];
+    gc_env.r[0] = gc_env.r[0] - gc_env.r[3]; // subf r0, r3, r0
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x58); // lha r3, 0x58(r28)
     gc_env.r[5] = gc_env.r[0] ^ 0x80000000; // xoris r5, r0, 0x8000
     gc_env.r[0] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[28] + 0x5A); // lha r0, 0x5A(r28)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[5]); // stw r5, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[5]); // stw r5, 0x1C(r1)
     gc_env.f[5] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f5, f0, f1
-    gc_env.r[0] = gc_env.r[0] - gc_env.r[3];
+    gc_env.r[0] = gc_env.r[0] - gc_env.r[3]; // subf r0, r3, r0
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]); // stw r4, 0x18(r1)
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
@@ -2051,145 +2051,145 @@ void Camera_8002A28C(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
-    gc_env.r[0] = 0x2;
+    gc_env.r[0] = 0x2; // li r0, 0x2
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r3, cm_80452C68@l
     gc_env.ctr = gc_env.r[0]; // Move to count register
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x30, gc_env.r[1]); // stwu r1, -0x30(r1)
     gc_env.r[1] = gc_env.r[1] + -0x30;
     gc_env.r[3] = gc_env.r[4] + 0; // addi r3, r4, 0x0
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[31]); // stw r31, 0x2c(r1)
-    gc_env.r[5] = -0x1;
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[31]); // stw r31, 0x2C(r1)
+    gc_env.r[5] = -0x1; // li r5, -0x1
     L_8002A2B4:
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xb0); // lwz r7, 0xb0(r3)
-    gc_env.r[0] = 0x0;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xb4); // lwz r6, 0xb4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1b0, gc_env.r[7]); // stw r7, 0x1b0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1b4, gc_env.r[6]); // stw r6, 0x1b4(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xb8); // lwz r7, 0xb8(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xbc); // lwz r6, 0xbc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1b8, gc_env.r[7]); // stw r7, 0x1b8(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1bc, gc_env.r[6]); // stw r6, 0x1bc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xbc, gc_env.r[0]); // stw r0, 0xbc(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xc0); // lwz r7, 0xc0(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xc4); // lwz r6, 0xc4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c0, gc_env.r[7]); // stw r7, 0x1c0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c4, gc_env.r[6]); // stw r6, 0x1c4(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xc8); // lwz r7, 0xc8(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xcc); // lwz r6, 0xcc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1c8, gc_env.r[7]); // stw r7, 0x1c8(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1cc, gc_env.r[6]); // stw r6, 0x1cc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xcc, gc_env.r[0]); // stw r0, 0xcc(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xd0); // lwz r7, 0xd0(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xd4); // lwz r6, 0xd4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1d0, gc_env.r[7]); // stw r7, 0x1d0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1d4, gc_env.r[6]); // stw r6, 0x1d4(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xd8); // lwz r7, 0xd8(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xdc); // lwz r6, 0xdc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1d8, gc_env.r[7]); // stw r7, 0x1d8(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1dc, gc_env.r[6]); // stw r6, 0x1dc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xdc, gc_env.r[0]); // stw r0, 0xdc(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xe0); // lwz r7, 0xe0(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xe4); // lwz r6, 0xe4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1e0, gc_env.r[7]); // stw r7, 0x1e0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1e4, gc_env.r[6]); // stw r6, 0x1e4(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xe8); // lwz r7, 0xe8(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xec); // lwz r6, 0xec(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1e8, gc_env.r[7]); // stw r7, 0x1e8(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1ec, gc_env.r[6]); // stw r6, 0x1ec(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xec, gc_env.r[0]); // stw r0, 0xec(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xf0); // lwz r7, 0xf0(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xf4); // lwz r6, 0xf4(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1f0, gc_env.r[7]); // stw r7, 0x1f0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1f4, gc_env.r[6]); // stw r6, 0x1f4(r3)
-    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xf8); // lwz r7, 0xf8(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xfc); // lwz r6, 0xfc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1f8, gc_env.r[7]); // stw r7, 0x1f8(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1fc, gc_env.r[6]); // stw r6, 0x1fc(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xfc, gc_env.r[0]); // stw r0, 0xfc(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xB0); // lwz r7, 0xB0(r3)
+    gc_env.r[0] = 0x0; // li r0, 0x0
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xB4); // lwz r6, 0xB4(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1B0, gc_env.r[7]); // stw r7, 0x1B0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1B4, gc_env.r[6]); // stw r6, 0x1B4(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xB8); // lwz r7, 0xB8(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xBC); // lwz r6, 0xBC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1B8, gc_env.r[7]); // stw r7, 0x1B8(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1BC, gc_env.r[6]); // stw r6, 0x1BC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xBC, gc_env.r[0]); // stw r0, 0xBC(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xC0); // lwz r7, 0xC0(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xC4); // lwz r6, 0xC4(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1C0, gc_env.r[7]); // stw r7, 0x1C0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1C4, gc_env.r[6]); // stw r6, 0x1C4(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xC8); // lwz r7, 0xC8(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xCC); // lwz r6, 0xCC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1C8, gc_env.r[7]); // stw r7, 0x1C8(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1CC, gc_env.r[6]); // stw r6, 0x1CC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xCC, gc_env.r[0]); // stw r0, 0xCC(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xD0); // lwz r7, 0xD0(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xD4); // lwz r6, 0xD4(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1D0, gc_env.r[7]); // stw r7, 0x1D0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1D4, gc_env.r[6]); // stw r6, 0x1D4(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xD8); // lwz r7, 0xD8(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xDC); // lwz r6, 0xDC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1D8, gc_env.r[7]); // stw r7, 0x1D8(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1DC, gc_env.r[6]); // stw r6, 0x1DC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xDC, gc_env.r[0]); // stw r0, 0xDC(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xE0); // lwz r7, 0xE0(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xE4); // lwz r6, 0xE4(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1E0, gc_env.r[7]); // stw r7, 0x1E0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1E4, gc_env.r[6]); // stw r6, 0x1E4(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xE8); // lwz r7, 0xE8(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xEC); // lwz r6, 0xEC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1E8, gc_env.r[7]); // stw r7, 0x1E8(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1EC, gc_env.r[6]); // stw r6, 0x1EC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xEC, gc_env.r[0]); // stw r0, 0xEC(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xF0); // lwz r7, 0xF0(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xF4); // lwz r6, 0xF4(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1F0, gc_env.r[7]); // stw r7, 0x1F0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1F4, gc_env.r[6]); // stw r6, 0x1F4(r3)
+    gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xF8); // lwz r7, 0xF8(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0xFC); // lwz r6, 0xFC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1F8, gc_env.r[7]); // stw r7, 0x1F8(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1FC, gc_env.r[6]); // stw r6, 0x1FC(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0xFC, gc_env.r[0]); // stw r0, 0xFC(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x100); // lwz r7, 0x100(r3)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x104); // lwz r6, 0x104(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x200, gc_env.r[7]); // stw r7, 0x200(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x204, gc_env.r[6]); // stw r6, 0x204(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x108); // lwz r7, 0x108(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x10c); // lwz r6, 0x10c(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x10C); // lwz r6, 0x10C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x208, gc_env.r[7]); // stw r7, 0x208(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20c, gc_env.r[6]); // stw r6, 0x20c(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10c, gc_env.r[0]); // stw r0, 0x10c(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20C, gc_env.r[6]); // stw r6, 0x20C(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x10C, gc_env.r[0]); // stw r0, 0x10C(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x110); // lwz r7, 0x110(r3)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x114); // lwz r6, 0x114(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x210, gc_env.r[7]); // stw r7, 0x210(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x214, gc_env.r[6]); // stw r6, 0x214(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x118); // lwz r7, 0x118(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x11c); // lwz r6, 0x11c(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x11C); // lwz r6, 0x11C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x218, gc_env.r[7]); // stw r7, 0x218(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x21c, gc_env.r[6]); // stw r6, 0x21c(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x11c, gc_env.r[0]); // stw r0, 0x11c(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x21C, gc_env.r[6]); // stw r6, 0x21C(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x11C, gc_env.r[0]); // stw r0, 0x11C(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x120); // lwz r7, 0x120(r3)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x124); // lwz r6, 0x124(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x220, gc_env.r[7]); // stw r7, 0x220(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x224, gc_env.r[6]); // stw r6, 0x224(r3)
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x128); // lwz r7, 0x128(r3)
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x12c); // lwz r6, 0x12c(r3)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x12C); // lwz r6, 0x12C(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x228, gc_env.r[7]); // stw r7, 0x228(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x22c, gc_env.r[6]); // stw r6, 0x22c(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x12c, gc_env.r[0]); // stw r0, 0x12c(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x22C, gc_env.r[6]); // stw r6, 0x22C(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x12C, gc_env.r[0]); // stw r0, 0x12C(r3)
     gc_env.r[3] += 128; // addi r3, r3, 0x80
     gc_env.ctr -= 1;
     if (gc_env.ctr != 0) goto L_8002A2B4;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8c); // lwz r3, 0x8c(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8C); // lwz r3, 0x8C(r4)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A3F8;
-    gc_env.r[0] = gc_env.r[3] - 1;
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r4)
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
+    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r4)
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_8002A3F8:
     gc_env.r[6] = gc_env.r[4] + 4; // addi r6, r4, 0x4
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x90); // lwz r3, 0x90(r4)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A414;
-    gc_env.r[0] = gc_env.r[3] - 1;
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r6)
-    gc_env.r[5] = 0x1;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r6)
+    gc_env.r[5] = 0x1; // li r5, 0x1
     L_8002A414:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x90); // lwz r3, 0x90(r6)
     gc_env.r[6] += 4; // addi r6, r6, 0x4
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A430;
-    gc_env.r[0] = gc_env.r[3] - 1;
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r6)
-    gc_env.r[5] = 0x2;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r6)
+    gc_env.r[5] = 0x2; // li r5, 0x2
     L_8002A430:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x90); // lwz r3, 0x90(r6)
     gc_env.r[6] += 4; // addi r6, r6, 0x4
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A44C;
-    gc_env.r[0] = gc_env.r[3] - 1;
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r6)
-    gc_env.r[5] = 0x3;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r6)
+    gc_env.r[5] = 0x3; // li r5, 0x3
     L_8002A44C:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x90); // lwz r3, 0x90(r6)
     gc_env.r[6] += 4; // addi r6, r6, 0x4
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A468;
-    gc_env.r[0] = gc_env.r[3] - 1;
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r6)
-    gc_env.r[5] = 0x4;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r6)
+    gc_env.r[5] = 0x4; // li r5, 0x4
     L_8002A468:
     gc_env.cr[0] = (gc_env.r[5] == -0x1) ? 0 : (gc_env.r[5] < -0x1 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A498;
     gc_env.r[31] = gc_env.r[4] + 160; // addi r31, r4, 0xa0
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xa0); // lwz r3, 0xa0(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xA0); // lwz r3, 0xA0(r4)
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A498;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x90); // lwz r0, 0x90(r4)
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002A498;
     HSD_GObjPLink_80390228();
-    gc_env.r[0] = 0x0;
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stw r0, 0x0(r31)
+    gc_env.r[0] = 0x0; // li r0, 0x0
+    gc_mem_write32(gc_env.ram, gc_env.r[31], gc_env.r[0]); // stw r0, (r31)
     L_8002A498:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r31, 0x2c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -2205,7 +2205,7 @@ void Camera_8002A4AC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[31]); // stw r31, 0x34(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[30]); // stw r30, 0x30(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[29]); // stw r29, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[29]); // stw r29, 0x2C(r1)
     gc_env.r[29] = gc_env.r[31] + 20; // addi r29, r31, 0x14
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r0, 0x4(r31)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lwz r30, 0x28(r3)
@@ -2221,7 +2221,7 @@ void Camera_8002A4AC(void) {
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     Camera_8002AF68();
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6464@sda21); // lwz r3, cm_804D6464@sda21(r0)
+    gc_env.r[3] = cm_804D6464; // lwz r3, cm_804D6464@sda21(r0)
     gc_env.r[4] = gc_env.r[31] + 76; // addi r4, r31, 0x4c
     Camera_8002AF68();
     gc_env.r[3] = gc_env.r[30]; // Move register
@@ -2249,12 +2249,12 @@ void Camera_8002A4AC(void) {
     L_8002A554:
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x18); // lwz r4, 0x18(r29)
     gc_env.r[3] = ((uint32_t)&stage_info >> 16) & 0xFFFF; // lis r3, stage_info@ha
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1c); // lwz r0, 0x1c(r29)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1C); // lwz r0, 0x1C(r29)
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&stage_info & 0xFFFF); // addi r3, r3, stage_info@l
     gc_env.r[31] = gc_env.r[3] + 136; // addi r31, r3, 0x88
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]); // stw r4, 0x18(r1)
     gc_env.f[1] = cm_804D7E00; // lfs f1, cm_804D7E00@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x20); // lwz r0, 0x20(r29)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x88); // lwz r0, 0x88(r3)
@@ -2300,7 +2300,7 @@ void Camera_8002A4AC(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[0] < gc_env.f[1] ? 0x8 : (gc_env.f[0] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f0, f1
     if (gc_env.cr[0] >= 0) goto L_8002A680;
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lwz r0, 0x0(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31]); // lwz r0, (r31)
     gc_env.f[1] = cm_804D7E00; // lfs f1, cm_804D7E00@sda21(r0)
     gc_env.cr[0] = (gc_env.r[0] == 0xe) ? 0 : (gc_env.r[0] < 0xe ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002A658;
@@ -2402,10 +2402,10 @@ void Camera_8002A4AC(void) {
     gc_env.r[4] = gc_env.r[31] + 996; // addi r4, r31, 0x3e4
     HSD_CObjSetEyePosition();
     L_8002A74C:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r29, 0x2c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r29, 0x2C(r1)
     gc_env.r[1] += 56; // addi r1, r1, 0x38
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -2439,15 +2439,15 @@ void Camera_8002A768(void) {
     gc_env.r[28] = gc_env.r[3]; // Move register
     gc_env.r[29] = gc_env.r[4]; // Move register
     gc_env.r[4] = gc_env.r[28] + 36; // addi r4, r28, 0x24
-    gc_env.r[31] = 0x0;
-    gc_env.r[30] = 0x0;
+    gc_env.r[31] = 0x0; // li r31, 0x0
+    gc_env.r[30] = 0x0; // li r30, 0x0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lfs f0, 0x34(r3)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[28] + 12; // addi r3, r28, 0xc
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0); // lwz r5, 0x0(r6)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[6]); // lwz r5, (r6)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x4); // lwz r0, 0x4(r6)
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4c, gc_env.r[5]); // stw r5, 0x4c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4C, gc_env.r[5]); // stw r5, 0x4C(r1)
     gc_env.r[5] = gc_env.r[1] + 88; // addi r5, r1, 0x58
     gc_env.f[0] = (float)gc_env.f[1] * (float)gc_env.f[0]; // fmuls f0, f1, f0
     gc_env.f[2] = cm_804D7E30; // lfs f2, cm_804D7E30@sda21(r0)
@@ -2473,39 +2473,39 @@ void Camera_8002A768(void) {
     gc_env.f[28] = gc_env.f[2]; // fmr f28, f2
     gc_env.f[2] = -gc_env.f[0]; // fneg f2, f0
     atan2f();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r0, 0x4c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     gc_env.f[0] = gc_env.f[1]; // fmr f0, f1
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lwz r3, 0x50(r1)
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r0, 0x54(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[3]); // stw r3, 0x20(r1)
     gc_env.f[29] = gc_env.f[0]; // fmr f29, f0
     gc_env.r[3] = gc_env.r[1] + 64; // addi r3, r1, 0x40
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
-    gc_env.r[4] = 0x1;
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[4] = 0x1; // li r4, 0x1
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r5, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[0]); // stw r0, 0x28(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[5]); // stw r5, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[5]); // stw r5, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[0]); // stw r0, 0x30(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r0, 0x28(r1)
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r5, 0x2c(r1)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r5, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[0]); // stw r0, 0x34(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r0, 0x30(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[5]); // stw r5, 0x38(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r5, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x40, gc_env.r[0]); // stw r0, 0x40(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x44, gc_env.r[5]); // stw r5, 0x44(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, gc_env.r[0]); // stw r0, 0x48(r1)
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
     gc_env.r[3] = gc_env.r[1] + 64; // addi r3, r1, 0x40
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     gc_env.r[3] = ((uint32_t)&cm_803BCB64 >> 16) & 0xFFFF; // lis r3, cm_803BCB64@ha
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x40); // lfs f1, 0x40(r1)
@@ -2521,11 +2521,11 @@ void Camera_8002A768(void) {
     lbVector_Normalize();
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
     gc_env.r[3] = gc_env.r[1] + 64; // addi r3, r1, 0x40
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[29]; // fmr f1, f29
     gc_env.r[3] = gc_env.r[1] + 64; // addi r3, r1, 0x40
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lfs f2, 0x48(r1)
     gc_env.f[2] = *(float*)&temp;
@@ -2560,11 +2560,11 @@ void Camera_8002A768(void) {
     L_8002A930:
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[31] = -gc_env.f[30]; // fneg f31, f30
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f1, 0x34(r1)
@@ -2578,11 +2578,11 @@ void Camera_8002A768(void) {
     lbVector_Normalize();
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[29]; // fmr f1, f29
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lfs f2, 0x3C(r1)
     gc_env.f[2] = *(float*)&temp;
@@ -2617,11 +2617,11 @@ void Camera_8002A768(void) {
     L_8002A9E0:
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[30]; // fmr f1, f30
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f1, 0x28(r1)
     gc_env.f[1] = *(float*)&temp;
@@ -2634,11 +2634,11 @@ void Camera_8002A768(void) {
     lbVector_Normalize();
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[29]; // fmr f1, f29
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lfs f2, 0x30(r1)
     gc_env.f[2] = *(float*)&temp;
@@ -2673,11 +2673,11 @@ void Camera_8002A768(void) {
     L_8002AA8C:
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     gc_env.r[3] = gc_env.r[1] + 28; // addi r3, r1, 0x1c
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[31]; // fmr f1, f31
     gc_env.r[3] = gc_env.r[1] + 28; // addi r3, r1, 0x1c
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f1, 0x1C(r1)
     gc_env.f[1] = *(float*)&temp;
@@ -2690,11 +2690,11 @@ void Camera_8002A768(void) {
     lbVector_Normalize();
     gc_env.f[1] = gc_env.f[28]; // fmr f1, f28
     gc_env.r[3] = gc_env.r[1] + 28; // addi r3, r1, 0x1c
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     lbVector_Rotate();
     gc_env.f[1] = gc_env.f[29]; // fmr f1, f29
     gc_env.r[3] = gc_env.r[1] + 28; // addi r3, r1, 0x1c
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lfs f2, 0x24(r1)
     gc_env.f[2] = *(float*)&temp;
@@ -2986,7 +2986,7 @@ void Camera_8002A768(void) {
     if (gc_env.cr[0] == 0) goto L_8002AF44;
     gc_env.r[3] = ((uint32_t)&cm_803B73C4 >> 16) & 0xFFFF; // lis r3, cm_803B73C4@ha
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_803B73C4 & 0xFFFF); // addi r4, r3, cm_803B73C4@l
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r3, 0x0(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r3, (r4)
     gc_env.r[5] = (gc_env.r[31] << 0) & 0x4; // rlwinm r5, r31, 0, 29, 29
     gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r0, 0x4(r4)
@@ -3069,7 +3069,7 @@ void Camera_8002A768(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lmw r27, 0x6C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x78); // lmw r27, 0x6C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x7C); // lmw r27, 0x6C(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xa4); // lwz r0, 0xa4(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xA4); // lwz r0, 0xA4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x98); // lfd f31, 0x98(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x90); // lfd f30, 0x90(r1)
@@ -3091,14 +3091,14 @@ void Camera_8002AF68(void) {
     gc_env.r[1] = gc_env.r[1] + -0x38;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[31]); // stw r31, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[30]); // stw r30, 0x30(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[29]); // stw r29, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[29]); // stw r29, 0x2C(r1)
     gc_env.r[29] = gc_env.r[4] + 0; // addi r29, r4, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[28]); // stw r28, 0x28(r1)
     gc_env.r[28] = gc_env.r[3] + 0; // addi r28, r3, 0x0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x30); // lfs f1, 0x30(r4)
     gc_env.f[1] = *(float*)&temp;
     HSD_CObjSetFov();
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lwz r4, 0x0(r29)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29]); // lwz r4, (r29)
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lwz r0, 0x4(r29)
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
@@ -3109,7 +3109,7 @@ void Camera_8002AF68(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[0]); // stw r0, 0x18(r1)
     gc_env.r[4] = gc_env.r[1] + 20; // addi r4, r1, 0x14
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r0, 0x8(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f1, 0x14(r1)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
@@ -3127,12 +3127,12 @@ void Camera_8002AF68(void) {
     HSD_CObjSetInterest();
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x18); // lwz r4, 0x18(r29)
     gc_env.r[3] = ((uint32_t)&stage_info >> 16) & 0xFFFF; // lis r3, stage_info@ha
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1c); // lwz r0, 0x1c(r29)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x1C); // lwz r0, 0x1C(r29)
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&stage_info & 0xFFFF); // addi r3, r3, stage_info@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[4]); // stw r4, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[0]); // stw r0, 0x18(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x20); // lwz r0, 0x20(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lfs f1, 0x14(r1)
     gc_env.f[1] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lfs f0, 0x0(r31)
@@ -3197,10 +3197,10 @@ void Camera_8002AF68(void) {
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[1] + 20; // addi r4, r1, 0x14
     HSD_CObjSetEyePosition();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r29, 0x2c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r29, 0x2C(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r28, 0x28(r1)
     gc_env.r[1] += 56; // addi r1, r1, 0x38
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -3214,7 +3214,7 @@ void Camera_8002B0E0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gm_8016B41C();
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
@@ -3224,14 +3224,14 @@ void Camera_8002B0E0(void) {
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B1E4; // ble .L_8002B1E4
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     Player_GetPlayerId();
     gc_env.r[0] = gc_env.r[3] & 0xFF; // clrlwi r0, r3, 24
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    gc_env.r[0] = gc_env.r[0] * 68;
+    gc_env.r[0] = gc_env.r[0] * 68; // mulli r0, r0, 68
     gc_env.r[3] = ((uint32_t)&HSD_PadCopyStatus >> 16) & 0xFFFF; // lis r3, HSD_PadCopyStatus@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&HSD_PadCopyStatus & 0xFFFF); // addi r3, r3, HSD_PadCopyStatus@l
-    gc_env.r[3] = gc_env.r[3] + gc_env.r[0];
+    gc_env.r[3] = gc_env.r[3] + gc_env.r[0]; // add r3, r3, r0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f1, 0x2C(r3)
     gc_env.f[1] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
@@ -3247,7 +3247,7 @@ void Camera_8002B0E0(void) {
     gc_env.r[3] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x2BA); // lha r3, 0x2BA(r31)
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B174; // ble .L_8002B174
-    gc_env.r[0] = gc_env.r[3] - 1;
+    gc_env.r[0] = gc_env.r[3] - 1; // subi r0, r3, 1
     gc_mem_write16(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[0]); // sth r0, 0x0(r4)
     goto L_8002B1A0;
     L_8002B174:
@@ -3296,7 +3296,7 @@ void Camera_8002B0E0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x0, *(uint32_t*)&temp);
     L_8002B1E4:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -3316,7 +3316,7 @@ void Camera_8002B1F8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[31]); // stw r31, 0x24(r1)
     gc_env.r[31] = gc_env.r[4] + 700; // addi r31, r4, 0x2bc
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[30]); // stw r30, 0x20(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[29]); // stw r29, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[29]); // stw r29, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[28]); // stw r28, 0x18(r1)
     gc_env.r[28] = gc_env.r[3]; // Move register
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
@@ -3324,7 +3324,7 @@ void Camera_8002B1F8(void) {
     gc_env.f[0] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     if (gc_env.cr[0] == 0) goto L_8002B3B0;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     Player_GetEntity();
     gc_env.r[30] = gc_env.r[3]; // Move register
     if (gc_env.cr[0] == 0) goto L_8002B28C;
@@ -3337,7 +3337,7 @@ void Camera_8002B1F8(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002B28C;
     gc_env.r[3] = gc_env.r[29] + 28; // addi r3, r29, 0x1c
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B28C;
@@ -3346,11 +3346,11 @@ void Camera_8002B1F8(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002B2DC;
     L_8002B28C:
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     Player_GetPlayerCharacter();
     gc_env.cr[0] = (gc_env.r[3] == 0x1f) ? 0 : (gc_env.r[3] < 0x1f ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B3B0;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     Player_GetEntity();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002B3B0;
@@ -3362,7 +3362,7 @@ void Camera_8002B1F8(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002B3B0;
     gc_env.r[3] = gc_env.r[29] + 28; // addi r3, r29, 0x1c
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B3B0;
@@ -3392,12 +3392,12 @@ void Camera_8002B1F8(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     lbVector_Add();
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r6, 0xc(r1)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r6, 0xC(r1)
     gc_env.r[3] = gc_env.r[28] + 36; // addi r3, r28, 0x24
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_env.r[4] = gc_env.r[28] + 12; // addi r4, r28, 0xc
     gc_env.r[5] = gc_env.r[1] + 12; // addi r5, r1, 0xc
-    gc_mem_write32(gc_env.ram, gc_env.r[28] + 0xc, gc_env.r[6]); // stw r6, 0xc(r28)
+    gc_mem_write32(gc_env.ram, gc_env.r[28] + 0xC, gc_env.r[6]); // stw r6, 0xC(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x10, gc_env.r[0]); // stw r0, 0x10(r28)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x14, gc_env.r[0]); // stw r0, 0x14(r28)
@@ -3429,19 +3429,19 @@ void Camera_8002B1F8(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, *(uint32_t*)&temp);
     lbVector_Add();
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x24, gc_env.r[3]); // stw r3, 0x24(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x28, gc_env.r[0]); // stw r0, 0x28(r28)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x2c, gc_env.r[0]); // stw r0, 0x2c(r28)
+    gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x2C, gc_env.r[0]); // stw r0, 0x2C(r28)
     L_8002B3B0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x28); // lfd f31, 0x28(r1)
     gc_env.d[31] = *(double*)&temp;
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r31, 0x24(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r30, 0x20(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r29, 0x1c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r29, 0x1C(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r28, 0x18(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -3510,10 +3510,10 @@ void Camera_8002B3D4(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B490; // ble .L_8002B490
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002B494;
     L_8002B490:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002B494:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B4B4;
@@ -3521,7 +3521,7 @@ void Camera_8002B3D4(void) {
     gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002B4B4:
     gc_env.r[27] = gc_env.r[31] + 76; // addi r27, r31, 0x4c
@@ -3563,10 +3563,10 @@ void Camera_8002B3D4(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B538; // ble .L_8002B538
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002B53C;
     L_8002B538:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002B53C:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B55C;
@@ -3574,7 +3574,7 @@ void Camera_8002B3D4(void) {
     gc_env.r[4] = gc_env.r[27] + 0; // addi r4, r27, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[27] + 0; // addi r3, r27, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002B55C:
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
@@ -3635,7 +3635,7 @@ void Camera_8002B3D4(void) {
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002B628; // ble .L_8002B628
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[0]); // sth r0, 0x0(r27)
@@ -3671,7 +3671,7 @@ void Camera_8002B3D4(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lmw r27, 0x6C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x78); // lmw r27, 0x6C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x7C); // lmw r27, 0x6C(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8c); // lwz r0, 0x8c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8C); // lwz r0, 0x8C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x80); // lfd f31, 0x80(r1)
     gc_env.d[31] = *(double*)&temp;
     gc_env.r[1] += 136; // addi r1, r1, 0x88
@@ -3691,7 +3691,7 @@ void Camera_8002B694(void) {
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
     if (gc_env.cr[0] != 0) goto L_8002B6E0;
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r30)
@@ -3700,7 +3700,7 @@ void Camera_8002B694(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x8, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0xC(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0xC, *(uint32_t*)&temp);
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x18, gc_env.r[0]); // stw r0, 0x18(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x14, gc_env.r[0]); // stw r0, 0x14(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x10, gc_env.r[0]); // stw r0, 0x10(r30)
@@ -3708,16 +3708,16 @@ void Camera_8002B694(void) {
     L_8002B6E0:
     gc_env.cr[0] = (gc_env.r[4] == 0x4) ? 0 : (gc_env.r[4] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B994;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.f[1] = cm_804D7E14; // lfs f1, cm_804D7E14@sda21(r0)
-    gc_env.r[4] = gc_env.r[3] * 68;
+    gc_env.r[4] = gc_env.r[3] * 68; // mulli r4, r3, 68
     gc_env.f[0] = cm_804D7E74; // lfs f0, cm_804D7E74@sda21(r0)
     gc_env.r[3] = ((uint32_t)&HSD_PadCopyStatus >> 16) & 0xFFFF; // lis r3, HSD_PadCopyStatus@ha
     gc_env.r[0] = gc_env.r[3] + ((uint32_t)&HSD_PadCopyStatus & 0xFFFF); // addi r0, r3, HSD_PadCopyStatus@l
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lfs f2, 0x20(r3)
     gc_env.f[2] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lfs f3, 0x24(r3)
     gc_env.f[3] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[2] < gc_env.f[1] ? 0x8 : (gc_env.f[2] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f2, f1
@@ -3734,12 +3734,12 @@ void Camera_8002B694(void) {
     L_8002B738:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
-    gc_env.r[3] = 0x1;
-    gc_env.r[4] = gc_env.r[3] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = 0x1; // li r3, 0x1
+    gc_env.r[4] = gc_env.r[3] * 68; // mulli r4, r3, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lfs f2, 0x20(r3)
     gc_env.f[2] = *(float*)&temp;
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lfs f3, 0x24(r3)
     gc_env.f[3] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[2] < gc_env.f[1] ? 0x8 : (gc_env.f[2] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f2, f1
@@ -3756,12 +3756,12 @@ void Camera_8002B694(void) {
     L_8002B780:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
-    gc_env.r[3] = 0x2;
-    gc_env.r[4] = gc_env.r[3] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = 0x2; // li r3, 0x2
+    gc_env.r[4] = gc_env.r[3] * 68; // mulli r4, r3, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lfs f2, 0x20(r3)
     gc_env.f[2] = *(float*)&temp;
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lfs f3, 0x24(r3)
     gc_env.f[3] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[2] < gc_env.f[1] ? 0x8 : (gc_env.f[2] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f2, f1
@@ -3778,12 +3778,12 @@ void Camera_8002B694(void) {
     L_8002B7C8:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
-    gc_env.r[3] = 0x3;
-    gc_env.r[4] = gc_env.r[3] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = 0x3; // li r3, 0x3
+    gc_env.r[4] = gc_env.r[3] * 68; // mulli r4, r3, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lfs f2, 0x20(r3)
     gc_env.f[2] = *(float*)&temp;
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lfs f3, 0x24(r3)
     gc_env.f[3] = *(float*)&temp;
     gc_env.cr[0] = isnan(gc_env.f[2]) || isnan(gc_env.f[1]) ? 0x1 : (gc_env.f[2] < gc_env.f[1] ? 0x8 : (gc_env.f[2] > gc_env.f[1] ? 0x4 : 0x2)); // fcmpo cr0, f2, f1
@@ -3800,20 +3800,20 @@ void Camera_8002B694(void) {
     L_8002B810:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B81C; // bgt .L_8002B81C
-    gc_env.r[4] = 0x4;
+    gc_env.r[4] = 0x4; // li r4, 0x4
     L_8002B81C:
     gc_env.cr[0] = (gc_env.r[4] == 0x4) ? 0 : (gc_env.r[4] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B82C;
     gc_env.f[5] = cm_804D7E14; // lfs f5, cm_804D7E14@sda21(r0)
     gc_env.f[4] = gc_env.f[5]; // fmr f4, f5
     L_8002B82C:
-    gc_env.r[5] = 0x0;
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_env.f[1] = cm_804D7E14; // lfs f1, cm_804D7E14@sda21(r0)
-    gc_env.r[4] = gc_env.r[5] * 68;
+    gc_env.r[4] = gc_env.r[5] * 68; // mulli r4, r5, 68
     gc_env.f[0] = cm_804D7E74; // lfs f0, cm_804D7E74@sda21(r0)
     gc_env.r[3] = ((uint32_t)&HSD_PadCopyStatus >> 16) & 0xFFFF; // lis r3, HSD_PadCopyStatus@ha
     gc_env.r[0] = gc_env.r[3] + ((uint32_t)&HSD_PadCopyStatus & 0xFFFF); // addi r0, r3, HSD_PadCopyStatus@l
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lfs f2, 0x28(r3)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f3, 0x2C(r3)
@@ -3832,9 +3832,9 @@ void Camera_8002B694(void) {
     L_8002B878:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
-    gc_env.r[5] = 0x1;
-    gc_env.r[4] = gc_env.r[5] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[5] = 0x1; // li r5, 0x1
+    gc_env.r[4] = gc_env.r[5] * 68; // mulli r4, r5, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lfs f2, 0x28(r3)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f3, 0x2C(r3)
@@ -3853,9 +3853,9 @@ void Camera_8002B694(void) {
     L_8002B8BC:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
-    gc_env.r[5] = 0x2;
-    gc_env.r[4] = gc_env.r[5] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[5] = 0x2; // li r5, 0x2
+    gc_env.r[4] = gc_env.r[5] * 68; // mulli r4, r5, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lfs f2, 0x28(r3)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f3, 0x2C(r3)
@@ -3874,9 +3874,9 @@ void Camera_8002B694(void) {
     L_8002B900:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
-    gc_env.r[5] = 0x3;
-    gc_env.r[4] = gc_env.r[5] * 68;
-    gc_env.r[3] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[5] = 0x3; // li r5, 0x3
+    gc_env.r[4] = gc_env.r[5] * 68; // mulli r4, r5, 68
+    gc_env.r[3] = gc_env.r[0] + gc_env.r[4]; // add r3, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lfs f2, 0x28(r3)
     gc_env.f[2] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lfs f3, 0x2C(r3)
@@ -3895,7 +3895,7 @@ void Camera_8002B694(void) {
     L_8002B944:
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] & 0x4) goto L_8002B950; // bgt .L_8002B950
-    gc_env.r[5] = 0x4;
+    gc_env.r[5] = 0x4; // li r5, 0x4
     L_8002B950:
     gc_env.cr[0] = (gc_env.r[5] == 0x4) ? 0 : (gc_env.r[5] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002B960;
@@ -3904,7 +3904,7 @@ void Camera_8002B694(void) {
     L_8002B960:
     float temp = (float)gc_env.f[4]; // stfs f4, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
-    gc_env.r[3] = 0x4;
+    gc_env.r[3] = 0x4; // li r3, 0x4
     float temp = (float)gc_env.f[5]; // stfs f5, 0x4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[6]; // stfs f6, 0x8(r30)
@@ -3914,17 +3914,17 @@ void Camera_8002B694(void) {
     gm_801A3680();
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x14, gc_env.r[4]); // stw r4, 0x14(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x10, gc_env.r[3]); // stw r3, 0x10(r30)
-    gc_env.r[3] = 0x4;
+    gc_env.r[3] = 0x4; // li r3, 0x4
     gm_801A36A0();
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1c, gc_env.r[4]); // stw r4, 0x1c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1C, gc_env.r[4]); // stw r4, 0x1C(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x18, gc_env.r[3]); // stw r3, 0x18(r30)
     goto L_8002B9E8;
     L_8002B994:
     gc_env.r[31] = gc_env.r[4] & 0xFF; // clrlwi r31, r4, 24
-    gc_env.r[4] = gc_env.r[31] * 68;
+    gc_env.r[4] = gc_env.r[31] * 68; // mulli r4, r31, 68
     gc_env.r[3] = ((uint32_t)&HSD_PadCopyStatus >> 16) & 0xFFFF; // lis r3, HSD_PadCopyStatus@ha
     gc_env.r[0] = gc_env.r[3] + ((uint32_t)&HSD_PadCopyStatus & 0xFFFF); // addi r0, r3, HSD_PadCopyStatus@l
-    gc_env.r[4] = gc_env.r[0] + gc_env.r[4];
+    gc_env.r[4] = gc_env.r[0] + gc_env.r[4]; // add r4, r0, r4
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x20); // lfs f0, 0x20(r4)
     gc_env.f[0] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[31]; // Move register
@@ -3947,10 +3947,10 @@ void Camera_8002B694(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x10, gc_env.r[3]); // stw r3, 0x10(r30)
     gc_env.r[3] = gc_env.r[31]; // Move register
     gm_801A36A0();
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1c, gc_env.r[4]); // stw r4, 0x1c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x1C, gc_env.r[4]); // stw r4, 0x1C(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x18, gc_env.r[3]); // stw r3, 0x18(r30)
     L_8002B9E8:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r31, 0x24(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r30, 0x20(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
@@ -3972,25 +3972,25 @@ void Camera_8002BA00(void) {
     if (gc_env.cr[0] != 0) goto L_8002BA40;
     gc_env.cr[0] = (gc_env.r[31] == 0x0) ? 0 : (gc_env.r[31] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002BA34; // ble .L_8002BA34
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     goto L_8002BA5C;
     L_8002BA34:
     if (gc_env.cr[0] >= 0) goto L_8002BA5C;
-    gc_env.r[30] = 0x5;
+    gc_env.r[30] = 0x5; // li r30, 0x5
     goto L_8002BA5C;
     L_8002BA40:
-    gc_env.r[30] = gc_env.r[30] + gc_env.r[31];
+    gc_env.r[30] = gc_env.r[30] + gc_env.r[31]; // add r30, r30, r31
     if (gc_env.cr[0] >= 0) goto L_8002BA50;
-    gc_env.r[30] = 0xa;
+    gc_env.r[30] = 0xa; // li r30, 0xa
     goto L_8002BA5C;
     L_8002BA50:
     gc_env.cr[0] = (gc_env.r[30] == 0x5) ? 0 : (gc_env.r[30] < 0x5 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002BA5C; // ble .L_8002BA5C
-    gc_env.r[30] = 0xa;
+    gc_env.r[30] = 0xa; // li r30, 0xa
     L_8002BA5C:
     gc_env.cr[0] = (gc_env.r[30] == 0xa) ? 0 : (gc_env.r[30] < 0xa ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002BA6C;
-    gc_env.r[3] = 0xa;
+    gc_env.r[3] = 0xa; // li r3, 0xa
     goto L_8002BA90;
     L_8002BA6C:
     gc_env.r[3] = gc_env.r[30]; // Move register
@@ -4004,7 +4004,7 @@ void Camera_8002BA00(void) {
     gc_env.r[4] = gc_env.r[31] + 0; // addi r4, r31, 0x0
     Camera_8002BA00();
     L_8002BA90:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r30, 0x10(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
@@ -4023,13 +4023,13 @@ void Camera_8002BAA8(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x30, temp); // stfd f31, 0x30(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[31]); // stw r31, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[31]); // stw r31, 0x2C(r1)
     gc_env.r[31] = gc_env.r[4] + 800; // addi r31, r4, 0x320
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x320); // lwz r3, 0x320(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x324); // lwz r0, 0x324(r4)
     gc_env.f[2] = cm_804D7E10; // lfs f2, cm_804D7E10@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[3]); // stw r3, 0x18(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x328); // lwz r0, 0x328(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[0]); // stw r0, 0x20(r1)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lfs f0, 0x18(r1)
@@ -4163,15 +4163,15 @@ void Camera_8002BAA8(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r3, 0x18(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[3]); // stw r3, 0x0(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[31], gc_env.r[3]); // stw r3, (r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4, gc_env.r[0]); // stw r0, 0x4(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x8, gc_env.r[0]); // stw r0, 0x8(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x30); // lfd f31, 0x30(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r31, 0x2c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[1] += 56; // addi r1, r1, 0x38
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -4184,10 +4184,10 @@ void Camera_8002BC78(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x28, gc_env.r[1]); // stwu r1, -0x28(r1)
     gc_env.r[1] = gc_env.r[1] + -0x28;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[31]); // stw r31, 0x24(r1)
-    gc_env.r[31] = 0x0;
+    gc_env.r[31] = 0x0; // li r31, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[30]); // stw r30, 0x20(r1)
     gc_env.r[30] = gc_env.r[5] + 0; // addi r30, r5, 0x0
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[29]); // stw r29, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[29]); // stw r29, 0x1C(r1)
     gc_env.r[29] = gc_env.r[4] + 0; // addi r29, r4, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[28]); // stw r28, 0x18(r1)
     gc_env.r[28] = gc_env.r[3]; // Move register
@@ -4201,7 +4201,7 @@ void Camera_8002BC78(void) {
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r3, cm_80452C68@l
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x4, *(uint32_t*)&temp);
-    gc_env.r[31] = 0x1;
+    gc_env.r[31] = 0x1; // li r31, 0x1
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     float temp = (float)gc_env.f[0]; // stfs f0, 0x8(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x8, *(uint32_t*)&temp);
@@ -4209,9 +4209,9 @@ void Camera_8002BC78(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x334); // lwz r3, 0x334(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x338); // lwz r0, 0x338(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[3]); // stw r3, 0x0(r29)
+    gc_mem_write32(gc_env.ram, gc_env.r[29], gc_env.r[3]); // stw r3, (r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x4, gc_env.r[0]); // stw r0, 0x4(r29)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x33c); // lwz r0, 0x33c(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x33C); // lwz r0, 0x33C(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x8, gc_env.r[0]); // stw r0, 0x8(r29)
     goto L_8002BD34;
     L_8002BCF0:
@@ -4223,7 +4223,7 @@ void Camera_8002BC78(void) {
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r3, cm_80452C68@l
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x4, *(uint32_t*)&temp);
-    gc_env.r[31] = -0x1;
+    gc_env.r[31] = -0x1; // li r31, -0x1
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     float temp = (float)gc_env.f[0]; // stfs f0, 0x8(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x8, *(uint32_t*)&temp);
@@ -4231,9 +4231,9 @@ void Camera_8002BC78(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x334); // lwz r3, 0x334(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x338); // lwz r0, 0x338(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[3]); // stw r3, 0x0(r29)
+    gc_mem_write32(gc_env.ram, gc_env.r[29], gc_env.r[3]); // stw r3, (r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x4, gc_env.r[0]); // stw r0, 0x4(r29)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x33c); // lwz r0, 0x33c(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x33C); // lwz r0, 0x33C(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x8, gc_env.r[0]); // stw r0, 0x8(r29)
     L_8002BD34:
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
@@ -4249,10 +4249,10 @@ void Camera_8002BC78(void) {
     gc_env.r[3] = gc_env.r[29]; // Move register
     lbVector_Normalize();
     gc_env.r[3] = gc_env.r[31]; // Move register
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r31, 0x24(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r30, 0x20(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r29, 0x1c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r29, 0x1C(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r28, 0x18(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -4283,14 +4283,14 @@ void Camera_8002BD88(void) {
     gc_env.r[31] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r5, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x40, gc_env.r[30]); // stw r30, 0x40(r1)
     gc_env.r[30] = gc_env.r[31] + 800; // addi r30, r31, 0x320
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r3, 0x0(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r3, (r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r0, 0x4(r4)
     gc_env.f[3] = cm_804D7E10; // lfs f3, cm_804D7E10@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[3]); // stw r3, 0x34(r1)
     gc_env.r[3] = gc_env.r[1] + 40; // addi r3, r1, 0x28
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[0]); // stw r0, 0x38(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8); // lwz r0, 0x8(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r1)
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x320); // lwz r4, 0x320(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x324); // lwz r0, 0x324(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[4]); // stw r4, 0x10(r1)
@@ -4301,7 +4301,7 @@ void Camera_8002BD88(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r4, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[0]); // stw r0, 0x28(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[4]); // stw r4, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[4]); // stw r4, 0x2C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[0]); // stw r0, 0x30(r1)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f0, 0x28(r1)
     gc_env.f[0] = *(float*)&temp;
@@ -4373,8 +4373,8 @@ void Camera_8002BD88(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r0, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x334, gc_env.r[3]); // stw r3, 0x334(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x338, gc_env.r[0]); // stw r0, 0x338(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33c, gc_env.r[0]); // stw r0, 0x33c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x33C, gc_env.r[0]); // stw r0, 0x33C(r31)
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[0]) || isnan(gc_env.f[30]) ? 0x1 : (gc_env.f[0] < gc_env.f[30] ? 0x8 : (gc_env.f[0] > gc_env.f[30] ? 0x4 : 0x2)); // fcmpu cr0, f0, f30
     if (gc_env.cr[0] == 0) goto L_8002BF4C;
@@ -4457,7 +4457,7 @@ void Camera_8002BD88(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r3, 0x10(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[3]); // stw r3, 0x0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[3]); // stw r3, (r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stw r0, 0x4(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x8, gc_env.r[0]); // stw r0, 0x8(r30)
@@ -4495,12 +4495,12 @@ void Camera_8002C010(void) {
     memcpy(&temp, &gc_env.f[29], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x40, temp); // stfd f29, 0x40(r1)
     gc_env.f[29] = gc_env.f[2]; // fmr f29, f2
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
     gc_env.r[31] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r5, cm_80452C68@l
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r3, 0x0(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r3, (r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r0, 0x4(r4)
     gc_env.f[3] = cm_804D7E10; // lfs f3, cm_804D7E10@sda21(r0)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[3]); // stw r3, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[3]); // stw r3, 0x2C(r1)
     gc_env.r[3] = gc_env.r[1] + 32; // addi r3, r1, 0x20
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[0]); // stw r0, 0x30(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8); // lwz r0, 0x8(r4)
@@ -4607,14 +4607,14 @@ void Camera_8002C010(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, *(uint32_t*)&temp);
     lbVector_Add();
     L_8002C188:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5c); // lwz r0, 0x5c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lwz r0, 0x5C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x50); // lfd f31, 0x50(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x48); // lfd f30, 0x48(r1)
     gc_env.d[30] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f29, 0x40(r1)
     gc_env.d[29] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[1] += 88; // addi r1, r1, 0x58
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -4655,9 +4655,9 @@ void Camera_8002C1A8(void) {
     gc_env.r[3] = gc_env.r[1] + 16; // addi r3, r1, 0x10
     Camera_8002B694();
     gc_env.f[27] = cm_804D7E14; // lfs f27, cm_804D7E14@sda21(r0)
-    gc_env.r[0] = 0x20;
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r6, 0x2c(r1)
-    gc_env.r[8] = 0x0;
+    gc_env.r[0] = 0x20; // li r0, 0x20
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r6, 0x2C(r1)
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.f[28] = gc_env.f[27]; // fmr f28, f27
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r4, 0x28(r1)
     gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
@@ -4675,24 +4675,24 @@ void Camera_8002C1A8(void) {
     gc_env.f[4] = *(float*)&temp;
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f5, 0x1C(r1)
     gc_env.f[5] = *(float*)&temp;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r0, 0x20(r1)
     gc_env.f[31] = gc_env.f[30]; // fmr f31, f30
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r3, 0x24(r1)
     if (gc_env.cr[0] == 0) goto L_8002C254;
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     goto L_8002C270;
     L_8002C254:
-    gc_env.r[5] = 0x40;
+    gc_env.r[5] = 0x40; // li r5, 0x40
     gc_env.r[5] = gc_env.r[6] & gc_env.r[5];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
     gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8
     gc_env.r[5] = gc_env.r[6] | gc_env.r[5]; // or r5, r6, r5
     if (gc_env.cr[0] == 0) goto L_8002C270;
-    gc_env.r[4] = -0x1;
+    gc_env.r[4] = -0x1; // li r4, -0x1
     L_8002C270:
-    gc_env.r[5] = 0x8;
-    gc_env.r[8] = 0x0;
+    gc_env.r[5] = 0x8; // li r5, 0x8
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
@@ -4702,7 +4702,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[29] = cm_804D7E04; // lfs f29, cm_804D7E04@sda21(r0)
     goto L_8002C2B4;
     L_8002C298:
-    gc_env.r[5] = 0x4;
+    gc_env.r[5] = 0x4; // li r5, 0x4
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
     gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8
@@ -4710,8 +4710,8 @@ void Camera_8002C1A8(void) {
     if (gc_env.cr[0] == 0) goto L_8002C2B4;
     gc_env.f[29] = cm_804D7E10; // lfs f29, cm_804D7E10@sda21(r0)
     L_8002C2B4:
-    gc_env.r[5] = 0x1;
-    gc_env.r[8] = 0x0;
+    gc_env.r[5] = 0x1; // li r5, 0x1
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
@@ -4721,7 +4721,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[30] = cm_804D7E10; // lfs f30, cm_804D7E10@sda21(r0)
     goto L_8002C2F8;
     L_8002C2DC:
-    gc_env.r[5] = 0x2;
+    gc_env.r[5] = 0x2; // li r5, 0x2
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
     gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8
@@ -4729,8 +4729,8 @@ void Camera_8002C1A8(void) {
     if (gc_env.cr[0] == 0) goto L_8002C2F8;
     gc_env.f[30] = cm_804D7E04; // lfs f30, cm_804D7E04@sda21(r0)
     L_8002C2F8:
-    gc_env.r[5] = 0x400;
-    gc_env.r[8] = 0x0;
+    gc_env.r[5] = 0x400; // li r5, 0x400
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[7] = gc_env.r[0] & gc_env.r[8];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
@@ -4740,7 +4740,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[31] = cm_804D7E04; // lfs f31, cm_804D7E04@sda21(r0)
     goto L_8002C33C;
     L_8002C320:
-    gc_env.r[5] = 0x800;
+    gc_env.r[5] = 0x800; // li r5, 0x800
     gc_env.r[5] = gc_env.r[3] & gc_env.r[5];
     gc_env.r[6] = gc_env.r[5] ^ gc_env.r[8]; // xor r6, r5, r8
     gc_env.r[5] = gc_env.r[7] ^ gc_env.r[8]; // xor r5, r7, r8
@@ -4748,8 +4748,8 @@ void Camera_8002C1A8(void) {
     if (gc_env.cr[0] == 0) goto L_8002C33C;
     gc_env.f[31] = cm_804D7E10; // lfs f31, cm_804D7E10@sda21(r0)
     L_8002C33C:
-    gc_env.r[6] = 0x100;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x100; // li r6, 0x100
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_env.r[3] = gc_env.r[3] & gc_env.r[6];
     gc_env.r[0] = gc_env.r[0] & gc_env.r[5];
     gc_env.r[3] = gc_env.r[3] ^ gc_env.r[5]; // xor r3, r3, r5
@@ -4943,7 +4943,7 @@ void Camera_8002C1A8(void) {
     gc_env.f[2] = gc_env.f[27]; // fmr f2, f27
     Camera_8002BD88();
     L_8002C584:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6c); // lwz r0, 0x6c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f30, 0x58(r1)
@@ -5049,8 +5049,8 @@ void Camera_8002C5B4(void) {
     gc_env.r[3] = gc_env.r[1] + 52; // addi r3, r1, 0x34
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[5]); // stw r5, 0x34(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[0]); // stw r0, 0x38(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x31c); // lwz r0, 0x31c(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x31C); // lwz r0, 0x31C(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r1)
     lbVector_Add();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lfs f1, 0x34(r1)
     gc_env.f[1] = *(float*)&temp;
@@ -5111,9 +5111,9 @@ void Camera_8002C5B4(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r0, 0x38(r1)
     gc_env.r[27] = gc_env.r[31] + 804; // addi r27, r31, 0x324
     gc_env.r[30] = gc_env.r[31] + 808; // addi r30, r31, 0x328
-    gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x0, gc_env.r[3]); // stw r3, 0x0(r29)
+    gc_mem_write32(gc_env.ram, gc_env.r[29], gc_env.r[3]); // stw r3, (r29)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x4, gc_env.r[0]); // stw r0, 0x4(r29)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x8, gc_env.r[0]); // stw r0, 0x8(r29)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x320); // lfs f1, 0x320(r31)
     gc_env.f[1] = *(float*)&temp;
@@ -5251,7 +5251,7 @@ void Camera_8002C5B4(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lmw r26, 0x48(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x58); // lmw r26, 0x48(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lmw r26, 0x48(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6c); // lwz r0, 0x6c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
     gc_env.d[31] = *(double*)&temp;
     gc_env.r[1] += 104; // addi r1, r1, 0x68
@@ -5285,18 +5285,18 @@ void Camera_8002C908(void) {
     goto L_8002C960;
     L_8002C948:
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0); // lbz r3, 0x0(r28)
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3
     Camera_8002BA00();
     gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3
     gc_mem_write8(gc_env.ram, gc_env.r[28] + 0x0, gc_env.r[0]); // stb r0, 0x0(r28)
     L_8002C960:
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x0); // lbz r3, 0x0(r28)
-    gc_env.r[29] = 0x1;
+    gc_env.r[29] = 0x1; // li r29, 0x1
     gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3
     gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002C97C;
-    gc_env.r[29] = 0x0;
+    gc_env.r[29] = 0x0; // li r29, 0x0
     goto L_8002C9C8;
     L_8002C97C:
     gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
@@ -5311,21 +5311,21 @@ void Camera_8002C908(void) {
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002C9C4;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[4]); // stw r4, 0x0(r27)
+    gc_mem_write32(gc_env.ram, gc_env.r[27], gc_env.r[4]); // stw r4, (r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x4, gc_env.r[0]); // stw r0, 0x4(r27)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lwz r0, 0x24(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x8, gc_env.r[0]); // stw r0, 0x8(r27)
     goto L_8002C9C8;
     L_8002C9C4:
-    gc_env.r[29] = 0x0;
+    gc_env.r[29] = 0x0; // li r29, 0x0
     L_8002C9C8:
     gc_env.cr[0] = (gc_env.r[29] == 0x0) ? 0 : (gc_env.r[29] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002C948;
     gc_env.r[3] = gc_env.r[31] + 720; // addi r3, r31, 0x2d0
     Camera_8002C5B4();
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lwz r4, 0x0(r27)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[27]); // lwz r4, (r27)
     gc_env.r[26] = gc_env.r[30] + 12; // addi r26, r30, 0xc
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x4); // lwz r0, 0x4(r27)
     gc_env.r[28] = gc_env.r[31] + 32; // addi r28, r31, 0x20
@@ -5336,13 +5336,13 @@ void Camera_8002C908(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x8); // lwz r0, 0x8(r27)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     lbVector_Add();
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lwz r5, 0x0(r28)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28]); // lwz r5, (r28)
     gc_env.r[27] = gc_env.r[30] + 36; // addi r27, r30, 0x24
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x4); // lwz r0, 0x4(r28)
     gc_env.r[3] = gc_env.r[27] + 0; // addi r3, r27, 0x0
     gc_env.r[4] = gc_env.r[31] + 800; // addi r4, r31, 0x320
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[5]); // stw r5, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x8); // lwz r0, 0x8(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     lbVector_Add();
@@ -5458,9 +5458,9 @@ void Camera_8002CB0C(void) {
     gc_env.r[3] = gc_env.r[1] + 24; // addi r3, r1, 0x18
     Camera_8002B694();
     gc_env.f[30] = cm_804D7E14; // lfs f30, cm_804D7E14@sda21(r0)
-    gc_env.r[0] = 0x20;
+    gc_env.r[0] = 0x20; // li r0, 0x20
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r6, 0x34(r1)
-    gc_env.r[5] = 0x0;
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r3, 0x30(r1)
     gc_env.f[31] = gc_env.f[30]; // fmr f31, f30
     gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
@@ -5474,22 +5474,22 @@ void Camera_8002CB0C(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lfs f3, 0x1C(r1)
     gc_env.f[3] = *(float*)&temp;
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r7, 0x28(r1)
-    gc_env.r[30] = 0x0;
-    gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r8, 0x2c(r1)
+    gc_env.r[30] = 0x0; // li r30, 0x0
+    gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r8, 0x2C(r1)
     if (gc_env.cr[0] == 0) goto L_8002CB98;
-    gc_env.r[30] = 0x1;
+    gc_env.r[30] = 0x1; // li r30, 0x1
     goto L_8002CBB4;
     L_8002CB98:
-    gc_env.r[0] = 0x40;
+    gc_env.r[0] = 0x40; // li r0, 0x40
     gc_env.r[0] = gc_env.r[6] & gc_env.r[0];
     gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5
     gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5
     gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0
     if (gc_env.cr[0] == 0) goto L_8002CBB4;
-    gc_env.r[30] = -0x1;
+    gc_env.r[30] = -0x1; // li r30, -0x1
     L_8002CBB4:
-    gc_env.r[0] = 0x400;
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = 0x400; // li r0, 0x400
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_env.r[0] = gc_env.r[8] & gc_env.r[0];
     gc_env.r[4] = gc_env.r[7] & gc_env.r[5];
     gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5
@@ -5499,7 +5499,7 @@ void Camera_8002CB0C(void) {
     gc_env.f[29] = cm_804D7E04; // lfs f29, cm_804D7E04@sda21(r0)
     goto L_8002CBF8;
     L_8002CBDC:
-    gc_env.r[0] = 0x800;
+    gc_env.r[0] = 0x800; // li r0, 0x800
     gc_env.r[0] = gc_env.r[8] & gc_env.r[0];
     gc_env.r[3] = gc_env.r[0] ^ gc_env.r[5]; // xor r3, r0, r5
     gc_env.r[0] = gc_env.r[4] ^ gc_env.r[5]; // xor r0, r4, r5
@@ -5557,9 +5557,9 @@ void Camera_8002CB0C(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CC74;
     gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
-    gc_env.r[29] = 0x1;
+    gc_env.r[29] = 0x1; // li r29, 0x1
     if (gc_env.cr[0] != 0) goto L_8002CCB0;
-    gc_env.r[29] = 0x0;
+    gc_env.r[29] = 0x0; // li r29, 0x0
     goto L_8002CCFC;
     L_8002CCB0:
     gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
@@ -5574,15 +5574,15 @@ void Camera_8002CB0C(void) {
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CCF8;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[4]); // stw r4, 0x0(r27)
+    gc_mem_write32(gc_env.ram, gc_env.r[27], gc_env.r[4]); // stw r4, (r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x4, gc_env.r[0]); // stw r0, 0x4(r27)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lwz r0, 0x24(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x8, gc_env.r[0]); // stw r0, 0x8(r27)
     goto L_8002CCFC;
     L_8002CCF8:
-    gc_env.r[29] = 0x0;
+    gc_env.r[29] = 0x0; // li r29, 0x0
     L_8002CCFC:
     gc_env.cr[0] = (gc_env.r[29] == 0x0) ? 0 : (gc_env.r[29] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CC74;
@@ -5654,7 +5654,7 @@ void Camera_8002CB0C(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lmw r27, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lmw r27, 0x3C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lmw r27, 0x3C(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6c); // lwz r0, 0x6c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f30, 0x58(r1)
@@ -5697,7 +5697,7 @@ void Camera_8002CDDC(void) {
     goto L_8002CE40;
     L_8002CE28:
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0); // lbz r3, 0x0(r29)
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3
     Camera_8002BA00();
     gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3
@@ -5708,9 +5708,9 @@ void Camera_8002CDDC(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CE28;
     gc_env.cr[0] = (gc_env.r[3] == 0xb) ? 0 : (gc_env.r[3] < 0xb ? -1 : 1); // Compare with immediate
-    gc_env.r[28] = 0x1;
+    gc_env.r[28] = 0x1; // li r28, 0x1
     if (gc_env.cr[0] != 0) goto L_8002CE64;
-    gc_env.r[28] = 0x0;
+    gc_env.r[28] = 0x0; // li r28, 0x0
     goto L_8002CEB0;
     L_8002CE64:
     gc_env.cr[0] = (gc_env.r[3] == 0xa) ? 0 : (gc_env.r[3] < 0xa ? -1 : 1); // Compare with immediate
@@ -5725,15 +5725,15 @@ void Camera_8002CDDC(void) {
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CEAC;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[4]); // stw r4, 0x0(r27)
+    gc_mem_write32(gc_env.ram, gc_env.r[27], gc_env.r[4]); // stw r4, (r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x4, gc_env.r[0]); // stw r0, 0x4(r27)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lwz r0, 0x24(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x8, gc_env.r[0]); // stw r0, 0x8(r27)
     goto L_8002CEB0;
     L_8002CEAC:
-    gc_env.r[28] = 0x0;
+    gc_env.r[28] = 0x0; // li r28, 0x0
     L_8002CEB0:
     gc_env.cr[0] = (gc_env.r[28] == 0x0) ? 0 : (gc_env.r[28] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002CE28;
@@ -5768,7 +5768,7 @@ void Camera_8002CDDC(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D078;
     gc_env.r[3] = gc_env.r[26] + 28; // addi r3, r26, 0x1c
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D078;
@@ -5786,7 +5786,7 @@ void Camera_8002CDDC(void) {
     Camera_8002C5B4();
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x308); // lwz r4, 0x308(r31)
     gc_env.r[26] = gc_env.r[30] + 12; // addi r26, r30, 0xc
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30c); // lwz r0, 0x30c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30C); // lwz r0, 0x30C(r31)
     gc_env.r[27] = gc_env.r[31] + 32; // addi r27, r31, 0x20
     gc_env.r[3] = gc_env.r[26] + 0; // addi r3, r26, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
@@ -5795,13 +5795,13 @@ void Camera_8002CDDC(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x310); // lwz r0, 0x310(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     lbVector_Add();
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x0); // lwz r5, 0x0(r27)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[27]); // lwz r5, (r27)
     gc_env.r[28] = gc_env.r[30] + 36; // addi r28, r30, 0x24
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x4); // lwz r0, 0x4(r27)
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[31] + 800; // addi r4, r31, 0x320
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[5]); // stw r5, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[27] + 0x8); // lwz r0, 0x8(r27)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     lbVector_Add();
@@ -5918,10 +5918,10 @@ void Camera_8002CDDC(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D114; // ble .L_8002D114
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002D118;
     L_8002D114:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002D118:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D138;
@@ -5929,7 +5929,7 @@ void Camera_8002CDDC(void) {
     gc_env.r[4] = gc_env.r[30] + 0; // addi r4, r30, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002D138:
     gc_env.r[28] = gc_env.r[31] + 76; // addi r28, r31, 0x4c
@@ -5971,10 +5971,10 @@ void Camera_8002CDDC(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D1BC; // ble .L_8002D1BC
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002D1C0;
     L_8002D1BC:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002D1C0:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D1E0;
@@ -5982,7 +5982,7 @@ void Camera_8002CDDC(void) {
     gc_env.r[4] = gc_env.r[28] + 0; // addi r4, r28, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002D1E0:
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
@@ -6043,7 +6043,7 @@ void Camera_8002CDDC(void) {
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D2AC; // ble .L_8002D2AC
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[0]); // sth r0, 0x0(r26)
@@ -6081,7 +6081,7 @@ void Camera_8002CDDC(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xA4); // lmw r26, 0x98(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xA8); // lmw r26, 0x98(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xAC); // lmw r26, 0x98(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xbc); // lwz r0, 0xbc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xBC); // lwz r0, 0xBC(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xB0); // lfd f31, 0xB0(r1)
     gc_env.d[31] = *(double*)&temp;
     gc_env.r[1] += 184; // addi r1, r1, 0xb8
@@ -6128,7 +6128,7 @@ void Camera_8002D318(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002D5B4;
     gc_env.r[3] = gc_env.r[26] + 28; // addi r3, r26, 0x1c
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D5B4;
@@ -6371,10 +6371,10 @@ void Camera_8002D318(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D654; // ble .L_8002D654
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002D658;
     L_8002D654:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002D658:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D678;
@@ -6382,7 +6382,7 @@ void Camera_8002D318(void) {
     gc_env.r[4] = gc_env.r[26] + 0; // addi r4, r26, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[26] + 0; // addi r3, r26, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002D678:
     gc_env.r[29] = gc_env.r[31] + 76; // addi r29, r31, 0x4c
@@ -6424,10 +6424,10 @@ void Camera_8002D318(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D6FC; // ble .L_8002D6FC
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002D700;
     L_8002D6FC:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002D700:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002D720;
@@ -6435,7 +6435,7 @@ void Camera_8002D318(void) {
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002D720:
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
@@ -6496,7 +6496,7 @@ void Camera_8002D318(void) {
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002D7EC; // ble .L_8002D7EC
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
     gc_mem_write16(gc_env.ram, gc_env.r[26] + 0x0, gc_env.r[0]); // sth r0, 0x0(r26)
@@ -6534,7 +6534,7 @@ void Camera_8002D318(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x94); // lmw r26, 0x88(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x98); // lmw r26, 0x88(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x9C); // lmw r26, 0x88(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xb4); // lwz r0, 0xb4(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
@@ -6573,7 +6573,7 @@ void Camera_8002D85C(void) {
     gc_env.r[30] = gc_env.r[3]; // Move register
     if (gc_env.cr[0] == 0) goto L_8002DB1C;
     gc_env.r[3] = gc_env.r[30] + 28; // addi r3, r30, 0x1c
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002DB1C;
@@ -6843,10 +6843,10 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002DBBC; // ble .L_8002DBBC
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002DBC0;
     L_8002DBBC:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002DBC0:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002DBE0;
@@ -6854,7 +6854,7 @@ void Camera_8002D85C(void) {
     gc_env.r[4] = gc_env.r[28] + 0; // addi r4, r28, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002DBE0:
     gc_env.r[27] = gc_env.r[31] + 76; // addi r27, r31, 0x4c
@@ -6896,10 +6896,10 @@ void Camera_8002D85C(void) {
     gc_env.f[0] = cm_804D7E70; // lfs f0, cm_804D7E70@sda21(r0)
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002DC64; // ble .L_8002DC64
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002DC68;
     L_8002DC64:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002DC68:
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8002DC88;
@@ -6907,7 +6907,7 @@ void Camera_8002D85C(void) {
     gc_env.r[4] = gc_env.r[27] + 0; // addi r4, r27, 0x0
     Camera_80029CF8();
     gc_env.r[3] = gc_env.r[27] + 0; // addi r3, r27, 0x0
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_8002A768();
     L_8002DC88:
     gc_env.f[1] = cm_804D7E04; // lfs f1, cm_804D7E04@sda21(r0)
@@ -6968,7 +6968,7 @@ void Camera_8002D85C(void) {
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002DD54; // ble .L_8002DD54
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2B0); // lfs f0, 0x2B0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x2B4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2B4, *(uint32_t*)&temp);
     gc_mem_write16(gc_env.ram, gc_env.r[27] + 0x0, gc_env.r[0]); // sth r0, 0x0(r27)
@@ -7005,7 +7005,7 @@ void Camera_8002D85C(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x94); // lmw r27, 0x8C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x98); // lmw r27, 0x8C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x9C); // lmw r27, 0x8C(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xb4); // lwz r0, 0xb4(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xB4); // lwz r0, 0xB4(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA8); // lfd f31, 0xA8(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0xA0); // lfd f30, 0xA0(r1)
@@ -7224,7 +7224,7 @@ void Camera_8002DDC4(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lmw r25, 0x4C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x60); // lmw r25, 0x4C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lmw r25, 0x4C(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6c); // lwz r0, 0x6c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
     gc_env.r[1] += 104; // addi r1, r1, 0x68
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -7241,8 +7241,8 @@ void Camera_8002DFE4(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x40, temp); // stfd f31, 0x40(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
-    gc_env.r[31] = 0x0;
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
+    gc_env.r[31] = 0x0; // li r31, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[30]); // stw r30, 0x38(r1)
     gc_env.r[30] = gc_env.r[5] + 0; // addi r30, r5, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[29]); // stw r29, 0x34(r1)
@@ -7260,20 +7260,20 @@ void Camera_8002DFE4(void) {
     if (gc_env.cr[0] >= 0) goto L_8002E0B8;
     goto L_8002E098;
     L_8002E040:
-    gc_env.r[31] = 0x1;
+    gc_env.r[31] = 0x1; // li r31, 0x1
     goto L_8002E0B8;
     L_8002E048:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x378); // lwz r3, 0x378(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x37c); // lwz r0, 0x37c(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x37C); // lwz r0, 0x37C(r6)
     gc_env.cr[0] = (int32_t)gc_env.r[3] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[3] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r3, r0
     if (gc_env.cr[0] != 0) goto L_8002E060;
-    gc_env.r[31] = 0x1;
+    gc_env.r[31] = 0x1; // li r31, 0x1
     goto L_8002E0B8;
     L_8002E060:
     gc_env.r[3] = gc_env.r[3] ^ 0x80000000; // xoris r3, r3, 0x8000
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[3]); // stw r3, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[3]); // stw r3, 0x2C(r1)
     gc_env.r[3] = 17200 << 16; // lis r3, 0x4330
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[3]); // stw r3, 0x28(r1)
@@ -7293,16 +7293,16 @@ void Camera_8002DFE4(void) {
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     gc_env.cr[0] = (gc_env.cr[0] & ~(1 << 2)) | ((((gc_env.cr[0] >> 1) & 1) | ((gc_env.cr[0] >> 2) & 1)) << 2); // cror eq, gt, eq
     if (gc_env.cr[0] != 0) goto L_8002E0B4;
-    gc_env.r[31] = 0x1;
+    gc_env.r[31] = 0x1; // li r31, 0x1
     goto L_8002E0B8;
     L_8002E0B4:
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
     L_8002E0B8:
     gc_env.cr[0] = (gc_env.r[31] == 0x0) ? 0 : (gc_env.r[31] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E0DC;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r3, 0x0(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r3, (r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r0, 0x4(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[3]); // stw r3, 0x0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[3]); // stw r3, (r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stw r0, 0x4(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8); // lwz r0, 0x8(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x8, gc_env.r[0]); // stw r0, 0x8(r30)
@@ -7332,16 +7332,16 @@ void Camera_8002DFE4(void) {
     lbVector_Add();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r3, 0x14(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[3]); // stw r3, 0x0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[3]); // stw r3, (r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stw r0, 0x4(r30)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x8, gc_env.r[0]); // stw r0, 0x8(r30)
     L_8002E134:
     gc_env.r[3] = gc_env.r[31]; // Move register
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r0, 0x4c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
     gc_env.r[1] += 72; // addi r1, r1, 0x48
@@ -7356,7 +7356,7 @@ void Camera_8002E158(void) {
     gc_env.r[1] = gc_env.r[1] + -0x28;
     gc_env.r[4] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r4, cm_80452C68@l
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 0x341); // lbz r0, 0x341(r4)
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[0] = (gc_env.r[0] >> 1) & 0x3; // extrwi r0, r0, 2, 29
     gc_env.cr[0] = (gc_env.r[0] == 0x1) ? 0 : (gc_env.r[0] < 0x1 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E19C;
@@ -7369,14 +7369,14 @@ void Camera_8002E158(void) {
     if (gc_env.cr[0] >= 0) goto L_8002E20C;
     goto L_8002E1EC;
     L_8002E194:
-    gc_env.r[6] = 0x1;
+    gc_env.r[6] = 0x1; // li r6, 0x1
     goto L_8002E20C;
     L_8002E19C:
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x378); // lwz r5, 0x378(r4)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x37c); // lwz r0, 0x37c(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x37C); // lwz r0, 0x37C(r4)
     gc_env.cr[0] = (int32_t)gc_env.r[5] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[5] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r5, r0
     if (gc_env.cr[0] != 0) goto L_8002E1B4;
-    gc_env.r[6] = 0x1;
+    gc_env.r[6] = 0x1; // li r6, 0x1
     goto L_8002E20C;
     L_8002E1B4:
     gc_env.r[4] = gc_env.r[5] ^ 0x80000000; // xoris r4, r5, 0x8000
@@ -7384,7 +7384,7 @@ void Camera_8002E158(void) {
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[4]); // stw r4, 0x24(r1)
     gc_env.r[4] = 17200 << 16; // lis r4, 0x4330
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x20, gc_env.r[4]); // stw r4, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[4]); // stw r4, 0x18(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f3, 0x20(r1)
@@ -7402,7 +7402,7 @@ void Camera_8002E158(void) {
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     gc_env.cr[0] = (gc_env.cr[0] & ~(1 << 2)) | ((((gc_env.cr[0] >> 1) & 1) | ((gc_env.cr[0] >> 2) & 1)) << 2); // cror eq, gt, eq
     if (gc_env.cr[0] != 0) goto L_8002E208;
-    gc_env.r[6] = 0x1;
+    gc_env.r[6] = 0x1; // li r6, 0x1
     goto L_8002E20C;
     L_8002E208:
     gc_env.f[4] = gc_env.f[3]; // fmr f4, f3
@@ -7433,10 +7433,10 @@ void Camera_8002E234(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x40, temp); // stfd f31, 0x40(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[30]); // stw r30, 0x38(r1)
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[29]); // stw r29, 0x34(r1)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x3; // extrwi r0, r0, 2, 27
@@ -7459,7 +7459,7 @@ void Camera_8002E234(void) {
     L_8002E29C:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     gc_env.r[29] = gc_env.r[31] + 860; // addi r29, r31, 0x35c
-    gc_env.r[30] = 0x1;
+    gc_env.r[30] = 0x1; // li r30, 0x1
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8002E2C4;
@@ -7493,7 +7493,7 @@ void Camera_8002E234(void) {
     gc_env.r[3] = gc_env.r[1] + 8; // addi r3, r1, 0x8
     gc_env.r[5] = gc_env.r[5] ^ 0x80000000; // xoris r5, r5, 0x8000
     gc_env.r[0] = gc_env.r[0] ^ 0x80000000; // xoris r0, r0, 0x8000
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[5]); // stw r5, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[5]); // stw r5, 0x2C(r1)
     gc_env.d[2] = cm_804D7E20; // lfd f2, cm_804D7E20@sda21(r0)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[0]); // stw r0, 0x24(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[4]); // stw r4, 0x28(r1)
@@ -7509,7 +7509,7 @@ void Camera_8002E234(void) {
     L_8002E334:
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x14(r1)
@@ -7524,7 +7524,7 @@ void Camera_8002E234(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x364); // lfs f1, 0x364(r31)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     gc_env.r[4] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x35E); // lha r4, 0x35E(r31)
     gc_env.r[0] = 17200 << 16; // lis r0, 0x4330
@@ -7559,10 +7559,10 @@ void Camera_8002E234(void) {
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r5, 0x14(r1)
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[5]); // stw r5, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     float temp = (float)gc_env.f[0]; // stfs f0, 0x18(r1)
@@ -7579,7 +7579,7 @@ void Camera_8002E234(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lfs f1, 0xC(r1)
     gc_env.f[1] = *(float*)&temp;
     gc_env.r[3] = gc_env.r[1] + 20; // addi r3, r1, 0x14
-    gc_env.r[4] = 0x2;
+    gc_env.r[4] = 0x2; // li r4, 0x2
     lbVector_Rotate();
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8); // lfs f31, 0x8(r1)
     gc_env.f[31] = *(float*)&temp;
@@ -7605,16 +7605,16 @@ void Camera_8002E234(void) {
     lbVector_Add();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r3, 0x14(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2c, gc_env.r[3]); // stw r3, 0x2c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, gc_env.r[3]); // stw r3, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, gc_env.r[0]); // stw r0, 0x30(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, gc_env.r[0]); // stw r0, 0x34(r31)
     L_8002E46C:
     gc_env.r[3] = gc_env.r[30]; // Move register
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r0, 0x4c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
     gc_env.r[1] += 72; // addi r1, r1, 0x48
@@ -7632,7 +7632,7 @@ void Camera_8002E490(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[31]); // stw r31, 0x34(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[30]); // stw r30, 0x30(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[29]); // stw r29, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[29]); // stw r29, 0x2C(r1)
     Camera_80030DF8();
     gc_env.r[30] = gc_env.r[31] + 833; // addi r30, r31, 0x341
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
@@ -7656,7 +7656,7 @@ void Camera_8002E490(void) {
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E574;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7668,7 +7668,7 @@ void Camera_8002E490(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x348); // lwz r0, 0x348(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34c); // lwz r0, 0x34c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34C); // lwz r0, 0x34C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002E574;
     L_8002E53C:
@@ -7680,7 +7680,7 @@ void Camera_8002E490(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E574;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r3, 0x1c(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r3, 0x1C(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r0, 0x20(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7701,15 +7701,15 @@ void Camera_8002E490(void) {
     if (gc_env.cr[0] >= 0) goto L_8002E5F8;
     goto L_8002E5C0;
     L_8002E5A4:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35c); // lwz r3, 0x35c(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35C); // lwz r3, 0x35C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x360); // lwz r0, 0x360(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x364); // lwz r0, 0x364(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002E5F8;
     L_8002E5C0:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35c); // lwz r12, 0x35c(r31)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35C); // lwz r12, 0x35C(r31)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E5F8;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -7720,12 +7720,12 @@ void Camera_8002E490(void) {
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r3, 0x10(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r0, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002E5F8:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x0); // lbz r0, 0x0(r30)
-    gc_env.r[29] = 0x0;
+    gc_env.r[29] = 0x0; // li r29, 0x0
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x3; // extrwi r0, r0, 2, 25
     gc_env.cr[0] = (gc_env.r[0] == 0x4) ? 0 : (gc_env.r[0] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] >= 0) goto L_8002E62C;
@@ -7760,12 +7760,12 @@ void Camera_8002E490(void) {
     goto L_8002E68C;
     L_8002E66C:
     gc_env.r[4] = gc_env.r[31] + 888; // addi r4, r31, 0x378
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x37c); // lwz r0, 0x37c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x37C); // lwz r0, 0x37C(r31)
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x378); // lwz r3, 0x378(r31)
     gc_env.cr[0] = (int32_t)gc_env.r[3] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[3] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r3, r0
     if (gc_env.cr[0] >= 0) goto L_8002E6BC;
     gc_env.r[0] = gc_env.r[3] + 1; // addi r0, r3, 0x1
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[0]); // stw r0, 0x0(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[4], gc_env.r[0]); // stw r0, (r4)
     goto L_8002E6BC;
     L_8002E68C:
     gc_env.r[3] = gc_env.r[31] + 888; // addi r3, r31, 0x378
@@ -7788,20 +7788,20 @@ void Camera_8002E490(void) {
     L_8002E6BC:
     gc_env.cr[0] = (gc_env.r[29] == 0x0) ? 0 : (gc_env.r[29] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E6CC;
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     goto L_8002E6D0;
     L_8002E6CC:
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8002E6D0:
     gc_env.r[3] = gc_env.r[0] & 0xFF; // clrlwi r3, r0, 24
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x0); // lbz r0, 0x0(r30)
     uint32_t rotated = gc_env.r[3] << 0; // rlwimi r0, r3, 0, 31, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x1) | (rotated & 0x1);
     gc_mem_write8(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[0]); // stb r0, 0x0(r30)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r0, 0x3c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r0, 0x3C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r31, 0x34(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r30, 0x30(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r29, 0x2c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r29, 0x2C(r1)
     gc_env.r[1] += 56; // addi r1, r1, 0x38
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -7814,7 +7814,7 @@ void Camera_8002E6FC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
@@ -7824,7 +7824,7 @@ void Camera_8002E6FC(void) {
     Camera_8002FE38();
     L_8002E72C:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 25, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x60) | (rotated & 0x60);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
@@ -7844,14 +7844,14 @@ void Camera_8002E6FC(void) {
     if (gc_env.cr[0] >= 0) goto L_8002E800;
     goto L_8002E7C8;
     L_8002E774:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     Player_GetEntity();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E800;
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E800;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7859,7 +7859,7 @@ void Camera_8002E6FC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002E800;
     L_8002E7AC:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7867,7 +7867,7 @@ void Camera_8002E6FC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002E800;
     L_8002E7C8:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E800;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -7875,7 +7875,7 @@ void Camera_8002E6FC(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E800;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7883,7 +7883,7 @@ void Camera_8002E6FC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     L_8002E800:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -7897,7 +7897,7 @@ void Camera_8002E818(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
@@ -7907,17 +7907,17 @@ void Camera_8002E818(void) {
     Camera_8002FE38();
     L_8002E848:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x2;
+    gc_env.r[3] = 0x2; // li r3, 0x2
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 25, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x60) | (rotated & 0x60);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
     gc_env.r[5] = gc_env.r[31] + 836; // addi r5, r31, 0x344
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lwz r3, 0x0(r30)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r3, (r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x4); // lwz r0, 0x4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x344, gc_env.r[3]); // stw r3, 0x344(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x348, gc_env.r[0]); // stw r0, 0x348(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x8); // lwz r0, 0x8(r30)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34c, gc_env.r[0]); // stw r0, 0x34c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34C, gc_env.r[0]); // stw r0, 0x34C(r31)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x3; // extrwi r0, r0, 2, 25
     gc_env.cr[0] = (gc_env.r[0] == 0x2) ? 0 : (gc_env.r[0] < 0x2 ? -1 : 1); // Compare with immediate
@@ -7932,14 +7932,14 @@ void Camera_8002E818(void) {
     if (gc_env.cr[0] >= 0) goto L_8002E930;
     goto L_8002E8F8;
     L_8002E8A4:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     Player_GetEntity();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E930;
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E930;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7947,7 +7947,7 @@ void Camera_8002E818(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002E930;
     L_8002E8DC:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7955,7 +7955,7 @@ void Camera_8002E818(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002E930;
     L_8002E8F8:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E930;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -7963,7 +7963,7 @@ void Camera_8002E818(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002E930;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -7971,7 +7971,7 @@ void Camera_8002E818(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     L_8002E930:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -7985,7 +7985,7 @@ void Camera_8002E948(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
@@ -7995,7 +7995,7 @@ void Camera_8002E948(void) {
     Camera_8002FE38();
     L_8002E978:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x3;
+    gc_env.r[3] = 0x3; // li r3, 0x3
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 25, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x60) | (rotated & 0x60);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
@@ -8015,14 +8015,14 @@ void Camera_8002E948(void) {
     if (gc_env.cr[0] >= 0) goto L_8002EA4C;
     goto L_8002EA14;
     L_8002E9C0:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     Player_GetEntity();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EA4C;
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EA4C;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -8030,7 +8030,7 @@ void Camera_8002E948(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002EA4C;
     L_8002E9F8:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -8038,7 +8038,7 @@ void Camera_8002E948(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002EA4C;
     L_8002EA14:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EA4C;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8046,7 +8046,7 @@ void Camera_8002E948(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EA4C;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -8054,7 +8054,7 @@ void Camera_8002E948(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     L_8002EA4C:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8068,7 +8068,7 @@ void Camera_8002EA64(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
@@ -8078,14 +8078,14 @@ void Camera_8002EA64(void) {
     Camera_8002FE38();
     L_8002EA94:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint32_t rotated = gc_env.r[3] << 3; // rlwimi r0, r3, 3, 27, 28
     gc_env.r[0] = (gc_env.r[0] & ~0x18) | (rotated & 0x18);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
     gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lwz r3, 0x0(r30)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r3, (r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x4); // lwz r0, 0x4(r30)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x35c, gc_env.r[3]); // stw r3, 0x35c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x35C, gc_env.r[3]); // stw r3, 0x35C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x360, gc_env.r[0]); // stw r0, 0x360(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x8); // lwz r0, 0x8(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x364, gc_env.r[0]); // stw r0, 0x364(r31)
@@ -8103,15 +8103,15 @@ void Camera_8002EA64(void) {
     if (gc_env.cr[0] >= 0) goto L_8002EB44;
     goto L_8002EB0C;
     L_8002EAF0:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8); // lwz r0, 0x8(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002EB44;
     L_8002EB0C:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EB44;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8119,15 +8119,15 @@ void Camera_8002EA64(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EB44;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002EB44:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8145,7 +8145,7 @@ void Camera_8002EB5C(void) {
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x20, temp); // stfd f31, 0x20(r1)
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r0, 0x4(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
@@ -8157,11 +8157,11 @@ void Camera_8002EB5C(void) {
     gc_env.r[0] = (gc_env.r[3] >> 3) & 0x3; // extrwi r0, r3, 2, 27
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x2) ? 0 : ((uint32_t)gc_env.r[0] < 0x2 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EBC8;
-    gc_env.r[0] = 0x2;
+    gc_env.r[0] = 0x2; // li r0, 0x2
     uint32_t rotated = gc_env.r[0] << 3; // rlwimi r3, r0, 3, 27, 28
     gc_env.r[3] = (gc_env.r[3] & ~0x18) | (rotated & 0x18);
     gc_mem_write8(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[3]); // stb r3, 0x0(r4)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 7; // rlwimi r0, r3, 7, 24, 24
     gc_env.r[0] = (gc_env.r[0] & ~0x80) | (rotated & 0x80);
@@ -8174,7 +8174,7 @@ void Camera_8002EB5C(void) {
     float temp = (float)gc_env.f[31]; // stfs f31, 0x360(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x360, *(uint32_t*)&temp);
     gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 6; // rlwimi r0, r3, 6, 25, 25
     gc_env.r[0] = (gc_env.r[0] & ~0x40) | (rotated & 0x40);
@@ -8193,15 +8193,15 @@ void Camera_8002EB5C(void) {
     if (gc_env.cr[0] >= 0) goto L_8002EC64;
     goto L_8002EC2C;
     L_8002EC10:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8); // lwz r0, 0x8(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002EC64;
     L_8002EC2C:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EC64;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8209,17 +8209,17 @@ void Camera_8002EB5C(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EC64;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002EC64:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -8236,7 +8236,7 @@ void Camera_8002EC7C(void) {
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x20, temp); // stfd f31, 0x20(r1)
     gc_env.f[31] = gc_env.f[1]; // fmr f31, f1
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r0, 0x4(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
@@ -8248,11 +8248,11 @@ void Camera_8002EC7C(void) {
     gc_env.r[0] = (gc_env.r[3] >> 3) & 0x3; // extrwi r0, r3, 2, 27
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x2) ? 0 : ((uint32_t)gc_env.r[0] < 0x2 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002ECE8;
-    gc_env.r[0] = 0x2;
+    gc_env.r[0] = 0x2; // li r0, 0x2
     uint32_t rotated = gc_env.r[0] << 3; // rlwimi r3, r0, 3, 27, 28
     gc_env.r[3] = (gc_env.r[3] & ~0x18) | (rotated & 0x18);
     gc_mem_write8(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[3]); // stb r3, 0x0(r4)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 7; // rlwimi r0, r3, 7, 24, 24
     gc_env.r[0] = (gc_env.r[0] & ~0x80) | (rotated & 0x80);
@@ -8265,7 +8265,7 @@ void Camera_8002EC7C(void) {
     float temp = (float)gc_env.f[31]; // stfs f31, 0x364(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x364, *(uint32_t*)&temp);
     gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 26, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x20) | (rotated & 0x20);
@@ -8284,15 +8284,15 @@ void Camera_8002EC7C(void) {
     if (gc_env.cr[0] >= 0) goto L_8002ED84;
     goto L_8002ED4C;
     L_8002ED30:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8); // lwz r0, 0x8(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002ED84;
     L_8002ED4C:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002ED84;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8300,17 +8300,17 @@ void Camera_8002EC7C(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002ED84;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002ED84:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -8339,11 +8339,11 @@ void Camera_8002ED9C(void) {
     gc_env.r[0] = (gc_env.r[3] >> 3) & 0x3; // extrwi r0, r3, 2, 27
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x2) ? 0 : ((uint32_t)gc_env.r[0] < 0x2 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EE08;
-    gc_env.r[0] = 0x2;
+    gc_env.r[0] = 0x2; // li r0, 0x2
     uint32_t rotated = gc_env.r[0] << 3; // rlwimi r3, r0, 3, 27, 28
     gc_env.r[3] = (gc_env.r[3] & ~0x18) | (rotated & 0x18);
     gc_mem_write8(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[3]); // stb r3, 0x0(r4)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 6; // rlwimi r0, r3, 6, 25, 25
     gc_env.r[0] = (gc_env.r[0] & ~0x40) | (rotated & 0x40);
@@ -8355,11 +8355,11 @@ void Camera_8002ED9C(void) {
     L_8002EE08:
     gc_env.f[0] = (double)(int32_t)gc_env.f[31]; // fctiwz f0, f31
     gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint64_t temp;
     memcpy(&temp, &gc_env.f[0], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x18, temp); // stfd f0, 0x18(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x35e, gc_env.r[0]); // sth r0, 0x35e(r31)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x35c); // lbz r0, 0x35c(r31)
     uint32_t rotated = gc_env.r[3] << 7; // rlwimi r0, r3, 7, 24, 24
@@ -8379,15 +8379,15 @@ void Camera_8002ED9C(void) {
     if (gc_env.cr[0] >= 0) goto L_8002EEB0;
     goto L_8002EE78;
     L_8002EE5C:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8); // lwz r0, 0x8(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002EEB0;
     L_8002EE78:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EEB0;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8395,10 +8395,10 @@ void Camera_8002ED9C(void) {
     // Call function at gc_env.lr; // Branch to link register
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002EEB0;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r3, 0xc(r1)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r3, 0xC(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r0, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002EEB0:
@@ -8432,7 +8432,7 @@ void Camera_8002EEC8(void) {
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
     float temp = (float)gc_env.f[31]; // stfs f31, 0x48(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x48, *(uint32_t*)&temp);
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x10); // lfd f31, 0x10(r1)
     gc_env.d[31] = *(double*)&temp;
     gc_env.r[1] += 24; // addi r1, r1, 0x18
@@ -8447,7 +8447,7 @@ void Camera_8002EF14(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x30, gc_env.r[1]); // stwu r1, -0x30(r1)
     gc_env.r[1] = gc_env.r[1] + -0x30;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[31]); // stw r31, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[31]); // stw r31, 0x2C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[30]); // stw r30, 0x28(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r0, 0x4(r31)
@@ -8457,7 +8457,7 @@ void Camera_8002EF14(void) {
     L_8002EF40:
     gc_env.r[30] = gc_env.r[31] + 833; // addi r30, r31, 0x341
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     uint32_t rotated = gc_env.r[3] << 1; // rlwimi r0, r3, 1, 29, 30
     gc_env.r[0] = (gc_env.r[0] & ~0x6) | (rotated & 0x6);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
@@ -8482,7 +8482,7 @@ void Camera_8002EF14(void) {
     ftLib_80086B74();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F010;
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1c); // lwz r4, 0x1c(r3)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lwz r4, 0x1C(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lwz r0, 0x20(r3)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[4]); // stw r4, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
@@ -8494,7 +8494,7 @@ void Camera_8002EF14(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x348); // lwz r0, 0x348(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34c); // lwz r0, 0x34c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34C); // lwz r0, 0x34C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     goto L_8002F010;
     L_8002EFD8:
@@ -8507,7 +8507,7 @@ void Camera_8002EF14(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F010;
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r3, 0x18(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r0, 0x20(r1)
@@ -8540,15 +8540,15 @@ void Camera_8002EF14(void) {
     if (gc_env.cr[0] >= 0) goto L_8002F0C0;
     goto L_8002F088;
     L_8002F06C:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35c); // lwz r3, 0x35c(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35C); // lwz r3, 0x35C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x360); // lwz r0, 0x360(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x364); // lwz r0, 0x364(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002F0C0;
     L_8002F088:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35c); // lwz r12, 0x35c(r31)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x35C); // lwz r12, 0x35C(r31)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F0C0;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8557,9 +8557,9 @@ void Camera_8002EF14(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F0C0;
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8); // lwz r3, 0x8(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002F0C0:
@@ -8569,7 +8569,7 @@ void Camera_8002EF14(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x44, *(uint32_t*)&temp);
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r31, 0x2c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r30, 0x28(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8589,7 +8589,7 @@ void Camera_8002F0E4(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[30], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x30, temp); // stfd f30, 0x30(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[31]); // stw r31, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[31]); // stw r31, 0x2C(r1)
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[30]); // stw r30, 0x28(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
@@ -8600,13 +8600,13 @@ void Camera_8002F0E4(void) {
     L_8002F11C:
     gc_env.r[4] = gc_env.r[31] + 833; // addi r4, r31, 0x341
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint32_t rotated = gc_env.r[3] << 1; // rlwimi r0, r3, 1, 29, 30
     gc_env.r[0] = (gc_env.r[0] & ~0x6) | (rotated & 0x6);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x378, gc_env.r[0]); // stw r0, 0x378(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x37c, gc_env.r[30]); // stw r30, 0x37c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x37C, gc_env.r[30]); // stw r30, 0x37C(r31)
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x3; // extrwi r0, r0, 2, 25
     gc_env.cr[0] = (gc_env.r[0] == 0x4) ? 0 : (gc_env.r[0] < 0x4 ? -1 : 1); // Compare with immediate
@@ -8619,7 +8619,7 @@ void Camera_8002F0E4(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x18); // lwz r0, 0x18(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x350, gc_env.r[3]); // stw r3, 0x350(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x354, gc_env.r[0]); // stw r0, 0x354(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1c); // lwz r0, 0x1c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x1C); // lwz r0, 0x1C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x358, gc_env.r[0]); // stw r0, 0x358(r31)
     L_8002F170:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 0x0); // lbz r0, 0x0(r4)
@@ -8634,10 +8634,10 @@ void Camera_8002F0E4(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0x4) ? 0 : (gc_env.r[0] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] >= 0) goto L_8002F238;
     L_8002F198:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2c); // lwz r3, 0x2c(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2C); // lwz r3, 0x2C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lwz r0, 0x30(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x368, gc_env.r[3]); // stw r3, 0x368(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x36c, gc_env.r[0]); // stw r0, 0x36c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x36C, gc_env.r[0]); // stw r0, 0x36C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lwz r0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x370, gc_env.r[0]); // stw r0, 0x370(r31)
     goto L_8002F238;
@@ -8697,7 +8697,7 @@ void Camera_8002F0E4(void) {
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x30); // lfd f30, 0x30(r1)
     gc_env.d[30] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r31, 0x2c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r30, 0x28(r1)
     gc_env.r[1] += 64; // addi r1, r1, 0x40
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8720,7 +8720,7 @@ void Camera_8002F274(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r0, 0x4(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
@@ -8728,14 +8728,14 @@ void Camera_8002F274(void) {
     Camera_8002FE38();
     L_8002F29C:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x341); // lbz r0, 0x341(r31)
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     uint32_t rotated = gc_env.r[3] << 3; // rlwimi r0, r3, 3, 27, 28
     gc_env.r[0] = (gc_env.r[0] & ~0x18) | (rotated & 0x18);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x341, gc_env.r[0]); // stb r0, 0x341(r31)
     gc_env.r[5] = gc_env.r[31] + 860; // addi r5, r31, 0x35c
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2c); // lwz r3, 0x2c(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x2C); // lwz r3, 0x2C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30); // lwz r0, 0x30(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x35c, gc_env.r[3]); // stw r3, 0x35c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x35C, gc_env.r[3]); // stw r3, 0x35C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x360, gc_env.r[0]); // stw r0, 0x360(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x34); // lwz r0, 0x34(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x364, gc_env.r[0]); // stw r0, 0x364(r31)
@@ -8753,15 +8753,15 @@ void Camera_8002F274(void) {
     if (gc_env.cr[0] >= 0) goto L_8002F34C;
     goto L_8002F314;
     L_8002F2F8:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r3, 0x0(r5)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r3, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x4); // lwz r0, 0x4(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x8); // lwz r0, 0x8(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     goto L_8002F34C;
     L_8002F314:
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r12, 0x0(r5)
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r12, (r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F34C;
     gc_env.lr = gc_env.r[12]; // Move to link register
@@ -8770,14 +8770,14 @@ void Camera_8002F274(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F34C;
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x8); // lwz r3, 0x8(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[3]); // stw r3, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r0, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     L_8002F34C:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -8795,14 +8795,14 @@ void fn_8002F360(void) {
     gc_env.r[4] = ((uint32_t)&cm_803BCB18 >> 16) & 0xFFFF; // lis r4, cm_803BCB18@ha
     gc_env.r[0] = gc_env.r[4] + ((uint32_t)&cm_803BCB18 & 0xFFFF); // addi r0, r4, cm_803BCB18@l
     gc_env.r[4] = gc_env.r[5] << 2; // slwi r4, r5, 2
-    gc_env.r[4] = gc_env.r[0] + gc_env.r[4];
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r12, 0x0(r4)
+    gc_env.r[4] = gc_env.r[0] + gc_env.r[4]; // add r4, r0, r4
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r12, (r4)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F39C;
     gc_env.lr = gc_env.r[12]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_8002F39C:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -8820,18 +8820,18 @@ void Camera_8002F3AC(void) {
     gc_env.r[3] = ((uint32_t)&cm_803BCB18 >> 16) & 0xFFFF; // lis r3, cm_803BCB18@ha
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x4); // lwz r4, 0x4(r31)
     gc_env.r[0] = gc_env.r[3] + ((uint32_t)&cm_803BCB18 & 0xFFFF); // addi r0, r3, cm_803BCB18@l
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lwz r3, 0x0(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31]); // lwz r3, (r31)
     gc_env.r[4] = gc_env.r[4] << 2; // slwi r4, r4, 2
-    gc_env.r[4] = gc_env.r[0] + gc_env.r[4];
-    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r12, 0x0(r4)
+    gc_env.r[4] = gc_env.r[0] + gc_env.r[4]; // add r4, r0, r4
+    gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r12, (r4)
     gc_env.cr[0] = ((uint32_t)gc_env.r[12] == 0x0) ? 0 : ((uint32_t)gc_env.r[12] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F3F0;
     gc_env.lr = gc_env.r[12]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_8002F3F0:
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x38); // lwz r3, 0x38(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3c); // lwz r0, 0x3c(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2c, gc_env.r[3]); // stw r3, 0x2c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x3C); // lwz r0, 0x3C(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x2C, gc_env.r[3]); // stw r3, 0x2C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x30, gc_env.r[0]); // stw r0, 0x30(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x40); // lwz r0, 0x40(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x34, gc_env.r[0]); // stw r0, 0x34(r31)
@@ -8840,7 +8840,7 @@ void Camera_8002F3AC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x14, gc_env.r[3]); // stw r3, 0x14(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x18, gc_env.r[0]); // stw r0, 0x18(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x28); // lwz r0, 0x28(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1c, gc_env.r[0]); // stw r0, 0x1c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x1C, gc_env.r[0]); // stw r0, 0x1C(r31)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x48); // lfs f0, 0x48(r31)
     gc_env.f[0] = *(float*)&temp;
     float temp = (float)gc_env.f[0]; // stfs f0, 0x44(r31)
@@ -8850,10 +8850,10 @@ void Camera_8002F3AC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x64, gc_env.r[3]); // stw r3, 0x64(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x68, gc_env.r[0]); // stw r0, 0x68(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x78); // lwz r0, 0x78(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x6c, gc_env.r[0]); // stw r0, 0x6c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x6C, gc_env.r[0]); // stw r0, 0x6C(r31)
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x58); // lwz r3, 0x58(r31)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x5c); // lwz r0, 0x5c(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4c, gc_env.r[3]); // stw r3, 0x4c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x5C); // lwz r0, 0x5C(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4C, gc_env.r[3]); // stw r3, 0x4C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x50, gc_env.r[0]); // stw r0, 0x50(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x60); // lwz r0, 0x60(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x54, gc_env.r[0]); // stw r0, 0x54(r31)
@@ -8861,7 +8861,7 @@ void Camera_8002F3AC(void) {
     gc_env.f[0] = *(float*)&temp;
     float temp = (float)gc_env.f[0]; // stfs f0, 0x7C(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x7C, *(uint32_t*)&temp);
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8872,7 +8872,7 @@ void Camera_8002F3AC(void) {
 void Camera_8002F474(void) {
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
     return;
 }
@@ -8897,8 +8897,8 @@ void fn_8002F488(void) {
     Stage_GetCamBoundsBottomOffset();
     float temp = (float)gc_env.f[1]; // stfs f1, 0x4(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4, *(uint32_t*)&temp);
-    gc_env.r[3] = 0x1;
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[3] = 0x1; // li r3, 0x1
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -8928,11 +8928,11 @@ void Camera_8002F4D4(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & 0x8) goto L_8002F51C; // blt .L_8002F51C
     L_8002F508:
-    gc_env.r[0] = gc_env.r[3] - 10;
+    gc_env.r[0] = gc_env.r[3] - 10; // subi r0, r3, 10
     gc_env.r[0] = gc_env.r[0] & 0xFF; // clrlwi r0, r0, 24
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002F51C; // ble .L_8002F51C
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_8002F51C:
     gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[4] & 0xFF); // extsb r0, r4
     if (gc_env.cr[0] & 0x8) goto L_8002F530; // blt .L_8002F530
@@ -8940,13 +8940,13 @@ void Camera_8002F4D4(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0x4) ? 0 : (gc_env.r[0] < 0x4 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] & 0x8) goto L_8002F544; // blt .L_8002F544
     L_8002F530:
-    gc_env.r[0] = gc_env.r[4] - 4;
+    gc_env.r[0] = gc_env.r[4] - 4; // subi r0, r4, 4
     gc_env.r[0] = gc_env.r[0] & 0xFF; // clrlwi r0, r0, 24
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & (0x8 | 0x2)) goto L_8002F544; // ble .L_8002F544
-    gc_env.r[4] = 0x4;
+    gc_env.r[4] = 0x4; // li r4, 0x4
     L_8002F544:
-    gc_env.r[0] = 0x1;
+    gc_env.r[0] = 0x1; // li r0, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x4, gc_env.r[0]); // stw r0, 0x4(r31)
     gc_env.r[29] = gc_env.r[31] + 708; // addi r29, r31, 0x2c4
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x2c4, gc_env.r[3]); // stb r3, 0x2c4(r31)
@@ -9008,8 +9008,8 @@ void Camera_8002F4D4(void) {
     L_8002F5F4:
     gc_env.r[3] = ((uint32_t)&cm_803BCBD0 >> 16) & 0xFFFF; // lis r3, cm_803BCBD0@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_803BCBD0 & 0xFFFF); // addi r3, r3, cm_803BCBD0@l
-    gc_env.r[4] = 0xedf;
-    gc_env.r[5] = cm_804D3938@sda21;
+    gc_env.r[4] = 0xedf; // li r4, 0xedf
+    gc_env.r[5] = (uint32_t)&cm_804D3938; // li r5, cm_804D3938@sda21
     __assert();
     L_8002F608:
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[29] + 0x0); // lbz r3, 0x0(r29)
@@ -9080,7 +9080,7 @@ void Camera_8002F4D4(void) {
     Camera_8002C010();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x308); // lwz r3, 0x308(r31)
     gc_env.r[27] = gc_env.r[31] + 20; // addi r27, r31, 0x14
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30c); // lwz r0, 0x30c(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x30C); // lwz r0, 0x30C(r31)
     gc_env.r[30] = gc_env.r[31] + 32; // addi r30, r31, 0x20
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[3]); // stw r3, 0x20(r31)
@@ -9089,12 +9089,12 @@ void Camera_8002F4D4(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x310); // lwz r0, 0x310(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x28, gc_env.r[0]); // stw r0, 0x28(r31)
     lbVector_Add();
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lwz r5, 0x0(r30)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r5, (r30)
     gc_env.r[4] = gc_env.r[28]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x4); // lwz r0, 0x4(r30)
     gc_env.r[3] = gc_env.r[27] + 36; // addi r3, r27, 0x24
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x38, gc_env.r[5]); // stw r5, 0x38(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x8); // lwz r0, 0x8(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x40, gc_env.r[0]); // stw r0, 0x40(r31)
     lbVector_Add();
@@ -9114,12 +9114,12 @@ void Camera_8002F4D4(void) {
 // Function: Camera_8002F73C
 void Camera_8002F73C(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[5] = 0x0;
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     Camera_8002F4D4();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -9128,12 +9128,12 @@ void Camera_8002F73C(void) {
 // Function: Camera_8002F760
 void Camera_8002F760(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[5] = 0x1;
+    gc_env.r[5] = 0x1; // li r5, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     Camera_8002F4D4();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -9143,7 +9143,7 @@ void Camera_8002F760(void) {
 void Camera_8002F784(void) {
     gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha
     gc_env.r[5] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r5, r5, cm_80452C68@l
-    gc_env.r[0] = 0x2;
+    gc_env.r[0] = 0x2; // li r0, 0x2
     gc_mem_write32(gc_env.ram, gc_env.r[5] + 0x4, gc_env.r[0]); // stw r0, 0x4(r5)
     gc_mem_write8(gc_env.ram, gc_env.r[5] + 0x2c4, gc_env.r[3]); // stb r3, 0x2c4(r5)
     gc_mem_write8(gc_env.ram, gc_env.r[5] + 0x2c5, gc_env.r[4]); // stb r4, 0x2c5(r5)
@@ -9160,7 +9160,7 @@ void Camera_8002F7AC(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
     gc_env.r[4] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r4, cm_80452C68@ha
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
-    gc_env.r[0] = 0x3;
+    gc_env.r[0] = 0x3; // li r0, 0x3
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
     uint64_t temp;
@@ -9190,7 +9190,7 @@ void Camera_8002F7AC(void) {
     gc_env.f[31] = cm_804D7E10; // lfs f31, cm_804D7E10@sda21(r0)
     goto L_8002F838;
     L_8002F818:
-    gc_env.r[3] = 0x2;
+    gc_env.r[3] = 0x2; // li r3, 0x2
     HSD_Randi();
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8002F830;
@@ -9265,7 +9265,7 @@ void Camera_8002F7AC(void) {
 void Camera_8002F8F4(void) {
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
-    gc_env.r[0] = 0x4;
+    gc_env.r[0] = 0x4; // li r0, 0x4
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
     return;
 }
@@ -9321,7 +9321,7 @@ void fn_8002F908(void) {
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xB0); // lfs f0, 0xB0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[2]; // fmuls f1, f1, f2
     gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
@@ -9330,7 +9330,7 @@ void fn_8002F908(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, *(uint32_t*)&temp);
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
@@ -9348,10 +9348,10 @@ void Camera_8002F9E4(void) {
     gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha
-    gc_env.r[0] = 0x5;
+    gc_env.r[0] = 0x5; // li r0, 0x5
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x28, gc_env.r[1]); // stwu r1, -0x28(r1)
     gc_env.r[1] = gc_env.r[1] + -0x28;
-    gc_env.r[3] = gc_env.r[3] - 1;
+    gc_env.r[3] = gc_env.r[3] - 1; // subi r3, r3, 1
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[27]); // stmw r27, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[28]); // stmw r27, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[29]); // stmw r27, 0x14(r1)
@@ -9359,7 +9359,7 @@ void Camera_8002F9E4(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[31]); // stmw r27, 0x14(r1)
     gc_env.r[30] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r30, r5, cm_80452C68@l
     gc_env.r[27] = gc_env.r[4] + 0; // addi r27, r4, 0x0
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stw r0, 0x4(r30)
     Camera_8002BA00();
     gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3
@@ -9471,7 +9471,7 @@ void Camera_8002F9E4(void) {
     Camera_8002C010();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x308); // lwz r3, 0x308(r30)
     gc_env.r[31] = gc_env.r[30] + 20; // addi r31, r30, 0x14
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30c); // lwz r0, 0x30c(r30)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30C); // lwz r0, 0x30C(r30)
     gc_env.r[28] = gc_env.r[30] + 32; // addi r28, r30, 0x20
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x20, gc_env.r[3]); // stw r3, 0x20(r30)
@@ -9480,12 +9480,12 @@ void Camera_8002F9E4(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x310); // lwz r0, 0x310(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x28, gc_env.r[0]); // stw r0, 0x28(r30)
     lbVector_Add();
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lwz r5, 0x0(r28)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28]); // lwz r5, (r28)
     gc_env.r[4] = gc_env.r[27]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x4); // lwz r0, 0x4(r28)
     gc_env.r[3] = gc_env.r[31] + 36; // addi r3, r31, 0x24
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x38, gc_env.r[5]); // stw r5, 0x38(r30)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x8); // lwz r0, 0x8(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x40, gc_env.r[0]); // stw r0, 0x40(r30)
     lbVector_Add();
@@ -9494,7 +9494,7 @@ void Camera_8002F9E4(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lmw r27, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lmw r27, 0x14(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lmw r27, 0x14(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -9551,7 +9551,7 @@ void fn_8002FBA0(void) {
     gc_env.f[1] = cm_804D7E30; // lfs f1, cm_804D7E30@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xB0); // lfs f0, 0xB0(r31)
     gc_env.f[0] = *(float*)&temp;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[2]; // fmuls f1, f1, f2
     gc_env.f[0] = (float)gc_env.f[0] * (float)gc_env.f[1]; // fmuls f0, f0, f1
     gc_env.f[1] = (float)gc_env.f[30] + (float)gc_env.f[0]; // fadds f1, f30, f0
@@ -9560,7 +9560,7 @@ void fn_8002FBA0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, *(uint32_t*)&temp);
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x20); // lfd f31, 0x20(r1)
     gc_env.d[31] = *(double*)&temp;
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x18); // lfd f30, 0x18(r1)
@@ -9578,10 +9578,10 @@ void Camera_8002FC7C(void) {
     gc_env.r[3] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r3, r3
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha
-    gc_env.r[0] = 0x5;
+    gc_env.r[0] = 0x5; // li r0, 0x5
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x28, gc_env.r[1]); // stwu r1, -0x28(r1)
     gc_env.r[1] = gc_env.r[1] + -0x28;
-    gc_env.r[3] = gc_env.r[3] - 1;
+    gc_env.r[3] = gc_env.r[3] - 1; // subi r3, r3, 1
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[27]); // stmw r27, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[28]); // stmw r27, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[29]); // stmw r27, 0x14(r1)
@@ -9589,7 +9589,7 @@ void Camera_8002FC7C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x24, gc_env.r[31]); // stmw r27, 0x14(r1)
     gc_env.r[30] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r30, r5, cm_80452C68@l
     gc_env.r[27] = gc_env.r[4] + 0; // addi r27, r4, 0x0
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stw r0, 0x4(r30)
     Camera_8002BA00();
     gc_env.r[0] = (int32_t)(int8_t)(gc_env.r[3] & 0xFF); // extsb r0, r3
@@ -9701,7 +9701,7 @@ void Camera_8002FC7C(void) {
     Camera_8002C010();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x308); // lwz r3, 0x308(r30)
     gc_env.r[31] = gc_env.r[30] + 20; // addi r31, r30, 0x14
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30c); // lwz r0, 0x30c(r30)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x30C); // lwz r0, 0x30C(r30)
     gc_env.r[28] = gc_env.r[30] + 32; // addi r28, r30, 0x20
     gc_env.r[4] = gc_env.r[29] + 0; // addi r4, r29, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x20, gc_env.r[3]); // stw r3, 0x20(r30)
@@ -9710,12 +9710,12 @@ void Camera_8002FC7C(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x310); // lwz r0, 0x310(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x28, gc_env.r[0]); // stw r0, 0x28(r30)
     lbVector_Add();
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x0); // lwz r5, 0x0(r28)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[28]); // lwz r5, (r28)
     gc_env.r[4] = gc_env.r[27]; // Move register
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x4); // lwz r0, 0x4(r28)
     gc_env.r[3] = gc_env.r[31] + 36; // addi r3, r31, 0x24
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x38, gc_env.r[5]); // stw r5, 0x38(r30)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[28] + 0x8); // lwz r0, 0x8(r28)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x40, gc_env.r[0]); // stw r0, 0x40(r30)
     lbVector_Add();
@@ -9724,7 +9724,7 @@ void Camera_8002FC7C(void) {
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lmw r27, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lmw r27, 0x14(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lmw r27, 0x14(r1)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
     gc_env.r[1] += 40; // addi r1, r1, 0x28
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -9734,9 +9734,9 @@ void Camera_8002FC7C(void) {
 void Camera_8002FE38(void) {
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r3, cm_80452C68@l
-    gc_env.r[0] = 0x6;
+    gc_env.r[0] = 0x6; // li r0, 0x6
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x4, gc_env.r[0]); // stw r0, 0x4(r4)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 0x341); // lbz r0, 0x341(r4)
     uint32_t rotated = gc_env.r[3] << 5; // rlwimi r0, r3, 5, 25, 26
     gc_env.r[0] = (gc_env.r[0] & ~0x60) | (rotated & 0x60);
@@ -9757,7 +9757,7 @@ void Camera_8002FE38(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x18); // lwz r0, 0x18(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x350, gc_env.r[3]); // stw r3, 0x350(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x354, gc_env.r[0]); // stw r0, 0x354(r4)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x1c); // lwz r0, 0x1c(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x1C); // lwz r0, 0x1C(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x358, gc_env.r[0]); // stw r0, 0x358(r4)
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x350); // lwz r3, 0x350(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x354); // lwz r0, 0x354(r4)
@@ -9765,16 +9765,16 @@ void Camera_8002FE38(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x24, gc_env.r[0]); // stw r0, 0x24(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x358); // lwz r0, 0x358(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x28, gc_env.r[0]); // stw r0, 0x28(r4)
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2c); // lwz r3, 0x2c(r4)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2C); // lwz r3, 0x2C(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x30); // lwz r0, 0x30(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x368, gc_env.r[3]); // stw r3, 0x368(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x36c, gc_env.r[0]); // stw r0, 0x36c(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x36C, gc_env.r[0]); // stw r0, 0x36C(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x34); // lwz r0, 0x34(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x370, gc_env.r[0]); // stw r0, 0x370(r4)
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x368); // lwz r3, 0x368(r4)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x36c); // lwz r0, 0x36c(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x36C); // lwz r0, 0x36C(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x38, gc_env.r[3]); // stw r3, 0x38(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x3c, gc_env.r[0]); // stw r0, 0x3c(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r4)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x370); // lwz r0, 0x370(r4)
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x40, gc_env.r[0]); // stw r0, 0x40(r4)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x44); // lfs f0, 0x44(r4)
@@ -9796,7 +9796,7 @@ void Camera_8002FEEC(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[31], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x40, temp); // stfd f31, 0x40(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[30]); // stw r30, 0x38(r1)
     gc_env.r[30] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r30, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[29]); // stw r29, 0x34(r1)
@@ -9815,11 +9815,11 @@ void Camera_8002FEEC(void) {
     if (gc_env.cr[0] == 0) goto L_8003004C;
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & 0x4) goto L_8002FF50; // bgt .L_8002FF50
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x39c, gc_env.r[0]); // stw r0, 0x39c(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x39C, gc_env.r[0]); // stw r0, 0x39C(r30)
     L_8002FF50:
-    gc_env.r[0] = 0x7;
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // stw r0, 0x0(r3)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3a0, gc_env.r[29]); // stw r29, 0x3a0(r30)
+    gc_env.r[0] = 0x7; // li r0, 0x7
+    gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[0]); // stw r0, (r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3A0, gc_env.r[29]); // stw r29, 0x3A0(r30)
     gc_env.f[1] = cm_804D7E60; // lfs f1, cm_804D7E60@sda21(r0)
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x48); // lfs f0, 0x48(r30)
     gc_env.f[0] = *(float*)&temp;
@@ -9838,7 +9838,7 @@ void Camera_8002FEEC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3A8, *(uint32_t*)&temp);
     float temp = (float)gc_env.f[0]; // stfs f0, 0x3A4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3A4, *(uint32_t*)&temp);
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0x0); // lwz r3, 0x0(r30)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r3, (r30)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lwz r29, 0x28(r3)
     gc_env.r[3] = gc_env.r[29]; // Move register
     HSD_CObjGetInterest();
@@ -9849,20 +9849,20 @@ void Camera_8002FEEC(void) {
     HSD_CObjGetFov();
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r4, 0x18(r1)
     gc_env.r[31] = gc_env.r[30] + 944; // addi r31, r30, 0x3b0
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[5] = gc_env.r[31] + 0; // addi r5, r31, 0x0
     gc_env.r[3] = gc_env.r[1] + 36; // addi r3, r1, 0x24
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3bc, gc_env.r[4]); // stw r4, 0x3bc(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3BC, gc_env.r[4]); // stw r4, 0x3BC(r30)
     gc_env.r[4] = gc_env.r[1] + 24; // addi r4, r1, 0x18
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3c0, gc_env.r[0]); // stw r0, 0x3c0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3C0, gc_env.r[0]); // stw r0, 0x3C0(r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x20); // lwz r0, 0x20(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3c4, gc_env.r[0]); // stw r0, 0x3c4(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3C4, gc_env.r[0]); // stw r0, 0x3C4(r30)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r6, 0x24(r1)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r0, 0x28(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3c8, gc_env.r[6]); // stw r6, 0x3c8(r30)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3cc, gc_env.r[0]); // stw r0, 0x3cc(r30)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r0, 0x2c(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3d0, gc_env.r[0]); // stw r0, 0x3d0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3C8, gc_env.r[6]); // stw r6, 0x3C8(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3CC, gc_env.r[0]); // stw r0, 0x3CC(r30)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r0, 0x2C(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3D0, gc_env.r[0]); // stw r0, 0x3D0(r30)
     float temp = (float)gc_env.f[1]; // stfs f1, 0x3D4(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x3D4, *(uint32_t*)&temp);
     lbVector_Diff();
@@ -9897,10 +9897,10 @@ void Camera_8002FEEC(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r30)
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, *(uint32_t*)&temp);
     L_8003004C:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r0, 0x4c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r0, 0x4C(r1)
     uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x40); // lfd f31, 0x40(r1)
     gc_env.d[31] = *(double*)&temp;
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
     gc_env.r[1] += 72; // addi r1, r1, 0x48
@@ -9915,7 +9915,7 @@ void Camera_8003006C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r31, r3, cm_80452C68@l
     gc_env.r[3] = gc_env.r[31] + 4; // addi r3, r31, 0x4
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
@@ -9924,12 +9924,12 @@ void Camera_8003006C(void) {
     if (gc_env.cr[0] == 0) goto L_800300D8;
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x1) ? 0 : ((uint32_t)gc_env.r[0] < 0x1 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] & 0x4) goto L_800300A4; // bgt .L_800300A4
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x39c, gc_env.r[0]); // stw r0, 0x39c(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x39C, gc_env.r[0]); // stw r0, 0x39C(r31)
     L_800300A4:
-    gc_env.r[0] = 0x8;
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // stw r0, 0x0(r3)
+    gc_env.r[0] = 0x8; // li r0, 0x8
+    gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[0]); // stw r0, (r3)
     gc_env.r[4] = gc_env.r[31] + 984; // addi r4, r31, 0x3d8
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x0); // lwz r3, 0x0(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31]); // lwz r3, (r31)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lwz r30, 0x28(r3)
     gc_env.r[3] = gc_env.r[30]; // Move register
     HSD_CObjGetInterest();
@@ -9942,7 +9942,7 @@ void Camera_8003006C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x3F0, *(uint32_t*)&temp);
     L_800300D8:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[1] += 32; // addi r1, r1, 0x20
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -9954,7 +9954,7 @@ void Camera_800300F0(void) {
     gc_env.r[3] = ((uint32_t)&cm_80453004 >> 16) & 0xFFFF; // lis r3, cm_80453004@ha
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&cm_80453004 & 0xFFFF); // addi r4, r3, cm_80453004@l
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x0); // lwz r0, 0x0(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4]); // lwz r0, (r4)
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
     return;
@@ -9967,10 +9967,10 @@ void Camera_8003010C(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
     gc_env.cr[0] = (gc_env.r[0] == 0x5) ? 0 : (gc_env.r[0] < 0x5 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030128;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     return;
     L_80030128:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     return;
 }
 
@@ -9981,10 +9981,10 @@ void Camera_80030130(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
     gc_env.cr[0] = (gc_env.r[0] == 0x6) ? 0 : (gc_env.r[0] < 0x6 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8003014C;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     return;
     L_8003014C:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     return;
 }
 
@@ -9995,10 +9995,10 @@ void Camera_80030154(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
     gc_env.cr[0] = (gc_env.r[0] == 0x7) ? 0 : (gc_env.r[0] < 0x7 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030170;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     return;
     L_80030170:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     return;
 }
 
@@ -10009,10 +10009,10 @@ void Camera_80030178(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4); // lwz r0, 0x4(r3)
     gc_env.cr[0] = (gc_env.r[0] == 0x8) ? 0 : (gc_env.r[0] < 0x8 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030194;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     return;
     L_80030194:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     return;
 }
 
@@ -10028,7 +10028,7 @@ void Camera_8003019C(void) {
     Player_GetEntity();
     ftLib_80086B74();
     gc_env.r[3] += 28; // addi r3, r3, 0x1c
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -10067,92 +10067,92 @@ void fn_800301D0(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_80030248;
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x8); // lbz r3, 0x8(r28)
-    gc_env.r[6] = 0xff;
+    gc_env.r[6] = 0xff; // li r6, 0xff
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0x9); // lbz r4, 0x9(r28)
     gc_env.r[5] = gc_mem_read8(gc_env.ram, gc_env.r[28] + 0xa); // lbz r5, 0xa(r28)
     HSD_SetEraseColor();
     goto L_8003025C;
     L_80030248:
-    gc_env.r[3] = 0x0;
-    gc_env.r[4] = 0x0;
-    gc_env.r[5] = 0x0;
-    gc_env.r[6] = 0xff;
+    gc_env.r[3] = 0x0; // li r3, 0x0
+    gc_env.r[4] = 0x0; // li r4, 0x0
+    gc_env.r[5] = 0x0; // li r5, 0x0
+    gc_env.r[6] = 0xff; // li r6, 0xff
     HSD_SetEraseColor();
     L_8003025C:
     gc_env.r[3] = gc_env.r[27] + 0; // addi r3, r27, 0x0
-    gc_env.r[4] = 0x1;
-    gc_env.r[5] = 0x0;
-    gc_env.r[6] = 0x0;
+    gc_env.r[4] = 0x1; // li r4, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
+    gc_env.r[6] = 0x0; // li r6, 0x0
     HSD_CObjEraseScreen();
     gc_env.r[3] = gc_env.r[27]; // Move register
     Ground_801C4FAC();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     HSD_LObjDeleteCurrentAll();
-    gc_env.r[3] = 0x2;
+    gc_env.r[3] = 0x2; // li r3, 0x2
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800302A0;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.r[3] = gc_env.r[4] + 0; // addi r3, r4, 0x0
     goto L_800302A8;
     L_800302A0:
-    gc_env.r[4] = 0x8;
-    gc_env.r[3] = 0x0;
+    gc_env.r[4] = 0x8; // li r4, 0x8
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_800302A8:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800302C0;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_env.r[5] = gc_env.r[0]; // Move register
     goto L_800302C8;
     L_800302C0:
-    gc_env.r[0] = 0x1;
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = 0x1; // li r0, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_800302C8:
     gc_env.r[0] = gc_env.r[0] | gc_env.r[4]; // or r0, r0, r4
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[0]); // stw r0, 0x24(r29)
     gc_env.r[0] = gc_env.r[5] | gc_env.r[3]; // or r0, r5, r3
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030304;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_8003030C;
     L_80030304:
-    gc_env.r[3] = 0x8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x8; // li r3, 0x8
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8003030C:
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[3]); // stw r3, 0x24(r29)
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030340;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_80030348;
     L_80030340:
-    gc_env.r[3] = 0x8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x8; // li r3, 0x8
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_80030348:
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[3]); // stw r3, 0x24(r29)
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
     HSD_GObj_80390ED0();
     lbRefract_80022560();
@@ -10160,93 +10160,93 @@ void fn_800301D0(void) {
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030378;
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[5] = gc_env.r[6] + 0; // addi r5, r6, 0x0
     goto L_80030380;
     L_80030378:
-    gc_env.r[6] = 0x1;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x1; // li r6, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_80030380:
     gc_env.r[3] = gc_env.r[29]; // Move register
     Camera_800311EC();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     Camera_80031074();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800303A8;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.r[3] = gc_env.r[4] + 0; // addi r3, r4, 0x0
     goto L_800303B0;
     L_800303A8:
-    gc_env.r[4] = 0x8;
-    gc_env.r[3] = 0x0;
+    gc_env.r[4] = 0x8; // li r4, 0x8
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_800303B0:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800303C8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_env.r[5] = gc_env.r[0]; // Move register
     goto L_800303D0;
     L_800303C8:
-    gc_env.r[0] = 0x1;
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = 0x1; // li r0, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_800303D0:
     gc_env.r[0] = gc_env.r[0] | gc_env.r[4]; // or r0, r0, r4
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[0]); // stw r0, 0x24(r29)
     gc_env.r[0] = gc_env.r[5] | gc_env.r[3]; // or r0, r5, r3
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
-    gc_env.r[4] = 0x4;
+    gc_env.r[4] = 0x4; // li r4, 0x4
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030404;
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[5] = gc_env.r[6] + 0; // addi r5, r6, 0x0
     goto L_8003040C;
     L_80030404:
-    gc_env.r[6] = 0x1;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x1; // li r6, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_8003040C:
     gc_env.r[3] = gc_env.r[29]; // Move register
     Camera_80031328();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     HSD_FogSet();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 4) & 0x1; // extrwi r0, r0, 1, 27
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030434;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_8003043C;
     L_80030434:
-    gc_env.r[3] = 0x80;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x80; // li r3, 0x80
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_8003043C:
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[3]); // stw r3, 0x24(r29)
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x3;
+    gc_env.r[3] = 0x3; // li r3, 0x3
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030470;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_80030478;
     L_80030470:
-    gc_env.r[3] = 0x8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x8; // li r3, 0x8
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_80030478:
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x24, gc_env.r[3]); // stw r3, 0x24(r29)
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0x20, gc_env.r[0]); // stw r0, 0x20(r29)
     HSD_GObj_80390ED0();
     Camera_80030AC4();
@@ -10287,7 +10287,7 @@ void Camera_800304E0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x40, gc_env.r[1]); // stwu r1, -0x40(r1)
     gc_env.r[1] = gc_env.r[1] + -0x40;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
     gc_env.r[31] = gc_env.r[3]; // Move register
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[30]); // stw r30, 0x38(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x34, gc_env.r[29]); // stw r29, 0x34(r1)
@@ -10299,106 +10299,106 @@ void Camera_800304E0(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] == 0) goto L_8003066C;
     gc_env.r[3] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x8); // lbz r3, 0x8(r30)
-    gc_env.r[6] = 0x1;
+    gc_env.r[6] = 0x1; // li r6, 0x1
     gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x9); // lbz r4, 0x9(r30)
     gc_env.r[5] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0xa); // lbz r5, 0xa(r30)
     HSD_SetEraseColor();
     gc_env.r[3] = gc_env.r[29] + 0; // addi r3, r29, 0x0
-    gc_env.r[4] = 0x1;
-    gc_env.r[5] = 0x0;
-    gc_env.r[6] = 0x0;
+    gc_env.r[4] = 0x1; // li r4, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
+    gc_env.r[6] = 0x0; // li r6, 0x0
     HSD_CObjEraseScreen();
     gc_env.r[3] = gc_env.r[29]; // Move register
     Ground_801C4FAC();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     HSD_LObjDeleteCurrentAll();
-    gc_env.r[3] = 0x2;
+    gc_env.r[3] = 0x2; // li r3, 0x2
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 920); // lbzu r0, 920(r30)
     gc_env.r[30] = gc_env.r[30] + 920;
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030570;
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.r[3] = gc_env.r[4] + 0; // addi r3, r4, 0x0
     goto L_80030578;
     L_80030570:
-    gc_env.r[4] = 0x8;
-    gc_env.r[3] = 0x0;
+    gc_env.r[4] = 0x8; // li r4, 0x8
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_80030578:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x0); // lbz r0, 0x0(r30)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030590;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_env.r[5] = gc_env.r[0]; // Move register
     goto L_80030598;
     L_80030590:
-    gc_env.r[0] = 0x1;
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = 0x1; // li r0, 0x1
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_80030598:
     gc_env.r[0] = gc_env.r[0] | gc_env.r[4]; // or r0, r0, r4
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
     gc_env.r[0] = gc_env.r[5] | gc_env.r[3]; // or r0, r5, r3
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[0]); // stw r0, 0x20(r31)
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x0); // lbz r0, 0x0(r30)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800305D4;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_800305DC;
     L_800305D4:
-    gc_env.r[3] = 0x8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x8; // li r3, 0x8
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_800305DC:
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[3]); // stw r3, 0x24(r31)
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[0]); // stw r0, 0x20(r31)
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     Camera_800310A0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[30] + 0x0); // lbz r0, 0x0(r30)
     gc_env.r[0] = (gc_env.r[0] >> 5) & 0x1; // extrwi r0, r0, 1, 26
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80030610;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[0] = gc_env.r[3] + 0; // addi r0, r3, 0x0
     goto L_80030618;
     L_80030610:
-    gc_env.r[3] = 0x8;
-    gc_env.r[0] = 0x0;
+    gc_env.r[3] = 0x8; // li r3, 0x8
+    gc_env.r[0] = 0x0; // li r0, 0x0
     L_80030618:
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[3]); // stw r3, 0x24(r31)
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[0]); // stw r0, 0x20(r31)
     HSD_GObj_80390ED0();
-    gc_env.r[0] = 0x70;
+    gc_env.r[0] = 0x70; // li r0, 0x70
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[30]); // stw r30, 0x20(r31)
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     HSD_GObj_80390ED0();
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     HSD_FogSet();
-    gc_env.r[0] = 0x80;
+    gc_env.r[0] = 0x80; // li r0, 0x80
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stw r0, 0x24(r31)
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
-    gc_env.r[4] = 0x7;
+    gc_env.r[4] = 0x7; // li r4, 0x7
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x20, gc_env.r[30]); // stw r30, 0x20(r31)
     HSD_GObj_80390ED0();
     HSD_CObjEndCurrent();
     L_8003066C:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r0, 0x44(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
     gc_env.r[1] += 64; // addi r1, r1, 0x40
@@ -10409,45 +10409,45 @@ void Camera_800304E0(void) {
 // Function: Camera_80030688
 void Camera_80030688(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[3] = 0x10;
+    gc_env.r[3] = 0x10; // li r3, 0x10
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
-    gc_env.r[4] = 0x12;
-    gc_env.r[5] = 0x0;
+    gc_env.r[4] = 0x12; // li r4, 0x12
+    gc_env.r[5] = 0x0; // li r5, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x18, gc_env.r[1]); // stwu r1, -0x18(r1)
     gc_env.r[1] = gc_env.r[1] + -0x18;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[31]); // stw r31, 0x14(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]); // stw r30, 0x10(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xc, gc_env.r[29]); // stw r29, 0xc(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xC, gc_env.r[29]); // stw r29, 0xC(r1)
     GObj_Create();
     gc_env.r[4] = ((uint32_t)&cm_803BCB64 >> 16) & 0xFFFF; // lis r4, cm_803BCB64@ha
     gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
     gc_env.r[31] = gc_env.r[4] + ((uint32_t)&cm_803BCB64 & 0xFFFF); // addi r31, r4, cm_803BCB64@l
-    gc_mem_write32(gc_env.ram, gc_env.r[5] + cm_80452C68@l, gc_env.r[30]); // stw r30, cm_80452C68@l(r5)
+    gc_mem_write32(gc_env.ram, gc_env.r[5] + (uint32_t)&cm_80452C68, gc_env.r[30]); // stw r30, cm_80452C68@l/h(r5)
     gc_env.r[3] = gc_env.r[31]; // Move register
     lb_80013B14();
     gc_env.r[29] = gc_env.r[3] + 0; // addi r29, r3, 0x0
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
     lb_80013B14();
-    gc_mem_write32(gc_env.ram, gc_env.r[0] + cm_804D6464@sda21, gc_env.r[3]); // stw r3, cm_804D6464@sda21(r0)
+    cm_804D6464 = gc_env.r[3]; // stw r3, cm_804D6464@sda21(r0)
     gc_env.r[5] = gc_env.r[29]; // Move register
-    gc_env.r[4] = gc_mem_read8(gc_env.ram, gc_env.r[0] + HSD_GObj_804D784B@sda21); // lbz r4, HSD_GObj_804D784B@sda21(r0)
+    gc_env.r[4] = gc_mem_read8(gc_env.ram, (uint32_t)&HSD_GObj_804D784B); // lbz r4, HSD_GObj_804D784B@sda21(r0)
     gc_env.r[3] = gc_env.r[30]; // Move register
     HSD_GObjObject_80390A70();
     gc_env.r[3] = ((uint32_t)&fn_800301D0 >> 16) & 0xFFFF; // lis r3, fn_800301D0@ha
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&fn_800301D0 & 0xFFFF); // addi r4, r3, fn_800301D0@l
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[5] = 0x2;
+    gc_env.r[5] = 0x2; // li r5, 0x2
     GObj_SetupGXLinkMax();
     gc_env.r[3] = ((uint32_t)&fn_8002F360 >> 16) & 0xFFFF; // lis r3, fn_8002F360@ha
     gc_env.r[4] = gc_env.r[3] + ((uint32_t)&fn_8002F360 & 0xFFFF); // addi r4, r3, fn_8002F360@l
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[5] = 0x12;
+    gc_env.r[5] = 0x12; // li r5, 0x12
     HSD_GObjProc_8038FD54();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r31, 0x14(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r30, 0x10(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r29, 0xc(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r29, 0xC(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -10493,9 +10493,9 @@ void Camera_80030758(void) {
 void Camera_80030788(void) {
     gc_env.r[4] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r4, cm_80452C68@ha
     gc_env.r[5] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r5, r4, cm_80452C68@l
-    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x2c); // lwz r4, 0x2c(r5)
+    gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x2C); // lwz r4, 0x2C(r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x30); // lwz r0, 0x30(r5)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[4]); // stw r4, 0x0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[4]); // stw r4, (r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x34); // lwz r0, 0x34(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[0]); // stw r0, 0x8(r3)
@@ -10508,9 +10508,9 @@ void Camera_800307AC(void) {
     gc_env.r[5] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r5, r4, cm_80452C68@l
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x14); // lwz r4, 0x14(r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x18); // lwz r0, 0x18(r5)
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[4]); // stw r4, 0x0(r3)
+    gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[4]); // stw r4, (r3)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x4, gc_env.r[0]); // stw r0, 0x4(r3)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x1c); // lwz r0, 0x1c(r5)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x1C); // lwz r0, 0x1C(r5)
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8, gc_env.r[0]); // stw r0, 0x8(r3)
     return;
 }
@@ -10537,7 +10537,7 @@ void Camera_800307D0(void) {
     gc_env.r[27] = gc_env.r[3] + 0; // addi r27, r3, 0x0
     gc_env.r[28] = gc_env.r[4] + 0; // addi r28, r4, 0x0
     gc_env.r[29] = gc_env.r[5] + 0; // addi r29, r5, 0x0
-    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x0); // lwz r6, 0x0(r6)
+    gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[6]); // lwz r6, (r6)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[6] + 0x28); // lwz r31, 0x28(r6)
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
     HSD_CObjGetAspect();
@@ -10549,7 +10549,7 @@ void Camera_800307D0(void) {
     gc_env.d[0] = cm_804D7E78; // lfd f0, cm_804D7E78@sda21(r0)
     gc_env.r[4] = gc_env.r[1] + 48; // addi r4, r1, 0x30
     gc_env.f[1] = (float)gc_env.f[2] * (float)gc_env.f[1]; // fmuls f1, f2, f1
-    gc_env.r[30] = 0x1;
+    gc_env.r[30] = 0x1; // li r30, 0x1
     gc_env.f[1] = (float)gc_env.f[1] * (float)gc_env.f[30]; // fmuls f1, f1, f30
     gc_env.f[31] = gc_env.f[0] * gc_env.f[1]; // fmul f31, f0, f1
     gc_env.f[31] = (float)gc_env.f[31]; // frsp f31, f31
@@ -10711,7 +10711,7 @@ void Camera_800307D0(void) {
     goto L_80030A30;
     L_80030A14:
     gc_env.f[0] = cm_804D7EFC; // lfs f0, cm_804D7EFC@sda21(r0)
-    gc_env.r[30] = 0x0;
+    gc_env.r[30] = 0x0; // li r30, 0x0
     float temp = (float)gc_env.f[0]; // stfs f0, 0x0(r27)
     gc_mem_write32(gc_env.ram, gc_env.r[27] + 0x0, *(uint32_t*)&temp);
     gc_env.f[0] = cm_804D7EF8; // lfs f0, cm_804D7EF8@sda21(r0)
@@ -10741,7 +10741,7 @@ void Camera_800307D0(void) {
 void Camera_80030A50(void) {
     gc_env.r[3] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r3, cm_80452C68@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x0); // lwz r3, 0x0(r3)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r3, (r3)
     return;
 }
 
@@ -10906,23 +10906,23 @@ void Camera_80030BBC(void) {
     gc_env.r[5] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r5, cm_80452C68@ha
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_env.r[5] = gc_env.r[5] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r5, r5, cm_80452C68@l
-    gc_env.r[6] = 0x1;
+    gc_env.r[6] = 0x1; // li r6, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x58, gc_env.r[1]); // stwu r1, -0x58(r1)
     gc_env.r[1] = gc_env.r[1] + -0x58;
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x54, gc_env.r[31]); // stw r31, 0x54(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x50, gc_env.r[30]); // stw r30, 0x50(r1)
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4c, gc_env.r[29]); // stw r29, 0x4c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4C, gc_env.r[29]); // stw r29, 0x4C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x48, gc_env.r[28]); // stw r28, 0x48(r1)
     gc_env.r[28] = gc_env.r[4]; // Move register
     gc_env.r[4] = gc_env.r[3] + 0; // addi r4, r3, 0x0
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x0); // lwz r5, 0x0(r5)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r5, (r5)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x28); // lwz r31, 0x28(r5)
     gc_env.r[5] = gc_env.r[1] + 40; // addi r5, r1, 0x28
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
     lbVector_WorldToScreen();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030C10;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     goto L_80030CB8;
     L_80030C10:
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lfs f2, 0x28(r1)
@@ -10940,7 +10940,7 @@ void Camera_80030BBC(void) {
     gc_env.cr[0] = isnan(gc_env.f[3]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[3] < gc_env.f[0] ? 0x8 : (gc_env.f[3] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f3, f0
     if (gc_env.cr[0] >= 0) goto L_80030C48;
     L_80030C40:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     goto L_80030CB8;
     L_80030C48:
     gc_env.f[1] = (double)(int32_t)gc_env.f[2]; // fctiwz f1, f2
@@ -10953,9 +10953,9 @@ void Camera_80030BBC(void) {
     memcpy(&temp, &gc_env.f[0], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[1] + 0x38, temp); // stfd f0, 0x38(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r30, 0x44(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r29, 0x3c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r29, 0x3C(r1)
     if (gc_env.cr[0] == 0) goto L_80030C70;
-    gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x0, gc_env.r[30]); // stw r30, 0x0(r28)
+    gc_mem_write32(gc_env.ram, gc_env.r[28], gc_env.r[30]); // stw r30, (r28)
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x4, gc_env.r[29]); // stw r29, 0x4(r28)
     L_80030C70:
     gc_env.r[3] = gc_env.r[31] + 0; // addi r3, r31, 0x0
@@ -10974,15 +10974,15 @@ void Camera_80030BBC(void) {
     gc_env.cr[0] = (int32_t)gc_env.r[29] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[29] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r29, r0
     if (gc_env.cr[0] & 0x8) goto L_80030CB4; // blt .L_80030CB4
     L_80030CAC:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     goto L_80030CB8;
     L_80030CB4:
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     L_80030CB8:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5c); // lwz r0, 0x5c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lwz r0, 0x5C(r1)
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r31, 0x54(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lwz r30, 0x50(r1)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4c); // lwz r29, 0x4c(r1)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r29, 0x4C(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x48); // lwz r28, 0x48(r1)
     gc_env.r[1] += 88; // addi r1, r1, 0x58
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -10997,7 +10997,7 @@ void Camera_80030CD8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     Camera_80030BBC();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11017,7 +11017,7 @@ void Camera_80030CFC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x64, gc_env.r[31]); // stw r31, 0x64(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x60, gc_env.r[30]); // stw r30, 0x60(r1)
     gc_env.r[30] = gc_env.r[3] + 0; // addi r30, r3, 0x0
-    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[4] + cm_80452C68@l); // lwz r5, cm_80452C68@l(r4)
+    gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[4] + (uint32_t)&cm_80452C68); // lwz r5, cm_80452C68@l/h(r4)
     gc_env.r[4] = gc_env.r[1] + 80; // addi r4, r1, 0x50
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[5] + 0x28); // lwz r31, 0x28(r5)
     gc_env.r[3] = gc_env.r[31]; // Move register
@@ -11035,7 +11035,7 @@ void Camera_80030CFC(void) {
     gc_env.f[0] = (float)gc_env.f[0] + (float)gc_env.f[31]; // fadds f0, f0, f31
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpo cr0, f1, f0
     if (gc_env.cr[0] >= 0) goto L_80030D6C;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     goto L_80030DC8;
     L_80030D6C:
     gc_env.r[3] = gc_env.r[1] + 56; // addi r3, r1, 0x38
@@ -11066,7 +11066,7 @@ void Camera_80030CFC(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, *(uint32_t*)&temp);
     lbVector_Add();
     gc_env.r[3] = gc_env.r[1] + 32; // addi r3, r1, 0x20
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     Camera_80030BBC();
     L_80030DC8:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x74); // lwz r0, 0x74(r1)
@@ -11132,7 +11132,7 @@ void Camera_80030E44(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x20, gc_env.r[1]); // stwu r1, -0x20(r1)
     gc_env.r[1] = gc_env.r[1] + -0x20;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1c, gc_env.r[31]); // stw r31, 0x1c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x1C, gc_env.r[31]); // stw r31, 0x1C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x18, gc_env.r[30]); // stw r30, 0x18(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x14, gc_env.r[29]); // stw r29, 0x14(r1)
     gc_env.r[29] = gc_env.r[4] + 0; // addi r29, r4, 0x0
@@ -11153,50 +11153,50 @@ void Camera_80030E44(void) {
     goto L_80030EDC;
     L_80030E98:
     gc_env.r[30] = gc_env.r[31] + 160; // addi r30, r31, 0xa0
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xa0); // lwz r0, 0xa0(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xA0); // lwz r0, 0xA0(r31)
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030EB4;
     gc_env.r[3] = gc_env.r[28]; // Move register
     grLib_801C9CEC();
-    gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x0, gc_env.r[3]); // stw r3, 0x0(r30)
+    gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[3]); // stw r3, (r30)
     L_80030EB4:
-    gc_env.r[4] = 0xa;
+    gc_env.r[4] = 0xa; // li r4, 0xa
     goto L_80030EE8;
     L_80030EBC:
     gc_env.r[3] = gc_env.r[28]; // Move register
     grLib_801C9CEC();
-    gc_env.r[4] = 0x16;
+    gc_env.r[4] = 0x16; // li r4, 0x16
     goto L_80030EE8;
     L_80030ECC:
     gc_env.r[3] = gc_env.r[28]; // Move register
     grLib_801C9CEC();
-    gc_env.r[4] = 0x16;
+    gc_env.r[4] = 0x16; // li r4, 0x16
     goto L_80030EE8;
     L_80030EDC:
     gc_env.r[3] = gc_env.r[28]; // Move register
     grLib_801C9CEC();
-    gc_env.r[4] = 0x16;
+    gc_env.r[4] = 0x16; // li r4, 0x16
     L_80030EE8:
     gc_env.r[0] = gc_env.r[28] << 2; // slwi r0, r28, 2
-    gc_env.r[3] = gc_env.r[31] + gc_env.r[0];
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8c, gc_env.r[4]); // stw r4, 0x8c(r3)
-    gc_env.r[0] = 0x4;
+    gc_env.r[3] = gc_env.r[31] + gc_env.r[0]; // add r3, r31, r0
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8C, gc_env.r[4]); // stw r4, 0x8C(r3)
+    gc_env.r[0] = 0x4; // li r0, 0x4
     gc_env.ctr = gc_env.r[0]; // Move to count register
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_env.f[0] = cm_804D7E14; // lfs f0, cm_804D7E14@sda21(r0)
     L_80030F04:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xbc); // lwz r0, 0xbc(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xBC); // lwz r0, 0xBC(r31)
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030F44;
     gc_env.cr[0] = ((uint32_t)gc_env.r[29] == 0x0) ? 0 : ((uint32_t)gc_env.r[29] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xbc, gc_env.r[28]); // stw r28, 0xbc(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xBC, gc_env.r[28]); // stw r28, 0xBC(r31)
     if (gc_env.cr[0] == 0) goto L_80030F38;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lwz r3, 0x0(r29)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29]); // lwz r3, (r29)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lwz r0, 0x4(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb0, gc_env.r[3]); // stw r3, 0xb0(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb4, gc_env.r[0]); // stw r0, 0xb4(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, gc_env.r[3]); // stw r3, 0xB0(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB4, gc_env.r[0]); // stw r0, 0xB4(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r0, 0x8(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb8, gc_env.r[0]); // stw r0, 0xb8(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB8, gc_env.r[0]); // stw r0, 0xB8(r31)
     goto L_80030F44;
     L_80030F38:
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB8(r31)
@@ -11206,19 +11206,19 @@ void Camera_80030E44(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, *(uint32_t*)&temp);
     L_80030F44:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xcc); // lwz r0, 0xcc(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xCC); // lwz r0, 0xCC(r31)
     gc_env.r[31] += 16; // addi r31, r31, 0x10
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030F88;
     gc_env.cr[0] = ((uint32_t)gc_env.r[29] == 0x0) ? 0 : ((uint32_t)gc_env.r[29] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xbc, gc_env.r[28]); // stw r28, 0xbc(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xBC, gc_env.r[28]); // stw r28, 0xBC(r31)
     if (gc_env.cr[0] == 0) goto L_80030F7C;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lwz r3, 0x0(r29)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29]); // lwz r3, (r29)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lwz r0, 0x4(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb0, gc_env.r[3]); // stw r3, 0xb0(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb4, gc_env.r[0]); // stw r0, 0xb4(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, gc_env.r[3]); // stw r3, 0xB0(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB4, gc_env.r[0]); // stw r0, 0xB4(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r0, 0x8(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb8, gc_env.r[0]); // stw r0, 0xb8(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB8, gc_env.r[0]); // stw r0, 0xB8(r31)
     goto L_80030F88;
     L_80030F7C:
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB8(r31)
@@ -11228,20 +11228,20 @@ void Camera_80030E44(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, *(uint32_t*)&temp);
     L_80030F88:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xcc); // lwz r0, 0xcc(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xCC); // lwz r0, 0xCC(r31)
     gc_env.r[31] += 16; // addi r31, r31, 0x10
     gc_env.r[4] += 1; // addi r4, r4, 0x1
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80030FD0;
     gc_env.cr[0] = ((uint32_t)gc_env.r[29] == 0x0) ? 0 : ((uint32_t)gc_env.r[29] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xbc, gc_env.r[28]); // stw r28, 0xbc(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xBC, gc_env.r[28]); // stw r28, 0xBC(r31)
     if (gc_env.cr[0] == 0) goto L_80030FC4;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lwz r3, 0x0(r29)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29]); // lwz r3, (r29)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lwz r0, 0x4(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb0, gc_env.r[3]); // stw r3, 0xb0(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb4, gc_env.r[0]); // stw r0, 0xb4(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, gc_env.r[3]); // stw r3, 0xB0(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB4, gc_env.r[0]); // stw r0, 0xB4(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r0, 0x8(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb8, gc_env.r[0]); // stw r0, 0xb8(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB8, gc_env.r[0]); // stw r0, 0xB8(r31)
     goto L_80030FD0;
     L_80030FC4:
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB8(r31)
@@ -11251,20 +11251,20 @@ void Camera_80030E44(void) {
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB0(r31)
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, *(uint32_t*)&temp);
     L_80030FD0:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xcc); // lwz r0, 0xcc(r31)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xCC); // lwz r0, 0xCC(r31)
     gc_env.r[31] += 16; // addi r31, r31, 0x10
     gc_env.r[4] += 1; // addi r4, r4, 0x1
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80031018;
     gc_env.cr[0] = ((uint32_t)gc_env.r[29] == 0x0) ? 0 : ((uint32_t)gc_env.r[29] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xbc, gc_env.r[28]); // stw r28, 0xbc(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xBC, gc_env.r[28]); // stw r28, 0xBC(r31)
     if (gc_env.cr[0] == 0) goto L_8003100C;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x0); // lwz r3, 0x0(r29)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[29]); // lwz r3, (r29)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x4); // lwz r0, 0x4(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb0, gc_env.r[3]); // stw r3, 0xb0(r31)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb4, gc_env.r[0]); // stw r0, 0xb4(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB0, gc_env.r[3]); // stw r3, 0xB0(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB4, gc_env.r[0]); // stw r0, 0xB4(r31)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r0, 0x8(r29)
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xb8, gc_env.r[0]); // stw r0, 0xb8(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xB8, gc_env.r[0]); // stw r0, 0xB8(r31)
     goto L_80031018;
     L_8003100C:
     float temp = (float)gc_env.f[0]; // stfs f0, 0xB8(r31)
@@ -11279,7 +11279,7 @@ void Camera_80030E44(void) {
     gc_env.ctr -= 1;
     if (gc_env.ctr != 0) goto L_80030F04;
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x24); // lwz r0, 0x24(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r31, 0x1c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r31, 0x1C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x18); // lwz r30, 0x18(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x14); // lwz r29, 0x14(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x10); // lwz r28, 0x10(r1)
@@ -11293,9 +11293,9 @@ void Camera_80031044(void) {
     gc_env.r[4] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r4, cm_80452C68@ha
     gc_env.r[4] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r4, cm_80452C68@l
     gc_env.r[0] = gc_env.r[3] << 2; // slwi r0, r3, 2
-    gc_env.r[3] = gc_env.r[4] + gc_env.r[0];
-    gc_env.r[0] = 0x0;
-    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8c, gc_env.r[0]); // stw r0, 0x8c(r3)
+    gc_env.r[3] = gc_env.r[4] + gc_env.r[0]; // add r3, r4, r0
+    gc_env.r[0] = 0x0; // li r0, 0x0
+    gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x8C, gc_env.r[0]); // stw r0, 0x8C(r3)
     return;
 }
 
@@ -11345,12 +11345,12 @@ void Camera_800310B8(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6464@sda21); // lwz r3, cm_804D6464@sda21(r0)
+    gc_env.r[3] = cm_804D6464; // lwz r3, cm_804D6464@sda21(r0)
     HSD_CObjSetMtxDirty();
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6464@sda21); // lwz r3, cm_804D6464@sda21(r0)
+    gc_env.r[3] = cm_804D6464; // lwz r3, cm_804D6464@sda21(r0)
     HSD_CObjSetupViewingMtx();
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[0] + cm_804D6464@sda21); // lwz r3, cm_804D6464@sda21(r0)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[3] = cm_804D6464; // lwz r3, cm_804D6464@sda21(r0)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11362,7 +11362,7 @@ void Camera_800310E8(void) {
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r3, r3, cm_80452C68@l
     gc_env.r[4] = gc_env.r[3] + 920; // addi r4, r3, 0x398
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[3] + 0x398); // lbz r0, 0x398(r3)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     uint32_t rotated = gc_env.r[3] << 7; // rlwimi r0, r3, 7, 24, 24
     gc_env.r[0] = (gc_env.r[0] & ~0x80) | (rotated & 0x80);
     gc_mem_write8(gc_env.ram, gc_env.r[4] + 0x0, gc_env.r[0]); // stb r0, 0x0(r4)
@@ -11401,19 +11401,19 @@ void Camera_80031144(void) {
 // Function: Camera_80031154
 void Camera_80031154(void) {
     gc_env.r[0] = gc_env.lr; // Move from link register
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80031178;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     goto L_8003117C;
     L_80031178:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_8003117C:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11433,12 +11433,12 @@ void Camera_8003118C(void) {
     Camera_80029124();
     gc_env.cr[0] = ((uint32_t)gc_env.r[3] == 0x0) ? 0 : ((uint32_t)gc_env.r[3] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_800311B8;
-    gc_env.r[3] = 0x1;
+    gc_env.r[3] = 0x1; // li r3, 0x1
     goto L_800311BC;
     L_800311B8:
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     L_800311BC:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1c); // lwz r0, 0x1c(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x1C); // lwz r0, 0x1C(r1)
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11470,12 +11470,12 @@ void Camera_800311EC(void) {
     gc_env.r[4] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x30, gc_env.r[1]); // stwu r1, -0x30(r1)
     gc_env.r[1] = gc_env.r[1] + -0x30;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2c, gc_env.r[31]); // stw r31, 0x2c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x2C, gc_env.r[31]); // stw r31, 0x2C(r1)
     gc_env.r[31] = gc_env.r[4] + 920; // addi r31, r4, 0x398
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x28, gc_env.r[30]); // stw r30, 0x28(r1)
     gc_env.r[30] = gc_env.r[3]; // Move register
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 0x398); // lbz r0, 0x398(r4)
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     uint32_t rotated = gc_env.r[4] << 0; // rlwimi r0, r4, 0, 30, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x3) | (rotated & 0x3);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stb r0, 0x0(r31)
@@ -11483,23 +11483,23 @@ void Camera_800311EC(void) {
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80031238;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[4] = gc_env.r[3] + 0; // addi r4, r3, 0x0
     goto L_80031240;
     L_80031238:
-    gc_env.r[3] = 0x40;
-    gc_env.r[4] = 0x0;
+    gc_env.r[3] = 0x40; // li r3, 0x40
+    gc_env.r[4] = 0x0; // li r4, 0x0
     L_80031240:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 7) & 0x1; // extrwi r0, r0, 1, 24
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80031258;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_env.r[7] = gc_env.r[0]; // Move register
     goto L_80031260;
     L_80031258:
-    gc_env.r[0] = 0x20;
-    gc_env.r[7] = 0x0;
+    gc_env.r[0] = 0x20; // li r0, 0x20
+    gc_env.r[7] = 0x0; // li r7, 0x0
     L_80031260:
     gc_env.r[0] = gc_env.r[6] | gc_env.r[0]; // or r0, r6, r0
     gc_env.r[0] = gc_env.r[0] | gc_env.r[3]; // or r0, r0, r3
@@ -11508,10 +11508,10 @@ void Camera_800311EC(void) {
     gc_env.r[0] = gc_env.r[3] | gc_env.r[4]; // or r0, r3, r4
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x20, gc_env.r[0]); // stw r0, 0x20(r30)
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     uint32_t rotated = gc_env.r[3] << 0; // rlwimi r0, r3, 0, 30, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x3) | (rotated & 0x3);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stb r0, 0x0(r31)
@@ -11522,29 +11522,29 @@ void Camera_800311EC(void) {
     gc_env.r[4] = gc_env.r[3]; // Move register
     goto L_800312AC;
     L_800312A8:
-    gc_env.r[4] = 0x20;
+    gc_env.r[4] = 0x20; // li r4, 0x20
     L_800312AC:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800312C4;
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[5] = gc_env.r[6] + 0; // addi r5, r6, 0x0
     goto L_800312CC;
     L_800312C4:
-    gc_env.r[6] = 0x10;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x10; // li r6, 0x10
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_800312CC:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800312E4;
-    gc_env.r[8] = 0x0;
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[7] = gc_env.r[8] + 0; // addi r7, r8, 0x0
     goto L_800312EC;
     L_800312E4:
-    gc_env.r[8] = 0x40;
-    gc_env.r[7] = 0x0;
+    gc_env.r[8] = 0x40; // li r8, 0x40
+    gc_env.r[7] = 0x0; // li r7, 0x0
     L_800312EC:
     gc_env.r[0] = gc_env.r[6] | gc_env.r[4]; // or r0, r6, r4
     gc_env.r[0] = gc_env.r[8] | gc_env.r[0]; // or r0, r8, r0
@@ -11553,10 +11553,10 @@ void Camera_800311EC(void) {
     gc_env.r[0] = gc_env.r[7] | gc_env.r[3]; // or r0, r7, r3
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0x20, gc_env.r[0]); // stw r0, 0x20(r30)
     gc_env.r[3] = gc_env.r[30] + 0; // addi r3, r30, 0x0
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r0, 0x34(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2c); // lwz r31, 0x2c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x2C); // lwz r31, 0x2C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x28); // lwz r30, 0x28(r1)
     gc_env.r[1] += 48; // addi r1, r1, 0x30
     gc_env.lr = gc_env.r[0]; // Move to link register
@@ -11569,7 +11569,7 @@ void Camera_80031328(void) {
     gc_env.r[4] = ((uint32_t)&cm_80452C68 >> 16) & 0xFFFF; // lis r4, cm_80452C68@ha
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x4, gc_env.r[0]); // stw r0, 0x4(r1)
     gc_env.r[4] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r4, cm_80452C68@l
-    gc_env.r[7] = 0x0;
+    gc_env.r[7] = 0x0; // li r7, 0x0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x8, gc_env.r[1]); // stwu r1, -0x8(r1)
     gc_env.r[1] = gc_env.r[1] + -0x8;
     gc_env.r[10] = gc_env.r[4] + 920; // addi r10, r4, 0x398
@@ -11584,29 +11584,29 @@ void Camera_80031328(void) {
     gc_env.r[4] = gc_env.r[7]; // Move register
     goto L_80031368;
     L_80031364:
-    gc_env.r[4] = 0x20;
+    gc_env.r[4] = 0x20; // li r4, 0x20
     L_80031368:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[10] + 0x0); // lbz r0, 0x0(r10)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80031380;
-    gc_env.r[9] = 0x0;
+    gc_env.r[9] = 0x0; // li r9, 0x0
     gc_env.r[8] = gc_env.r[9] + 0; // addi r8, r9, 0x0
     goto L_80031388;
     L_80031380:
-    gc_env.r[9] = 0x10;
-    gc_env.r[8] = 0x0;
+    gc_env.r[9] = 0x10; // li r9, 0x10
+    gc_env.r[8] = 0x0; // li r8, 0x0
     L_80031388:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[10] + 0x0); // lbz r0, 0x0(r10)
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800313A0;
-    gc_env.r[11] = 0x0;
+    gc_env.r[11] = 0x0; // li r11, 0x0
     gc_env.r[10] = gc_env.r[11] + 0; // addi r10, r11, 0x0
     goto L_800313A8;
     L_800313A0:
-    gc_env.r[11] = 0x40;
-    gc_env.r[10] = 0x0;
+    gc_env.r[11] = 0x40; // li r11, 0x40
+    gc_env.r[10] = 0x0; // li r10, 0x0
     L_800313A8:
     gc_env.r[0] = gc_env.r[6] | gc_env.r[9]; // or r0, r6, r9
     gc_env.r[0] = gc_env.r[0] | gc_env.r[4]; // or r0, r0, r4
@@ -11616,9 +11616,9 @@ void Camera_80031328(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x24, gc_env.r[0]); // stw r0, 0x24(r3)
     gc_env.r[0] = gc_env.r[10] | gc_env.r[4]; // or r0, r10, r4
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x20, gc_env.r[0]); // stw r0, 0x20(r3)
-    gc_env.r[4] = 0x4;
+    gc_env.r[4] = 0x4; // li r4, 0x4
     HSD_GObj_80390ED0();
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xc); // lwz r0, 0xc(r1)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0xC); // lwz r0, 0xC(r1)
     gc_env.r[1] += 8; // addi r1, r1, 0x8
     gc_env.lr = gc_env.r[0]; // Move to link register
     return;
@@ -11632,7 +11632,7 @@ void Camera_800313E0(void) {
     gc_env.r[4] = gc_env.r[4] + ((uint32_t)&cm_80452C68 & 0xFFFF); // addi r4, r4, cm_80452C68@l
     gc_mem_write32(gc_env.ram, gc_env.r[1] + -0x40, gc_env.r[1]); // stwu r1, -0x40(r1)
     gc_env.r[1] = gc_env.r[1] + -0x40;
-    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3c, gc_env.r[31]); // stw r31, 0x3c(r1)
+    gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[31]); // stw r31, 0x3C(r1)
     gc_env.r[31] = gc_env.r[4] + 920; // addi r31, r4, 0x398
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[30]); // stw r30, 0x38(r1)
     gc_env.r[30] = gc_env.r[5] + 0; // addi r30, r5, 0x0
@@ -11641,7 +11641,7 @@ void Camera_800313E0(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x30, gc_env.r[28]); // stw r28, 0x30(r1)
     gc_env.r[28] = gc_env.r[3] + 0; // addi r28, r3, 0x0
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 0x398); // lbz r0, 0x398(r4)
-    gc_env.r[4] = 0x1;
+    gc_env.r[4] = 0x1; // li r4, 0x1
     uint32_t rotated = gc_env.r[4] << 0; // rlwimi r0, r4, 0, 30, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x3) | (rotated & 0x3);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stb r0, 0x0(r31)
@@ -11649,23 +11649,23 @@ void Camera_800313E0(void) {
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8003143C;
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     gc_env.r[4] = gc_env.r[3] + 0; // addi r4, r3, 0x0
     goto L_80031444;
     L_8003143C:
-    gc_env.r[3] = 0x40;
-    gc_env.r[4] = 0x0;
+    gc_env.r[3] = 0x40; // li r3, 0x40
+    gc_env.r[4] = 0x0; // li r4, 0x0
     L_80031444:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 7) & 0x1; // extrwi r0, r0, 1, 24
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8003145C;
-    gc_env.r[0] = 0x0;
+    gc_env.r[0] = 0x0; // li r0, 0x0
     gc_env.r[5] = gc_env.r[0]; // Move register
     goto L_80031464;
     L_8003145C:
-    gc_env.r[0] = 0x20;
-    gc_env.r[5] = 0x0;
+    gc_env.r[0] = 0x20; // li r0, 0x20
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_80031464:
     gc_env.r[0] = gc_env.r[29] | gc_env.r[0]; // or r0, r29, r0
     gc_env.r[0] = gc_env.r[0] | gc_env.r[3]; // or r0, r0, r3
@@ -11674,10 +11674,10 @@ void Camera_800313E0(void) {
     gc_env.r[0] = gc_env.r[3] | gc_env.r[4]; // or r0, r3, r4
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x20, gc_env.r[0]); // stw r0, 0x20(r28)
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
-    gc_env.r[3] = 0x0;
+    gc_env.r[3] = 0x0; // li r3, 0x0
     uint32_t rotated = gc_env.r[3] << 0; // rlwimi r0, r3, 0, 30, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x3) | (rotated & 0x3);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stb r0, 0x0(r31)
@@ -11688,29 +11688,29 @@ void Camera_800313E0(void) {
     gc_env.r[4] = gc_env.r[3]; // Move register
     goto L_800314B0;
     L_800314AC:
-    gc_env.r[4] = 0x20;
+    gc_env.r[4] = 0x20; // li r4, 0x20
     L_800314B0:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800314C8;
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[5] = gc_env.r[6] + 0; // addi r5, r6, 0x0
     goto L_800314D0;
     L_800314C8:
-    gc_env.r[6] = 0x10;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x10; // li r6, 0x10
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_800314D0:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800314E8;
-    gc_env.r[8] = 0x0;
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[7] = gc_env.r[8] + 0; // addi r7, r8, 0x0
     goto L_800314F0;
     L_800314E8:
-    gc_env.r[8] = 0x40;
-    gc_env.r[7] = 0x0;
+    gc_env.r[8] = 0x40; // li r8, 0x40
+    gc_env.r[7] = 0x0; // li r7, 0x0
     L_800314F0:
     gc_env.r[0] = gc_env.r[6] | gc_env.r[4]; // or r0, r6, r4
     gc_env.r[0] = gc_env.r[8] | gc_env.r[0]; // or r0, r8, r0
@@ -11719,10 +11719,10 @@ void Camera_800313E0(void) {
     gc_env.r[0] = gc_env.r[7] | gc_env.r[3]; // or r0, r7, r3
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x20, gc_env.r[0]); // stw r0, 0x20(r28)
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
-    gc_env.r[4] = 0x3;
+    gc_env.r[4] = 0x3; // li r4, 0x3
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
-    gc_env.r[4] = 0x0;
+    gc_env.r[4] = 0x0; // li r4, 0x0
     uint32_t rotated = gc_env.r[4] << 0; // rlwimi r0, r4, 0, 30, 31
     gc_env.r[0] = (gc_env.r[0] & ~0x3) | (rotated & 0x3);
     gc_mem_write8(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // stb r0, 0x0(r31)
@@ -11733,29 +11733,29 @@ void Camera_800313E0(void) {
     gc_env.r[3] = gc_env.r[4]; // Move register
     goto L_8003153C;
     L_80031538:
-    gc_env.r[3] = 0x20;
+    gc_env.r[3] = 0x20; // li r3, 0x20
     L_8003153C:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 3) & 0x1; // extrwi r0, r0, 1, 28
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80031554;
-    gc_env.r[6] = 0x0;
+    gc_env.r[6] = 0x0; // li r6, 0x0
     gc_env.r[5] = gc_env.r[6] + 0; // addi r5, r6, 0x0
     goto L_8003155C;
     L_80031554:
-    gc_env.r[6] = 0x10;
-    gc_env.r[5] = 0x0;
+    gc_env.r[6] = 0x10; // li r6, 0x10
+    gc_env.r[5] = 0x0; // li r5, 0x0
     L_8003155C:
     gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[31] + 0x0); // lbz r0, 0x0(r31)
     gc_env.r[0] = (gc_env.r[0] >> 6) & 0x1; // extrwi r0, r0, 1, 25
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80031574;
-    gc_env.r[8] = 0x0;
+    gc_env.r[8] = 0x0; // li r8, 0x0
     gc_env.r[7] = gc_env.r[8] + 0; // addi r7, r8, 0x0
     goto L_8003157C;
     L_80031574:
-    gc_env.r[8] = 0x40;
-    gc_env.r[7] = 0x0;
+    gc_env.r[8] = 0x40; // li r8, 0x40
+    gc_env.r[7] = 0x0; // li r7, 0x0
     L_8003157C:
     gc_env.r[0] = gc_env.r[29] | gc_env.r[6]; // or r0, r29, r6
     gc_env.r[0] = gc_env.r[0] | gc_env.r[3]; // or r0, r0, r3
@@ -11766,10 +11766,10 @@ void Camera_800313E0(void) {
     gc_env.r[0] = gc_env.r[7] | gc_env.r[3]; // or r0, r7, r3
     gc_mem_write32(gc_env.ram, gc_env.r[28] + 0x20, gc_env.r[0]); // stw r0, 0x20(r28)
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
-    gc_env.r[4] = 0x4;
+    gc_env.r[4] = 0x4; // li r4, 0x4
     HSD_GObj_80390ED0();
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x44); // lwz r0, 0x44(r1)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3c); // lwz r31, 0x3c(r1)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x3C); // lwz r31, 0x3C(r1)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x38); // lwz r30, 0x38(r1)
     gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x34); // lwz r29, 0x34(r1)
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x30); // lwz r28, 0x30(r1)

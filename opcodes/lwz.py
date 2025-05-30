@@ -39,7 +39,7 @@ class LwzHandler:
     
     def parse_memory_operand(self, mem_str: str) -> Tuple[Union[str, int], int, bool]:
         """
-        Parse memory operand like 'offset(rN)', '(rN)', or 'symbol@sda21(rN)'.
+        Parse memory operand like 'offset(rN)', '(rN)', 'symbol@sda21(rN)', or 'symbol@l(rN)'.
         Returns (offset_or_symbol, base_register, is_sda_symbol).
         """
         mem_str = mem_str.strip()
@@ -56,6 +56,32 @@ class LwzHandler:
                 self.transpiler.variables.add(f"extern uint32_t {symbol}")
                 
                 return symbol, base_reg, True
+        
+        # Handle @l (low) relocation format (e.g., cm_80452C68@l(r4))
+        if '@l(' in mem_str:
+            l_match = mem_str.split('@l(')
+            if len(l_match) == 2:
+                symbol = l_match[0]
+                base_reg_part = l_match[1].rstrip(')')
+                base_reg = self.parse_register(base_reg_part)
+                
+                # Add the symbol as an external variable
+                self.transpiler.variables.add(f"extern uint32_t {symbol}")
+                
+                return symbol, base_reg, False  # Not SDA, but symbol-based
+        
+        # Handle @h (high) relocation format (e.g., symbol@h(rN))
+        if '@h(' in mem_str:
+            h_match = mem_str.split('@h(')
+            if len(h_match) == 2:
+                symbol = h_match[0]
+                base_reg_part = h_match[1].rstrip(')')
+                base_reg = self.parse_register(base_reg_part)
+                
+                # Add the symbol as an external variable
+                self.transpiler.variables.add(f"extern uint32_t {symbol}")
+                
+                return symbol, base_reg, False  # Not SDA, but symbol-based
         
         # Handle preprocessed SDA format (e.g., sda:symbol)
         if mem_str.startswith('sda:'):
@@ -92,6 +118,13 @@ class LwzHandler:
                 return [f"gc_env.r[{dst_reg}] = {symbol}; // {opcode} r{dst_reg}, {symbol}@sda21(r0)"]
             else:
                 return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + (uint32_t)&{symbol}); // {opcode} r{dst_reg}, {symbol}@sda21(r{base_reg})"]
+        elif isinstance(offset_or_symbol, str):
+            # Handle symbol-based addressing (@l, @h relocations)
+            symbol = offset_or_symbol
+            if base_reg == 0:
+                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, (uint32_t)&{symbol}); // {opcode} r{dst_reg}, {symbol}@l/h(r0)"]
+            else:
+                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + (uint32_t)&{symbol}); // {opcode} r{dst_reg}, {symbol}@l/h(r{base_reg})"]
         else:
             offset = offset_or_symbol
             if offset == 0:
