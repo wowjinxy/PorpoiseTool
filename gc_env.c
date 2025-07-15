@@ -18,6 +18,11 @@ void gc_env_init(void) {
     gc_env.l2cr = 0; // Initialize L2CR
     gc_env.dec = 0; // Initialize Decrementer
     gc_env.hid2 = 0; // Initialize HID2
+    gc_env.dar = 0; // Initialize Data Address Register
+    memset(gc_env.sprg, 0, sizeof(gc_env.sprg));
+    memset(gc_env.dbatu, 0, sizeof(gc_env.dbatu));
+    gc_env.fpscr = 0; // Initialize FPSCR
+    gc_env.tb = 0; // Initialize Time Base
 
     // Allocate RAM
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);

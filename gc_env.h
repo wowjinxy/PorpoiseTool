@@ -23,6 +23,11 @@ typedef struct {
     uint32_t l2cr; // Level 2 Cache Control Register
     uint32_t dec; // Decrementer Register
     uint32_t hid2; // Hardware Implementation Dependent Register 2
+    uint32_t dar;  // Data Address Register
+    uint32_t sprg[4]; // Special Purpose Registers 0-3
+    uint32_t dbatu[4]; // Data BAT Upper Registers 0-3
+    uint32_t fpscr; // Floating-Point Status and Control Register
+    uint64_t tb;  // Time Base Register (upper and lower combined)
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
