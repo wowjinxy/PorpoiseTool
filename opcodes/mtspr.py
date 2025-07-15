@@ -57,6 +57,8 @@ class MtsprHandler:
                     return [f"gc_env.hid2 = gc_env.r[{src_reg}]; // mtspr {spr}, r{src_reg}"]
                 elif spr == 'HID0':
                     return [f"gc_env.hid0 = gc_env.r[{src_reg}]; // mtspr {spr}, r{src_reg}"]
+                elif spr == 'IABR':
+                    return [f"gc_env.iabr = gc_env.r[{src_reg}]; // mtspr {spr}, r{src_reg}"]
                 elif spr.startswith('GQR') and spr[3:].isdigit():
                     idx = int(spr[3:])
                     if 0 <= idx < 8:

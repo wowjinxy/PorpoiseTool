@@ -27,6 +27,7 @@ typedef struct {
     uint32_t sdr1; // Storage Description Register 1
     uint32_t tear; // Translation Exception Address Register
     uint32_t gqr[8]; // Graphics Quantization Registers
+    uint32_t iabr; // Instruction Address Breakpoint Register
     uint32_t srr0; // Save/Restore Register 0
     uint32_t srr1; // Save/Restore Register 1
     uint32_t ibatu[4]; // Instruction BAT Upper registers

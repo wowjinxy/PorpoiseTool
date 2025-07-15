@@ -23,6 +23,7 @@ void gc_env_init(void) {
     gc_env.sdr1 = 0; // Initialize SDR1
     gc_env.tear = 0; // Initialize TEAR
     memset(gc_env.gqr, 0, sizeof(gc_env.gqr));
+    gc_env.iabr = 0; // Initialize IABR
     gc_env.srr0 = 0; // Initialize SRR0
     gc_env.srr1 = 0; // Initialize SRR1
     memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
