@@ -38,10 +38,11 @@ class LwzHandler:
         except ValueError:
             raise ValueError(f"Invalid immediate: {imm_str}")
     
-    def parse_memory_operand(self, mem_str: str) -> Tuple[Union[str, int], int, bool]:
+    def parse_memory_operand(self, mem_str: str) -> Tuple[Union[str, int], int, bool, int]:
         """
         Parse memory operand like 'offset(rN)', '(rN)', 'symbol@sda21(rN)', or 'symbol@l(rN)'.
-        Returns (offset_or_symbol, base_register, is_sda_symbol).
+        Returns (offset_or_symbol, base_register, is_sda_symbol, addend).
+        The additional addend is used for expressions like 'symbol+0x4@sda21(r0)'.
         """
         mem_str = mem_str.strip()
         
@@ -49,14 +50,28 @@ class LwzHandler:
         if '@sda21(' in mem_str:
             sda_match = mem_str.split('@sda21(')
             if len(sda_match) == 2:
-                symbol = self.transpiler.sanitize_symbol_name(sda_match[0])
+                sym_part = sda_match[0]
                 base_reg_part = sda_match[1].rstrip(')')
                 base_reg = self.parse_register(base_reg_part)
-                
+
+                addend = 0
+                if '+' in sym_part or '-' in sym_part:
+                    import re
+                    m = re.match(r'([^+-]+)([+-]0x[0-9A-Fa-f]+)', sym_part)
+                    if m:
+                        sym_name = m.group(1)
+                        addend = int(m.group(2), 0)
+                    else:
+                        sym_name = sym_part
+                else:
+                    sym_name = sym_part
+
+                symbol = self.transpiler.sanitize_symbol_name(sym_name)
+
                 # Add the symbol as an external variable
                 self.transpiler.variables.add(f"extern uint32_t {symbol}")
-                
-                return symbol, base_reg, True
+
+                return symbol, base_reg, True, addend
         
         # Handle @l (low) relocation format (e.g., cm_80452C68@l(r4))
         if '@l(' in mem_str:
@@ -69,7 +84,7 @@ class LwzHandler:
                 # Add the symbol as an external variable
                 self.transpiler.variables.add(f"extern uint32_t {symbol}")
                 
-                return symbol, base_reg, False  # Not SDA, but symbol-based
+                return symbol, base_reg, False, 0  # Not SDA, but symbol-based
         
         # Handle @h (high) relocation format (e.g., symbol@h(rN))
         if '@h(' in mem_str:
@@ -82,13 +97,13 @@ class LwzHandler:
                 # Add the symbol as an external variable
                 self.transpiler.variables.add(f"extern uint32_t {symbol}")
                 
-                return symbol, base_reg, False  # Not SDA, but symbol-based
+                return symbol, base_reg, False, 0  # Not SDA, but symbol-based
         
         # Handle preprocessed SDA format (e.g., sda:symbol)
         if mem_str.startswith('sda:'):
             symbol = self.transpiler.sanitize_symbol_name(mem_str[4:].strip())
             self.transpiler.variables.add(f"extern uint32_t {symbol}")
-            return symbol, 0, True
+            return symbol, 0, True, 0
         
         # Handle regular memory operand format
         if not ('(' in mem_str and ')' in mem_str):
@@ -104,21 +119,24 @@ class LwzHandler:
             offset = 0
         
         base_reg = self.parse_register(base_part)
-        return offset, base_reg, False
+        return offset, base_reg, False, 0
     
     def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
         """Validate operand count for instruction."""
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
     
-    def generate_memory_access(self, opcode: str, dst_reg: int, offset_or_symbol: Union[str, int], base_reg: int, is_sda: bool) -> List[str]:
+    def generate_memory_access(self, opcode: str, dst_reg: int, offset_or_symbol: Union[str, int], base_reg: int, is_sda: bool, addend: int = 0) -> List[str]:
         """Generate memory access code for lwz."""
         if is_sda:
             symbol = offset_or_symbol
+            addr = f"(uint32_t)&{symbol}"
+            if addend:
+                addr = f"{addr} + {format_hex(addend)}"
             if base_reg == 0:  # r0 means absolute SDA access
-                return [f"gc_env.r[{dst_reg}] = {symbol}; // {opcode} r{dst_reg}, {symbol}@sda21(r0)"]
+                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, {addr}); // {opcode} r{dst_reg}, {symbol}@sda21(r0)"]
             else:
-                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + (uint32_t)&{symbol}); // {opcode} r{dst_reg}, {symbol}@sda21(r{base_reg})"]
+                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {addr}); // {opcode} r{dst_reg}, {symbol}@sda21(r{base_reg})"]
         elif isinstance(offset_or_symbol, str):
             # Handle symbol-based addressing (@l, @h relocations)
             symbol = offset_or_symbol
@@ -144,8 +162,8 @@ class LwzHandler:
         try:
             self.validate_operand_count(ops, 2, opcode)
             dst_reg = self.parse_register(ops[0])
-            offset_or_symbol, base_reg, is_sda = self.parse_memory_operand(ops[1])
-            return self.generate_memory_access(opcode, dst_reg, offset_or_symbol, base_reg, is_sda)
+            offset_or_symbol, base_reg, is_sda, addend = self.parse_memory_operand(ops[1])
+            return self.generate_memory_access(opcode, dst_reg, offset_or_symbol, base_reg, is_sda, addend)
         
         except (ValueError, IndexError) as e:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
