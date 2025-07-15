@@ -492,9 +492,16 @@ class ModularTranspiler:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: python PyDol.py <assembly_file> [opcodes_dir]")
+        print("Usage: python PorpoiseTool.py <file_or_directory> [opcodes_dir]")
         sys.exit(1)
 
     opcodes_dir = sys.argv[2] if len(sys.argv) > 2 else "opcodes"
     transpiler = ModularTranspiler(opcodes_dir)
-    transpiler.transpile_file(sys.argv[1])
+
+    target = Path(sys.argv[1])
+    if target.is_dir():
+        for asm_file in sorted(target.glob("*.s")):
+            print(f"Transpiling {asm_file}")
+            transpiler.transpile_file(str(asm_file))
+    else:
+        transpiler.transpile_file(str(target))
