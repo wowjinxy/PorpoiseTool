@@ -59771,45 +59771,45 @@ Found obj section: gap_06_8001EDDC_bss at 0x8001EDDC
 Extracted gap section: gap_06_8001EDDC_bss, 2 lines
 Found obj section: lbl_8001EDE0 at 0x8001EDE0
 Extracted gap section: lbl_8001EDE0, 1 lines
-Warning: Unrecognized gap line: .skip 0x40
-Warning: Unrecognized gap line: .skip 0x20
-Warning: Unrecognized gap line: .skip 0x54
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x100
-Warning: Unrecognized gap line: .skip 0x8E8
-Warning: Unrecognized gap line: .skip 0xC0
-Warning: Unrecognized gap line: .skip 0x80
-Warning: Unrecognized gap line: .skip 0xA0
-Warning: Unrecognized gap line: .skip 0x20
-Warning: Unrecognized gap line: .skip 0xC0
-Warning: Unrecognized gap line: .skip 0x68
-Warning: Unrecognized gap line: .skip 0x78
-Warning: Unrecognized gap line: .skip 0x80
-Warning: Unrecognized gap line: .skip 0x58
-Warning: Unrecognized gap line: .skip 0x20
-Warning: Unrecognized gap line: .skip 0x40
-Warning: Unrecognized gap line: .skip 0x30
-Warning: Unrecognized gap line: .skip 0x78
-Warning: Unrecognized gap line: .skip 0xD0
-Warning: Unrecognized gap line: .skip 0x100
-Warning: Unrecognized gap line: .skip 0x100
-Warning: Unrecognized gap line: .skip 0x28
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x19B0
-Warning: Unrecognized gap line: .skip 0x14
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x2
-Warning: Unrecognized gap line: .skip 0x2
-Warning: Unrecognized gap line: .skip 0x94
-Warning: Unrecognized gap line: .skip 0x10
-Warning: Unrecognized gap line: .skip 0xA4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x430
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x18
+Parsed .skip 64 bytes
+Parsed .skip 32 bytes
+Parsed .skip 84 bytes
+Parsed .skip 4 bytes
+Parsed .skip 256 bytes
+Parsed .skip 2280 bytes
+Parsed .skip 192 bytes
+Parsed .skip 128 bytes
+Parsed .skip 160 bytes
+Parsed .skip 32 bytes
+Parsed .skip 192 bytes
+Parsed .skip 104 bytes
+Parsed .skip 120 bytes
+Parsed .skip 128 bytes
+Parsed .skip 88 bytes
+Parsed .skip 32 bytes
+Parsed .skip 64 bytes
+Parsed .skip 48 bytes
+Parsed .skip 120 bytes
+Parsed .skip 208 bytes
+Parsed .skip 256 bytes
+Parsed .skip 256 bytes
+Parsed .skip 40 bytes
+Parsed .skip 8 bytes
+Parsed .skip 6576 bytes
+Parsed .skip 20 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 2 bytes
+Parsed .skip 2 bytes
+Parsed .skip 148 bytes
+Parsed .skip 16 bytes
+Parsed .skip 164 bytes
+Parsed .skip 4 bytes
+Parsed .skip 1072 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 24 bytes
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_06_8001BB60_bss.c
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_06_8001BB60_bss.h
 Transpiling D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_07_8001EE00_sdata.s
@@ -60121,129 +60121,129 @@ Found obj section: lbl_8001F080 at 0x8001F080
 Extracted gap section: lbl_8001F080, 1 lines
 Found obj section: lbl_8001F084 at 0x8001F084
 Extracted gap section: lbl_8001F084, 1 lines
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x2
-Warning: Unrecognized gap line: .skip 0x6
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0xC
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x2
-Warning: Unrecognized gap line: .skip 0x2
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x8
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x4
-Warning: Unrecognized gap line: .skip 0x1
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 2 bytes
+Parsed .skip 6 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 12 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 2 bytes
+Parsed .skip 2 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 8 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 4 bytes
+Parsed .skip 1 bytes
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_08_8001EE60_sbss.c
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_08_8001EE60_sbss.h
 Transpiling D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_09_8001F0A0_sdata2.s

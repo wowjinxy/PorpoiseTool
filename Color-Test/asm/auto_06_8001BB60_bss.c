@@ -135,234 +135,156 @@ extern uint8_t lbl_8001EE58;
 
 // Data section: __OSErrorTable
 // Address: 0x8001BB60
-uint32_t __OSErrorTable[] = {
-    // Unrecognized: .skip 0x40
-};
+uint8_t __OSErrorTable[0x40];
 
 // Data section: lbl_8001BBA0
 // Address: 0x8001BBA0
-uint32_t lbl_8001BBA0[] = {
-    // Unrecognized: .skip 0x20
-};
+uint8_t lbl_8001BBA0[0x20];
 
 // Data section: Scb_8001BBC0
 // Address: 0x8001BBC0
-uint32_t Scb_8001BBC0[] = {
-    // Unrecognized: .skip 0x54
-};
+uint8_t Scb_8001BBC0[0x54];
 
 // Data section: gap_06_8001BC14_bss
 // Address: 0x8001BC14
-uint32_t gap_06_8001BC14_bss[] = {
-    // Unrecognized: .skip 0x4
-};
+uint8_t gap_06_8001BC14_bss[0x4];
 
 // Data section: RunQueue_8001BC18
 // Address: 0x8001BC18
-uint32_t RunQueue_8001BC18[] = {
-    // Unrecognized: .skip 0x100
-};
+uint8_t RunQueue_8001BC18[0x100];
 
 // Data section: gap_06_8001BD18_bss
 // Address: 0x8001BD18
-uint32_t gap_06_8001BD18_bss[] = {
-    // Unrecognized: .skip 0x8E8
-};
+uint8_t gap_06_8001BD18_bss[0x8E8];
 
 // Data section: Ecb_8001C600
 // Address: 0x8001C600
-uint32_t Ecb_8001C600[] = {
-    // Unrecognized: .skip 0xC0
-};
+uint8_t Ecb_8001C600[0xC0];
 
 // Data section: Packet_8001C6C0
 // Address: 0x8001C6C0
-uint32_t Packet_8001C6C0[] = {
-    // Unrecognized: .skip 0x80
-};
+uint8_t Packet_8001C6C0[0x80];
 
 // Data section: lbl_8001C740
 // Address: 0x8001C740
-uint32_t lbl_8001C740[] = {
-    // Unrecognized: .skip 0xA0
-};
+uint8_t lbl_8001C740[0xA0];
 
 // Data section: TypeTime_8001C7E0
 // Address: 0x8001C7E0
-uint32_t TypeTime_8001C7E0[] = {
-    // Unrecognized: .skip 0x20
-};
+uint8_t TypeTime_8001C7E0[0x20];
 
 // Data section: lbl_8001C800
 // Address: 0x8001C800
-uint32_t lbl_8001C800[] = {
-    // Unrecognized: .skip 0xC0
-};
+uint8_t lbl_8001C800[0xC0];
 
 // Data section: lbl_8001C8C0
 // Address: 0x8001C8C0
-uint32_t lbl_8001C8C0[] = {
-    // Unrecognized: .skip 0x68
-};
+uint8_t lbl_8001C8C0[0x68];
 
 // Data section: lbl_8001C928
 // Address: 0x8001C928
-uint32_t lbl_8001C928[] = {
-    // Unrecognized: .skip 0x78
-};
+uint8_t lbl_8001C928[0x78];
 
 // Data section: lbl_8001C9A0
 // Address: 0x8001C9A0
-uint32_t lbl_8001C9A0[] = {
-    // Unrecognized: .skip 0x80
-};
+uint8_t lbl_8001C9A0[0x80];
 
 // Data section: lbl_8001CA20
 // Address: 0x8001CA20
-uint32_t lbl_8001CA20[] = {
-    // Unrecognized: .skip 0x58
-};
+uint8_t lbl_8001CA20[0x58];
 
 // Data section: lbl_8001CA78
 // Address: 0x8001CA78
-uint32_t lbl_8001CA78[] = {
-    // Unrecognized: .skip 0x20
-};
+uint8_t lbl_8001CA78[0x20];
 
 // Data section: lbl_8001CA98
 // Address: 0x8001CA98
-uint32_t lbl_8001CA98[] = {
-    // Unrecognized: .skip 0x40
-};
+uint8_t lbl_8001CA98[0x40];
 
 // Data section: lbl_8001CAD8
 // Address: 0x8001CAD8
-uint32_t lbl_8001CAD8[] = {
-    // Unrecognized: .skip 0x30
-};
+uint8_t lbl_8001CAD8[0x30];
 
 // Data section: lbl_8001CB08
 // Address: 0x8001CB08
-uint32_t lbl_8001CB08[] = {
-    // Unrecognized: .skip 0x78
-};
+uint8_t lbl_8001CB08[0x78];
 
 // Data section: lbl_8001CB80
 // Address: 0x8001CB80
-uint32_t lbl_8001CB80[] = {
-    // Unrecognized: .skip 0xD0
-};
+uint8_t lbl_8001CB80[0xD0];
 
 // Data section: atexit_funcs_8001CC50
 // Address: 0x8001CC50
-uint32_t atexit_funcs_8001CC50[] = {
-    // Unrecognized: .skip 0x100
-};
+uint8_t atexit_funcs_8001CC50[0x100];
 
 // Data section: __atexit_funcs_8001CD50
 // Address: 0x8001CD50
-uint32_t __atexit_funcs_8001CD50[] = {
-    // Unrecognized: .skip 0x100
-};
+uint8_t __atexit_funcs_8001CD50[0x100];
 
 // Data section: lbl_8001CE50
 // Address: 0x8001CE50
-uint32_t lbl_8001CE50[] = {
-    // Unrecognized: .skip 0x28
-};
+uint8_t lbl_8001CE50[0x28];
 
 // Data section: lbl_8001CE78
 // Address: 0x8001CE78
-uint32_t lbl_8001CE78[] = {
-    // Unrecognized: .skip 0x8
-};
+uint8_t lbl_8001CE78[0x8];
 
 // Data section: lbl_8001CE80
 // Address: 0x8001CE80
-uint32_t lbl_8001CE80[] = {
-    // Unrecognized: .skip 0x19B0
-};
+uint8_t lbl_8001CE80[0x19B0];
 
 // Data section: lbl_8001E830
 // Address: 0x8001E830
-uint32_t lbl_8001E830[] = {
-    // Unrecognized: .skip 0x14
-};
+uint8_t lbl_8001E830[0x14];
 
 // Data section: gTRKInputPendingPtr
 // Address: 0x8001E844
-uint32_t gTRKInputPendingPtr[] = {
-    // Unrecognized: .skip 0x4
-};
+uint8_t gTRKInputPendingPtr[0x4];
 
 // Data section: lbl_8001E848
 // Address: 0x8001E848
-uint32_t lbl_8001E848[] = {
-    // Unrecognized: .skip 0x8
-};
+uint8_t lbl_8001E848[0x8];
 
 // Data section: TRK_saved_exceptionID_8001E850
 // Address: 0x8001E850
-uint32_t TRK_saved_exceptionID_8001E850[] = {
-    // Unrecognized: .skip 0x2
-};
+uint8_t TRK_saved_exceptionID_8001E850[0x2];
 
 // Data section: gap_06_8001E852_bss
 // Address: 0x8001E852
-uint32_t gap_06_8001E852_bss[] = {
-    // Unrecognized: .skip 0x2
-};
+uint8_t gap_06_8001E852_bss[0x2];
 
 // Data section: gTRKSaveState
 // Address: 0x8001E854
-uint32_t gTRKSaveState[] = {
-    // Unrecognized: .skip 0x94
-};
+uint8_t gTRKSaveState[0x94];
 
 // Data section: lbl_8001E8E8
 // Address: 0x8001E8E8
-uint32_t lbl_8001E8E8[] = {
-    // Unrecognized: .skip 0x10
-};
+uint8_t lbl_8001E8E8[0x10];
 
 // Data section: gTRKState
 // Address: 0x8001E8F8
-uint32_t gTRKState[] = {
-    // Unrecognized: .skip 0xA4
-};
+uint8_t gTRKState[0xA4];
 
 // Data section: gap_06_8001E99C_bss
 // Address: 0x8001E99C
-uint32_t gap_06_8001E99C_bss[] = {
-    // Unrecognized: .skip 0x4
-};
+uint8_t gap_06_8001E99C_bss[0x4];
 
 // Data section: gTRKCPUState
 // Address: 0x8001E9A0
-uint32_t gTRKCPUState[] = {
-    // Unrecognized: .skip 0x430
-};
+uint8_t gTRKCPUState[0x430];
 
 // Data section: lbl_8001EDD0
 // Address: 0x8001EDD0
-uint32_t lbl_8001EDD0[] = {
-    // Unrecognized: .skip 0x8
-};
+uint8_t lbl_8001EDD0[0x8];
 
 // Data section: TRK_mainError_8001EDD8
 // Address: 0x8001EDD8
-uint32_t TRK_mainError_8001EDD8[] = {
-    // Unrecognized: .skip 0x4
-};
+uint8_t TRK_mainError_8001EDD8[0x4];
 
 // Data section: gap_06_8001EDDC_bss
 // Address: 0x8001EDDC
-uint32_t gap_06_8001EDDC_bss[] = {
-    // Unrecognized: .skip 0x4
-};
+uint8_t gap_06_8001EDDC_bss[0x4];
 
 // Data section: lbl_8001EDE0
 // Address: 0x8001EDE0
-uint32_t lbl_8001EDE0[] = {
-    // Unrecognized: .skip 0x18
-};
+uint8_t lbl_8001EDE0[0x18];
