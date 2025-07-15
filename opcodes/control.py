@@ -4,7 +4,7 @@ Control operations handler for PowerPC assembly
 
 opcodes = [
     'mflr', 'mtlr', 'mfmsr', 'mtmsr',  # Register move instructions
-    'blr', 'blrl', 'b', 'bl',           # Unconditional branches/calls
+    'blr', 'blrl', 'b', 'bl', 'bla',    # Unconditional branches/calls
     'bne', 'beq', 'beq+', 'bge',       # Conditional branches
     'mtctr', 'bdnz',                    # Count register branches
     'mr'                                # Register copy
@@ -40,7 +40,10 @@ def handle(instruction, transpiler):
         label = ops[0].lstrip('.')  # Remove leading period
         return f"goto {label};"
     elif opcode == 'bl' and len(ops) >= 1:
-        target = ops[0].split('@')[0]  # Strip @ha/@l if present
+        target = ops[0].split('@')[0]
+        return f"{target}();"
+    elif opcode == 'bla' and len(ops) >= 1:
+        target = ops[0].split('@')[0]
         return f"{target}();"
     elif opcode == 'blrl':
         return f"// Call function at gc_env.lr; // Branch to link register"
