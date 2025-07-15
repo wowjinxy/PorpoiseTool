@@ -27,6 +27,7 @@ typedef struct {
     uint32_t srr1; // Save/Restore Register 1
     uint32_t ibatu[4]; // Instruction BAT Upper registers
     uint32_t dar;  // Data Address Register
+    uint32_t dsisr; // Data Storage Interrupt Status Register
     uint32_t sprg[4]; // Special Purpose Registers 0-3
     uint32_t dbatu[4]; // Data BAT Upper Registers 0-3
     uint32_t fpscr; // Floating-Point Status and Control Register
