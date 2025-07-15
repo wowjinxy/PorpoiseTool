@@ -54,6 +54,14 @@ class ModularTranspiler:
         self.export_symbols: Set[str] = set()
         self.includes: Set[str] = set(['"gc_env.h"'])
         self.previous_instruction = None
+        # Functions that already exist in the standard C library.  If any of
+        # these appear in the assembly, we should not generate definitions or
+        # prototypes for them so the compiled code links against the system
+        # implementation instead of our generated stubs.
+        self.skip_functions: Set[str] = {
+            'vprintf', 'fwrite', 'memchr', 'wcstombs', 'strchr', 'strlen',
+            'exit', 'fwide'
+        }
         self._load_opcode_handlers()
 
     def _load_opcode_handlers(self):
@@ -381,6 +389,8 @@ class ModularTranspiler:
 
         # Generate functions
         for func in self.functions:
+            if func.name in self.skip_functions:
+                continue
             c_lines.append(f'// Function: {func.name}')
             if func.start_addr:
                 c_lines.append(f'// Address: {func.start_addr}')
@@ -429,6 +439,8 @@ class ModularTranspiler:
     
         h_lines.append('// Function declarations')
         for func in self.functions:
+            if func.name in self.skip_functions:
+                continue
             h_lines.append(f'void {func.name}(void);')
 
         h_lines.append('')
