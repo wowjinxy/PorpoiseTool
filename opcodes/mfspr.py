@@ -51,6 +51,12 @@ class MfsprHandler:
                     return [f"gc_env.r[{dst_reg}] = gc_env.hid0; // mfspr r{dst_reg}, {spr}"]
                 elif spr == 'HID2':
                     return [f"gc_env.r[{dst_reg}] = gc_env.hid2; // mfspr r{dst_reg}, {spr}"]
+                elif spr == 'L2CR':
+                    return [f"gc_env.r[{dst_reg}] = gc_env.l2cr; // mfspr r{dst_reg}, {spr}"]
+                elif spr.startswith('GQR') and spr[3:].isdigit():
+                    idx = int(spr[3:])
+                    if 0 <= idx < 8:
+                        return [f"gc_env.r[{dst_reg}] = gc_env.gqr[{idx}]; // mfspr r{dst_reg}, {spr}"]
                 return [f"// Unsupported SPR: {spr} for mfspr r{dst_reg}, {spr}"]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
