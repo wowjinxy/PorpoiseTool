@@ -1,7 +1,6 @@
 #include "gc_env.h"
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 // Global environment instance
 GameCubeEnv gc_env;
@@ -20,21 +19,11 @@ void gc_env_init(void) {
     gc_env.dec = 0; // Initialize Decrementer
     gc_env.hid2 = 0; // Initialize HID2
     memset(gc_env.gqr, 0, sizeof(gc_env.gqr));
-    gc_env.srr0 = 0; // Initialize SRR0
-    gc_env.srr1 = 0; // Initialize SRR1
-    memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
-    gc_env.dar = 0; // Initialize Data Address Register
-    gc_env.dsisr = 0; // Initialize Data Storage Interrupt Status Register
-    memset(gc_env.sprg, 0, sizeof(gc_env.sprg));
-    memset(gc_env.dbatu, 0, sizeof(gc_env.dbatu));
-    gc_env.fpscr = 0; // Initialize FPSCR
-    gc_env.tb = 0; // Initialize Time Base
 
     // Allocate RAM
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);
     if (!gc_env.ram) {
         // Handle allocation failure
-        fprintf(stderr, "Failed to allocate GameCube RAM\n");
         exit(1);
     }
 

@@ -24,15 +24,6 @@ typedef struct {
     uint32_t dec; // Decrementer Register
     uint32_t hid2; // Hardware Implementation Dependent Register 2
     uint32_t gqr[8]; // Graphics Quantization Registers
-    uint32_t srr0; // Save/Restore Register 0
-    uint32_t srr1; // Save/Restore Register 1
-    uint32_t ibatu[4]; // Instruction BAT Upper registers
-    uint32_t dar;  // Data Address Register
-    uint32_t dsisr; // Data Storage Interrupt Status Register
-    uint32_t sprg[4]; // Special Purpose Registers 0-3
-    uint32_t dbatu[4]; // Data BAT Upper Registers 0-3
-    uint32_t fpscr; // Floating-Point Status and Control Register
-    uint64_t tb;  // Time Base Register (upper and lower combined)
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
@@ -98,36 +89,6 @@ static inline void gc_mem_write8(uint8_t* ram, uint32_t addr, uint8_t data) {
     }
     addr -= GC_RAM_BASE;
     ram[addr] = data;
-}
-
-static inline uint64_t gc_mem_read64(uint8_t* ram, uint32_t addr) {
-    if (addr < GC_RAM_BASE || addr + 7 >= GC_RAM_BASE + GC_RAM_SIZE) {
-        return 0;
-    }
-    addr -= GC_RAM_BASE;
-    return ((uint64_t)ram[addr] << 56) |
-           ((uint64_t)ram[addr + 1] << 48) |
-           ((uint64_t)ram[addr + 2] << 40) |
-           ((uint64_t)ram[addr + 3] << 32) |
-           ((uint64_t)ram[addr + 4] << 24) |
-           ((uint64_t)ram[addr + 5] << 16) |
-           ((uint64_t)ram[addr + 6] << 8) |
-           ((uint64_t)ram[addr + 7]);
-}
-
-static inline void gc_mem_write64(uint8_t* ram, uint32_t addr, uint64_t data) {
-    if (addr < GC_RAM_BASE || addr + 7 >= GC_RAM_BASE + GC_RAM_SIZE) {
-        return;
-    }
-    addr -= GC_RAM_BASE;
-    ram[addr] = (data >> 56) & 0xFF;
-    ram[addr + 1] = (data >> 48) & 0xFF;
-    ram[addr + 2] = (data >> 40) & 0xFF;
-    ram[addr + 3] = (data >> 32) & 0xFF;
-    ram[addr + 4] = (data >> 24) & 0xFF;
-    ram[addr + 5] = (data >> 16) & 0xFF;
-    ram[addr + 6] = (data >> 8) & 0xFF;
-    ram[addr + 7] = data & 0xFF;
 }
 
 #endif // __GC_ENV_H__
