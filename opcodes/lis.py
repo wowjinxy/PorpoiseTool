@@ -42,10 +42,13 @@ class LisHandler:
     def extract_symbol(self, operand: str) -> tuple[str, str]:
         """Extract symbol name and suffix from operand like 'symbol@h'."""
         if operand.endswith('@ha'):
-            return operand[:-3], '@ha'
+            sym = operand[:-3].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@ha'
         elif operand.endswith('@h'):
-            return operand[:-2], '@h'
-        return operand, ''
+            sym = operand[:-2].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@h'
+        sym = operand.strip('"')
+        return self.transpiler.sanitize_symbol_name(sym), ''
     
     def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
         """Validate operand count for instruction."""
@@ -122,10 +125,13 @@ class SimpleLisHandler:
     def extract_symbol(self, operand: str) -> tuple[str, str]:
         """Extract symbol name and suffix from operand."""
         if operand.endswith('@ha'):
-            return operand[:-3], '@ha'
+            sym = operand[:-3].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@ha'
         elif operand.endswith('@h'):
-            return operand[:-2], '@h'
-        return operand, ''
+            sym = operand[:-2].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@h'
+        sym = operand.strip('"')
+        return self.transpiler.sanitize_symbol_name(sym), ''
     
     def handle(self, instruction: Instruction) -> List[str]:
         """Handle lis instruction - always generate working C code."""

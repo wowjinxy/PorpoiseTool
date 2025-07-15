@@ -64,6 +64,14 @@ class ModularTranspiler:
         }
         self._load_opcode_handlers()
 
+    def sanitize_symbol_name(self, name: str) -> str:
+        """Return a C-safe version of a symbol name."""
+        name = name.strip().strip('"')
+        name = re.sub(r'[^0-9A-Za-z_]', '_', name)
+        if name and name[0].isdigit():
+            name = f"lbl_{name}"
+        return name
+
     def _load_opcode_handlers(self):
         """Load opcode handler modules from the opcodes directory."""
         if not self.opcodes_dir.exists():
@@ -143,7 +151,8 @@ class ModularTranspiler:
             # Match object declarations
             obj_match = re.match(r'\.obj\s+([^,]+)', line)
             if obj_match:
-                obj_name = obj_match.group(1).strip().strip('"')
+                raw_name = obj_match.group(1).strip().strip('"')
+                obj_name = self.sanitize_symbol_name(raw_name)
                 in_gap = True
                 current_name = obj_name
                 gap_lines = []
@@ -185,7 +194,8 @@ class ModularTranspiler:
             # Match exported symbol declarations
             sym_match = re.match(r'\.sym\s+(\w+),\s*(\w+)', line)
             if sym_match:
-                sym_name, sym_attr = sym_match.groups()
+                raw_sym, sym_attr = sym_match.groups()
+                sym_name = self.sanitize_symbol_name(raw_sym)
                 self.export_symbols.add(sym_name)
                 print(f"Parsed .sym symbol: {sym_name}")
                 continue
@@ -303,7 +313,8 @@ class ModularTranspiler:
             # Match object declarations outside of other objects
             obj_match = re.match(r'\.obj\s+([^,]+)', line)
             if obj_match and not current_function:
-                obj_name = obj_match.group(1).strip().strip('"')
+                raw_name = obj_match.group(1).strip().strip('"')
+                obj_name = self.sanitize_symbol_name(raw_name)
                 obj_addr = current_addr
                 obj_size = current_size
                 obj_lines = []
