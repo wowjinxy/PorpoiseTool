@@ -49,7 +49,7 @@ class StwHandler:
         if '@sda21(' in mem_str:
             sda_match = mem_str.split('@sda21(')
             if len(sda_match) == 2:
-                symbol = sda_match[0]
+                symbol = self.transpiler.sanitize_symbol_name(sda_match[0])
                 base_reg_part = sda_match[1].rstrip(')')
                 base_reg = self.parse_register(base_reg_part)
                 
@@ -62,7 +62,7 @@ class StwHandler:
         if '@l(' in mem_str:
             l_match = mem_str.split('@l(')
             if len(l_match) == 2:
-                symbol = l_match[0]
+                symbol = self.transpiler.sanitize_symbol_name(l_match[0])
                 base_reg_part = l_match[1].rstrip(')')
                 base_reg = self.parse_register(base_reg_part)
                 
@@ -75,7 +75,7 @@ class StwHandler:
         if '@h(' in mem_str:
             h_match = mem_str.split('@h(')
             if len(h_match) == 2:
-                symbol = h_match[0]
+                symbol = self.transpiler.sanitize_symbol_name(h_match[0])
                 base_reg_part = h_match[1].rstrip(')')
                 base_reg = self.parse_register(base_reg_part)
                 
@@ -87,7 +87,7 @@ class StwHandler:
         # Handle preprocessed SDA format (e.g., sda:symbol)
         if mem_str.startswith('sda:'):
             # This shouldn't happen with stw typically, but handle it just in case
-            symbol = mem_str[4:].strip()
+            symbol = self.transpiler.sanitize_symbol_name(mem_str[4:].strip())
             self.transpiler.variables.add(f"extern uint32_t {symbol}")
             return symbol, 0, True
         

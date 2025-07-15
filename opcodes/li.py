@@ -35,7 +35,7 @@ class LiHandler:
     def process_sda_symbol(self, value: str, transpiler=None) -> str:
         """Process SDA symbols and return appropriate C code."""
         if value.startswith("sda:"):
-            symbol_name = value[4:]  # Remove "sda:" prefix
+            symbol_name = transpiler.sanitize_symbol_name(value[4:])  # Remove "sda:" prefix
             # For SDA symbols, we need to get the address relative to the SDA base
             # This is typically done by taking the address of the symbol
             if transpiler:
@@ -43,7 +43,7 @@ class LiHandler:
             return f"(uint32_t)&{symbol_name}"
         elif "@sda21" in value:
             # Handle raw @sda21 syntax
-            symbol_name = value.split("@sda21")[0]
+            symbol_name = transpiler.sanitize_symbol_name(value.split("@sda21")[0])
             if transpiler:
                 transpiler.variables.add(f"extern uint32_t {symbol_name}")
             return f"(uint32_t)&{symbol_name}"

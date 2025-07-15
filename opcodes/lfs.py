@@ -62,14 +62,14 @@ class LfsHandler:
             
             # Check for SDA symbol (e.g., sda:cm_804D7E14)
             if ops[1].startswith('sda:'):
-                symbol = ops[1][4:].strip()
+                symbol = self.transpiler.sanitize_symbol_name(ops[1][4:].strip())
                 return [f"gc_env.f[{dst_fpreg}] = {symbol}; // lfs f{dst_fpreg}, {symbol}@sda21(r0)"]
             
             # Handle direct SDA relocation format (e.g., cm_804D7E08@sda21(r0))
             if '@sda21(' in ops[1]:
                 sda_match = ops[1].split('@sda21(')
                 if len(sda_match) == 2:
-                    symbol = sda_match[0]
+                    symbol = self.transpiler.sanitize_symbol_name(sda_match[0])
                     base_reg_part = sda_match[1].rstrip(')')
                     base_reg = self.parse_register(base_reg_part)
                     

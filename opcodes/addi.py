@@ -42,18 +42,18 @@ class AddiHandler:
         """Extract symbol name and suffix from operand like 'symbol@l'."""
         operand = operand.strip()
         if operand.endswith('@l'):
-            return operand[:-2], '@l'
+            return operand[:-2].strip('"'), '@l'
         elif operand.endswith('@ha'):
-            return operand[:-3], '@ha'
+            return operand[:-3].strip('"'), '@ha'
         elif operand.endswith('@h'):
-            return operand[:-2], '@h'
-        return operand, ''
+            return operand[:-2].strip('"'), '@h'
+        return operand.strip('"'), ''
     
     def clean_symbol_name(self, symbol: str) -> str:
         """Clean up symbol names by replacing invalid C characters."""
         symbol = symbol.replace('*bss*', '_bss_')
         symbol = symbol.replace('*', '_')
-        return symbol
+        return self.transpiler.sanitize_symbol_name(symbol)
     
     def check_lis_pattern(self, src_reg: int, symbol: str) -> bool:
         """Check if previous instruction was a matching lis instruction."""

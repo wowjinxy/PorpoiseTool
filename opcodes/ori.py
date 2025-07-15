@@ -43,12 +43,16 @@ class OriHandler:
     def extract_symbol(self, operand: str) -> Tuple[str, str]:
         """Extract symbol name and suffix from operand like 'symbol@l'."""
         if operand.endswith('@l'):
-            return operand[:-2], '@l'
+            sym = operand[:-2].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@l'
         elif operand.endswith('@h'):
-            return operand[:-2], '@h'
+            sym = operand[:-2].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@h'
         elif operand.endswith('@ha'):
-            return operand[:-3], '@ha'
-        return operand, ''
+            sym = operand[:-3].strip('"')
+            return self.transpiler.sanitize_symbol_name(sym), '@ha'
+        sym = operand.strip('"')
+        return self.transpiler.sanitize_symbol_name(sym), ''
     
     def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
         """Validate operand count for instruction."""

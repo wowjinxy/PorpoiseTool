@@ -33,13 +33,13 @@ class LbzHandler:
         
         # Handle SDA symbols (both preprocessed and raw formats)
         if offset_str.startswith("sda:"):
-            symbol_name = offset_str[4:]  # Remove "sda:" prefix
+            symbol_name = transpiler.sanitize_symbol_name(offset_str[4:])  # Remove "sda:" prefix
             if transpiler:
                 transpiler.variables.add(f"extern uint8_t {symbol_name}")
             return f"(uint32_t)&{symbol_name}"
         elif "@sda21" in offset_str:
             # Handle raw @sda21 syntax
-            symbol_name = offset_str.split("@sda21")[0]
+            symbol_name = transpiler.sanitize_symbol_name(offset_str.split("@sda21")[0])
             if transpiler:
                 transpiler.variables.add(f"extern uint8_t {symbol_name}")
             return f"(uint32_t)&{symbol_name}"
@@ -53,10 +53,11 @@ class LbzHandler:
             return "0"
         
         # Handle other symbols (assume they're global variables or constants)
-        if offset_str.isidentifier():
+        sanitized = transpiler.sanitize_symbol_name(offset_str)
+        if sanitized.isidentifier():
             if transpiler:
-                transpiler.variables.add(f"extern uint32_t {offset_str}")
-            return f"(uint32_t)&{offset_str}"
+                transpiler.variables.add(f"extern uint32_t {sanitized}")
+            return f"(uint32_t)&{sanitized}"
         
         # If we can't parse it, return as-is
         return offset_str
