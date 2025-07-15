@@ -131,13 +131,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="all_headers.h" />
     <ClInclude Include="auto_00_80003100_init.h" />
-    <ClInclude Include="camera.h" />
+    <ClInclude Include="auto_01_80005500_text.h" />
     <ClInclude Include="gc_env.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="auto_00_80003100_init.c" />
-    <ClCompile Include="camera.c" />
+    <ClCompile Include="auto_01_80005500_text.c" />
     <ClCompile Include="gc_env.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
