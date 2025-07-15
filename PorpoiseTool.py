@@ -429,11 +429,17 @@ class ModularTranspiler:
             '#include <stdio.h>',
             ''
         ]
-        
+
         # Add math.h if fcmpo is used
         if any(instr.opcode.lower().rstrip('.') == 'fcmpo' for func in self.functions for instr in func.instructions):
             c_lines.append('#include <math.h>')
             c_lines.append('')
+
+        # Preprocess instructions to add required includes
+        for func in self.functions:
+            for instr in func.instructions:
+                if instr.opcode.lower().rstrip('.') == 'b' and instr.operands and instr.operands[0].lstrip('.') == 'exit':
+                    self.includes.add('<stdlib.h>')
 
         if self.includes:
             c_lines.extend(f'#include {inc}' for inc in sorted(self.includes))
