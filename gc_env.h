@@ -98,4 +98,34 @@ static inline void gc_mem_write8(uint8_t* ram, uint32_t addr, uint8_t data) {
     ram[addr] = data;
 }
 
+static inline uint64_t gc_mem_read64(uint8_t* ram, uint32_t addr) {
+    if (addr < GC_RAM_BASE || addr + 7 >= GC_RAM_BASE + GC_RAM_SIZE) {
+        return 0;
+    }
+    addr -= GC_RAM_BASE;
+    return ((uint64_t)ram[addr] << 56) |
+           ((uint64_t)ram[addr + 1] << 48) |
+           ((uint64_t)ram[addr + 2] << 40) |
+           ((uint64_t)ram[addr + 3] << 32) |
+           ((uint64_t)ram[addr + 4] << 24) |
+           ((uint64_t)ram[addr + 5] << 16) |
+           ((uint64_t)ram[addr + 6] << 8) |
+           ((uint64_t)ram[addr + 7]);
+}
+
+static inline void gc_mem_write64(uint8_t* ram, uint32_t addr, uint64_t data) {
+    if (addr < GC_RAM_BASE || addr + 7 >= GC_RAM_BASE + GC_RAM_SIZE) {
+        return;
+    }
+    addr -= GC_RAM_BASE;
+    ram[addr] = (data >> 56) & 0xFF;
+    ram[addr + 1] = (data >> 48) & 0xFF;
+    ram[addr + 2] = (data >> 40) & 0xFF;
+    ram[addr + 3] = (data >> 32) & 0xFF;
+    ram[addr + 4] = (data >> 24) & 0xFF;
+    ram[addr + 5] = (data >> 16) & 0xFF;
+    ram[addr + 6] = (data >> 8) & 0xFF;
+    ram[addr + 7] = data & 0xFF;
+}
+
 #endif // __GC_ENV_H__
