@@ -3,6 +3,7 @@ Handler for PowerPC extlwi (Extract and Left Rotate Word Immediate) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -58,9 +59,10 @@ class ExtlwiHandler:
 
             if opcode == 'extlwi':
                 mask = (1 << n) - 1
+                mask_hex = format_hex(mask)
                 result = [
                     f"uint32_t rotated = (gc_env.r[{src_reg}] << {b}) | (gc_env.r[{src_reg}] >> {32 - b}); // extlwi r{dst_reg}, r{src_reg}, {n}, {b}",
-                    f"gc_env.r[{dst_reg}] = rotated & 0x{mask:X};"
+                    f"gc_env.r[{dst_reg}] = rotated & {mask_hex};"
                 ]
                 if instruction.opcode.endswith('.'):
                     result.append(

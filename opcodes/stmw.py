@@ -3,6 +3,7 @@ Handler for PowerPC stmw (Store Multiple Word) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -59,13 +60,14 @@ class StmwHandler:
             
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             
             if opcode == 'stmw':
                 result = []
                 # Store registers from rS to r31
                 for reg in range(first_reg, 32):
                     addr_offset = offset + (reg - first_reg) * 4
-                    result.append(f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + 0x{addr_offset:X}, gc_env.r[{reg}]); // stmw r{first_reg}, 0x{offset:X}(r{base_reg})")
+                    result.append(f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + {format_hex(addr_offset)}, gc_env.r[{reg}]); // stmw r{first_reg}, {offset_hex}(r{base_reg})")
                 return result
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]

@@ -86,9 +86,10 @@ class LfdHandler:
                 if len(offset_base) == 2:
                     offset = self.parse_immediate(offset_base[0])
                     base_reg = self.parse_register(offset_base[1].rstrip(')'))
+                    offset_hex = format_hex(offset)
                     
                     return [
-                        f"uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // lfd f{dst_fpreg}, 0x{offset:X}(r{base_reg})",
+                        f"uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfd f{dst_fpreg}, {offset_hex}(r{base_reg})",
                         f"gc_env.f[{dst_fpreg}] = *(double*)&temp;"
                     ]
             

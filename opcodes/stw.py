@@ -3,6 +3,7 @@ Handler for PowerPC stw (Store Word) instruction.
 """
 
 from typing import List, Tuple, Union
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -131,7 +132,8 @@ class StwHandler:
             if offset == 0:
                 return [f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}], gc_env.r[{src_reg}]); // {opcode} r{src_reg}, (r{base_reg})"]
             else:
-                return [f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}, gc_env.r[{src_reg}]); // {opcode} r{src_reg}, 0x{offset:X}(r{base_reg})"]
+                offset_hex = format_hex(offset)
+                return [f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, gc_env.r[{src_reg}]); // {opcode} r{src_reg}, {offset_hex}(r{base_reg})"]
 
     def handle(self, instruction: Instruction) -> List[str]:
         """Handle stw instruction."""

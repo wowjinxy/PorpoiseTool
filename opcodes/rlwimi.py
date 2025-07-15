@@ -3,6 +3,7 @@ Handler for PowerPC rlwimi (Rotate Left Word Immediate then Mask Insert) instruc
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -59,9 +60,10 @@ class RlwimiHandler:
             if opcode == 'rlwimi':
                 # Compute mask: 1s from mb to me (inclusive), 0s elsewhere
                 mask = ((1 << (32 - mb)) - 1) ^ ((1 << (32 - me - 1)) - 1) if me >= mb else ((1 << (32 - mb)) - 1) | ~((1 << (32 - me - 1)) - 1)
+                mask_hex = format_hex(mask)
                 result = [
                     f"uint32_t rotated = gc_env.r[{src_reg}] << {sh}; // rlwimi r{dst_reg}, r{src_reg}, {sh}, {mb}, {me}",
-                    f"gc_env.r[{dst_reg}] = (gc_env.r[{dst_reg}] & ~0x{mask:X}) | (rotated & 0x{mask:X});"
+                    f"gc_env.r[{dst_reg}] = (gc_env.r[{dst_reg}] & ~{mask_hex}) | (rotated & {mask_hex});"
                 ]
                 # Handle dot (.) for cr0 update
                 if instruction.opcode.endswith('.'):

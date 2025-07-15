@@ -3,6 +3,7 @@ Handler for PowerPC rlwinm (Rotate Left Word Immediate then AND with Mask) instr
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -60,7 +61,8 @@ class RlwinmHandler:
             if opcode == 'rlwinm':
                 # Compute mask: 1s from mb to me (inclusive), 0s elsewhere
                 mask = ((1 << (32 - mb)) - 1) ^ ((1 << (32 - me - 1)) - 1) if me >= mb else ((1 << (32 - mb)) - 1) | ~((1 << (32 - me - 1)) - 1)
-                result = [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] << {sh}) & 0x{mask:X}; // rlwinm r{dst_reg}, r{src_reg}, {sh}, {mb}, {me}"]
+                mask_hex = format_hex(mask)
+                result = [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] << {sh}) & {mask_hex}; // rlwinm r{dst_reg}, r{src_reg}, {sh}, {mb}, {me}"]
                 # Handle dot (.) for cr0 update
                 if instruction.opcode.endswith('.'):
                     result.append(f"gc_env.cr[0] = (gc_env.r[{dst_reg}] == 0) ? 0x2 : ((int32_t)gc_env.r[{dst_reg}] < 0 ? 0x8 : 0x4);")

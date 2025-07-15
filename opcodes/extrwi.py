@@ -3,6 +3,7 @@ Handler for PowerPC extrwi (Extract Right Word Immediate) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -59,7 +60,8 @@ class ExtrwiHandler:
             if opcode == 'extrwi':
                 shift = 32 - (b + n)  # Equivalent to rotate left by b+n, then mask
                 mask = (1 << n) - 1
-                result = [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] >> {shift}) & 0x{mask:X}; // extrwi r{dst_reg}, r{src_reg}, {n}, {b}"]
+                mask_hex = format_hex(mask)
+                result = [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] >> {shift}) & {mask_hex}; // extrwi r{dst_reg}, r{src_reg}, {n}, {b}"]
                 # Handle dot (.) for cr0 update
                 if instruction.opcode.endswith('.'):
                     result.append(f"gc_env.cr[0] = (gc_env.r[{dst_reg}] == 0) ? 0x2 : ((int32_t)gc_env.r[{dst_reg}] < 0 ? 0x8 : 0x4);")

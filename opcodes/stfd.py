@@ -3,6 +3,7 @@ Handler for PowerPC stfd (Store Floating-Point Double) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -64,12 +65,13 @@ class StfdHandler:
             
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             
             if opcode == 'stfd':
                 return [
                     f"uint64_t temp;",
                     f"memcpy(&temp, &gc_env.f[{src_fpreg}], sizeof(double));",
-                    f"gc_mem_write64(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}, temp); // stfd f{src_fpreg}, 0x{offset:X}(r{base_reg})"
+                    f"gc_mem_write64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, temp); // stfd f{src_fpreg}, {offset_hex}(r{base_reg})"
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]

@@ -3,6 +3,7 @@ Handler for PowerPC lha (Load Halfword Algebraic) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -57,10 +58,11 @@ class LhaHandler:
             
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             
             if opcode == 'lha':
                 return [
-                    f"gc_env.r[{dst_reg}] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // lha r{dst_reg}, 0x{offset:X}(r{base_reg})"
+                    f"gc_env.r[{dst_reg}] = (int32_t)(int16_t)gc_mem_read16(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lha r{dst_reg}, {offset_hex}(r{base_reg})"
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
