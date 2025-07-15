@@ -135,41 +135,48 @@ extern uint8_t lbl_8001EE58;
 // Data section: lbl_8001F0A0
 // Address: 0x8001F0A0
 uint32_t lbl_8001F0A0[] = {
-    // Unrecognized: .double 0
+    0x00000000, // .double 0 (hi)
+    0x00000000, // .double 0 (lo)
 };
 
 // Data section: lbl_8001F0A8
 // Address: 0x8001F0A8
 uint32_t lbl_8001F0A8[] = {
-    // Unrecognized: .double 1
+    0x3FF00000, // .double 1 (hi)
+    0x00000000, // .double 1 (lo)
 };
 
 // Data section: lbl_8001F0B0
 // Address: 0x8001F0B0
 uint32_t lbl_8001F0B0[] = {
-    // Unrecognized: .double 4503601774854144
+    0x43300000, // .double 4503601774854144 (hi)
+    0x80000000, // .double 4503601774854144 (lo)
 };
 
 // Data section: lbl_8001F0B8
 // Address: 0x8001F0B8
 uint32_t lbl_8001F0B8[] = {
-    // Unrecognized: .double 0.1
+    0x3FB99999, // .double 0.1 (hi)
+    0x9999999A, // .double 0.1 (lo)
 };
 
 // Data section: lbl_8001F0C0
 // Address: 0x8001F0C0
 uint32_t lbl_8001F0C0[] = {
-    // Unrecognized: .double 10
+    0x40240000, // .double 10 (hi)
+    0x00000000, // .double 10 (lo)
 };
 
 // Data section: lbl_8001F0C8
 // Address: 0x8001F0C8
 uint32_t lbl_8001F0C8[] = {
-    // Unrecognized: .double 0
+    0x00000000, // .double 0 (hi)
+    0x00000000, // .double 0 (lo)
 };
 
 // Data section: lbl_8001F0D0
 // Address: 0x8001F0D0
 uint32_t lbl_8001F0D0[] = {
-    // Unrecognized: .double 18014398509481984
+    0x43500000, // .double 18014398509481984 (hi)
+    0x00000000, // .double 18014398509481984 (lo)
 };
