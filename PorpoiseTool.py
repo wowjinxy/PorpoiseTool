@@ -187,14 +187,16 @@ class ModularTranspiler:
             if sym_match:
                 sym_name, sym_attr = sym_match.groups()
                 self.export_symbols.add(sym_name)
-                # Treat as a label inside current function if applicable
-                if current_function:
-                    current_function.instructions.append(
-                        Instruction(opcode=f"{sym_name}:", operands=[])
-                    )
-                    print(f"Parsed .sym label: {sym_name}")
-                else:
-                    print(f"Parsed .sym symbol: {sym_name}")
+                print(f"Parsed .sym symbol: {sym_name}")
+                continue
+
+            # Match .skip directives for uninitialized data
+            skip_match = re.match(r'\.skip\s+(0x[0-9A-Fa-f]+|\d+)', line)
+            if skip_match:
+                size_str = skip_match.group(1)
+                size_int = int(size_str, 16) if size_str.startswith('0x') else int(size_str)
+                data.append(('skip', str(size_int)))
+                print(f"Parsed .skip {size_int} bytes")
                 continue
 
             # Match instructions with address and raw bytes
@@ -470,6 +472,13 @@ class ModularTranspiler:
             c_lines.append(f'// Data section: {data.name}')
             if data.start_addr:
                 c_lines.append(f'// Address: {data.start_addr}')
+
+            if len(data.data) == 1 and data.data[0][0] == 'skip':
+                size = int(data.data[0][1])
+                c_lines.append(f'uint8_t {data.name}[0x{size:X}];')
+                c_lines.append('')
+                continue
+
             c_lines.append(f'uint32_t {data.name}[] = {{')
             for value, comment in data.data:
                 if value.startswith('//'):
@@ -514,7 +523,11 @@ class ModularTranspiler:
             h_lines.append('')
         h_lines.append('// Data section declarations')
         for data in self.data_sections:
-            h_lines.append(f'extern uint32_t {data.name}[];')
+            if len(data.data) == 1 and data.data[0][0] == 'skip':
+                size = int(data.data[0][1])
+                h_lines.append(f'extern uint8_t {data.name}[0x{size:X}];')
+            else:
+                h_lines.append(f'extern uint32_t {data.name}[];')
     
         h_lines.extend(['', f'#endif // {guard_name}'])
         return '\n'.join(h_lines)
