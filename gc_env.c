@@ -18,6 +18,9 @@ void gc_env_init(void) {
     gc_env.l2cr = 0; // Initialize L2CR
     gc_env.dec = 0; // Initialize Decrementer
     gc_env.hid2 = 0; // Initialize HID2
+    gc_env.srr0 = 0; // Initialize SRR0
+    gc_env.srr1 = 0; // Initialize SRR1
+    memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
 
     // Allocate RAM
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);
