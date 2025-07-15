@@ -134,12 +134,26 @@
     <ClInclude Include="all_headers.h" />
     <ClInclude Include="auto_00_80003100_init.h" />
     <ClInclude Include="auto_01_80005500_text.h" />
+    <ClInclude Include="auto_04_8001A460_rodata.h" />
+    <ClInclude Include="auto_05_8001A680_data.h" />
+    <ClInclude Include="auto_06_8001BB60_bss.h" />
+    <ClInclude Include="auto_07_8001EE00_sdata.h" />
+    <ClInclude Include="auto_08_8001EE60_sbss.h" />
+    <ClInclude Include="auto_09_8001F0A0_sdata2.h" />
     <ClInclude Include="gc_env.h" />
+    <ClInclude Include="__init_cpp_exceptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="auto_00_80003100_init.c" />
     <ClCompile Include="auto_01_80005500_text.c" />
+    <ClCompile Include="auto_04_8001A460_rodata.c" />
+    <ClCompile Include="auto_05_8001A680_data.c" />
+    <ClCompile Include="auto_06_8001BB60_bss.c" />
+    <ClCompile Include="auto_07_8001EE00_sdata.c" />
+    <ClCompile Include="auto_08_8001EE60_sbss.c" />
+    <ClCompile Include="auto_09_8001F0A0_sdata2.c" />
     <ClCompile Include="gc_env.c" />
+    <ClCompile Include="__init_cpp_exceptions.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

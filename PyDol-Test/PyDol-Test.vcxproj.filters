@@ -27,6 +27,27 @@
     <ClInclude Include="auto_01_80005500_text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="__init_cpp_exceptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_04_8001A460_rodata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_05_8001A680_data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_06_8001BB60_bss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_07_8001EE00_sdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_08_8001EE60_sbss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="auto_09_8001F0A0_sdata2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="auto_00_80003100_init.c">
@@ -36,6 +57,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="auto_01_80005500_text.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="__init_cpp_exceptions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_04_8001A460_rodata.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_05_8001A680_data.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_06_8001BB60_bss.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_07_8001EE00_sdata.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_08_8001EE60_sbss.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="auto_09_8001F0A0_sdata2.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
