@@ -218,6 +218,23 @@ class ModularTranspiler:
                 print(f"Parsed gap data: {value}")
                 continue
 
+            # Match .double directives (emit as two 32-bit words)
+            double_match = re.match(r'\.double\s+([\d.eE+-]+)', line)
+            if double_match:
+                val_str = double_match.group(1)
+                try:
+                    import struct
+                    dval = float(val_str)
+                    packed = struct.pack('>d', dval)
+                    hi, lo = struct.unpack('>II', packed)
+                    data.append((f"0x{hi:08X}", f".double {val_str} (hi)"))
+                    data.append((f"0x{lo:08X}", f".double {val_str} (lo)"))
+                    print(f"Parsed gap data: .double {val_str} -> 0x{hi:08X} 0x{lo:08X}")
+                except Exception as e:
+                    print(f"Warning: Failed to parse .double {val_str}: {e}")
+                    data.append(('//', f"Unrecognized .double {val_str}"))
+                continue
+
             # Handle labels
             if line.endswith(':'):
                 label = line.lstrip('.')
