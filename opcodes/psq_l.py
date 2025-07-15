@@ -3,6 +3,7 @@ Handler for PowerPC psq_l instruction (simplified).
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -56,8 +57,9 @@ class PsqLHandler:
                 raise ValueError(f"Invalid psq_l format: {ops[1]}")
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             return [
-                f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // psq_l f{dst_fp}, 0x{offset:X}(r{base_reg})",
+                f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // psq_l f{dst_fp}, {offset_hex}(r{base_reg})",
                 f"gc_env.f[{dst_fp}] = *(float*)&temp;"
             ]
         except ValueError as e:

@@ -3,6 +3,7 @@ Handler for PowerPC lwz (Load Word and Zero) instruction.
 """
 
 from typing import List, Tuple, Union
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -130,7 +131,8 @@ class LwzHandler:
             if offset == 0:
                 return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}]); // {opcode} r{dst_reg}, (r{base_reg})"]
             else:
-                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // {opcode} r{dst_reg}, 0x{offset:X}(r{base_reg})"]
+                offset_hex = format_hex(offset)
+                return [f"gc_env.r[{dst_reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // {opcode} r{dst_reg}, {offset_hex}(r{base_reg})"]
 
     def handle(self, instruction: Instruction) -> List[str]:
         """Handle lwz instruction."""

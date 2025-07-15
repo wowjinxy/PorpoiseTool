@@ -3,6 +3,7 @@ Handler for PowerPC clrlwi (Clear Left Word Immediate) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -57,7 +58,8 @@ class ClrlwiHandler:
             
             if opcode == 'clrlwi':
                 mask = (1 << (32 - n)) - 1
-                return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] & 0x{mask:X}; // clrlwi r{dst_reg}, r{src_reg}, {n}"]
+                mask_hex = format_hex(mask)
+                return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] & {mask_hex}; // clrlwi r{dst_reg}, r{src_reg}, {n}"]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
         

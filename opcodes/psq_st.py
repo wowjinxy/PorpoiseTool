@@ -3,6 +3,7 @@ Handler for PowerPC psq_st instruction (simplified).
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -56,9 +57,10 @@ class PsqStHandler:
                 raise ValueError(f"Invalid psq_st format: {ops[1]}")
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             return [
-                f"float temp = (float)gc_env.f[{src_fp}]; // psq_st f{src_fp}, 0x{offset:X}(r{base_reg})",
-                f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}, *(uint32_t*)&temp);"
+                f"float temp = (float)gc_env.f[{src_fp}]; // psq_st f{src_fp}, {offset_hex}(r{base_reg})",
+                f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, *(uint32_t*)&temp);"
             ]
         except ValueError as e:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]

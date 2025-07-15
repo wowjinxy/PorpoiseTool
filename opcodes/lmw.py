@@ -3,6 +3,7 @@ Handler for PowerPC lmw (Load Multiple Word) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -57,13 +58,14 @@ class LmwHandler:
             
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             
             if opcode == 'lmw':
                 result = []
                 for reg in range(start_reg, 32):
                     current_offset = offset + (reg - start_reg) * 4
                     result.append(
-                        f"gc_env.r[{reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + 0x{current_offset:X}); // lmw r{start_reg}, 0x{offset:X}(r{base_reg})"
+                        f"gc_env.r[{reg}] = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {format_hex(current_offset)}); // lmw r{start_reg}, {offset_hex}(r{base_reg})"
                     )
                 return result
             

@@ -3,6 +3,7 @@ Handler for PowerPC clrlslwi (Clear Left then Shift Left Word Immediate) instruc
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -53,7 +54,8 @@ class ClrlslwiHandler:
             n = self.parse_immediate(ops[3])
 
             mask = (1 << (32 - b)) - 1
-            return [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] << {n}) & 0x{mask:X}; // clrlslwi r{dst_reg}, r{src_reg}, {b}, {n}"]
+            mask_hex = format_hex(mask)
+            return [f"gc_env.r[{dst_reg}] = (gc_env.r[{src_reg}] << {n}) & {mask_hex}; // clrlslwi r{dst_reg}, r{src_reg}, {b}, {n}"]
         except ValueError as e:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
 

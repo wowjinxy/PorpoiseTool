@@ -3,6 +3,7 @@ Handler for PowerPC lfsu (Load Floating-Point Single with Update) instruction.
 """
 
 from typing import List
+from utils import format_hex
 
 try:
     from . import Instruction
@@ -64,12 +65,13 @@ class LfsuHandler:
             
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
+            offset_hex = format_hex(offset)
             
             if opcode == 'lfsu':
                 return [
-                    f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + 0x{offset:X}); // lfsu f{dst_fpreg}, 0x{offset:X}(r{base_reg})",
+                    f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfsu f{dst_fpreg}, {offset_hex}(r{base_reg})",
                     f"gc_env.f[{dst_fpreg}] = *(float*)&temp;",
-                    f"gc_env.r[{base_reg}] = gc_env.r[{base_reg}] + 0x{offset:X};"
+                    f"gc_env.r[{base_reg}] = gc_env.r[{base_reg}] + {offset_hex};"
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
