@@ -51,6 +51,7 @@ class ModularTranspiler:
         self.functions: List[Function] = []
         self.data_sections: List[DataSection] = []
         self.variables: Set[str] = set()
+        self.export_symbols: Set[str] = set()
         self.includes: Set[str] = set(['"gc_env.h"'])
         self.previous_instruction = None
         self._load_opcode_handlers()
@@ -161,6 +162,21 @@ class ModularTranspiler:
 
             # Match .hidden directive
             if line.startswith('.hidden'):
+                continue
+
+            # Match exported symbol declarations
+            sym_match = re.match(r'\.sym\s+(\w+),\s*(\w+)', line)
+            if sym_match:
+                sym_name, sym_attr = sym_match.groups()
+                self.export_symbols.add(sym_name)
+                # Treat as a label inside current function if applicable
+                if current_function:
+                    current_function.instructions.append(
+                        Instruction(opcode=f"{sym_name}:", operands=[])
+                    )
+                    print(f"Parsed .sym label: {sym_name}")
+                else:
+                    print(f"Parsed .sym symbol: {sym_name}")
                 continue
 
             # Match instructions with address and raw bytes
@@ -414,8 +430,13 @@ class ModularTranspiler:
         h_lines.append('// Function declarations')
         for func in self.functions:
             h_lines.append(f'void {func.name}(void);')
-    
+
         h_lines.append('')
+        if self.export_symbols:
+            h_lines.append('// Exported symbols from .sym')
+            for sym in sorted(self.export_symbols):
+                h_lines.append(f'extern uint32_t {sym};')
+            h_lines.append('')
         h_lines.append('// Data section declarations')
         for data in self.data_sections:
             h_lines.append(f'extern uint32_t {data.name}[];')
@@ -459,6 +480,7 @@ class ModularTranspiler:
 
         self.functions = []
         self.data_sections = []
+        self.export_symbols = set()
         self.parse_assembly(assembly_code)
         if not self.functions and not self.data_sections:
             print("Warning: No functions or data sections found in assembly file; skipping")
