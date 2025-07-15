@@ -38,6 +38,9 @@ def handle(instruction, transpiler):
         return "return;"
     elif opcode == 'b' and len(ops) >= 1:
         label = ops[0].lstrip('.')  # Remove leading period
+        if label == 'exit':
+            transpiler.includes.add('<stdlib.h>')
+            return 'exit(gc_env.r[3]);'
         return f"goto {label};"
     elif opcode == 'bl' and len(ops) >= 1:
         target = ops[0].split('@')[0]

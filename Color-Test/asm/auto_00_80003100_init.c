@@ -2,9 +2,9 @@
 #include "auto_00_80003100_init.h"
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "gc_env.h"
+#include <stdlib.h>
 
 // Function: __check_pad3
 // Address: 0x80003100
