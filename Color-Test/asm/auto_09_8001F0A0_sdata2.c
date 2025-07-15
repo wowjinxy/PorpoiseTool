@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "gc_env.h"
+#include <stdlib.h>
 
 // Global variables
 extern double lbl_8001F0A0;

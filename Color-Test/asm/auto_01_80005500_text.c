@@ -6,6 +6,7 @@
 #include <math.h>
 
 #include "gc_env.h"
+#include <stdlib.h>
 
 // Function: main
 // Address: 0x80005500
@@ -238,8 +239,8 @@ void ClearArena(void) {
     goto L_800057FC;
     L_80005750:
     gc_env.r[3] = -32464 << 16; // lis r3, 0x8130
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x-2010); // lwz r31, 0x-2010(r3)
-    gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x-2014); // lwz r30, 0x-2014(r3)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + -0x2010); // lwz r31, -0x2010(r3)
+    gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + -0x2014); // lwz r30, -0x2014(r3)
     gc_env.cr[0] = ((uint32_t)gc_env.r[31] == 0x0) ? 0 : ((uint32_t)gc_env.r[31] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80005788;
     OSGetArenaHi();
@@ -395,7 +396,7 @@ void OSInit(void) {
     __OSThreadInit();
     __OSInitAudioSystem();
     PPCMfhid2();
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-40000001; // rlwinm r3, r3, 0, 2, 0
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x40000001; // rlwinm r3, r3, 0, 2, 0
     PPCMthid2();
     gc_env.r[3] = BootInfo_8001EE68; // lwz r3, BootInfo_8001EE68@sda21(r0)
     gc_env.r[4] = gc_env.r[3] + 44; // addi r4, r3, 0x2c
@@ -1738,7 +1739,7 @@ void __OSInitAudioSystem(void) {
     if (gc_env.cr[0] == 0) goto L_80006758;
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[3]); // sth r3, 0x0(r31)
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x0); // lhz r0, 0x0(r31)
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-801; // rlwinm r0, r0, 0, 21, 19
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x801; // rlwinm r0, r0, 0, 21, 19
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // sth r0, 0x0(r31)
     L_80006774:
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x0); // lhz r0, 0x0(r31)
@@ -1746,7 +1747,7 @@ void __OSInitAudioSystem(void) {
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] != 0) goto L_80006774;
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x0); // lhz r0, 0x0(r31)
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-5; // rlwinm r0, r0, 0, 30, 28
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x5; // rlwinm r0, r0, 0, 30, 28
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // sth r0, 0x0(r31)
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[30] + 0x0); // lhz r0, 0x0(r30)
     goto L_80006798;
@@ -1803,7 +1804,7 @@ void __OSStopAudioSystem(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x8, gc_env.r[30]); // stw r30, 0x8(r1)
     gc_mem_write16(gc_env.ram, gc_env.r[31] + 0xa, gc_env.r[0]); // sth r0, 0xa(r31)
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x36); // lhz r0, 0x36(r3)
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-8001; // rlwinm r0, r0, 0, 17, 15
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x8001; // rlwinm r0, r0, 0, 17, 15
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x36, gc_env.r[0]); // sth r0, 0x36(r3)
     gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0xa); // lhzu r0, 0xa(r31)
     gc_env.r[31] = gc_env.r[31] + 0xa;
@@ -2005,7 +2006,7 @@ void LCDisable(void) {
     gc_env.ctr -= 1;
     if (gc_env.ctr != 0) goto L_80006A18;
     gc_env.r[4] = gc_env.hid2; // mfspr r4, HID2
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-10000001; // rlwinm r4, r4, 0, 4, 2
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x10000001; // rlwinm r4, r4, 0, 4, 2
     gc_env.hid2 = gc_env.r[4]; // mtspr HID2, r4
     return;
 }
@@ -2035,7 +2036,7 @@ void L2GlobalInvalidate(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80006A6C;
     PPCMfl2cr();
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-200001; // rlwinm r3, r3, 0, 11, 9
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x200001; // rlwinm r3, r3, 0, 11, 9
     PPCMtl2cr();
     goto L_80006A8C;
     L_80006A8C:
@@ -2226,7 +2227,7 @@ void __OSCacheInit(void) {
     PPCMtmsr();
     PPCMfl2cr();
     gc_env.r[0] = gc_env.r[3] | 0x80000000; // oris r0, r3, 0x8000
-    gc_env.r[3] = (gc_env.r[0] << 0) & 0x-200001; // rlwinm r3, r0, 0, 11, 9
+    gc_env.r[3] = (gc_env.r[0] << 0) & -0x200001; // rlwinm r3, r0, 0, 11, 9
     PPCMtl2cr();
     gc_env.r[3] = gc_env.r[31] + 484; // addi r3, r31, 0x1e4
     gc_env.cr[1] &= ~0x2; // crclr cr1eq
@@ -2253,8 +2254,7 @@ void __OSLoadFPUContext(void) {
     gc_env.r[5] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x1a2); // lhz r5, 0x1a2(r4)
     gc_env.r[5] = gc_env.r[5] & 0x1; // clrlwi r5, r5, 31
     if (gc_env.cr[0] == 0) goto L_80006E40;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x190); // lfd f0, 0x190(r4)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.fpscr = (uint32_t)gc_env.f[0]; // mtfsf 255, f0
     gc_env.r[5] = gc_env.hid2; // mfspr r5, HID2
     gc_env.r[5] = (gc_env.r[5] >> 29) & 0x1; // extrwi r5, r5, 1, 2
@@ -2325,70 +2325,38 @@ void __OSLoadFPUContext(void) {
     uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2C0); // psq_l f31, 0x2C0(r4)
     gc_env.f[31] = *(float*)&temp;
     L_80006DC0:
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x90); // lfd f0, 0x90(r4)
-    gc_env.f[0] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x98); // lfd f1, 0x98(r4)
-    gc_env.f[1] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xA0); // lfd f2, 0xA0(r4)
-    gc_env.f[2] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xA8); // lfd f3, 0xA8(r4)
-    gc_env.f[3] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xB0); // lfd f4, 0xB0(r4)
-    gc_env.f[4] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xB8); // lfd f5, 0xB8(r4)
-    gc_env.f[5] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xC0); // lfd f6, 0xC0(r4)
-    gc_env.f[6] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xC8); // lfd f7, 0xC8(r4)
-    gc_env.f[7] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xD0); // lfd f8, 0xD0(r4)
-    gc_env.f[8] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xD8); // lfd f9, 0xD8(r4)
-    gc_env.f[9] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xE0); // lfd f10, 0xE0(r4)
-    gc_env.f[10] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xE8); // lfd f11, 0xE8(r4)
-    gc_env.f[11] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xF0); // lfd f12, 0xF0(r4)
-    gc_env.f[12] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xF8); // lfd f13, 0xF8(r4)
-    gc_env.f[13] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x100); // lfd f14, 0x100(r4)
-    gc_env.f[14] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x108); // lfd f15, 0x108(r4)
-    gc_env.f[15] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x110); // lfd f16, 0x110(r4)
-    gc_env.f[16] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x118); // lfd f17, 0x118(r4)
-    gc_env.f[17] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x120); // lfd f18, 0x120(r4)
-    gc_env.f[18] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x128); // lfd f19, 0x128(r4)
-    gc_env.f[19] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x130); // lfd f20, 0x130(r4)
-    gc_env.f[20] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x138); // lfd f21, 0x138(r4)
-    gc_env.f[21] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x140); // lfd f22, 0x140(r4)
-    gc_env.f[22] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x148); // lfd f23, 0x148(r4)
-    gc_env.f[23] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x150); // lfd f24, 0x150(r4)
-    gc_env.f[24] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x158); // lfd f25, 0x158(r4)
-    gc_env.f[25] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x160); // lfd f26, 0x160(r4)
-    gc_env.f[26] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x168); // lfd f27, 0x168(r4)
-    gc_env.f[27] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x170); // lfd f28, 0x170(r4)
-    gc_env.f[28] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x178); // lfd f29, 0x178(r4)
-    gc_env.f[29] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x180); // lfd f30, 0x180(r4)
-    gc_env.f[30] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x188); // lfd f31, 0x188(r4)
-    gc_env.f[31] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
     L_80006E40:
     return;
 }
@@ -2499,8 +2467,7 @@ void __OSSaveFPUContext(void) {
     uint64_t temp;
     memcpy(&temp, &gc_env.f[0], sizeof(double));
     gc_mem_write64(gc_env.ram, gc_env.r[5] + 0x190, temp); // stfd f0, 0x190(r5)
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x90); // lfd f0, 0x90(r5)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.r[3] = gc_env.hid2; // mfspr r3, HID2
     gc_env.r[3] = (gc_env.r[3] >> 29) & 0x1; // extrwi r3, r3, 1, 2
     gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);
@@ -2592,10 +2559,10 @@ void OSSetCurrentContext(void) {
     return;
     L_80006FA4:
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x19C); // lwz r6, 0x19C(r3)
-    gc_env.r[6] = (gc_env.r[6] << 0) & 0x-2001; // rlwinm r6, r6, 0, 19, 17
+    gc_env.r[6] = (gc_env.r[6] << 0) & -0x2001; // rlwinm r6, r6, 0, 19, 17
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x19C, gc_env.r[6]); // stw r6, 0x19C(r3)
     gc_env.r[6] = gc_env.msr; // Move from machine state register
-    gc_env.r[6] = (gc_env.r[6] << 0) & 0x-2001; // rlwinm r6, r6, 0, 19, 17
+    gc_env.r[6] = (gc_env.r[6] << 0) & -0x2001; // rlwinm r6, r6, 0, 19, 17
     gc_env.r[6] |= 2; // ori r6, r6, 0x2
     gc_env.msr = gc_env.r[6]; // Move to machine state register
     // isync: Instruction synchronize (no-op in this context)
@@ -2686,7 +2653,7 @@ void OSLoadContext(void) {
     gc_env.r[5] = (gc_env.r[4] << 0) & 0x2; // rlwinm r5, r4, 0, 30, 30
     gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_800070A4;
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x1a2, gc_env.r[4]); // sth r4, 0x1a2(r3)
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lmw r5, 0x14(r3)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lmw r5, 0x14(r3)
@@ -2768,8 +2735,8 @@ void OSLoadContext(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x8C); // lwz r4, 0x8C(r3)
     gc_env.xer = gc_env.r[4]; // mtxer r4
     gc_env.r[4] = gc_env.msr; // Move from machine state register
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r4, r4, 0, 17, 15
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r4, r4, 0, 17, 15
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29
     gc_env.msr = gc_env.r[4]; // Move to machine state register
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x198); // lwz r4, 0x198(r3)
     gc_env.srr0 = gc_env.r[4]; // mtsrr0 r4
@@ -2903,12 +2870,10 @@ void OSDumpContext(void) {
     L_800072AC:
     goto L_800072B0;
     L_800072B0:
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x98); // lfd f1, 0x98(r26)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     fn_800114CC();
     gc_env.r[27] = gc_env.r[3]; // Move register
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x90); // lfd f1, 0x90(r26)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     fn_800114CC();
     gc_env.r[5] = gc_env.r[3]; // Move register
     gc_env.cr[1] &= ~0x2; // crclr cr1eq
@@ -2933,12 +2898,10 @@ void OSDumpContext(void) {
     L_80007310:
     goto L_80007314;
     L_80007314:
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x1D0); // lfd f1, 0x1D0(r26)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     fn_800114CC();
     gc_env.r[27] = gc_env.r[3]; // Move register
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x1C8); // lfd f1, 0x1C8(r26)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     fn_800114CC();
     gc_env.r[5] = gc_env.r[3]; // Move register
     gc_env.cr[1] &= ~0x2; // crclr cr1eq
@@ -3047,7 +3010,7 @@ void OSSwitchFPUContext(void) {
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x8C); // lwz r3, 0x8C(r4)
     gc_env.xer = gc_env.r[3]; // mtxer r3
     gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x1a2); // lhz r3, 0x1a2(r4)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-3; // rlwinm r3, r3, 0, 31, 29
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x3; // rlwinm r3, r3, 0, 31, 29
     gc_mem_write16(gc_env.ram, gc_env.r[4] + 0x1a2, gc_env.r[3]); // sth r3, 0x1a2(r4)
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x14); // lwz r5, 0x14(r4)
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0xC); // lwz r3, 0xC(r4)
@@ -3302,7 +3265,7 @@ void __OSUnhandledException(void) {
 // Address: 0x80007760
 void OSDisableInterrupts(void) {
     gc_env.r[3] = gc_env.msr; // Move from machine state register
-    gc_env.r[4] = (gc_env.r[3] << 0) & 0x-8001; // rlwinm r4, r3, 0, 17, 15
+    gc_env.r[4] = (gc_env.r[3] << 0) & -0x8001; // rlwinm r4, r3, 0, 17, 15
     gc_env.msr = gc_env.r[4]; // Move to machine state register
     gc_env.r[3] = (gc_env.r[3] >> 15) & 0x1; // extrwi r3, r3, 1, 16
     return;
@@ -3327,7 +3290,7 @@ void OSRestoreInterrupts(void) {
     gc_env.r[5] = gc_env.r[4] | 32768; // ori r5, r4, 0x8000
     goto L_800077A0;
     L_8000779C:
-    gc_env.r[5] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r5, r4, 0, 17, 15
+    gc_env.r[5] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r5, r4, 0, 17, 15
     L_800077A0:
     gc_env.msr = gc_env.r[5]; // Move to machine state register
     gc_env.r[4] = (gc_env.r[4] >> 15) & 0x1; // extrwi r4, r4, 1, 16
@@ -3455,7 +3418,7 @@ void fn_80007850(void) {
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x4000000; // rlwinm r0, r4, 0, 5, 5
     gc_env.r[6] = gc_mem_read16(gc_env.ram, gc_env.r[5] + 0x0); // lhz r6, 0x0(r5)
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_env.r[6] = (gc_env.r[6] << 0) & 0x-1F9; // rlwinm r6, r6, 0, 29, 22
+    gc_env.r[6] = (gc_env.r[6] << 0) & -0x1F9; // rlwinm r6, r6, 0, 29, 22
     if (gc_env.cr[0] != 0) goto L_8000792C;
     gc_env.r[6] |= 16; // ori r6, r6, 0x10
     L_8000792C:
@@ -3471,7 +3434,7 @@ void fn_80007850(void) {
     L_8000794C:
     gc_env.r[0] = gc_env.r[6] & 0xFFFF; // clrlwi r0, r6, 16
     gc_mem_write16(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[0]); // sth r0, 0x0(r5)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-7000001; // rlwinm r3, r3, 0, 8, 4
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x7000001; // rlwinm r3, r3, 0, 8, 4
     goto L_80007B24;
     L_8000795C:
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x800000; // rlwinm r0, r4, 0, 8, 8
@@ -3485,7 +3448,7 @@ void fn_80007850(void) {
     L_8000797C:
     gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6C00, gc_env.r[5]); // stw r5, 0x6C00(r4)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-800001; // rlwinm r3, r3, 0, 9, 7
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x800001; // rlwinm r3, r3, 0, 9, 7
     goto L_80007B24;
     L_8000798C:
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x400000; // rlwinm r0, r4, 0, 9, 9
@@ -3509,7 +3472,7 @@ void fn_80007850(void) {
     L_800079CC:
     gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6800, gc_env.r[5]); // stw r5, 0x6800(r4)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-700001; // rlwinm r3, r3, 0, 12, 8
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x700001; // rlwinm r3, r3, 0, 12, 8
     goto L_80007B24;
     L_800079DC:
     gc_env.r[5] = -13312 << 16; // lis r5, 0xcc00
@@ -3534,7 +3497,7 @@ void fn_80007850(void) {
     gc_env.r[7] |= 1024; // ori r7, r7, 0x400
     L_80007A24:
     gc_mem_write32(gc_env.ram, gc_env.r[6], gc_env.r[7]); // stw r7, (r6)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-E0001; // rlwinm r3, r3, 0, 15, 11
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0xE0001; // rlwinm r3, r3, 0, 15, 11
     goto L_80007B24;
     L_80007A30:
     gc_env.r[5] = -13312 << 16; // lis r5, 0xcc00
@@ -3553,7 +3516,7 @@ void fn_80007850(void) {
     gc_env.r[6] |= 4; // ori r6, r6, 0x4
     L_80007A64:
     gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[6]); // stw r6, (r5)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-18001; // rlwinm r3, r3, 0, 17, 14
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x18001; // rlwinm r3, r3, 0, 17, 14
     goto L_80007B24;
     L_80007A70:
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x4000; // rlwinm r0, r4, 0, 17, 17
@@ -3610,7 +3573,7 @@ void fn_80007850(void) {
     gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00
     gc_env.r[4] += 12288; // addi r4, r4, 0x3000
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x4, gc_env.r[5]); // stw r5, 0x4(r4)
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-7FE1; // rlwinm r3, r3, 0, 27, 16
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x7FE1; // rlwinm r3, r3, 0, 27, 16
     L_80007B24:
     return;
 }
@@ -3716,7 +3679,7 @@ void fn_80007C38(void) {
     gc_env.r[30] = gc_env.r[4]; // Move register
     gc_env.r[3] = -13312 << 16; // lis r3, 0xcc00
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3000); // lwz r31, 0x3000(r3)
-    gc_env.r[31] = (gc_env.r[31] << 0) & 0x-10001; // rlwinm r31, r31, 0, 16, 14
+    gc_env.r[31] = (gc_env.r[31] << 0) & -0x10001; // rlwinm r31, r31, 0, 16, 14
     gc_env.cr[0] = ((uint32_t)gc_env.r[31] == 0x0) ? 0 : ((uint32_t)gc_env.r[31] < 0x0 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] == 0) goto L_80007C7C;
     gc_env.r[3] += 12288; // addi r3, r3, 0x3000
@@ -4151,7 +4114,7 @@ void RealMode(void) {
     gc_env.r[3] = gc_env.r[3] & 0x3FFFFFFF; // clrlwi r3, r3, 2
     gc_env.srr0 = gc_env.r[3]; // mtsrr0 r3
     gc_env.r[3] = gc_env.msr; // Move from machine state register
-    gc_env.r[3] = (gc_env.r[3] << 0) & 0x-31; // rlwinm r3, r3, 0, 28, 25
+    gc_env.r[3] = (gc_env.r[3] << 0) & -0x31; // rlwinm r3, r3, 0, 28, 25
     gc_env.srr1 = gc_env.r[3]; // mtsrr1 r3
     // rfi: return from interrupt (not implemented)
 }
@@ -4330,13 +4293,13 @@ void __OSReboot(void) {
     gc_env.r[0] = lbl_8001EEB4; // lwz r0, lbl_8001EEB4@sda21(r0)
     gc_env.r[4] = -32464 << 16; // lis r4, 0x8130
     gc_env.r[7] = 0x1; // li r7, 0x1
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x-4, gc_env.r[29]); // stw r29, 0x-4(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + -0x4, gc_env.r[29]); // stw r29, -0x4(r31)
     gc_env.r[6] = -32768 << 16; // lis r6, 0x8000
-    gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x-8, gc_env.r[3]); // stw r3, 0x-8(r31)
+    gc_mem_write32(gc_env.ram, gc_env.r[31] + -0x8, gc_env.r[3]); // stw r3, -0x8(r31)
     gc_env.r[3] = gc_env.r[1] + 112; // addi r3, r1, 0x70
     gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x30e2, gc_env.r[7]); // stb r7, 0x30e2(r6)
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x-2010, gc_env.r[5]); // stw r5, 0x-2010(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x-2014, gc_env.r[0]); // stw r0, 0x-2014(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[4] + -0x2010, gc_env.r[5]); // stw r5, -0x2010(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[4] + -0x2014, gc_env.r[0]); // stw r0, -0x2014(r4)
     OSClearContext();
     gc_env.r[3] = gc_env.r[1] + 112; // addi r3, r1, 0x70
     OSSetCurrentContext();
@@ -4349,7 +4312,7 @@ void __OSReboot(void) {
     fn_8000F238();
     gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_80008410;
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)
     fn_8000863C();
     L_80008410:
     gc_env.r[3] = -0x20; // li r3, -0x20
@@ -4388,7 +4351,7 @@ void __OSReboot(void) {
     if (gc_env.cr[0] >= 0) goto L_8000845C;
     goto L_80008488;
     L_80008488:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)
     fn_8000863C();
     goto L_8000845C;
     L_80008494:
@@ -4428,7 +4391,7 @@ void __OSReboot(void) {
     if (gc_env.cr[0] >= 0) goto L_800084E0;
     goto L_8000850C;
     L_8000850C:
-    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)
+    gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)
     fn_8000863C();
     goto L_800084E0;
     L_80008518:
@@ -7311,7 +7274,7 @@ void EXIDeselect(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[30] + 0xC); // lwz r4, 0xC(r30)
     gc_env.r[3] = -13312 << 16; // lis r3, 0xcc00
     gc_env.r[0] = gc_env.r[31] * 20; // mulli r0, r31, 20
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-5; // rlwinm r4, r4, 0, 30, 28
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x5; // rlwinm r4, r4, 0, 30, 28
     gc_env.r[3] += 26624; // addi r3, r3, 0x6800
     gc_mem_write32(gc_env.ram, gc_env.r[30] + 0xC, gc_env.r[4]); // stw r4, 0xC(r30)
     gc_env.r[3] = gc_env.r[3] + gc_env.r[0]; // add r3, r3, r0
@@ -7615,7 +7578,7 @@ void EXTIntrruptHandler(void) {
     gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0x8); // lwz r28, 0x8(r29)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lwz r0, 0xC(r29)
     gc_env.cr[0] = ((uint32_t)gc_env.r[28] == 0x0) ? 0 : ((uint32_t)gc_env.r[28] < 0x0 ? -1 : 1); // Logical compare with immediate
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-9; // rlwinm r0, r0, 0, 29, 27
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x9; // rlwinm r0, r0, 0, 29, 27
     gc_mem_write32(gc_env.ram, gc_env.r[29] + 0xC, gc_env.r[0]); // stw r0, 0xC(r29)
     if (gc_env.cr[0] == 0) goto L_8000AC08;
     gc_env.r[3] = gc_env.r[1] + 16; // addi r3, r1, 0x10
@@ -7834,7 +7797,7 @@ void EXIUnlock(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xC); // lwz r0, 0xC(r31)
     gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0
     gc_env.r[4] = gc_env.r[31] + 0; // addi r4, r31, 0x0
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-11; // rlwinm r0, r0, 0, 28, 26
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x11; // rlwinm r0, r0, 0, 28, 26
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xC, gc_env.r[0]); // stw r0, 0xC(r31)
     fn_80009D98();
     gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x24); // lwz r3, 0x24(r31)
@@ -8810,7 +8773,7 @@ void SISetXY(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x4); // lwz r0, 0x4(r4)
     gc_env.r[5] = gc_env.r[4] + 4; // addi r5, r4, 0x4
     gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-3FFFF01; // rlwinm r0, r0, 0, 24, 5
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x3FFFF01; // rlwinm r0, r0, 0, 24, 5
     gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[0]); // stw r0, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r0, (r5)
     gc_env.r[0] = gc_env.r[0] | gc_env.r[31]; // or r0, r0, r31
@@ -9101,7 +9064,7 @@ void GetTypeCallback(void) {
     gc_env.r[26] = gc_env.r[4] + 0; // addi r26, r4, 0x0
     gc_env.r[31] = gc_env.r[3] + ((uint32_t)&Packet_8001C6C0 & 0xFFFF); // addi r31, r3, Packet_8001C6C0@l
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r0, (r30)
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-81; // rlwinm r0, r0, 0, 25, 23
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x81; // rlwinm r0, r0, 0, 25, 23
     gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[0]); // stw r0, (r30)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r0, (r30)
     gc_env.r[0] = gc_env.r[0] | gc_env.r[26]; // or r0, r0, r26
@@ -9805,7 +9768,7 @@ void fn_8000C430(void) {
     gc_env.r[0] = lbl_8001EF40; // lwz r0, lbl_8001EF40@sda21(r0)
     gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
     if (gc_env.cr[0] != 0) goto L_8000C620;
-    gc_env.r[29] = (gc_env.r[29] << 0) & 0x-9; // rlwinm r29, r29, 0, 29, 27
+    gc_env.r[29] = (gc_env.r[29] << 0) & -0x9; // rlwinm r29, r29, 0, 29, 27
     L_8000C620:
     gc_env.r[0] = gc_env.r[29] & 0x1; // clrlwi r0, r29, 31
     if (gc_env.cr[0] == 0) goto L_8000C6A4;
@@ -10682,7 +10645,7 @@ void fn_8000D118(void) {
     gc_env.r[31] = gc_env.r[4] + 12288; // addi r31, r4, 0x3000
     gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6004, gc_env.r[0]); // stw r0, 0x6004(r4)
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x3024); // lwz r30, 0x3024(r4)
-    gc_env.r[0] = (gc_env.r[30] << 0) & 0x-5; // rlwinm r0, r30, 0, 30, 28
+    gc_env.r[0] = (gc_env.r[30] << 0) & -0x5; // rlwinm r0, r30, 0, 30, 28
     gc_env.r[0] |= 1; // ori r0, r0, 0x1
     gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stwu r0, 0x24(r31)
     gc_env.r[31] = gc_env.r[31] + 0x24;
@@ -13864,7 +13827,7 @@ void fn_8000FA08(void) {
     gc_env.r[0] = (gc_env.r[6] << 0) & 0x8000; // rlwinm r0, r6, 0, 16, 16
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8000FA48;
-    gc_env.r[0] = (gc_env.r[6] << 0) & 0x-8001; // rlwinm r0, r6, 0, 17, 15
+    gc_env.r[0] = (gc_env.r[6] << 0) & -0x8001; // rlwinm r0, r6, 0, 17, 15
     gc_mem_write16(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[0]); // sth r0, 0x0(r5)
     gc_env.r[7] |= 1; // ori r7, r7, 0x1
     L_8000FA48:
@@ -13874,7 +13837,7 @@ void fn_8000FA08(void) {
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8000FA64;
-    gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15
+    gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)
     gc_env.r[7] |= 2; // ori r7, r7, 0x2
     L_8000FA64:
@@ -13884,7 +13847,7 @@ void fn_8000FA08(void) {
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8000FA80;
-    gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15
+    gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)
     gc_env.r[7] |= 4; // ori r7, r7, 0x4
     L_8000FA80:
@@ -13894,7 +13857,7 @@ void fn_8000FA08(void) {
     gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16
     gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8000FA9C;
-    gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15
+    gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)
     gc_env.r[7] |= 8; // ori r7, r7, 0x8
     L_8000FA9C:
@@ -15193,16 +15156,16 @@ void fn_800107F8(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x3) ? 0 : ((uint32_t)gc_env.r[0] < 0x3 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80010BF8;
     L_80010BEC:
-    gc_env.r[0] = (gc_env.r[5] << 0) & 0x-5; // rlwinm r0, r5, 0, 30, 28
+    gc_env.r[0] = (gc_env.r[5] << 0) & -0x5; // rlwinm r0, r5, 0, 30, 28
     gc_env.r[5] = gc_env.r[0] | 4; // ori r5, r0, 0x4
     goto L_80010C00;
     L_80010BF8:
-    gc_env.r[5] = (gc_env.r[5] << 0) & 0x-5; // rlwinm r5, r5, 0, 30, 28
+    gc_env.r[5] = (gc_env.r[5] << 0) & -0x5; // rlwinm r5, r5, 0, 30, 28
     uint32_t rotated = gc_env.r[0] << 2; // rlwimi r5, r0, 2, 29, 29
     gc_env.r[5] = (gc_env.r[5] & ~0x4) | (rotated & 0x4);
     L_80010C00:
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[21]); // lwz r6, (r21)
-    gc_env.r[5] = (gc_env.r[5] << 0) & 0x-9; // rlwinm r5, r5, 0, 29, 27
+    gc_env.r[5] = (gc_env.r[5] << 0) & -0x9; // rlwinm r5, r5, 0, 29, 27
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[18]); // lwz r7, (r18)
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x4) ? 0 : ((uint32_t)gc_env.r[6] < 0x4 ? -1 : 1); // Logical compare with immediate
     gc_env.r[0] = gc_env.r[7] << 3; // slwi r0, r7, 3
@@ -15211,10 +15174,10 @@ void fn_800107F8(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x5) ? 0 : ((uint32_t)gc_env.r[6] < 0x5 ? -1 : 1); // Logical compare with immediate
     if (gc_env.cr[0] != 0) goto L_80010C2C;
     L_80010C24:
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-301; // rlwinm r0, r0, 0, 24, 21
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x301; // rlwinm r0, r0, 0, 24, 21
     goto L_80010C38;
     L_80010C2C:
-    gc_env.r[5] = (gc_env.r[0] << 0) & 0x-301; // rlwinm r5, r0, 0, 24, 21
+    gc_env.r[5] = (gc_env.r[0] << 0) & -0x301; // rlwinm r5, r0, 0, 24, 21
     gc_env.r[0] = gc_env.r[6] << 8; // slwi r0, r6, 8
     gc_env.r[0] = gc_env.r[5] | gc_env.r[0]; // or r0, r5, r0
     L_80010C38:
@@ -15904,12 +15867,9 @@ void fn_800114CC(void) {
     gc_env.r[4] = ((uint32_t)&lbl_8001A460 >> 16) & 0xFFFF; // lis r4, lbl_8001A460@h
     gc_env.r[4] = gc_env.r[4] | ((uint32_t)&lbl_8001A460 & 0xFFFF); // ori r4, r4, lbl_8001A460@l
     gc_env.r[3] = 0x0; // li r3, 0x0
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x0); // lfd f0, 0x0(r4)
-    gc_env.f[0] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x8); // lfd f3, 0x8(r4)
-    gc_env.f[3] = *(double*)&temp;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x10); // lfd f4, 0x10(r4)
-    gc_env.f[4] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0
     gc_env.cr[6] = isnan(gc_env.f[1]) || isnan(gc_env.f[3]) ? 0x1 : (gc_env.f[1] < gc_env.f[3] ? 0x8 : (gc_env.f[1] > gc_env.f[3] ? 0x4 : 0x2)); // fcmpu cr6, f1, f3
     if (gc_env.cr[0] & 0x8) goto L_80011520; // blt .L_80011520
@@ -15935,48 +15895,48 @@ void fn_800114CC(void) {
 // Function: __save_gpr
 // Address: 0x80011528
 void __save_gpr(void) {
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-48, gc_env.r[14]); // stw r14, 0x-48(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-44, gc_env.r[15]); // stw r15, 0x-44(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-40, gc_env.r[16]); // stw r16, 0x-40(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-3C, gc_env.r[17]); // stw r17, 0x-3C(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-38, gc_env.r[18]); // stw r18, 0x-38(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-34, gc_env.r[19]); // stw r19, 0x-34(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-30, gc_env.r[20]); // stw r20, 0x-30(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-2C, gc_env.r[21]); // stw r21, 0x-2C(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-28, gc_env.r[22]); // stw r22, 0x-28(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-24, gc_env.r[23]); // stw r23, 0x-24(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-20, gc_env.r[24]); // stw r24, 0x-20(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-1C, gc_env.r[25]); // stw r25, 0x-1C(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-18, gc_env.r[26]); // stw r26, 0x-18(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-14, gc_env.r[27]); // stw r27, 0x-14(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-10, gc_env.r[28]); // stw r28, 0x-10(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-C, gc_env.r[29]); // stw r29, 0x-C(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-8, gc_env.r[30]); // stw r30, 0x-8(r11)
-    gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-4, gc_env.r[31]); // stw r31, 0x-4(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x48, gc_env.r[14]); // stw r14, -0x48(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x44, gc_env.r[15]); // stw r15, -0x44(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x40, gc_env.r[16]); // stw r16, -0x40(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x3C, gc_env.r[17]); // stw r17, -0x3C(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x38, gc_env.r[18]); // stw r18, -0x38(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x34, gc_env.r[19]); // stw r19, -0x34(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x30, gc_env.r[20]); // stw r20, -0x30(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x2C, gc_env.r[21]); // stw r21, -0x2C(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x28, gc_env.r[22]); // stw r22, -0x28(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x24, gc_env.r[23]); // stw r23, -0x24(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x20, gc_env.r[24]); // stw r24, -0x20(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x1C, gc_env.r[25]); // stw r25, -0x1C(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x18, gc_env.r[26]); // stw r26, -0x18(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x14, gc_env.r[27]); // stw r27, -0x14(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x10, gc_env.r[28]); // stw r28, -0x10(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0xC, gc_env.r[29]); // stw r29, -0xC(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x8, gc_env.r[30]); // stw r30, -0x8(r11)
+    gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x4, gc_env.r[31]); // stw r31, -0x4(r11)
     return;
 }
 
 // Function: __restore_gpr
 // Address: 0x80011574
 void __restore_gpr(void) {
-    gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-48); // lwz r14, 0x-48(r11)
-    gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-44); // lwz r15, 0x-44(r11)
-    gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-40); // lwz r16, 0x-40(r11)
-    gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-3C); // lwz r17, 0x-3C(r11)
-    gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-38); // lwz r18, 0x-38(r11)
-    gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-34); // lwz r19, 0x-34(r11)
-    gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-30); // lwz r20, 0x-30(r11)
-    gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-2C); // lwz r21, 0x-2C(r11)
-    gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-28); // lwz r22, 0x-28(r11)
-    gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-24); // lwz r23, 0x-24(r11)
-    gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-20); // lwz r24, 0x-20(r11)
-    gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-1C); // lwz r25, 0x-1C(r11)
-    gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-18); // lwz r26, 0x-18(r11)
-    gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-14); // lwz r27, 0x-14(r11)
-    gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-10); // lwz r28, 0x-10(r11)
-    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-C); // lwz r29, 0x-C(r11)
-    gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-8); // lwz r30, 0x-8(r11)
-    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-4); // lwz r31, 0x-4(r11)
+    gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x48); // lwz r14, -0x48(r11)
+    gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x44); // lwz r15, -0x44(r11)
+    gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x40); // lwz r16, -0x40(r11)
+    gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x3C); // lwz r17, -0x3C(r11)
+    gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x38); // lwz r18, -0x38(r11)
+    gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x34); // lwz r19, -0x34(r11)
+    gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x30); // lwz r20, -0x30(r11)
+    gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x2C); // lwz r21, -0x2C(r11)
+    gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x28); // lwz r22, -0x28(r11)
+    gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x24); // lwz r23, -0x24(r11)
+    gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x20); // lwz r24, -0x20(r11)
+    gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x1C); // lwz r25, -0x1C(r11)
+    gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x18); // lwz r26, -0x18(r11)
+    gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x14); // lwz r27, -0x14(r11)
+    gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x10); // lwz r28, -0x10(r11)
+    gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0xC); // lwz r29, -0xC(r11)
+    gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x8); // lwz r30, -0x8(r11)
+    gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x4); // lwz r31, -0x4(r11)
     return;
 }
 
@@ -16493,8 +16453,7 @@ void fn_80011A1C(void) {
     L_80011C00:
     gc_env.r[0] = gc_env.r[4] & 0x1; // clrlwi r0, r4, 31
     if (gc_env.cr[0] == 0) goto L_80011C10;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x0); // lfd f0, 0x0(r5)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.f[31] = gc_env.f[31] * gc_env.f[0]; // fmul f31, f31, f0
     L_80011C10:
     gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 1; // srawi r4, r4, 1
@@ -16510,8 +16469,7 @@ void fn_80011A1C(void) {
     L_80011C30:
     gc_env.r[0] = gc_env.r[4] & 0x1; // clrlwi r0, r4, 31
     if (gc_env.cr[0] == 0) goto L_80011C40;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x0); // lfd f0, 0x0(r5)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0
     L_80011C40:
     gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 1; // srawi r4, r4, 1
@@ -16561,8 +16519,7 @@ void fn_80011A1C(void) {
     gc_mem_write8(gc_env.ram, gc_env.r[30] + 0x4, gc_env.r[0]); // stb r0, 0x4(r30)
     gc_env.r[31] = gc_env.r[31] - gc_env.r[12]; // subf r31, r12, r31
     gc_env.r[3] = gc_env.r[3] - gc_env.r[12]; // subf r3, r12, r3
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x-8); // lfd f0, 0x-8(r5)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.r[4] = gc_env.r[4] + gc_env.r[12]; // add r4, r4, r12
     gc_env.r[11] = gc_env.r[12] + 1; // addi r11, r12, 0x1
     gc_env.f[31] = gc_env.f[31] * gc_env.f[0]; // fmul f31, f31, f0
@@ -16578,8 +16535,7 @@ void fn_80011A1C(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x3C, gc_env.r[0]); // stw r0, 0x3C(r1)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r6, 0x4C(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[9]); // stw r9, 0x38(r1)
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f0, 0x38(r1)
-    gc_env.f[0] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.f[0] = gc_env.f[0] - gc_env.f[1]; // fsub f0, f0, f1
     gc_env.f[31] = gc_env.f[31] - gc_env.f[0]; // fsub f31, f31, f0
     goto L_80011D4C;
@@ -16633,8 +16589,7 @@ void fn_80011A1C(void) {
     gc_mem_write16(gc_env.ram, gc_env.r[30] + 0x2, gc_env.r[0]); // sth r0, 0x2(r30)
     L_80011DB0:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)
-    gc_env.f[31] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lwz r31, 0x5C(r1)
     gc_env.lr = gc_env.r[0]; // Move to link register
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x58); // lwz r30, 0x58(r1)
@@ -16874,14 +16829,14 @@ void fn_80012338(void) {
     gc_env.r[11] = gc_env.r[11] + -0x4;
     gc_env.r[6] = gc_env.r[5] >> 3; // srwi r6, r5, 3
     L_8001237C:
-    gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-4); // lwz r8, 0x-4(r11)
+    gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x4); // lwz r8, -0x4(r11)
     gc_env.r[0] = gc_env.r[7] >> (gc_env.r[10] & 31); // srw r0, r7, r10
     gc_env.r[6] = gc_env.r[6] - 1; // subic. r6, r6, 1
     gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[6] >= 1 ? 0x20000000 : 0);
     gc_env.cr[0] = (gc_env.r[6] == 0) ? 0x2 : ((int32_t)gc_env.r[6] < 0 ? 0x8 : 0x4);
     gc_env.r[3] = gc_env.r[8] << (gc_env.r[4] & 31); // slw r3, r8, r4
     gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0
-    gc_mem_write32(gc_env.ram, gc_env.r[12] + 0x-4, gc_env.r[0]); // stw r0, 0x-4(r12)
+    gc_mem_write32(gc_env.ram, gc_env.r[12] + -0x4, gc_env.r[0]); // stw r0, -0x4(r12)
     gc_env.r[0] = gc_env.r[8] >> (gc_env.r[10] & 31); // srw r0, r8, r10
     gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x8); // lwzu r7, -0x8(r11)
     gc_env.r[11] = gc_env.r[11] + -0x8;
@@ -17016,23 +16971,23 @@ void fn_800124AC(void) {
     gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_80012524;
     L_800124DC:
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-4); // lwz r0, 0x-4(r4)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x4); // lwz r0, -0x4(r4)
     gc_env.r[3] = gc_env.r[3] - 1; // subic. r3, r3, 1
     gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[3] >= 1 ? 0x20000000 : 0);
     gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-4, gc_env.r[0]); // stw r0, 0x-4(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-8); // lwz r0, 0x-8(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-8, gc_env.r[0]); // stw r0, 0x-8(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-C); // lwz r0, 0x-C(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-C, gc_env.r[0]); // stw r0, 0x-C(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-10); // lwz r0, 0x-10(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-10, gc_env.r[0]); // stw r0, 0x-10(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-14); // lwz r0, 0x-14(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-14, gc_env.r[0]); // stw r0, 0x-14(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-18); // lwz r0, 0x-18(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-18, gc_env.r[0]); // stw r0, 0x-18(r6)
-    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-1C); // lwz r0, 0x-1C(r4)
-    gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-1C, gc_env.r[0]); // stw r0, 0x-1C(r6)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x4, gc_env.r[0]); // stw r0, -0x4(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x8); // lwz r0, -0x8(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x8, gc_env.r[0]); // stw r0, -0x8(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0xC); // lwz r0, -0xC(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0xC, gc_env.r[0]); // stw r0, -0xC(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x10); // lwz r0, -0x10(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x10, gc_env.r[0]); // stw r0, -0x10(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x14); // lwz r0, -0x14(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x14, gc_env.r[0]); // stw r0, -0x14(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x18); // lwz r0, -0x18(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x18, gc_env.r[0]); // stw r0, -0x18(r6)
+    gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x1C); // lwz r0, -0x1C(r4)
+    gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x1C, gc_env.r[0]); // stw r0, -0x1C(r6)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x20); // lwzu r0, -0x20(r4)
     gc_env.r[4] = gc_env.r[4] + -0x20;
     gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x20, gc_env.r[0]); // stwu r0, -0x20(r6)
@@ -17765,14 +17720,12 @@ void float2str(void) {
     if (gc_env.cr[0] != 0) goto L_80012E2C;
     gc_env.r[4] = 0x3; // li r4, 0x3
     __va_arg();
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[3] + 0x0); // lfd f31, 0x0(r3)
-    gc_env.f[31] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     goto L_80012E38;
     L_80012E2C:
     gc_env.r[4] = 0x3; // li r4, 0x3
     __va_arg();
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[3] + 0x0); // lfd f31, 0x0(r3)
-    gc_env.f[31] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     L_80012E38:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lwz r0, 0xC(r29)
     gc_env.cr[0] = (gc_env.r[0] == 0x1fd) ? 0 : (gc_env.r[0] < 0x1fd ? -1 : 1); // Compare with immediate
@@ -18248,8 +18201,7 @@ void float2str(void) {
     gc_env.r[3] = gc_env.r[30]; // Move register
     L_800133FC:
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lwz r0, 0x64(r1)
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f31, 0x58(r1)
-    gc_env.f[31] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r31, 0x54(r1)
     gc_env.lr = gc_env.r[0]; // Move to link register
     gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x50); // lwz r30, 0x50(r1)
@@ -19349,15 +19301,13 @@ void fn_80014234(void) {
     gc_env.r[0] = gc_env.r[4] | gc_env.r[8]; // or r0, r4, r8
     if (gc_env.cr[0] != 0) goto L_80014274;
     L_8001426C:
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     goto L_800142C8;
     L_80014274:
     gc_env.r[0] = 16 << 16; // lis r0, 0x10
     gc_env.cr[0] = (int32_t)gc_env.r[4] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[4] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r4, r0
     if (gc_env.cr[0] >= 0) goto L_800142A4;
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     gc_env.r[0] = -0x36; // li r0, -0x36
     gc_env.f[0] = lbl_8001F0D0; // lfd f0, lbl_8001F0D0@sda21(r0)
     gc_env.f[0] = gc_env.f[1] * gc_env.f[0]; // fmul f0, f1, f0
@@ -19371,14 +19321,13 @@ void fn_80014234(void) {
     L_800142A4:
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r5, (r3)
     gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 20; // srawi r4, r4, 20
-    gc_env.r[0] = (gc_env.r[7] << 0) & 0x-7FF00001; // rlwinm r0, r7, 0, 12, 0
+    gc_env.r[0] = (gc_env.r[7] << 0) & -0x7FF00001; // rlwinm r0, r7, 0, 12, 0
     gc_env.r[4] = gc_env.r[4] + gc_env.r[5]; // add r4, r4, r5
     gc_env.r[4] = gc_env.r[4] - 1022; // subi r4, r4, 1022
     gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r[4]); // stw r4, (r3)
     gc_env.r[0] = gc_env.r[0] | 0x3FE00000; // oris r0, r0, 0x3FE0
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x8, gc_env.r[0]); // stw r0, 0x8(r1)
-    uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)
-    gc_env.f[1] = *(double*)&temp;
+    // Error in handler for lfd: name 'format_hex' is not defined
     L_800142C8:
     gc_env.r[1] += 24; // addi r1, r1, 0x18
     return;
@@ -24167,7 +24116,7 @@ void fn_80017B1C(void) {
     gc_env.r[3] = ((uint32_t)&gTRKCPUState >> 16) & 0xFFFF; // lis r3, gTRKCPUState@ha
     gc_env.r[3] = gc_env.r[3] + ((uint32_t)&gTRKCPUState & 0xFFFF); // addi r3, r3, gTRKCPUState@l
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1F8); // lwz r0, 0x1F8(r3)
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-401; // rlwinm r0, r0, 0, 22, 20
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x401; // rlwinm r0, r0, 0, 22, 20
     gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1F8, gc_env.r[0]); // stw r0, 0x1F8(r3)
     L_80017B50:
     gc_env.r[3] = 0x0; // li r3, 0x0
@@ -25383,7 +25332,7 @@ void TRKLoadContext(void) {
     gc_env.r[6] = (gc_env.r[5] << 0) & 0x2; // rlwinm r6, r5, 0, 30, 30
     gc_env.cr[0] = (gc_env.r[6] == 0) ? 0x2 : ((int32_t)gc_env.r[6] < 0 ? 0x8 : 0x4);
     if (gc_env.cr[0] == 0) goto L_8001880C;
-    gc_env.r[5] = (gc_env.r[5] << 0) & 0x-3; // rlwinm r5, r5, 0, 31, 29
+    gc_env.r[5] = (gc_env.r[5] << 0) & -0x3; // rlwinm r5, r5, 0, 31, 29
     gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x1a2, gc_env.r[5]); // sth r5, 0x1a2(r3)
     gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lmw r5, 0x14(r3)
     gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lmw r5, 0x14(r3)
@@ -25453,8 +25402,8 @@ void TRKLoadContext(void) {
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x8C); // lwz r4, 0x8C(r31)
     gc_env.xer = gc_env.r[4]; // mtxer r4
     gc_env.r[4] = gc_env.msr; // Move from machine state register
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r4, r4, 0, 17, 15
-    gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r4, r4, 0, 17, 15
+    gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29
     gc_env.msr = gc_env.r[4]; // Move to machine state register
     gc_env.sprg[1] = gc_env.r[2]; // mtsprg 1, r2
     gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0xC); // lwz r4, 0xC(r31)
@@ -26179,7 +26128,7 @@ void fn_80019078(void) {
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[5]); // lwz r0, (r5)
     gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00
     gc_env.r[4] += 26624; // addi r4, r4, 0x6800
-    gc_env.r[0] = (gc_env.r[0] << 0) & 0x-5; // rlwinm r0, r0, 0, 30, 28
+    gc_env.r[0] = (gc_env.r[0] << 0) & -0x5; // rlwinm r0, r0, 0, 30, 28
     gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[0]); // stw r0, (r5)
     gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x28); // lwz r0, 0x28(r4)
     gc_env.r[0] = gc_env.r[0] & 0x405;

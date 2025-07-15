@@ -2459,7 +2459,7 @@ Translated bl __init_user to: __init_user();
 Translated mr r3 r14 to: gc_env.r[3] = gc_env.r[14]; // Move register
 Translated mr r4 r15 to: gc_env.r[4] = gc_env.r[15]; // Move register
 Translated bl main to: main();
-Translated b exit to: goto exit;
+Translated b exit to: exit(gc_env.r[3]);
 Translated lis r1 _stack_addr@h to: ['gc_env.r[1] = ((uint32_t)&_stack_addr >> 16) & 0xFFFF; // lis r1, _stack_addr@h']
 Translated ori r1 r1 _stack_addr@l to: ['gc_env.r[1] = gc_env.r[1] | ((uint32_t)&_stack_addr & 0xFFFF); // ori r1, r1, _stack_addr@l']
 Translated lis r2 _SDA2_BASE_@h to: ['gc_env.r[2] = ((uint32_t)&_SDA2_BASE_ >> 16) & 0xFFFF; // lis r2, _SDA2_BASE_@h']
@@ -27290,9 +27290,9 @@ Translated bl memset to: memset();
 Translated b .L_800057FC to: goto L_800057FC;
 Translated lis r3 0x8130 to: ['gc_env.r[3] = -32464 << 16; // lis r3, 0x8130']
 Processing opcode: lwz, operands: ['r31', '-0x2010(r3)']
-Translated lwz r31 -0x2010(r3) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x-2010); // lwz r31, 0x-2010(r3)']
+Translated lwz r31 -0x2010(r3) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + -0x2010); // lwz r31, -0x2010(r3)']
 Processing opcode: lwz, operands: ['r30', '-0x2014(r3)']
-Translated lwz r30 -0x2014(r3) to: ['gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x-2014); // lwz r30, 0x-2014(r3)']
+Translated lwz r30 -0x2014(r3) to: ['gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + -0x2014); // lwz r30, -0x2014(r3)']
 Translated cmplwi r31 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[31] == 0x0) ? 0 : ((uint32_t)gc_env.r[31] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_80005788 to: if (gc_env.cr[0] != 0) goto L_80005788;
 Translated bl OSGetArenaHi to: OSGetArenaHi();
@@ -27493,7 +27493,7 @@ Translated bl __OSInitSram to: __OSInitSram();
 Translated bl __OSThreadInit to: __OSThreadInit();
 Translated bl __OSInitAudioSystem to: __OSInitAudioSystem();
 Translated bl PPCMfhid2 to: PPCMfhid2();
-Translated rlwinm r3 r3 0 2 0 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-40000001; // rlwinm r3, r3, 0, 2, 0']
+Translated rlwinm r3 r3 0 2 0 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x40000001; // rlwinm r3, r3, 0, 2, 0']
 Translated bl PPCMthid2 to: PPCMthid2();
 Processing opcode: lwz, operands: ['r3', 'BootInfo_8001EE68@sda21(r0)']
 Translated lwz r3 BootInfo_8001EE68@sda21(r0) to: ['gc_env.r[3] = BootInfo_8001EE68; // lwz r3, BootInfo_8001EE68@sda21(r0)']
@@ -28740,7 +28740,7 @@ Processing opcode: sth, operands: ['r3', '0x0(r31)']
 Translated sth r3 0x0(r31) to: ['gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[3]); // sth r3, 0x0(r31)']
 Processing opcode: lhz, operands: ['r0', '0x0(r31)']
 Translated lhz r0 0x0(r31) to: ['gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x0); // lhz r0, 0x0(r31)']
-Translated rlwinm r0 r0 0 21 19 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-801; // rlwinm r0, r0, 0, 21, 19']
+Translated rlwinm r0 r0 0 21 19 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x801; // rlwinm r0, r0, 0, 21, 19']
 Processing opcode: sth, operands: ['r0', '0x0(r31)']
 Translated sth r0 0x0(r31) to: ['gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // sth r0, 0x0(r31)']
 Processing opcode: lhz, operands: ['r0', '0x0(r31)']
@@ -28749,7 +28749,7 @@ Translated rlwinm. r0 r0 0 21 21 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x400;
 Translated bne .L_80006774 to: if (gc_env.cr[0] != 0) goto L_80006774;
 Processing opcode: lhz, operands: ['r0', '0x0(r31)']
 Translated lhz r0 0x0(r31) to: ['gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[31] + 0x0); // lhz r0, 0x0(r31)']
-Translated rlwinm r0 r0 0 30 28 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-5; // rlwinm r0, r0, 0, 30, 28']
+Translated rlwinm r0 r0 0 30 28 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x5; // rlwinm r0, r0, 0, 30, 28']
 Processing opcode: sth, operands: ['r0', '0x0(r31)']
 Translated sth r0 0x0(r31) to: ['gc_mem_write16(gc_env.ram, gc_env.r[31] + 0x0, gc_env.r[0]); // sth r0, 0x0(r31)']
 Processing opcode: lhz, operands: ['r0', '0x0(r30)']
@@ -28814,7 +28814,7 @@ Processing opcode: sth, operands: ['r0', '0xa(r31)']
 Translated sth r0 0xa(r31) to: ['gc_mem_write16(gc_env.ram, gc_env.r[31] + 0xa, gc_env.r[0]); // sth r0, 0xa(r31)']
 Processing opcode: lhz, operands: ['r0', '0x36(r3)']
 Translated lhz r0 0x36(r3) to: ['gc_env.r[0] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x36); // lhz r0, 0x36(r3)']
-Translated rlwinm r0 r0 0 17 15 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-8001; // rlwinm r0, r0, 0, 17, 15']
+Translated rlwinm r0 r0 0 17 15 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x8001; // rlwinm r0, r0, 0, 17, 15']
 Processing opcode: sth, operands: ['r0', '0x36(r3)']
 Translated sth r0 0x36(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x36, gc_env.r[0]); // sth r0, 0x36(r3)']
 Processing opcode: lhzu, operands: ['r0', '0xa(r31)']
@@ -28980,7 +28980,7 @@ Processing opcode: addi, operands: ['r3', 'r3', '0x20']
 Translated addi r3 r3 0x20 to: ['gc_env.r[3] += 32; // addi r3, r3, 0x20']
 Translated bdnz .L_80006A18 to: ['gc_env.ctr -= 1;', 'if (gc_env.ctr != 0) goto L_80006A18;']
 Translated mfspr r4 HID2 to: ['gc_env.r[4] = gc_env.hid2; // mfspr r4, HID2']
-Translated rlwinm r4 r4 0 4 2 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-10000001; // rlwinm r4, r4, 0, 4, 2']
+Translated rlwinm r4 r4 0 4 2 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x10000001; // rlwinm r4, r4, 0, 4, 2']
 Translated mtspr HID2 r4 to: ['gc_env.hid2 = gc_env.r[4]; // mtspr HID2, r4']
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
@@ -29005,7 +29005,7 @@ Translated clrlwi r0 r3 31 to: ['gc_env.r[0] = gc_env.r[3] & 0x1; // clrlwi r0, 
 Translated cmplwi r0 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_80006A6C to: if (gc_env.cr[0] != 0) goto L_80006A6C;
 Translated bl PPCMfl2cr to: PPCMfl2cr();
-Translated rlwinm r3 r3 0 11 9 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-200001; // rlwinm r3, r3, 0, 11, 9']
+Translated rlwinm r3 r3 0 11 9 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x200001; // rlwinm r3, r3, 0, 11, 9']
 Translated bl PPCMtl2cr to: PPCMtl2cr();
 Translated b .L_80006A8C to: goto L_80006A8C;
 Translated lis r3 "@69_8001A920"@ha to: ['gc_env.r[3] = ((uint32_t)&"@69_8001A920" >> 16) & 0xFFFF; // lis r3, "@69_8001A920"@ha']
@@ -29197,7 +29197,7 @@ Translated mr r3 r30 to: gc_env.r[3] = gc_env.r[30]; // Move register
 Translated bl PPCMtmsr to: PPCMtmsr();
 Translated bl PPCMfl2cr to: PPCMfl2cr();
 Translated oris r0 r3 0x8000 to: ['gc_env.r[0] = gc_env.r[3] | 0x80000000; // oris r0, r3, 0x8000']
-Translated rlwinm r3 r0 0 11 9 to: ['gc_env.r[3] = (gc_env.r[0] << 0) & 0x-200001; // rlwinm r3, r0, 0, 11, 9']
+Translated rlwinm r3 r0 0 11 9 to: ['gc_env.r[3] = (gc_env.r[0] << 0) & -0x200001; // rlwinm r3, r0, 0, 11, 9']
 Translated bl PPCMtl2cr to: PPCMtl2cr();
 Processing opcode: addi, operands: ['r3', 'r31', '0x1e4']
 Translated addi r3 r31 0x1e4 to: ['gc_env.r[3] = gc_env.r[31] + 484; // addi r3, r31, 0x1e4']
@@ -29227,7 +29227,7 @@ Processing opcode: lhz, operands: ['r5', '0x1a2(r4)']
 Translated lhz r5 0x1a2(r4) to: ['gc_env.r[5] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x1a2); // lhz r5, 0x1a2(r4)']
 Translated clrlwi. r5 r5 31 to: ['gc_env.r[5] = gc_env.r[5] & 0x1; // clrlwi r5, r5, 31']
 Translated beq .L_80006E40 to: if (gc_env.cr[0] == 0) goto L_80006E40;
-Translated lfd f0 0x190(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x190); // lfd f0, 0x190(r4)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated mtfsf 255 f0 to: ['gc_env.fpscr = (uint32_t)gc_env.f[0]; // mtfsf 255, f0']
 Translated mfspr r5 HID2 to: ['gc_env.r[5] = gc_env.hid2; // mfspr r5, HID2']
 Translated extrwi. r5 r5 1 2 to: ['gc_env.r[5] = (gc_env.r[5] >> 29) & 0x1; // extrwi r5, r5, 1, 2', 'gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);']
@@ -29264,38 +29264,38 @@ Translated psq_l f28 0x2a8(r4) 0 qr0 to: ['uint32_t temp = gc_mem_read32(gc_env.
 Translated psq_l f29 0x2b0(r4) 0 qr0 to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2B0); // psq_l f29, 0x2B0(r4)', 'gc_env.f[29] = *(float*)&temp;']
 Translated psq_l f30 0x2b8(r4) 0 qr0 to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2B8); // psq_l f30, 0x2B8(r4)', 'gc_env.f[30] = *(float*)&temp;']
 Translated psq_l f31 0x2c0(r4) 0 qr0 to: ['uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x2C0); // psq_l f31, 0x2C0(r4)', 'gc_env.f[31] = *(float*)&temp;']
-Translated lfd f0 0x90(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x90); // lfd f0, 0x90(r4)', 'gc_env.f[0] = *(double*)&temp;']
-Translated lfd f1 0x98(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x98); // lfd f1, 0x98(r4)', 'gc_env.f[1] = *(double*)&temp;']
-Translated lfd f2 0xa0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xA0); // lfd f2, 0xA0(r4)', 'gc_env.f[2] = *(double*)&temp;']
-Translated lfd f3 0xa8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xA8); // lfd f3, 0xA8(r4)', 'gc_env.f[3] = *(double*)&temp;']
-Translated lfd f4 0xb0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xB0); // lfd f4, 0xB0(r4)', 'gc_env.f[4] = *(double*)&temp;']
-Translated lfd f5 0xb8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xB8); // lfd f5, 0xB8(r4)', 'gc_env.f[5] = *(double*)&temp;']
-Translated lfd f6 0xc0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xC0); // lfd f6, 0xC0(r4)', 'gc_env.f[6] = *(double*)&temp;']
-Translated lfd f7 0xc8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xC8); // lfd f7, 0xC8(r4)', 'gc_env.f[7] = *(double*)&temp;']
-Translated lfd f8 0xd0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xD0); // lfd f8, 0xD0(r4)', 'gc_env.f[8] = *(double*)&temp;']
-Translated lfd f9 0xd8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xD8); // lfd f9, 0xD8(r4)', 'gc_env.f[9] = *(double*)&temp;']
-Translated lfd f10 0xe0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xE0); // lfd f10, 0xE0(r4)', 'gc_env.f[10] = *(double*)&temp;']
-Translated lfd f11 0xe8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xE8); // lfd f11, 0xE8(r4)', 'gc_env.f[11] = *(double*)&temp;']
-Translated lfd f12 0xf0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xF0); // lfd f12, 0xF0(r4)', 'gc_env.f[12] = *(double*)&temp;']
-Translated lfd f13 0xf8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0xF8); // lfd f13, 0xF8(r4)', 'gc_env.f[13] = *(double*)&temp;']
-Translated lfd f14 0x100(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x100); // lfd f14, 0x100(r4)', 'gc_env.f[14] = *(double*)&temp;']
-Translated lfd f15 0x108(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x108); // lfd f15, 0x108(r4)', 'gc_env.f[15] = *(double*)&temp;']
-Translated lfd f16 0x110(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x110); // lfd f16, 0x110(r4)', 'gc_env.f[16] = *(double*)&temp;']
-Translated lfd f17 0x118(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x118); // lfd f17, 0x118(r4)', 'gc_env.f[17] = *(double*)&temp;']
-Translated lfd f18 0x120(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x120); // lfd f18, 0x120(r4)', 'gc_env.f[18] = *(double*)&temp;']
-Translated lfd f19 0x128(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x128); // lfd f19, 0x128(r4)', 'gc_env.f[19] = *(double*)&temp;']
-Translated lfd f20 0x130(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x130); // lfd f20, 0x130(r4)', 'gc_env.f[20] = *(double*)&temp;']
-Translated lfd f21 0x138(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x138); // lfd f21, 0x138(r4)', 'gc_env.f[21] = *(double*)&temp;']
-Translated lfd f22 0x140(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x140); // lfd f22, 0x140(r4)', 'gc_env.f[22] = *(double*)&temp;']
-Translated lfd f23 0x148(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x148); // lfd f23, 0x148(r4)', 'gc_env.f[23] = *(double*)&temp;']
-Translated lfd f24 0x150(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x150); // lfd f24, 0x150(r4)', 'gc_env.f[24] = *(double*)&temp;']
-Translated lfd f25 0x158(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x158); // lfd f25, 0x158(r4)', 'gc_env.f[25] = *(double*)&temp;']
-Translated lfd f26 0x160(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x160); // lfd f26, 0x160(r4)', 'gc_env.f[26] = *(double*)&temp;']
-Translated lfd f27 0x168(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x168); // lfd f27, 0x168(r4)', 'gc_env.f[27] = *(double*)&temp;']
-Translated lfd f28 0x170(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x170); // lfd f28, 0x170(r4)', 'gc_env.f[28] = *(double*)&temp;']
-Translated lfd f29 0x178(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x178); // lfd f29, 0x178(r4)', 'gc_env.f[29] = *(double*)&temp;']
-Translated lfd f30 0x180(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x180); // lfd f30, 0x180(r4)', 'gc_env.f[30] = *(double*)&temp;']
-Translated lfd f31 0x188(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x188); // lfd f31, 0x188(r4)', 'gc_env.f[31] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
 Translated blr  to: return;
 Processing opcode: lhz, operands: ['r3', '0x1a2(r5)']
 Translated lhz r3 0x1a2(r5) to: ['gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[5] + 0x1a2); // lhz r3, 0x1a2(r5)']
@@ -29336,7 +29336,7 @@ Translated stfd f30 0x180(r5) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[30
 Translated stfd f31 0x188(r5) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[31], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[5] + 0x188, temp); // stfd f31, 0x188(r5)']
 Translated mffs f0 to: ['gc_env.f[0] = (double)gc_env.fpscr; // mffs f0']
 Translated stfd f0 0x190(r5) to: ['uint64_t temp;', 'memcpy(&temp, &gc_env.f[0], sizeof(double));', 'gc_mem_write64(gc_env.ram, gc_env.r[5] + 0x190, temp); // stfd f0, 0x190(r5)']
-Translated lfd f0 0x90(r5) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x90); // lfd f0, 0x90(r5)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated mfspr r3 HID2 to: ['gc_env.r[3] = gc_env.hid2; // mfspr r3, HID2']
 Translated extrwi. r3 r3 1 2 to: ['gc_env.r[3] = (gc_env.r[3] >> 29) & 0x1; // extrwi r3, r3, 1, 2', 'gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);']
 Translated beq .L_80006F68 to: if (gc_env.cr[0] == 0) goto L_80006F68;
@@ -29394,11 +29394,11 @@ Translated mtmsr r6 to: gc_env.msr = gc_env.r[6]; // Move to machine state regis
 Translated blr  to: return;
 Processing opcode: lwz, operands: ['r6', '0x19c(r3)']
 Translated lwz r6 0x19c(r3) to: ['gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x19C); // lwz r6, 0x19C(r3)']
-Translated rlwinm r6 r6 0 19 17 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & 0x-2001; // rlwinm r6, r6, 0, 19, 17']
+Translated rlwinm r6 r6 0 19 17 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & -0x2001; // rlwinm r6, r6, 0, 19, 17']
 Processing opcode: stw, operands: ['r6', '0x19c(r3)']
 Translated stw r6 0x19c(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x19C, gc_env.r[6]); // stw r6, 0x19C(r3)']
 Translated mfmsr r6 to: gc_env.r[6] = gc_env.msr; // Move from machine state register
-Translated rlwinm r6 r6 0 19 17 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & 0x-2001; // rlwinm r6, r6, 0, 19, 17']
+Translated rlwinm r6 r6 0 19 17 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & -0x2001; // rlwinm r6, r6, 0, 19, 17']
 Translated ori r6 r6 0x2 to: ['gc_env.r[6] |= 2; // ori r6, r6, 0x2']
 Translated mtmsr r6 to: gc_env.msr = gc_env.r[6]; // Move to machine state register
 Translated isync  to: // isync: Instruction synchronize (no-op in this context)
@@ -29481,7 +29481,7 @@ Processing opcode: lhz, operands: ['r4', '0x1a2(r3)']
 Translated lhz r4 0x1a2(r3) to: ['gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x1a2); // lhz r4, 0x1a2(r3)']
 Translated rlwinm. r5 r4 0 30 30 to: ['gc_env.r[5] = (gc_env.r[4] << 0) & 0x2; // rlwinm r5, r4, 0, 30, 30', 'gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);']
 Translated beq .L_800070A4 to: if (gc_env.cr[0] == 0) goto L_800070A4;
-Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29']
+Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29']
 Processing opcode: sth, operands: ['r4', '0x1a2(r3)']
 Translated sth r4 0x1a2(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x1a2, gc_env.r[4]); // sth r4, 0x1a2(r3)']
 Translated lmw r5 0x14(r3) to: ['gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lmw r5, 0x14(r3)', 'gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lmw r5, 0x14(r3)', 'gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lmw r5, 0x14(r3)', 'gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lmw r5, 0x14(r3)', 'gc_env.r[9] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lmw r5, 0x14(r3)', 'gc_env.r[10] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lmw r5, 0x14(r3)', 'gc_env.r[11] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lmw r5, 0x14(r3)', 'gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x30); // lmw r5, 0x14(r3)', 'gc_env.r[13] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lmw r5, 0x14(r3)', 'gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x38); // lmw r5, 0x14(r3)', 'gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3C); // lmw r5, 0x14(r3)', 'gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x40); // lmw r5, 0x14(r3)', 'gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x44); // lmw r5, 0x14(r3)', 'gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x48); // lmw r5, 0x14(r3)', 'gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4C); // lmw r5, 0x14(r3)', 'gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x50); // lmw r5, 0x14(r3)', 'gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x54); // lmw r5, 0x14(r3)', 'gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x58); // lmw r5, 0x14(r3)', 'gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x5C); // lmw r5, 0x14(r3)', 'gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x60); // lmw r5, 0x14(r3)', 'gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x64); // lmw r5, 0x14(r3)', 'gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x68); // lmw r5, 0x14(r3)', 'gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x6C); // lmw r5, 0x14(r3)', 'gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x70); // lmw r5, 0x14(r3)', 'gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x74); // lmw r5, 0x14(r3)', 'gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x78); // lmw r5, 0x14(r3)', 'gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x7C); // lmw r5, 0x14(r3)']
@@ -29521,8 +29521,8 @@ Processing opcode: lwz, operands: ['r4', '0x8c(r3)']
 Translated lwz r4 0x8c(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x8C); // lwz r4, 0x8C(r3)']
 Translated mtxer r4 to: ['gc_env.xer = gc_env.r[4]; // mtxer r4']
 Translated mfmsr r4 to: gc_env.r[4] = gc_env.msr; // Move from machine state register
-Translated rlwinm r4 r4 0 17 15 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r4, r4, 0, 17, 15']
-Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29']
+Translated rlwinm r4 r4 0 17 15 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r4, r4, 0, 17, 15']
+Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29']
 Translated mtmsr r4 to: gc_env.msr = gc_env.r[4]; // Move to machine state register
 Processing opcode: lwz, operands: ['r4', '0x198(r3)']
 Translated lwz r4 0x198(r3) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x198); // lwz r4, 0x198(r3)']
@@ -29675,10 +29675,10 @@ Translated add r26 r28 r0 to: ['gc_env.r[26] = gc_env.r[28] + gc_env.r[0]; // ad
 Translated b .L_800072A8 to: goto L_800072A8;
 Translated b .L_800072AC to: goto L_800072AC;
 Translated b .L_800072B0 to: goto L_800072B0;
-Translated lfd f1 0x98(r26) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x98); // lfd f1, 0x98(r26)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated bl fn_800114CC to: fn_800114CC();
 Translated mr r27 r3 to: gc_env.r[27] = gc_env.r[3]; // Move register
-Translated lfd f1 0x90(r26) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x90); // lfd f1, 0x90(r26)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated bl fn_800114CC to: fn_800114CC();
 Translated mr r5 r3 to: gc_env.r[5] = gc_env.r[3]; // Move register
 Translated crclr cr1eq to: ['gc_env.cr[1] &= ~0x2; // crclr cr1eq']
@@ -29707,10 +29707,10 @@ Translated add r26 r28 r0 to: ['gc_env.r[26] = gc_env.r[28] + gc_env.r[0]; // ad
 Translated b .L_8000730C to: goto L_8000730C;
 Translated b .L_80007310 to: goto L_80007310;
 Translated b .L_80007314 to: goto L_80007314;
-Translated lfd f1 0x1d0(r26) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x1D0); // lfd f1, 0x1D0(r26)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated bl fn_800114CC to: fn_800114CC();
 Translated mr r27 r3 to: gc_env.r[27] = gc_env.r[3]; // Move register
-Translated lfd f1 0x1c8(r26) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[26] + 0x1C8); // lfd f1, 0x1C8(r26)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated bl fn_800114CC to: fn_800114CC();
 Translated mr r5 r3 to: gc_env.r[5] = gc_env.r[3]; // Move register
 Translated crclr cr1eq to: ['gc_env.cr[1] &= ~0x2; // crclr cr1eq']
@@ -29821,7 +29821,7 @@ Translated lwz r3 0x8c(r4) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.
 Translated mtxer r3 to: ['gc_env.xer = gc_env.r[3]; // mtxer r3']
 Processing opcode: lhz, operands: ['r3', '0x1a2(r4)']
 Translated lhz r3 0x1a2(r4) to: ['gc_env.r[3] = gc_mem_read16(gc_env.ram, gc_env.r[4] + 0x1a2); // lhz r3, 0x1a2(r4)']
-Translated rlwinm r3 r3 0 31 29 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-3; // rlwinm r3, r3, 0, 31, 29']
+Translated rlwinm r3 r3 0 31 29 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x3; // rlwinm r3, r3, 0, 31, 29']
 Processing opcode: sth, operands: ['r3', '0x1a2(r4)']
 Translated sth r3 0x1a2(r4) to: ['gc_mem_write16(gc_env.ram, gc_env.r[4] + 0x1a2, gc_env.r[3]); // sth r3, 0x1a2(r4)']
 Processing opcode: lwz, operands: ['r5', '0x14(r4)']
@@ -30100,7 +30100,7 @@ Translated addi r1 r1 0x38 to: ['gc_env.r[1] += 56; // addi r1, r1, 0x38']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
 Translated blr  to: return;
 Translated mfmsr r3 to: gc_env.r[3] = gc_env.msr; // Move from machine state register
-Translated rlwinm r4 r3 0 17 15 to: ['gc_env.r[4] = (gc_env.r[3] << 0) & 0x-8001; // rlwinm r4, r3, 0, 17, 15']
+Translated rlwinm r4 r3 0 17 15 to: ['gc_env.r[4] = (gc_env.r[3] << 0) & -0x8001; // rlwinm r4, r3, 0, 17, 15']
 Translated mtmsr r4 to: gc_env.msr = gc_env.r[4]; // Move to machine state register
 Translated extrwi r3 r3 1 16 to: ['gc_env.r[3] = (gc_env.r[3] >> 15) & 0x1; // extrwi r3, r3, 1, 16']
 Translated blr  to: return;
@@ -30114,7 +30114,7 @@ Translated mfmsr r4 to: gc_env.r[4] = gc_env.msr; // Move from machine state reg
 Translated beq .L_8000779C to: if (gc_env.cr[0] == 0) goto L_8000779C;
 Translated ori r5 r4 0x8000 to: ['gc_env.r[5] = gc_env.r[4] | 32768; // ori r5, r4, 0x8000']
 Translated b .L_800077A0 to: goto L_800077A0;
-Translated rlwinm r5 r4 0 17 15 to: ['gc_env.r[5] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r5, r4, 0, 17, 15']
+Translated rlwinm r5 r4 0 17 15 to: ['gc_env.r[5] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r5, r4, 0, 17, 15']
 Translated mtmsr r5 to: gc_env.msr = gc_env.r[5]; // Move to machine state register
 Translated extrwi r4 r4 1 16 to: ['gc_env.r[4] = (gc_env.r[4] >> 15) & 0x1; // extrwi r4, r4, 1, 16']
 Translated blr  to: return;
@@ -30242,7 +30242,7 @@ Translated rlwinm r0 r4 0 5 5 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x4000000
 Processing opcode: lhz, operands: ['r6', '0x0(r5)']
 Translated lhz r6 0x0(r5) to: ['gc_env.r[6] = gc_mem_read16(gc_env.ram, gc_env.r[5] + 0x0); // lhz r6, 0x0(r5)']
 Translated cmplwi r0 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
-Translated rlwinm r6 r6 0 29 22 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & 0x-1F9; // rlwinm r6, r6, 0, 29, 22']
+Translated rlwinm r6 r6 0 29 22 to: ['gc_env.r[6] = (gc_env.r[6] << 0) & -0x1F9; // rlwinm r6, r6, 0, 29, 22']
 Translated bne .L_8000792C to: if (gc_env.cr[0] != 0) goto L_8000792C;
 Translated ori r6 r6 0x10 to: ['gc_env.r[6] |= 16; // ori r6, r6, 0x10']
 Translated rlwinm r0 r4 0 6 6 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x2000000; // rlwinm r0, r4, 0, 6, 6']
@@ -30256,7 +30256,7 @@ Translated ori r6 r6 0x100 to: ['gc_env.r[6] |= 256; // ori r6, r6, 0x100']
 Translated clrlwi r0 r6 16 to: ['gc_env.r[0] = gc_env.r[6] & 0xFFFF; // clrlwi r0, r6, 16']
 Processing opcode: sth, operands: ['r0', '0x0(r5)']
 Translated sth r0 0x0(r5) to: ['gc_mem_write16(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[0]); // sth r0, 0x0(r5)']
-Translated rlwinm r3 r3 0 8 4 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-7000001; // rlwinm r3, r3, 0, 8, 4']
+Translated rlwinm r3 r3 0 8 4 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x7000001; // rlwinm r3, r3, 0, 8, 4']
 Translated b .L_80007B24 to: goto L_80007B24;
 Translated rlwinm r0 r4 0 8 8 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x800000; // rlwinm r0, r4, 0, 8, 8']
 Translated lis r4 0xcc00 to: ['gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00']
@@ -30271,7 +30271,7 @@ Translated ori r5 r5 0x4 to: ['gc_env.r[5] |= 4; // ori r5, r5, 0x4']
 Translated lis r4 0xcc00 to: ['gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00']
 Processing opcode: stw, operands: ['r5', '0x6c00(r4)']
 Translated stw r5 0x6c00(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6C00, gc_env.r[5]); // stw r5, 0x6C00(r4)']
-Translated rlwinm r3 r3 0 9 7 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-800001; // rlwinm r3, r3, 0, 9, 7']
+Translated rlwinm r3 r3 0 9 7 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x800001; // rlwinm r3, r3, 0, 9, 7']
 Translated b .L_80007B24 to: goto L_80007B24;
 Translated rlwinm r0 r4 0 9 9 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x400000; // rlwinm r0, r4, 0, 9, 9']
 Translated lis r5 0xcc00 to: ['gc_env.r[5] = -13312 << 16; // lis r5, 0xcc00']
@@ -30294,7 +30294,7 @@ Translated ori r5 r5 0x400 to: ['gc_env.r[5] |= 1024; // ori r5, r5, 0x400']
 Translated lis r4 0xcc00 to: ['gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00']
 Processing opcode: stw, operands: ['r5', '0x6800(r4)']
 Translated stw r5 0x6800(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6800, gc_env.r[5]); // stw r5, 0x6800(r4)']
-Translated rlwinm r3 r3 0 12 8 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-700001; // rlwinm r3, r3, 0, 12, 8']
+Translated rlwinm r3 r3 0 12 8 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x700001; // rlwinm r3, r3, 0, 12, 8']
 Translated b .L_80007B24 to: goto L_80007B24;
 Translated lis r5 0xcc00 to: ['gc_env.r[5] = -13312 << 16; // lis r5, 0xcc00']
 Processing opcode: addi, operands: ['r6', 'r5', '0x6800']
@@ -30320,7 +30320,7 @@ Translated bne .L_80007A24 to: if (gc_env.cr[0] != 0) goto L_80007A24;
 Translated ori r7 r7 0x400 to: ['gc_env.r[7] |= 1024; // ori r7, r7, 0x400']
 Processing opcode: stw, operands: ['r7', '0x0(r6)']
 Translated stw r7 0x0(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6], gc_env.r[7]); // stw r7, (r6)']
-Translated rlwinm r3 r3 0 15 11 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-E0001; // rlwinm r3, r3, 0, 15, 11']
+Translated rlwinm r3 r3 0 15 11 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0xE0001; // rlwinm r3, r3, 0, 15, 11']
 Translated b .L_80007B24 to: goto L_80007B24;
 Translated lis r5 0xcc00 to: ['gc_env.r[5] = -13312 << 16; // lis r5, 0xcc00']
 Processing opcode: addi, operands: ['r5', 'r5', '0x6800']
@@ -30340,7 +30340,7 @@ Translated bne .L_80007A64 to: if (gc_env.cr[0] != 0) goto L_80007A64;
 Translated ori r6 r6 0x4 to: ['gc_env.r[6] |= 4; // ori r6, r6, 0x4']
 Processing opcode: stw, operands: ['r6', '0x0(r5)']
 Translated stw r6 0x0(r5) to: ['gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[6]); // stw r6, (r5)']
-Translated rlwinm r3 r3 0 17 14 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-18001; // rlwinm r3, r3, 0, 17, 14']
+Translated rlwinm r3 r3 0 17 14 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x18001; // rlwinm r3, r3, 0, 17, 14']
 Translated b .L_80007B24 to: goto L_80007B24;
 Translated rlwinm r0 r4 0 17 17 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x4000; // rlwinm r0, r4, 0, 17, 17']
 Translated cmplwi r0 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x0) ? 0 : ((uint32_t)gc_env.r[0] < 0x0 ? -1 : 1); // Logical compare with immediate
@@ -30389,7 +30389,7 @@ Processing opcode: addi, operands: ['r4', 'r4', '0x3000']
 Translated addi r4 r4 0x3000 to: ['gc_env.r[4] += 12288; // addi r4, r4, 0x3000']
 Processing opcode: stw, operands: ['r5', '0x4(r4)']
 Translated stw r5 0x4(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x4, gc_env.r[5]); // stw r5, 0x4(r4)']
-Translated rlwinm r3 r3 0 27 16 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-7FE1; // rlwinm r3, r3, 0, 27, 16']
+Translated rlwinm r3 r3 0 27 16 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x7FE1; // rlwinm r3, r3, 0, 27, 16']
 Translated blr  to: return;
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
 Processing opcode: stw, operands: ['r0', '0x4(r1)']
@@ -30500,7 +30500,7 @@ Translated mr r30 r4 to: gc_env.r[30] = gc_env.r[4]; // Move register
 Translated lis r3 0xcc00 to: ['gc_env.r[3] = -13312 << 16; // lis r3, 0xcc00']
 Processing opcode: lwz, operands: ['r31', '0x3000(r3)']
 Translated lwz r31 0x3000(r3) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3000); // lwz r31, 0x3000(r3)']
-Translated rlwinm r31 r31 0 16 14 to: ['gc_env.r[31] = (gc_env.r[31] << 0) & 0x-10001; // rlwinm r31, r31, 0, 16, 14']
+Translated rlwinm r31 r31 0 16 14 to: ['gc_env.r[31] = (gc_env.r[31] << 0) & -0x10001; // rlwinm r31, r31, 0, 16, 14']
 Translated cmplwi r31 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[31] == 0x0) ? 0 : ((uint32_t)gc_env.r[31] < 0x0 ? -1 : 1); // Logical compare with immediate
 Translated beq .L_80007C7C to: if (gc_env.cr[0] == 0) goto L_80007C7C;
 Processing opcode: addi, operands: ['r3', 'r3', '0x3000']
@@ -30908,7 +30908,7 @@ Translated rfi  to: ['// rfi: return from interrupt (not implemented)']
 Translated clrlwi r3 r3 2 to: ['gc_env.r[3] = gc_env.r[3] & 0x3FFFFFFF; // clrlwi r3, r3, 2']
 Translated mtsrr0 r3 to: ['gc_env.srr0 = gc_env.r[3]; // mtsrr0 r3']
 Translated mfmsr r3 to: gc_env.r[3] = gc_env.msr; // Move from machine state register
-Translated rlwinm r3 r3 0 28 25 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & 0x-31; // rlwinm r3, r3, 0, 28, 25']
+Translated rlwinm r3 r3 0 28 25 to: ['gc_env.r[3] = (gc_env.r[3] << 0) & -0x31; // rlwinm r3, r3, 0, 28, 25']
 Translated mtsrr1 r3 to: ['gc_env.srr1 = gc_env.r[3]; // mtsrr1 r3']
 Translated rfi  to: ['// rfi: return from interrupt (not implemented)']
 Translated mflr r0 to: gc_env.r[0] = gc_env.lr; // Move from link register
@@ -31113,18 +31113,18 @@ Translated lis r4 0x8130 to: ['gc_env.r[4] = -32464 << 16; // lis r4, 0x8130']
 Processing opcode: li, operands: ['r7', '0x1']
 Translated li r7 0x1 to: ['gc_env.r[7] = 0x1; // li r7, 0x1']
 Processing opcode: stw, operands: ['r29', '-0x4(r31)']
-Translated stw r29 -0x4(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x-4, gc_env.r[29]); // stw r29, 0x-4(r31)']
+Translated stw r29 -0x4(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + -0x4, gc_env.r[29]); // stw r29, -0x4(r31)']
 Translated lis r6 0x8000 to: ['gc_env.r[6] = -32768 << 16; // lis r6, 0x8000']
 Processing opcode: stw, operands: ['r3', '-0x8(r31)']
-Translated stw r3 -0x8(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x-8, gc_env.r[3]); // stw r3, 0x-8(r31)']
+Translated stw r3 -0x8(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + -0x8, gc_env.r[3]); // stw r3, -0x8(r31)']
 Processing opcode: addi, operands: ['r3', 'r1', '0x70']
 Translated addi r3 r1 0x70 to: ['gc_env.r[3] = gc_env.r[1] + 112; // addi r3, r1, 0x70']
 Processing opcode: stb, operands: ['r7', '0x30e2(r6)']
 Translated stb r7 0x30e2(r6) to: ['gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x30e2, gc_env.r[7]); // stb r7, 0x30e2(r6)']
 Processing opcode: stw, operands: ['r5', '-0x2010(r4)']
-Translated stw r5 -0x2010(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x-2010, gc_env.r[5]); // stw r5, 0x-2010(r4)']
+Translated stw r5 -0x2010(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + -0x2010, gc_env.r[5]); // stw r5, -0x2010(r4)']
 Processing opcode: stw, operands: ['r0', '-0x2014(r4)']
-Translated stw r0 -0x2014(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x-2014, gc_env.r[0]); // stw r0, 0x-2014(r4)']
+Translated stw r0 -0x2014(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + -0x2014, gc_env.r[0]); // stw r0, -0x2014(r4)']
 Translated bl OSClearContext to: OSClearContext();
 Processing opcode: addi, operands: ['r3', 'r1', '0x70']
 Translated addi r3 r1 0x70 to: ['gc_env.r[3] = gc_env.r[1] + 112; // addi r3, r1, 0x70']
@@ -31141,7 +31141,7 @@ Translated bl fn_8000F238 to: fn_8000F238();
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
 Translated bne .L_80008410 to: if (gc_env.cr[0] != 0) goto L_80008410;
 Processing opcode: lwz, operands: ['r3', '-0x4(r31)']
-Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)']
+Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)']
 Translated bl fn_8000863C to: fn_8000863C();
 Processing opcode: li, operands: ['r3', '-0x20']
 Translated li r3 -0x20 to: ['gc_env.r[3] = -0x20; // li r3, -0x20']
@@ -31182,7 +31182,7 @@ Translated cmpwi r0 0xc to: gc_env.cr[0] = (gc_env.r[0] == 0xc) ? 0 : (gc_env.r[
 Translated bge .L_8000845C to: if (gc_env.cr[0] >= 0) goto L_8000845C;
 Translated b .L_80008488 to: goto L_80008488;
 Processing opcode: lwz, operands: ['r3', '-0x4(r31)']
-Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)']
+Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)']
 Translated bl fn_8000863C to: fn_8000863C();
 Translated b .L_8000845C to: goto L_8000845C;
 Processing opcode: lwz, operands: ['r3', '0x18(r30)']
@@ -31225,7 +31225,7 @@ Translated cmpwi r0 0xc to: gc_env.cr[0] = (gc_env.r[0] == 0xc) ? 0 : (gc_env.r[
 Translated bge .L_800084E0 to: if (gc_env.cr[0] >= 0) goto L_800084E0;
 Translated b .L_8000850C to: goto L_8000850C;
 Processing opcode: lwz, operands: ['r3', '-0x4(r31)']
-Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x-4); // lwz r3, 0x-4(r31)']
+Translated lwz r3 -0x4(r31) to: ['gc_env.r[3] = gc_mem_read32(gc_env.ram, gc_env.r[31] + -0x4); // lwz r3, -0x4(r31)']
 Translated bl fn_8000863C to: fn_8000863C();
 Translated b .L_800084E0 to: goto L_800084E0;
 Translated lis r3 0x8130 to: ['gc_env.r[3] = -32464 << 16; // lis r3, 0x8130']
@@ -34515,7 +34515,7 @@ Translated lwz r4 0xc(r30) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.
 Translated lis r3 0xcc00 to: ['gc_env.r[3] = -13312 << 16; // lis r3, 0xcc00']
 Processing opcode: mulli, operands: ['r0', 'r31', '0x14']
 Translated mulli r0 r31 0x14 to: ['gc_env.r[0] = gc_env.r[31] * 20; // mulli r0, r31, 20']
-Translated rlwinm r4 r4 0 30 28 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-5; // rlwinm r4, r4, 0, 30, 28']
+Translated rlwinm r4 r4 0 30 28 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x5; // rlwinm r4, r4, 0, 30, 28']
 Processing opcode: addi, operands: ['r3', 'r3', '0x6800']
 Translated addi r3 r3 0x6800 to: ['gc_env.r[3] += 26624; // addi r3, r3, 0x6800']
 Processing opcode: stw, operands: ['r4', '0xc(r30)']
@@ -34890,7 +34890,7 @@ Translated lwz r28 0x8(r29) to: ['gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_en
 Processing opcode: lwz, operands: ['r0', '0xc(r29)']
 Translated lwz r0 0xc(r29) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lwz r0, 0xC(r29)']
 Translated cmplwi r28 0x0 to: gc_env.cr[0] = ((uint32_t)gc_env.r[28] == 0x0) ? 0 : ((uint32_t)gc_env.r[28] < 0x0 ? -1 : 1); // Logical compare with immediate
-Translated rlwinm r0 r0 0 29 27 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-9; // rlwinm r0, r0, 0, 29, 27']
+Translated rlwinm r0 r0 0 29 27 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x9; // rlwinm r0, r0, 0, 29, 27']
 Processing opcode: stw, operands: ['r0', '0xc(r29)']
 Translated stw r0 0xc(r29) to: ['gc_mem_write32(gc_env.ram, gc_env.r[29] + 0xC, gc_env.r[0]); // stw r0, 0xC(r29)']
 Translated beq .L_8000AC08 to: if (gc_env.cr[0] == 0) goto L_8000AC08;
@@ -35166,7 +35166,7 @@ Processing opcode: addi, operands: ['r3', 'r28', '0x0']
 Translated addi r3 r28 0x0 to: ['gc_env.r[3] = gc_env.r[28] + 0; // addi r3, r28, 0x0']
 Processing opcode: addi, operands: ['r4', 'r31', '0x0']
 Translated addi r4 r31 0x0 to: ['gc_env.r[4] = gc_env.r[31] + 0; // addi r4, r31, 0x0']
-Translated rlwinm r0 r0 0 28 26 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-11; // rlwinm r0, r0, 0, 28, 26']
+Translated rlwinm r0 r0 0 28 26 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x11; // rlwinm r0, r0, 0, 28, 26']
 Processing opcode: stw, operands: ['r0', '0xc(r31)']
 Translated stw r0 0xc(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + 0xC, gc_env.r[0]); // stw r0, 0xC(r31)']
 Translated bl fn_80009D98 to: fn_80009D98();
@@ -36337,7 +36337,7 @@ Translated lwz r0 0x4(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r
 Processing opcode: addi, operands: ['r5', 'r4', '0x4']
 Translated addi r5 r4 0x4 to: ['gc_env.r[5] = gc_env.r[4] + 4; // addi r5, r4, 0x4']
 Translated lis r4 0xcc00 to: ['gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00']
-Translated rlwinm r0 r0 0 24 5 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-3FFFF01; // rlwinm r0, r0, 0, 24, 5']
+Translated rlwinm r0 r0 0 24 5 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x3FFFF01; // rlwinm r0, r0, 0, 24, 5']
 Processing opcode: stw, operands: ['r0', '0x0(r5)']
 Translated stw r0 0x0(r5) to: ['gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[0]); // stw r0, (r5)']
 Processing opcode: lwz, operands: ['r0', '0x0(r5)']
@@ -36657,7 +36657,7 @@ Processing opcode: addi, operands: ['r31', 'r3', 'Packet_8001C6C0@l']
 Translated addi r31 r3 Packet_8001C6C0@l to: ['gc_env.r[31] = gc_env.r[3] + ((uint32_t)&Packet_8001C6C0 & 0xFFFF); // addi r31, r3, Packet_8001C6C0@l']
 Processing opcode: lwz, operands: ['r0', '0x0(r30)']
 Translated lwz r0 0x0(r30) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[30]); // lwz r0, (r30)']
-Translated rlwinm r0 r0 0 25 23 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-81; // rlwinm r0, r0, 0, 25, 23']
+Translated rlwinm r0 r0 0 25 23 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x81; // rlwinm r0, r0, 0, 25, 23']
 Processing opcode: stw, operands: ['r0', '0x0(r30)']
 Translated stw r0 0x0(r30) to: ['gc_mem_write32(gc_env.ram, gc_env.r[30], gc_env.r[0]); // stw r0, (r30)']
 Processing opcode: lwz, operands: ['r0', '0x0(r30)']
@@ -37426,7 +37426,7 @@ Processing opcode: lwz, operands: ['r0', 'lbl_8001EF40@sda21(r0)']
 Translated lwz r0 lbl_8001EF40@sda21(r0) to: ['gc_env.r[0] = lbl_8001EF40; // lwz r0, lbl_8001EF40@sda21(r0)']
 Translated cmpwi r0 0x0 to: gc_env.cr[0] = (gc_env.r[0] == 0x0) ? 0 : (gc_env.r[0] < 0x0 ? -1 : 1); // Compare with immediate
 Translated bne .L_8000C620 to: if (gc_env.cr[0] != 0) goto L_8000C620;
-Translated rlwinm r29 r29 0 29 27 to: ['gc_env.r[29] = (gc_env.r[29] << 0) & 0x-9; // rlwinm r29, r29, 0, 29, 27']
+Translated rlwinm r29 r29 0 29 27 to: ['gc_env.r[29] = (gc_env.r[29] << 0) & -0x9; // rlwinm r29, r29, 0, 29, 27']
 Translated clrlwi. r0 r29 31 to: ['gc_env.r[0] = gc_env.r[29] & 0x1; // clrlwi r0, r29, 31']
 Translated beq .L_8000C6A4 to: if (gc_env.cr[0] == 0) goto L_8000C6A4;
 Processing opcode: lwz, operands: ['r0', 'lbl_8001EF64@sda21(r0)']
@@ -38594,7 +38594,7 @@ Processing opcode: stw, operands: ['r0', '0x6004(r4)']
 Translated stw r0 0x6004(r4) to: ['gc_mem_write32(gc_env.ram, gc_env.r[4] + 0x6004, gc_env.r[0]); // stw r0, 0x6004(r4)']
 Processing opcode: lwz, operands: ['r30', '0x3024(r4)']
 Translated lwz r30 0x3024(r4) to: ['gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x3024); // lwz r30, 0x3024(r4)']
-Translated rlwinm r0 r30 0 30 28 to: ['gc_env.r[0] = (gc_env.r[30] << 0) & 0x-5; // rlwinm r0, r30, 0, 30, 28']
+Translated rlwinm r0 r30 0 30 28 to: ['gc_env.r[0] = (gc_env.r[30] << 0) & -0x5; // rlwinm r0, r30, 0, 30, 28']
 Translated ori r0 r0 0x1 to: ['gc_env.r[0] |= 1; // ori r0, r0, 0x1']
 Processing opcode: stwu, operands: ['r0', '0x24(r31)']
 Translated stwu r0 0x24(r31) to: ['gc_mem_write32(gc_env.ram, gc_env.r[31] + 0x24, gc_env.r[0]); // stwu r0, 0x24(r31)', 'gc_env.r[31] = gc_env.r[31] + 0x24;']
@@ -42529,7 +42529,7 @@ Processing opcode: lhzu, operands: ['r6', '0x30(r5)']
 Translated lhzu r6 0x30(r5) to: ['gc_env.r[6] = gc_mem_read16(gc_env.ram, gc_env.r[5] + 0x30); // lhzu r6, 0x30(r5)', 'gc_env.r[5] = gc_env.r[5] + 0x30;']
 Translated rlwinm. r0 r6 0 16 16 to: ['gc_env.r[0] = (gc_env.r[6] << 0) & 0x8000; // rlwinm r0, r6, 0, 16, 16', 'gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);']
 Translated beq .L_8000FA48 to: if (gc_env.cr[0] == 0) goto L_8000FA48;
-Translated rlwinm r0 r6 0 17 15 to: ['gc_env.r[0] = (gc_env.r[6] << 0) & 0x-8001; // rlwinm r0, r6, 0, 17, 15']
+Translated rlwinm r0 r6 0 17 15 to: ['gc_env.r[0] = (gc_env.r[6] << 0) & -0x8001; // rlwinm r0, r6, 0, 17, 15']
 Processing opcode: sth, operands: ['r0', '0x0(r5)']
 Translated sth r0 0x0(r5) to: ['gc_mem_write16(gc_env.ram, gc_env.r[5] + 0x0, gc_env.r[0]); // sth r0, 0x0(r5)']
 Translated ori r7 r7 0x1 to: ['gc_env.r[7] |= 1; // ori r7, r7, 0x1']
@@ -42538,7 +42538,7 @@ Processing opcode: lhzu, operands: ['r4', '0x2034(r3)']
 Translated lhzu r4 0x2034(r3) to: ['gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x2034); // lhzu r4, 0x2034(r3)', 'gc_env.r[3] = gc_env.r[3] + 0x2034;']
 Translated rlwinm. r0 r4 0 16 16 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16', 'gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);']
 Translated beq .L_8000FA64 to: if (gc_env.cr[0] == 0) goto L_8000FA64;
-Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15']
+Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15']
 Processing opcode: sth, operands: ['r0', '0x0(r3)']
 Translated sth r0 0x0(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)']
 Translated ori r7 r7 0x2 to: ['gc_env.r[7] |= 2; // ori r7, r7, 0x2']
@@ -42547,7 +42547,7 @@ Processing opcode: lhzu, operands: ['r4', '0x2038(r3)']
 Translated lhzu r4 0x2038(r3) to: ['gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x2038); // lhzu r4, 0x2038(r3)', 'gc_env.r[3] = gc_env.r[3] + 0x2038;']
 Translated rlwinm. r0 r4 0 16 16 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16', 'gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);']
 Translated beq .L_8000FA80 to: if (gc_env.cr[0] == 0) goto L_8000FA80;
-Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15']
+Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15']
 Processing opcode: sth, operands: ['r0', '0x0(r3)']
 Translated sth r0 0x0(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)']
 Translated ori r7 r7 0x4 to: ['gc_env.r[7] |= 4; // ori r7, r7, 0x4']
@@ -42556,7 +42556,7 @@ Processing opcode: lhzu, operands: ['r4', '0x203c(r3)']
 Translated lhzu r4 0x203c(r3) to: ['gc_env.r[4] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x203c); // lhzu r4, 0x203c(r3)', 'gc_env.r[3] = gc_env.r[3] + 0x203c;']
 Translated rlwinm. r0 r4 0 16 16 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x8000; // rlwinm r0, r4, 0, 16, 16', 'gc_env.cr[0] = (gc_env.r[0] == 0) ? 0x2 : ((int32_t)gc_env.r[0] < 0 ? 0x8 : 0x4);']
 Translated beq .L_8000FA9C to: if (gc_env.cr[0] == 0) goto L_8000FA9C;
-Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r0, r4, 0, 17, 15']
+Translated rlwinm r0 r4 0 17 15 to: ['gc_env.r[0] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r0, r4, 0, 17, 15']
 Processing opcode: sth, operands: ['r0', '0x0(r3)']
 Translated sth r0 0x0(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x0, gc_env.r[0]); // sth r0, 0x0(r3)']
 Translated ori r7 r7 0x8 to: ['gc_env.r[7] |= 8; // ori r7, r7, 0x8']
@@ -44326,14 +44326,14 @@ Translated cmplwi r0 0x2 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x2) ? 0 :
 Translated beq .L_80010BEC to: if (gc_env.cr[0] == 0) goto L_80010BEC;
 Translated cmplwi r0 0x3 to: gc_env.cr[0] = ((uint32_t)gc_env.r[0] == 0x3) ? 0 : ((uint32_t)gc_env.r[0] < 0x3 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_80010BF8 to: if (gc_env.cr[0] != 0) goto L_80010BF8;
-Translated rlwinm r0 r5 0 30 28 to: ['gc_env.r[0] = (gc_env.r[5] << 0) & 0x-5; // rlwinm r0, r5, 0, 30, 28']
+Translated rlwinm r0 r5 0 30 28 to: ['gc_env.r[0] = (gc_env.r[5] << 0) & -0x5; // rlwinm r0, r5, 0, 30, 28']
 Translated ori r5 r0 0x4 to: ['gc_env.r[5] = gc_env.r[0] | 4; // ori r5, r0, 0x4']
 Translated b .L_80010C00 to: goto L_80010C00;
-Translated rlwinm r5 r5 0 30 28 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & 0x-5; // rlwinm r5, r5, 0, 30, 28']
+Translated rlwinm r5 r5 0 30 28 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & -0x5; // rlwinm r5, r5, 0, 30, 28']
 Translated rlwimi r5 r0 2 29 29 to: ['uint32_t rotated = gc_env.r[0] << 2; // rlwimi r5, r0, 2, 29, 29', 'gc_env.r[5] = (gc_env.r[5] & ~0x4) | (rotated & 0x4);']
 Processing opcode: lwz, operands: ['r6', '0x0(r21)']
 Translated lwz r6 0x0(r21) to: ['gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[21]); // lwz r6, (r21)']
-Translated rlwinm r5 r5 0 29 27 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & 0x-9; // rlwinm r5, r5, 0, 29, 27']
+Translated rlwinm r5 r5 0 29 27 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & -0x9; // rlwinm r5, r5, 0, 29, 27']
 Processing opcode: lwz, operands: ['r7', '0x0(r18)']
 Translated lwz r7 0x0(r18) to: ['gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[18]); // lwz r7, (r18)']
 Translated cmplwi r6 0x4 to: gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x4) ? 0 : ((uint32_t)gc_env.r[6] < 0x4 ? -1 : 1); // Logical compare with immediate
@@ -44342,9 +44342,9 @@ Translated or r0 r5 r0 to: ['gc_env.r[0] = gc_env.r[5] | gc_env.r[0]; // or r0, 
 Translated beq .L_80010C24 to: if (gc_env.cr[0] == 0) goto L_80010C24;
 Translated cmplwi r6 0x5 to: gc_env.cr[0] = ((uint32_t)gc_env.r[6] == 0x5) ? 0 : ((uint32_t)gc_env.r[6] < 0x5 ? -1 : 1); // Logical compare with immediate
 Translated bne .L_80010C2C to: if (gc_env.cr[0] != 0) goto L_80010C2C;
-Translated rlwinm r0 r0 0 24 21 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-301; // rlwinm r0, r0, 0, 24, 21']
+Translated rlwinm r0 r0 0 24 21 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x301; // rlwinm r0, r0, 0, 24, 21']
 Translated b .L_80010C38 to: goto L_80010C38;
-Translated rlwinm r5 r0 0 24 21 to: ['gc_env.r[5] = (gc_env.r[0] << 0) & 0x-301; // rlwinm r5, r0, 0, 24, 21']
+Translated rlwinm r5 r0 0 24 21 to: ['gc_env.r[5] = (gc_env.r[0] << 0) & -0x301; // rlwinm r5, r0, 0, 24, 21']
 Translated slwi r0 r6 8 to: ['gc_env.r[0] = gc_env.r[6] << 8; // slwi r0, r6, 8']
 Translated or r0 r5 r0 to: ['gc_env.r[0] = gc_env.r[5] | gc_env.r[0]; // or r0, r5, r0']
 Processing opcode: sth, operands: ['r0', '0x0(r4)']
@@ -45222,9 +45222,9 @@ Translated lis r4 lbl_8001A460@h to: ['gc_env.r[4] = ((uint32_t)&lbl_8001A460 >>
 Translated ori r4 r4 lbl_8001A460@l to: ['gc_env.r[4] = gc_env.r[4] | ((uint32_t)&lbl_8001A460 & 0xFFFF); // ori r4, r4, lbl_8001A460@l']
 Processing opcode: li, operands: ['r3', '0x0']
 Translated li r3 0x0 to: ['gc_env.r[3] = 0x0; // li r3, 0x0']
-Translated lfd f0 0x0(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x0); // lfd f0, 0x0(r4)', 'gc_env.f[0] = *(double*)&temp;']
-Translated lfd f3 0x8(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x8); // lfd f3, 0x8(r4)', 'gc_env.f[3] = *(double*)&temp;']
-Translated lfd f4 0x10(r4) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[4] + 0x10); // lfd f4, 0x10(r4)', 'gc_env.f[4] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
+Error in handler for lfd: name 'format_hex' is not defined
 Translated fcmpu cr0 f1 f0 to: ['gc_env.cr[0] = isnan(gc_env.f[1]) || isnan(gc_env.f[0]) ? 0x1 : (gc_env.f[1] < gc_env.f[0] ? 0x8 : (gc_env.f[1] > gc_env.f[0] ? 0x4 : 0x2)); // fcmpu cr0, f1, f0']
 Translated fcmpu cr6 f1 f3 to: ['gc_env.cr[6] = isnan(gc_env.f[1]) || isnan(gc_env.f[3]) ? 0x1 : (gc_env.f[1] < gc_env.f[3] ? 0x8 : (gc_env.f[1] > gc_env.f[3] ? 0x4 : 0x2)); // fcmpu cr6, f1, f3']
 Translated blt .L_80011520 to: ['if (gc_env.cr[0] & 0x8) goto L_80011520; // blt .L_80011520']
@@ -45246,78 +45246,78 @@ Processing opcode: addi, operands: ['r1', 'r1', '0x10']
 Translated addi r1 r1 0x10 to: ['gc_env.r[1] += 16; // addi r1, r1, 0x10']
 Translated blr  to: return;
 Processing opcode: stw, operands: ['r14', '-0x48(r11)']
-Translated stw r14 -0x48(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-48, gc_env.r[14]); // stw r14, 0x-48(r11)']
+Translated stw r14 -0x48(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x48, gc_env.r[14]); // stw r14, -0x48(r11)']
 Processing opcode: stw, operands: ['r15', '-0x44(r11)']
-Translated stw r15 -0x44(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-44, gc_env.r[15]); // stw r15, 0x-44(r11)']
+Translated stw r15 -0x44(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x44, gc_env.r[15]); // stw r15, -0x44(r11)']
 Processing opcode: stw, operands: ['r16', '-0x40(r11)']
-Translated stw r16 -0x40(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-40, gc_env.r[16]); // stw r16, 0x-40(r11)']
+Translated stw r16 -0x40(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x40, gc_env.r[16]); // stw r16, -0x40(r11)']
 Processing opcode: stw, operands: ['r17', '-0x3c(r11)']
-Translated stw r17 -0x3c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-3C, gc_env.r[17]); // stw r17, 0x-3C(r11)']
+Translated stw r17 -0x3c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x3C, gc_env.r[17]); // stw r17, -0x3C(r11)']
 Processing opcode: stw, operands: ['r18', '-0x38(r11)']
-Translated stw r18 -0x38(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-38, gc_env.r[18]); // stw r18, 0x-38(r11)']
+Translated stw r18 -0x38(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x38, gc_env.r[18]); // stw r18, -0x38(r11)']
 Processing opcode: stw, operands: ['r19', '-0x34(r11)']
-Translated stw r19 -0x34(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-34, gc_env.r[19]); // stw r19, 0x-34(r11)']
+Translated stw r19 -0x34(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x34, gc_env.r[19]); // stw r19, -0x34(r11)']
 Processing opcode: stw, operands: ['r20', '-0x30(r11)']
-Translated stw r20 -0x30(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-30, gc_env.r[20]); // stw r20, 0x-30(r11)']
+Translated stw r20 -0x30(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x30, gc_env.r[20]); // stw r20, -0x30(r11)']
 Processing opcode: stw, operands: ['r21', '-0x2c(r11)']
-Translated stw r21 -0x2c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-2C, gc_env.r[21]); // stw r21, 0x-2C(r11)']
+Translated stw r21 -0x2c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x2C, gc_env.r[21]); // stw r21, -0x2C(r11)']
 Processing opcode: stw, operands: ['r22', '-0x28(r11)']
-Translated stw r22 -0x28(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-28, gc_env.r[22]); // stw r22, 0x-28(r11)']
+Translated stw r22 -0x28(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x28, gc_env.r[22]); // stw r22, -0x28(r11)']
 Processing opcode: stw, operands: ['r23', '-0x24(r11)']
-Translated stw r23 -0x24(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-24, gc_env.r[23]); // stw r23, 0x-24(r11)']
+Translated stw r23 -0x24(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x24, gc_env.r[23]); // stw r23, -0x24(r11)']
 Processing opcode: stw, operands: ['r24', '-0x20(r11)']
-Translated stw r24 -0x20(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-20, gc_env.r[24]); // stw r24, 0x-20(r11)']
+Translated stw r24 -0x20(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x20, gc_env.r[24]); // stw r24, -0x20(r11)']
 Processing opcode: stw, operands: ['r25', '-0x1c(r11)']
-Translated stw r25 -0x1c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-1C, gc_env.r[25]); // stw r25, 0x-1C(r11)']
+Translated stw r25 -0x1c(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x1C, gc_env.r[25]); // stw r25, -0x1C(r11)']
 Processing opcode: stw, operands: ['r26', '-0x18(r11)']
-Translated stw r26 -0x18(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-18, gc_env.r[26]); // stw r26, 0x-18(r11)']
+Translated stw r26 -0x18(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x18, gc_env.r[26]); // stw r26, -0x18(r11)']
 Processing opcode: stw, operands: ['r27', '-0x14(r11)']
-Translated stw r27 -0x14(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-14, gc_env.r[27]); // stw r27, 0x-14(r11)']
+Translated stw r27 -0x14(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x14, gc_env.r[27]); // stw r27, -0x14(r11)']
 Processing opcode: stw, operands: ['r28', '-0x10(r11)']
-Translated stw r28 -0x10(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-10, gc_env.r[28]); // stw r28, 0x-10(r11)']
+Translated stw r28 -0x10(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x10, gc_env.r[28]); // stw r28, -0x10(r11)']
 Processing opcode: stw, operands: ['r29', '-0xc(r11)']
-Translated stw r29 -0xc(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-C, gc_env.r[29]); // stw r29, 0x-C(r11)']
+Translated stw r29 -0xc(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0xC, gc_env.r[29]); // stw r29, -0xC(r11)']
 Processing opcode: stw, operands: ['r30', '-0x8(r11)']
-Translated stw r30 -0x8(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-8, gc_env.r[30]); // stw r30, 0x-8(r11)']
+Translated stw r30 -0x8(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x8, gc_env.r[30]); // stw r30, -0x8(r11)']
 Processing opcode: stw, operands: ['r31', '-0x4(r11)']
-Translated stw r31 -0x4(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + 0x-4, gc_env.r[31]); // stw r31, 0x-4(r11)']
+Translated stw r31 -0x4(r11) to: ['gc_mem_write32(gc_env.ram, gc_env.r[11] + -0x4, gc_env.r[31]); // stw r31, -0x4(r11)']
 Translated blr  to: return;
 Processing opcode: lwz, operands: ['r14', '-0x48(r11)']
-Translated lwz r14 -0x48(r11) to: ['gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-48); // lwz r14, 0x-48(r11)']
+Translated lwz r14 -0x48(r11) to: ['gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x48); // lwz r14, -0x48(r11)']
 Processing opcode: lwz, operands: ['r15', '-0x44(r11)']
-Translated lwz r15 -0x44(r11) to: ['gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-44); // lwz r15, 0x-44(r11)']
+Translated lwz r15 -0x44(r11) to: ['gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x44); // lwz r15, -0x44(r11)']
 Processing opcode: lwz, operands: ['r16', '-0x40(r11)']
-Translated lwz r16 -0x40(r11) to: ['gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-40); // lwz r16, 0x-40(r11)']
+Translated lwz r16 -0x40(r11) to: ['gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x40); // lwz r16, -0x40(r11)']
 Processing opcode: lwz, operands: ['r17', '-0x3c(r11)']
-Translated lwz r17 -0x3c(r11) to: ['gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-3C); // lwz r17, 0x-3C(r11)']
+Translated lwz r17 -0x3c(r11) to: ['gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x3C); // lwz r17, -0x3C(r11)']
 Processing opcode: lwz, operands: ['r18', '-0x38(r11)']
-Translated lwz r18 -0x38(r11) to: ['gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-38); // lwz r18, 0x-38(r11)']
+Translated lwz r18 -0x38(r11) to: ['gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x38); // lwz r18, -0x38(r11)']
 Processing opcode: lwz, operands: ['r19', '-0x34(r11)']
-Translated lwz r19 -0x34(r11) to: ['gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-34); // lwz r19, 0x-34(r11)']
+Translated lwz r19 -0x34(r11) to: ['gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x34); // lwz r19, -0x34(r11)']
 Processing opcode: lwz, operands: ['r20', '-0x30(r11)']
-Translated lwz r20 -0x30(r11) to: ['gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-30); // lwz r20, 0x-30(r11)']
+Translated lwz r20 -0x30(r11) to: ['gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x30); // lwz r20, -0x30(r11)']
 Processing opcode: lwz, operands: ['r21', '-0x2c(r11)']
-Translated lwz r21 -0x2c(r11) to: ['gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-2C); // lwz r21, 0x-2C(r11)']
+Translated lwz r21 -0x2c(r11) to: ['gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x2C); // lwz r21, -0x2C(r11)']
 Processing opcode: lwz, operands: ['r22', '-0x28(r11)']
-Translated lwz r22 -0x28(r11) to: ['gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-28); // lwz r22, 0x-28(r11)']
+Translated lwz r22 -0x28(r11) to: ['gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x28); // lwz r22, -0x28(r11)']
 Processing opcode: lwz, operands: ['r23', '-0x24(r11)']
-Translated lwz r23 -0x24(r11) to: ['gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-24); // lwz r23, 0x-24(r11)']
+Translated lwz r23 -0x24(r11) to: ['gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x24); // lwz r23, -0x24(r11)']
 Processing opcode: lwz, operands: ['r24', '-0x20(r11)']
-Translated lwz r24 -0x20(r11) to: ['gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-20); // lwz r24, 0x-20(r11)']
+Translated lwz r24 -0x20(r11) to: ['gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x20); // lwz r24, -0x20(r11)']
 Processing opcode: lwz, operands: ['r25', '-0x1c(r11)']
-Translated lwz r25 -0x1c(r11) to: ['gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-1C); // lwz r25, 0x-1C(r11)']
+Translated lwz r25 -0x1c(r11) to: ['gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x1C); // lwz r25, -0x1C(r11)']
 Processing opcode: lwz, operands: ['r26', '-0x18(r11)']
-Translated lwz r26 -0x18(r11) to: ['gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-18); // lwz r26, 0x-18(r11)']
+Translated lwz r26 -0x18(r11) to: ['gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x18); // lwz r26, -0x18(r11)']
 Processing opcode: lwz, operands: ['r27', '-0x14(r11)']
-Translated lwz r27 -0x14(r11) to: ['gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-14); // lwz r27, 0x-14(r11)']
+Translated lwz r27 -0x14(r11) to: ['gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x14); // lwz r27, -0x14(r11)']
 Processing opcode: lwz, operands: ['r28', '-0x10(r11)']
-Translated lwz r28 -0x10(r11) to: ['gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-10); // lwz r28, 0x-10(r11)']
+Translated lwz r28 -0x10(r11) to: ['gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x10); // lwz r28, -0x10(r11)']
 Processing opcode: lwz, operands: ['r29', '-0xc(r11)']
-Translated lwz r29 -0xc(r11) to: ['gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-C); // lwz r29, 0x-C(r11)']
+Translated lwz r29 -0xc(r11) to: ['gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0xC); // lwz r29, -0xC(r11)']
 Processing opcode: lwz, operands: ['r30', '-0x8(r11)']
-Translated lwz r30 -0x8(r11) to: ['gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-8); // lwz r30, 0x-8(r11)']
+Translated lwz r30 -0x8(r11) to: ['gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x8); // lwz r30, -0x8(r11)']
 Processing opcode: lwz, operands: ['r31', '-0x4(r11)']
-Translated lwz r31 -0x4(r11) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-4); // lwz r31, 0x-4(r11)']
+Translated lwz r31 -0x4(r11) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x4); // lwz r31, -0x4(r11)']
 Translated blr  to: return;
 Translated cmpwi r3 0x0 to: gc_env.cr[0] = (gc_env.r[3] == 0x0) ? 0 : (gc_env.r[3] < 0x0 ? -1 : 1); // Compare with immediate
 Translated cntlzw r0 r3 to: ['uint32_t val = gc_env.r[3]; int count = 0; while (val && !(val & 0x80000000)) { val <<= 1; count++; } gc_env.r[0] = count; // cntlzw r0, r3']
@@ -45747,7 +45747,7 @@ Translated neg r4 r4 to: ['gc_env.r[4] = -(int32_t)gc_env.r[4]; // neg r4, r4']
 Translated b .L_80011C18 to: goto L_80011C18;
 Translated clrlwi. r0 r4 31 to: ['gc_env.r[0] = gc_env.r[4] & 0x1; // clrlwi r0, r4, 31']
 Translated beq .L_80011C10 to: if (gc_env.cr[0] == 0) goto L_80011C10;
-Translated lfd f0 0x0(r5) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x0); // lfd f0, 0x0(r5)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated fmul f31 f31 f0 to: ['gc_env.f[31] = gc_env.f[31] * gc_env.f[0]; // fmul f31, f31, f0']
 Translated srawi r4 r4 1 to: ['gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 1; // srawi r4, r4, 1']
 Processing opcode: addi, operands: ['r5', 'r5', '0x8']
@@ -45760,7 +45760,7 @@ Translated lfd f1 lbl_8001F0A8@sda21(r0) to: ['gc_env.f[1] = lbl_8001F0A8; // lf
 Translated b .L_80011C48 to: goto L_80011C48;
 Translated clrlwi. r0 r4 31 to: ['gc_env.r[0] = gc_env.r[4] & 0x1; // clrlwi r0, r4, 31']
 Translated beq .L_80011C40 to: if (gc_env.cr[0] == 0) goto L_80011C40;
-Translated lfd f0 0x0(r5) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x0); // lfd f0, 0x0(r5)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated fmul f1 f1 f0 to: ['gc_env.f[1] = gc_env.f[1] * gc_env.f[0]; // fmul f1, f1, f0']
 Translated srawi r4 r4 1 to: ['gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 1; // srawi r4, r4, 1']
 Processing opcode: addi, operands: ['r5', 'r5', '0x8']
@@ -45815,7 +45815,7 @@ Processing opcode: subf, operands: ['r31', 'r12', 'r31']
 Translated subf r31 r12 r31 to: ['gc_env.r[31] = gc_env.r[31] - gc_env.r[12]; // subf r31, r12, r31']
 Processing opcode: subf, operands: ['r3', 'r12', 'r3']
 Translated subf r3 r12 r3 to: ['gc_env.r[3] = gc_env.r[3] - gc_env.r[12]; // subf r3, r12, r3']
-Translated lfd f0 -0x8(r5) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[5] + 0x-8); // lfd f0, 0x-8(r5)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: add, operands: ['r4', 'r4', 'r12']
 Translated add r4 r4 r12 to: ['gc_env.r[4] = gc_env.r[4] + gc_env.r[12]; // add r4, r4, r12']
 Processing opcode: addi, operands: ['r11', 'r12', '0x1']
@@ -45833,7 +45833,7 @@ Processing opcode: lwz, operands: ['r6', '0x4c(r1)']
 Translated lwz r6 0x4c(r1) to: ['gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x4C); // lwz r6, 0x4C(r1)']
 Processing opcode: stw, operands: ['r9', '0x38(r1)']
 Translated stw r9 0x38(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x38, gc_env.r[9]); // stw r9, 0x38(r1)']
-Translated lfd f0 0x38(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x38); // lfd f0, 0x38(r1)', 'gc_env.f[0] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated fsub f0 f0 f1 to: ['gc_env.f[0] = gc_env.f[0] - gc_env.f[1]; // fsub f0, f0, f1']
 Translated fsub f31 f31 f0 to: ['gc_env.f[31] = gc_env.f[31] - gc_env.f[0]; // fsub f31, f31, f0']
 Translated b .L_80011D4C to: goto L_80011D4C;
@@ -45898,7 +45898,7 @@ Processing opcode: sth, operands: ['r0', '0x2(r30)']
 Translated sth r0 0x2(r30) to: ['gc_mem_write16(gc_env.ram, gc_env.r[30] + 0x2, gc_env.r[0]); // sth r0, 0x2(r30)']
 Processing opcode: lwz, operands: ['r0', '0x6c(r1)']
 Translated lwz r0 0x6c(r1) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x6C); // lwz r0, 0x6C(r1)']
-Translated lfd f31 0x60(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x60); // lfd f31, 0x60(r1)', 'gc_env.f[31] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: lwz, operands: ['r31', '0x5c(r1)']
 Translated lwz r31 0x5c(r1) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x5C); // lwz r31, 0x5C(r1)']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
@@ -46139,14 +46139,14 @@ Processing opcode: lwzu, operands: ['r7', '-0x4(r11)']
 Translated lwzu r7 -0x4(r11) to: ['gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x4); // lwzu r7, -0x4(r11)', 'gc_env.r[11] = gc_env.r[11] + -0x4;']
 Translated srwi r6 r5 3 to: ['gc_env.r[6] = gc_env.r[5] >> 3; // srwi r6, r5, 3']
 Processing opcode: lwz, operands: ['r8', '-0x4(r11)']
-Translated lwz r8 -0x4(r11) to: ['gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[11] + 0x-4); // lwz r8, 0x-4(r11)']
+Translated lwz r8 -0x4(r11) to: ['gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x4); // lwz r8, -0x4(r11)']
 Translated srw r0 r7 r10 to: ['gc_env.r[0] = gc_env.r[7] >> (gc_env.r[10] & 31); // srw r0, r7, r10']
 Processing opcode: subic, operands: ['r6', 'r6', '0x1']
 Translated subic. r6 r6 0x1 to: ['gc_env.r[6] = gc_env.r[6] - 1; // subic. r6, r6, 1', 'gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[6] >= 1 ? 0x20000000 : 0);', 'gc_env.cr[0] = (gc_env.r[6] == 0) ? 0x2 : ((int32_t)gc_env.r[6] < 0 ? 0x8 : 0x4);']
 Translated slw r3 r8 r4 to: ['gc_env.r[3] = gc_env.r[8] << (gc_env.r[4] & 31); // slw r3, r8, r4']
 Translated or r0 r3 r0 to: ['gc_env.r[0] = gc_env.r[3] | gc_env.r[0]; // or r0, r3, r0']
 Processing opcode: stw, operands: ['r0', '-0x4(r12)']
-Translated stw r0 -0x4(r12) to: ['gc_mem_write32(gc_env.ram, gc_env.r[12] + 0x-4, gc_env.r[0]); // stw r0, 0x-4(r12)']
+Translated stw r0 -0x4(r12) to: ['gc_mem_write32(gc_env.ram, gc_env.r[12] + -0x4, gc_env.r[0]); // stw r0, -0x4(r12)']
 Translated srw r0 r8 r10 to: ['gc_env.r[0] = gc_env.r[8] >> (gc_env.r[10] & 31); // srw r0, r8, r10']
 Processing opcode: lwzu, operands: ['r7', '-0x8(r11)']
 Translated lwzu r7 -0x8(r11) to: ['gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[11] + -0x8); // lwzu r7, -0x8(r11)', 'gc_env.r[11] = gc_env.r[11] + -0x8;']
@@ -46260,35 +46260,35 @@ Translated bne .L_800124C4 to: if (gc_env.cr[0] != 0) goto L_800124C4;
 Translated srwi. r3 r5 5 to: ['gc_env.r[3] = gc_env.r[5] >> 5; // srwi r3, r5, 5', 'gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);']
 Translated beq .L_80012524 to: if (gc_env.cr[0] == 0) goto L_80012524;
 Processing opcode: lwz, operands: ['r0', '-0x4(r4)']
-Translated lwz r0 -0x4(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-4); // lwz r0, 0x-4(r4)']
+Translated lwz r0 -0x4(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x4); // lwz r0, -0x4(r4)']
 Processing opcode: subic, operands: ['r3', 'r3', '0x1']
 Translated subic. r3 r3 0x1 to: ['gc_env.r[3] = gc_env.r[3] - 1; // subic. r3, r3, 1', 'gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[3] >= 1 ? 0x20000000 : 0);', 'gc_env.cr[0] = (gc_env.r[3] == 0) ? 0x2 : ((int32_t)gc_env.r[3] < 0 ? 0x8 : 0x4);']
 Processing opcode: stw, operands: ['r0', '-0x4(r6)']
-Translated stw r0 -0x4(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-4, gc_env.r[0]); // stw r0, 0x-4(r6)']
+Translated stw r0 -0x4(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x4, gc_env.r[0]); // stw r0, -0x4(r6)']
 Processing opcode: lwz, operands: ['r0', '-0x8(r4)']
-Translated lwz r0 -0x8(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-8); // lwz r0, 0x-8(r4)']
+Translated lwz r0 -0x8(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x8); // lwz r0, -0x8(r4)']
 Processing opcode: stw, operands: ['r0', '-0x8(r6)']
-Translated stw r0 -0x8(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-8, gc_env.r[0]); // stw r0, 0x-8(r6)']
+Translated stw r0 -0x8(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x8, gc_env.r[0]); // stw r0, -0x8(r6)']
 Processing opcode: lwz, operands: ['r0', '-0xc(r4)']
-Translated lwz r0 -0xc(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-C); // lwz r0, 0x-C(r4)']
+Translated lwz r0 -0xc(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0xC); // lwz r0, -0xC(r4)']
 Processing opcode: stw, operands: ['r0', '-0xc(r6)']
-Translated stw r0 -0xc(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-C, gc_env.r[0]); // stw r0, 0x-C(r6)']
+Translated stw r0 -0xc(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0xC, gc_env.r[0]); // stw r0, -0xC(r6)']
 Processing opcode: lwz, operands: ['r0', '-0x10(r4)']
-Translated lwz r0 -0x10(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-10); // lwz r0, 0x-10(r4)']
+Translated lwz r0 -0x10(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x10); // lwz r0, -0x10(r4)']
 Processing opcode: stw, operands: ['r0', '-0x10(r6)']
-Translated stw r0 -0x10(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-10, gc_env.r[0]); // stw r0, 0x-10(r6)']
+Translated stw r0 -0x10(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x10, gc_env.r[0]); // stw r0, -0x10(r6)']
 Processing opcode: lwz, operands: ['r0', '-0x14(r4)']
-Translated lwz r0 -0x14(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-14); // lwz r0, 0x-14(r4)']
+Translated lwz r0 -0x14(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x14); // lwz r0, -0x14(r4)']
 Processing opcode: stw, operands: ['r0', '-0x14(r6)']
-Translated stw r0 -0x14(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-14, gc_env.r[0]); // stw r0, 0x-14(r6)']
+Translated stw r0 -0x14(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x14, gc_env.r[0]); // stw r0, -0x14(r6)']
 Processing opcode: lwz, operands: ['r0', '-0x18(r4)']
-Translated lwz r0 -0x18(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-18); // lwz r0, 0x-18(r4)']
+Translated lwz r0 -0x18(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x18); // lwz r0, -0x18(r4)']
 Processing opcode: stw, operands: ['r0', '-0x18(r6)']
-Translated stw r0 -0x18(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-18, gc_env.r[0]); // stw r0, 0x-18(r6)']
+Translated stw r0 -0x18(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x18, gc_env.r[0]); // stw r0, -0x18(r6)']
 Processing opcode: lwz, operands: ['r0', '-0x1c(r4)']
-Translated lwz r0 -0x1c(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + 0x-1C); // lwz r0, 0x-1C(r4)']
+Translated lwz r0 -0x1c(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x1C); // lwz r0, -0x1C(r4)']
 Processing opcode: stw, operands: ['r0', '-0x1c(r6)']
-Translated stw r0 -0x1c(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + 0x-1C, gc_env.r[0]); // stw r0, 0x-1C(r6)']
+Translated stw r0 -0x1c(r6) to: ['gc_mem_write32(gc_env.ram, gc_env.r[6] + -0x1C, gc_env.r[0]); // stw r0, -0x1C(r6)']
 Processing opcode: lwzu, operands: ['r0', '-0x20(r4)']
 Translated lwzu r0 -0x20(r4) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[4] + -0x20); // lwzu r0, -0x20(r4)', 'gc_env.r[4] = gc_env.r[4] + -0x20;']
 Processing opcode: stwu, operands: ['r0', '-0x20(r6)']
@@ -47086,12 +47086,12 @@ Translated bne .L_80012E2C to: if (gc_env.cr[0] != 0) goto L_80012E2C;
 Processing opcode: li, operands: ['r4', '0x3']
 Translated li r4 0x3 to: ['gc_env.r[4] = 0x3; // li r4, 0x3']
 Translated bl __va_arg to: __va_arg();
-Translated lfd f31 0x0(r3) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[3] + 0x0); // lfd f31, 0x0(r3)', 'gc_env.f[31] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated b .L_80012E38 to: goto L_80012E38;
 Processing opcode: li, operands: ['r4', '0x3']
 Translated li r4 0x3 to: ['gc_env.r[4] = 0x3; // li r4, 0x3']
 Translated bl __va_arg to: __va_arg();
-Translated lfd f31 0x0(r3) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[3] + 0x0); // lfd f31, 0x0(r3)', 'gc_env.f[31] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: lwz, operands: ['r0', '0xc(r29)']
 Translated lwz r0 0xc(r29) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[29] + 0xC); // lwz r0, 0xC(r29)']
 Translated cmpwi r0 0x1fd to: gc_env.cr[0] = (gc_env.r[0] == 0x1fd) ? 0 : (gc_env.r[0] < 0x1fd ? -1 : 1); // Compare with immediate
@@ -47635,7 +47635,7 @@ Translated stbu r0 -0x1(r30) to: ['gc_mem_write8(gc_env.ram, gc_env.r[30] + -0x1
 Translated mr r3 r30 to: gc_env.r[3] = gc_env.r[30]; // Move register
 Processing opcode: lwz, operands: ['r0', '0x64(r1)']
 Translated lwz r0 0x64(r1) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x64); // lwz r0, 0x64(r1)']
-Translated lfd f31 0x58(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x58); // lfd f31, 0x58(r1)', 'gc_env.f[31] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: lwz, operands: ['r31', '0x54(r1)']
 Translated lwz r31 0x54(r1) to: ['gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[1] + 0x54); // lwz r31, 0x54(r1)']
 Translated mtlr r0 to: gc_env.lr = gc_env.r[0]; // Move to link register
@@ -48936,12 +48936,12 @@ Translated addi r4 r6 0x0 to: ['gc_env.r[4] = gc_env.r[6] + 0; // addi r4, r6, 0
 Translated bge .L_8001426C to: if (gc_env.cr[0] >= 0) goto L_8001426C;
 Translated or. r0 r4 r8 to: ['gc_env.r[0] = gc_env.r[4] | gc_env.r[8]; // or r0, r4, r8']
 Translated bne .L_80014274 to: if (gc_env.cr[0] != 0) goto L_80014274;
-Translated lfd f1 0x8(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Translated b .L_800142C8 to: goto L_800142C8;
 Translated lis r0 0x10 to: ['gc_env.r[0] = 16 << 16; // lis r0, 0x10']
 Translated cmpw r4 r0 to: ['gc_env.cr[0] = (int32_t)gc_env.r[4] < (int32_t)gc_env.r[0] ? 0x8 : ((int32_t)gc_env.r[4] > (int32_t)gc_env.r[0] ? 0x4 : 0x2); // cmpw r4, r0']
 Translated bge .L_800142A4 to: if (gc_env.cr[0] >= 0) goto L_800142A4;
-Translated lfd f1 0x8(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: li, operands: ['r0', '-0x36']
 Translated li r0 -0x36 to: ['gc_env.r[0] = -0x36; // li r0, -0x36']
 Translated lfd f0 lbl_8001F0D0@sda21(r0) to: ['gc_env.f[0] = lbl_8001F0D0; // lfd f0, lbl_8001F0D0@sda21(r0)']
@@ -48957,7 +48957,7 @@ Translated clrlwi r4 r4 1 to: ['gc_env.r[4] = gc_env.r[4] & 0x7FFFFFFF; // clrlw
 Processing opcode: lwz, operands: ['r5', '0x0(r3)']
 Translated lwz r5 0x0(r3) to: ['gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3]); // lwz r5, (r3)']
 Translated srawi r4 r4 20 to: ['gc_env.r[4] = ((int32_t)gc_env.r[4]) >> 20; // srawi r4, r4, 20']
-Translated rlwinm r0 r7 0 12 0 to: ['gc_env.r[0] = (gc_env.r[7] << 0) & 0x-7FF00001; // rlwinm r0, r7, 0, 12, 0']
+Translated rlwinm r0 r7 0 12 0 to: ['gc_env.r[0] = (gc_env.r[7] << 0) & -0x7FF00001; // rlwinm r0, r7, 0, 12, 0']
 Processing opcode: add, operands: ['r4', 'r4', 'r5']
 Translated add r4 r4 r5 to: ['gc_env.r[4] = gc_env.r[4] + gc_env.r[5]; // add r4, r4, r5']
 Processing opcode: subi, operands: ['r4', 'r4', '0x3fe']
@@ -48967,7 +48967,7 @@ Translated stw r4 0x0(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3], gc_env.r
 Translated oris r0 r0 0x3fe0 to: ['gc_env.r[0] = gc_env.r[0] | 0x3FE00000; // oris r0, r0, 0x3FE0']
 Processing opcode: stw, operands: ['r0', '0x8(r1)']
 Translated stw r0 0x8(r1) to: ['gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x8, gc_env.r[0]); // stw r0, 0x8(r1)']
-Translated lfd f1 0x8(r1) to: ['uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[1] + 0x8); // lfd f1, 0x8(r1)', 'gc_env.f[1] = *(double*)&temp;']
+Error in handler for lfd: name 'format_hex' is not defined
 Processing opcode: addi, operands: ['r1', 'r1', '0x18']
 Translated addi r1 r1 0x18 to: ['gc_env.r[1] += 24; // addi r1, r1, 0x18']
 Translated blr  to: return;
@@ -54435,7 +54435,7 @@ Processing opcode: addi, operands: ['r3', 'r3', 'gTRKCPUState@l']
 Translated addi r3 r3 gTRKCPUState@l to: ['gc_env.r[3] = gc_env.r[3] + ((uint32_t)&gTRKCPUState & 0xFFFF); // addi r3, r3, gTRKCPUState@l']
 Processing opcode: lwz, operands: ['r0', '0x1f8(r3)']
 Translated lwz r0 0x1f8(r3) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1F8); // lwz r0, 0x1F8(r3)']
-Translated rlwinm r0 r0 0 22 20 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-401; // rlwinm r0, r0, 0, 22, 20']
+Translated rlwinm r0 r0 0 22 20 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x401; // rlwinm r0, r0, 0, 22, 20']
 Processing opcode: stw, operands: ['r0', '0x1f8(r3)']
 Translated stw r0 0x1f8(r3) to: ['gc_mem_write32(gc_env.ram, gc_env.r[3] + 0x1F8, gc_env.r[0]); // stw r0, 0x1F8(r3)']
 Processing opcode: li, operands: ['r3', '0x0']
@@ -55548,7 +55548,7 @@ Processing opcode: lhz, operands: ['r5', '0x1a2(r3)']
 Translated lhz r5 0x1a2(r3) to: ['gc_env.r[5] = gc_mem_read16(gc_env.ram, gc_env.r[3] + 0x1a2); // lhz r5, 0x1a2(r3)']
 Translated rlwinm. r6 r5 0 30 30 to: ['gc_env.r[6] = (gc_env.r[5] << 0) & 0x2; // rlwinm r6, r5, 0, 30, 30', 'gc_env.cr[0] = (gc_env.r[6] == 0) ? 0x2 : ((int32_t)gc_env.r[6] < 0 ? 0x8 : 0x4);']
 Translated beq .L_8001880C to: if (gc_env.cr[0] == 0) goto L_8001880C;
-Translated rlwinm r5 r5 0 31 29 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & 0x-3; // rlwinm r5, r5, 0, 31, 29']
+Translated rlwinm r5 r5 0 31 29 to: ['gc_env.r[5] = (gc_env.r[5] << 0) & -0x3; // rlwinm r5, r5, 0, 31, 29']
 Processing opcode: sth, operands: ['r5', '0x1a2(r3)']
 Translated sth r5 0x1a2(r3) to: ['gc_mem_write16(gc_env.ram, gc_env.r[3] + 0x1a2, gc_env.r[5]); // sth r5, 0x1a2(r3)']
 Translated lmw r5 0x14(r3) to: ['gc_env.r[5] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x14); // lmw r5, 0x14(r3)', 'gc_env.r[6] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x18); // lmw r5, 0x14(r3)', 'gc_env.r[7] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x1C); // lmw r5, 0x14(r3)', 'gc_env.r[8] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x20); // lmw r5, 0x14(r3)', 'gc_env.r[9] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x24); // lmw r5, 0x14(r3)', 'gc_env.r[10] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x28); // lmw r5, 0x14(r3)', 'gc_env.r[11] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x2C); // lmw r5, 0x14(r3)', 'gc_env.r[12] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x30); // lmw r5, 0x14(r3)', 'gc_env.r[13] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x34); // lmw r5, 0x14(r3)', 'gc_env.r[14] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x38); // lmw r5, 0x14(r3)', 'gc_env.r[15] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x3C); // lmw r5, 0x14(r3)', 'gc_env.r[16] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x40); // lmw r5, 0x14(r3)', 'gc_env.r[17] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x44); // lmw r5, 0x14(r3)', 'gc_env.r[18] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x48); // lmw r5, 0x14(r3)', 'gc_env.r[19] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x4C); // lmw r5, 0x14(r3)', 'gc_env.r[20] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x50); // lmw r5, 0x14(r3)', 'gc_env.r[21] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x54); // lmw r5, 0x14(r3)', 'gc_env.r[22] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x58); // lmw r5, 0x14(r3)', 'gc_env.r[23] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x5C); // lmw r5, 0x14(r3)', 'gc_env.r[24] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x60); // lmw r5, 0x14(r3)', 'gc_env.r[25] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x64); // lmw r5, 0x14(r3)', 'gc_env.r[26] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x68); // lmw r5, 0x14(r3)', 'gc_env.r[27] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x6C); // lmw r5, 0x14(r3)', 'gc_env.r[28] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x70); // lmw r5, 0x14(r3)', 'gc_env.r[29] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x74); // lmw r5, 0x14(r3)', 'gc_env.r[30] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x78); // lmw r5, 0x14(r3)', 'gc_env.r[31] = gc_mem_read32(gc_env.ram, gc_env.r[3] + 0x7C); // lmw r5, 0x14(r3)']
@@ -55569,8 +55569,8 @@ Processing opcode: lwz, operands: ['r4', '0x8c(r31)']
 Translated lwz r4 0x8c(r31) to: ['gc_env.r[4] = gc_mem_read32(gc_env.ram, gc_env.r[31] + 0x8C); // lwz r4, 0x8C(r31)']
 Translated mtxer r4 to: ['gc_env.xer = gc_env.r[4]; // mtxer r4']
 Translated mfmsr r4 to: gc_env.r[4] = gc_env.msr; // Move from machine state register
-Translated rlwinm r4 r4 0 17 15 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-8001; // rlwinm r4, r4, 0, 17, 15']
-Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & 0x-3; // rlwinm r4, r4, 0, 31, 29']
+Translated rlwinm r4 r4 0 17 15 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x8001; // rlwinm r4, r4, 0, 17, 15']
+Translated rlwinm r4 r4 0 31 29 to: ['gc_env.r[4] = (gc_env.r[4] << 0) & -0x3; // rlwinm r4, r4, 0, 31, 29']
 Translated mtmsr r4 to: gc_env.msr = gc_env.r[4]; // Move to machine state register
 Translated mtsprg 1 r2 to: ['gc_env.sprg[1] = gc_env.r[2]; // mtsprg 1, r2']
 Processing opcode: lwz, operands: ['r4', '0xc(r31)']
@@ -56360,7 +56360,7 @@ Translated lwz r0 0x0(r5) to: ['gc_env.r[0] = gc_mem_read32(gc_env.ram, gc_env.r
 Translated lis r4 0xcc00 to: ['gc_env.r[4] = -13312 << 16; // lis r4, 0xcc00']
 Processing opcode: addi, operands: ['r4', 'r4', '0x6800']
 Translated addi r4 r4 0x6800 to: ['gc_env.r[4] += 26624; // addi r4, r4, 0x6800']
-Translated rlwinm r0 r0 0 30 28 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & 0x-5; // rlwinm r0, r0, 0, 30, 28']
+Translated rlwinm r0 r0 0 30 28 to: ['gc_env.r[0] = (gc_env.r[0] << 0) & -0x5; // rlwinm r0, r0, 0, 30, 28']
 Processing opcode: stw, operands: ['r0', '0x0(r5)']
 Translated stw r0 0x0(r5) to: ['gc_mem_write32(gc_env.ram, gc_env.r[5], gc_env.r[0]); // stw r0, (r5)']
 Processing opcode: lwz, operands: ['r0', '0x28(r4)']
