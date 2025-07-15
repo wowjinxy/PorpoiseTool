@@ -21,6 +21,11 @@ void gc_env_init(void) {
     gc_env.srr0 = 0; // Initialize SRR0
     gc_env.srr1 = 0; // Initialize SRR1
     memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
+    gc_env.dar = 0; // Initialize Data Address Register
+    memset(gc_env.sprg, 0, sizeof(gc_env.sprg));
+    memset(gc_env.dbatu, 0, sizeof(gc_env.dbatu));
+    gc_env.fpscr = 0; // Initialize FPSCR
+    gc_env.tb = 0; // Initialize Time Base
 
     // Allocate RAM
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);
