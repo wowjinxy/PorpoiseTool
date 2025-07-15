@@ -18,6 +18,9 @@ void gc_env_init(void) {
     gc_env.l2cr = 0; // Initialize L2CR
     gc_env.dec = 0; // Initialize Decrementer
     gc_env.hid2 = 0; // Initialize HID2
+    gc_env.srr0 = 0; // Initialize SRR0
+    gc_env.srr1 = 0; // Initialize SRR1
+    memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
     gc_env.dar = 0; // Initialize Data Address Register
     memset(gc_env.sprg, 0, sizeof(gc_env.sprg));
     memset(gc_env.dbatu, 0, sizeof(gc_env.dbatu));
