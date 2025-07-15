@@ -29,7 +29,9 @@ python PorpoiseTool.py <assembly_file> [opcodes_dir]
   (defaults to `opcodes/`).
 
 The script outputs `<assembly_file>.c` and `<assembly_file>.h` in the same
-location as the input file.
+location as the input file. Every run also updates an `all_headers.h` file
+in that directory which aggregates all generated headers. Generated C files
+include this master header so that functions are visible across modules.
 
 ### Example
 

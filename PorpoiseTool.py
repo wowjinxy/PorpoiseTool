@@ -342,6 +342,7 @@ class ModularTranspiler:
     def generate_c_file(self, output_name: str) -> str:
         """Generate content for the C source file."""
         c_lines = [
+            '#include "all_headers.h"',
             f'#include "{output_name}.h"',
             '#include <stdint.h>',
             '#include <stdio.h>',
@@ -421,6 +422,26 @@ class ModularTranspiler:
     
         h_lines.extend(['', f'#endif // {guard_name}'])
         return '\n'.join(h_lines)
+
+    def update_master_header(self, directory: Path) -> None:
+        """Create a master header including all headers in the directory."""
+        master = directory / "all_headers.h"
+        header_files = sorted(
+            h for h in directory.glob("*.h") if h.name != master.name
+        )
+        lines = [
+            "#ifndef __ALL_HEADERS_H__",
+            "#define __ALL_HEADERS_H__",
+            "",
+        ]
+        for hdr in header_files:
+            lines.append(f'#include "{hdr.name}"')
+        lines.extend(["", "#endif // __ALL_HEADERS_H__"])
+        try:
+            with master.open("w") as f:
+                f.write("\n".join(lines))
+        except Exception as e:
+            print(f"Error updating master header: {str(e)}")
     
     def transpile_file(self, input_file: str) -> None:
         """Transpile an assembly file to C source and header files."""
@@ -455,6 +476,7 @@ class ModularTranspiler:
             with h_file.open('w') as f:
                 f.write(self.generate_header_file(base_name))
             print(f"Generated: {h_file}")
+            self.update_master_header(input_path.parent)
         except Exception as e:
             print(f"Error writing output files: {str(e)}")
             sys.exit(1)
