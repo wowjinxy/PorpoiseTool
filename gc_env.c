@@ -1,6 +1,7 @@
 #include "gc_env.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 // Global environment instance
 GameCubeEnv gc_env;
@@ -31,6 +32,7 @@ void gc_env_init(void) {
     gc_env.ram = (uint8_t*)calloc(GC_RAM_SIZE, 1);
     if (!gc_env.ram) {
         // Handle allocation failure
+        fprintf(stderr, "Failed to allocate GameCube RAM\n");
         exit(1);
     }
 
