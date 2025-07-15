@@ -19,6 +19,9 @@ void gc_env_init(void) {
     gc_env.l2cr = 0; // Initialize L2CR
     gc_env.dec = 0; // Initialize Decrementer
     gc_env.hid2 = 0; // Initialize HID2
+    memset(gc_env.sr, 0, sizeof(gc_env.sr));
+    gc_env.sdr1 = 0; // Initialize SDR1
+    gc_env.tear = 0; // Initialize TEAR
     memset(gc_env.gqr, 0, sizeof(gc_env.gqr));
     gc_env.srr0 = 0; // Initialize SRR0
     gc_env.srr1 = 0; // Initialize SRR1
