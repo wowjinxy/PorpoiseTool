@@ -23,6 +23,7 @@ typedef struct {
     uint32_t l2cr; // Level 2 Cache Control Register
     uint32_t dec; // Decrementer Register
     uint32_t hid2; // Hardware Implementation Dependent Register 2
+    uint32_t gqr[8]; // Graphics Quantization Registers
     // Main RAM (24 MB)
     uint8_t* ram;
     // Stack pointer (r1 alias for convenience)
