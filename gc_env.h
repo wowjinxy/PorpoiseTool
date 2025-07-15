@@ -134,4 +134,12 @@ static inline void gc_mem_write64(uint8_t* ram, uint32_t addr, uint64_t data) {
     ram[addr + 7] = data & 0xFF;
 }
 
+// System symbol declarations used by translated code
+extern uint32_t stack_base;
+extern uint32_t _stack_addr;
+extern uint32_t _SDA_BASE_;
+extern uint32_t _SDA2_BASE_;
+extern uint32_t _rom_copy_info[];
+extern uint32_t _bss_init_info[];
+
 #endif // __GC_ENV_H__

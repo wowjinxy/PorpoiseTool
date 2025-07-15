@@ -2,6 +2,7 @@
 #include "auto_00_80003100_init.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "gc_env.h"
 
@@ -108,7 +109,7 @@ void __start(void) {
     gc_env.r[3] = gc_env.r[14]; // Move register
     gc_env.r[4] = gc_env.r[15]; // Move register
     main();
-    goto exit;
+    exit(gc_env.r[3]);
 }
 
 // Function: __init_registers
