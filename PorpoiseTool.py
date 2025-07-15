@@ -94,12 +94,12 @@ class ModularTranspiler:
         return '\n'.join(lines)
 
     def extract_gap_sections(self, assembly_code: str) -> Tuple[str, List[Tuple[str, str, str, List[str]]]]:
-        """Extract gap_ sections and return cleaned code with gap_ section data."""
+        """Extract gap_ and .obj sections and return cleaned code with section data."""
         lines = assembly_code.split('\n')
         cleaned_lines = []
         gap_sections = []
         in_gap = False
-        current_gap = None
+        current_name = None
         current_addr = None
         current_size = None
         gap_lines = []
@@ -124,7 +124,7 @@ class ModularTranspiler:
                 func_name, func_type = fn_match.groups()
                 if func_name.startswith('gap_'):
                     in_gap = True
-                    current_gap = (func_name, func_type, current_addr, current_size)
+                    current_name = func_name
                     gap_lines = []
                     print(f"Found gap section: {func_name} at {current_addr}")
                     continue
@@ -132,13 +132,23 @@ class ModularTranspiler:
                     cleaned_lines.append(line)
                     continue
 
+            # Match object declarations
+            obj_match = re.match(r'\.obj\s+([^,]+)', line)
+            if obj_match:
+                obj_name = obj_match.group(1).strip().strip('"')
+                in_gap = True
+                current_name = obj_name
+                gap_lines = []
+                print(f"Found obj section: {obj_name} at {current_addr}")
+                continue
+
             # Match function/data end
-            if line.startswith('.endfn'):
-                if in_gap and current_gap:
-                    gap_sections.append((current_gap[0], current_gap[2], current_gap[3], gap_lines))
-                    print(f"Extracted gap section: {current_gap[0]}, {len(gap_lines)} lines")
+            if line.startswith('.endfn') or line.startswith('.endobj'):
+                if in_gap and current_name:
+                    gap_sections.append((current_name, current_addr, current_size, gap_lines))
+                    print(f"Extracted gap section: {current_name}, {len(gap_lines)} lines")
                     in_gap = False
-                    current_gap = None
+                    current_name = None
                     gap_lines = []
                     continue
                 cleaned_lines.append(line)
@@ -226,6 +236,11 @@ class ModularTranspiler:
         current_function = None
         current_addr = None
         current_size = None
+        in_obj = False
+        obj_name = None
+        obj_addr = None
+        obj_size = None
+        obj_lines: List[str] = []
 
         for line in lines:
             line = line.strip()
@@ -237,6 +252,8 @@ class ModularTranspiler:
             if addr_match:
                 current_addr = addr_match.group(3)
                 current_size = addr_match.group(4)
+                if in_obj:
+                    obj_lines.append(line)
                 continue
 
             # Match function declarations
@@ -254,6 +271,29 @@ class ModularTranspiler:
                 print(f"Parsed function: {func_name} at {current_addr}")
                 current_addr = None
                 current_size = None
+                continue
+
+            # Match object declarations outside of other objects
+            obj_match = re.match(r'\.obj\s+([^,]+)', line)
+            if obj_match and not current_function:
+                obj_name = obj_match.group(1).strip().strip('"')
+                obj_addr = current_addr
+                obj_size = current_size
+                obj_lines = []
+                in_obj = True
+                print(f"Parsed obj start: {obj_name} at {obj_addr}")
+                continue
+
+            if line.startswith('.endobj') and in_obj:
+                self.data_sections.append(self.parse_gap_section(obj_name, obj_addr, obj_size, obj_lines))
+                print(f"End of obj: {obj_name}, {len(obj_lines)} lines")
+                in_obj = False
+                obj_name = None
+                obj_lines = []
+                continue
+
+            if in_obj:
+                obj_lines.append(line)
                 continue
 
             # Match function end
