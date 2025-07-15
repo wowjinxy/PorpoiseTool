@@ -21,10 +21,11 @@ environment but do not depend on any platform-specific features.
 ## Usage
 
 ```bash
-python PorpoiseTool.py <assembly_file> [opcodes_dir]
+python PorpoiseTool.py <file_or_directory> [opcodes_dir]
 ```
 
-- `assembly_file` – DTK generated `.s` file to transpile.
+- `file_or_directory` – DTK generated `.s` file to transpile, or a directory
+  containing multiple `.s` files.
 - `opcodes_dir` – Optional path to the directory containing opcode handlers
   (defaults to `opcodes/`).
 
@@ -36,11 +37,17 @@ include this master header so that functions are visible across modules.
 ### Example
 
 ```bash
+# Transpile a single file
 python PorpoiseTool.py auto_00_80003100_init.s
+
+# Or transpile all .s files in a directory
+python PorpoiseTool.py path/to/asm_dir
 ```
 
-This command produces `auto_00_80003100_init.c` and
-`auto_00_80003100_init.h` next to the original assembly file.
+Running on a single file produces `auto_00_80003100_init.c` and
+`auto_00_80003100_init.h` next to the original assembly file. When given a
+directory, the script generates `.c` and `.h` files for each `.s` file found
+within that folder.
 
 ## Extending
 
