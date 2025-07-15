@@ -23,6 +23,9 @@ typedef struct {
     uint32_t l2cr; // Level 2 Cache Control Register
     uint32_t dec; // Decrementer Register
     uint32_t hid2; // Hardware Implementation Dependent Register 2
+    uint32_t sr[16]; // Segment Registers 0-15
+    uint32_t sdr1; // Storage Description Register 1
+    uint32_t tear; // Translation Exception Address Register
     uint32_t gqr[8]; // Graphics Quantization Registers
     uint32_t srr0; // Save/Restore Register 0
     uint32_t srr1; // Save/Restore Register 1
