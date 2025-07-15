@@ -23,6 +23,7 @@ void gc_env_init(void) {
     gc_env.srr1 = 0; // Initialize SRR1
     memset(gc_env.ibatu, 0, sizeof(gc_env.ibatu));
     gc_env.dar = 0; // Initialize Data Address Register
+    gc_env.dsisr = 0; // Initialize Data Storage Interrupt Status Register
     memset(gc_env.sprg, 0, sizeof(gc_env.sprg));
     memset(gc_env.dbatu, 0, sizeof(gc_env.dbatu));
     gc_env.fpscr = 0; // Initialize FPSCR
