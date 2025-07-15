@@ -461,8 +461,8 @@ class ModularTranspiler:
         self.data_sections = []
         self.parse_assembly(assembly_code)
         if not self.functions and not self.data_sections:
-            print("Error: No functions or data sections found in assembly file")
-            sys.exit(1)
+            print("Warning: No functions or data sections found in assembly file; skipping")
+            return
 
         base_name = input_path.stem
         c_file = input_path.parent / f"{base_name}.c"
