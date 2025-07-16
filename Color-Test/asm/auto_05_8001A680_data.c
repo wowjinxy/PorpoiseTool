@@ -806,22 +806,22 @@ uint32_t gap_05_8001AD3E_data[] = {
 // Data section: _43_8001B004
 // Address: 0x8001B004
 uint32_t _43_8001B004[] = {
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x124, // .4byte __OSUnhandledException+0x124
-    (uint32_t)&__OSUnhandledException + 0x13C, // .4byte __OSUnhandledException+0x13C
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x150, // .4byte __OSUnhandledException+0x150
-    (uint32_t)&__OSUnhandledException + 0x168, // .4byte __OSUnhandledException+0x168
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
-    (uint32_t)&__OSUnhandledException + 0x180, // .4byte __OSUnhandledException+0x180
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x80007684, // .4byte __OSUnhandledException+0x124
+    0x8000769C, // .4byte __OSUnhandledException+0x13C
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x800076B0, // .4byte __OSUnhandledException+0x150
+    0x800076C8, // .4byte __OSUnhandledException+0x168
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x8000772C, // .4byte __OSUnhandledException+0x1CC
+    0x800076E0, // .4byte __OSUnhandledException+0x180
 };
 
 // Data section: gap_05_8001B044_data
@@ -850,7 +850,7 @@ uint32_t lbl_8001B048[] = {
 // Data section: ResetFunctionInfo_8001B078
 // Address: 0x8001B078
 uint32_t ResetFunctionInfo_8001B078[] = {
-    (uint32_t)&fn_80007FE0, // .4byte fn_80007FE0
+    0x80007FE0, // .4byte fn_80007FE0
     0x0000007F, // .4byte 0x0000007F
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
@@ -1009,71 +1009,71 @@ uint32_t lbl_8001B208[] = {
 // Data section: jumptable_8001B254
 // Address: 0x8001B254
 uint32_t jumptable_8001B254[] = {
-    (uint32_t)&fn_8000E240 + 0x218, // .4byte fn_8000E240+0x218
-    (uint32_t)&fn_8000E240 + 0xD8, // .4byte fn_8000E240+0xD8
-    (uint32_t)&fn_8000E240 + 0xF0, // .4byte fn_8000E240+0xF0
-    (uint32_t)&fn_8000E240 + 0x108, // .4byte fn_8000E240+0x108
-    (uint32_t)&fn_8000E240 + 0x138, // .4byte fn_8000E240+0x138
-    (uint32_t)&fn_8000E240 + 0x1FC, // .4byte fn_8000E240+0x1FC
-    (uint32_t)&fn_8000E240 + 0x150, // .4byte fn_8000E240+0x150
-    (uint32_t)&fn_8000E240 + 0x120, // .4byte fn_8000E240+0x120
+    0x8000E458, // .4byte fn_8000E240+0x218
+    0x8000E318, // .4byte fn_8000E240+0xD8
+    0x8000E330, // .4byte fn_8000E240+0xF0
+    0x8000E348, // .4byte fn_8000E240+0x108
+    0x8000E378, // .4byte fn_8000E240+0x138
+    0x8000E43C, // .4byte fn_8000E240+0x1FC
+    0x8000E390, // .4byte fn_8000E240+0x150
+    0x8000E360, // .4byte fn_8000E240+0x120
 };
 
 // Data section: jumptable_8001B274
 // Address: 0x8001B274
 uint32_t jumptable_8001B274[] = {
-    (uint32_t)&fn_8000E488 + 0x2B0, // .4byte fn_8000E488+0x2B0
-    (uint32_t)&fn_8000E488 + 0x6C, // .4byte fn_8000E488+0x6C
-    (uint32_t)&fn_8000E488 + 0xC8, // .4byte fn_8000E488+0xC8
-    (uint32_t)&fn_8000E488 + 0xEC, // .4byte fn_8000E488+0xEC
-    (uint32_t)&fn_8000E488 + 0x6C, // .4byte fn_8000E488+0x6C
-    (uint32_t)&fn_8000E488 + 0x40, // .4byte fn_8000E488+0x40
-    (uint32_t)&fn_8000E488 + 0x10C, // .4byte fn_8000E488+0x10C
-    (uint32_t)&fn_8000E488 + 0x170, // .4byte fn_8000E488+0x170
-    (uint32_t)&fn_8000E488 + 0x19C, // .4byte fn_8000E488+0x19C
-    (uint32_t)&fn_8000E488 + 0x1D0, // .4byte fn_8000E488+0x1D0
-    (uint32_t)&fn_8000E488 + 0x1F4, // .4byte fn_8000E488+0x1F4
-    (uint32_t)&fn_8000E488 + 0x218, // .4byte fn_8000E488+0x218
-    (uint32_t)&fn_8000E488 + 0x23C, // .4byte fn_8000E488+0x23C
-    (uint32_t)&fn_8000E488 + 0x260, // .4byte fn_8000E488+0x260
-    (uint32_t)&fn_8000E488 + 0x288, // .4byte fn_8000E488+0x288
-    (uint32_t)&fn_8000E488 + 0xFC, // .4byte fn_8000E488+0xFC
+    0x8000E738, // .4byte fn_8000E488+0x2B0
+    0x8000E4F4, // .4byte fn_8000E488+0x6C
+    0x8000E550, // .4byte fn_8000E488+0xC8
+    0x8000E574, // .4byte fn_8000E488+0xEC
+    0x8000E4F4, // .4byte fn_8000E488+0x6C
+    0x8000E4C8, // .4byte fn_8000E488+0x40
+    0x8000E594, // .4byte fn_8000E488+0x10C
+    0x8000E5F8, // .4byte fn_8000E488+0x170
+    0x8000E624, // .4byte fn_8000E488+0x19C
+    0x8000E658, // .4byte fn_8000E488+0x1D0
+    0x8000E67C, // .4byte fn_8000E488+0x1F4
+    0x8000E6A0, // .4byte fn_8000E488+0x218
+    0x8000E6C4, // .4byte fn_8000E488+0x23C
+    0x8000E6E8, // .4byte fn_8000E488+0x260
+    0x8000E710, // .4byte fn_8000E488+0x288
+    0x8000E584, // .4byte fn_8000E488+0xFC
 };
 
 // Data section: jumptable_8001B2B4
 // Address: 0x8001B2B4
 uint32_t jumptable_8001B2B4[] = {
-    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
-    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
-    (uint32_t)&fn_8000EFC0 + 0x70, // .4byte fn_8000EFC0+0x70
-    (uint32_t)&fn_8000EFC0 + 0xB4, // .4byte fn_8000EFC0+0xB4
-    (uint32_t)&fn_8000EFC0 + 0x100, // .4byte fn_8000EFC0+0x100
-    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
-    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
-    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
-    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
-    (uint32_t)&fn_8000EFC0 + 0x248, // .4byte fn_8000EFC0+0x248
-    (uint32_t)&fn_8000EFC0 + 0x248, // .4byte fn_8000EFC0+0x248
-    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
-    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
+    0x8000F010, // .4byte fn_8000EFC0+0x50
+    0x8000F010, // .4byte fn_8000EFC0+0x50
+    0x8000F030, // .4byte fn_8000EFC0+0x70
+    0x8000F074, // .4byte fn_8000EFC0+0xB4
+    0x8000F0C0, // .4byte fn_8000EFC0+0x100
+    0x8000F13C, // .4byte fn_8000EFC0+0x17C
+    0x8000F13C, // .4byte fn_8000EFC0+0x17C
+    0x8000F13C, // .4byte fn_8000EFC0+0x17C
+    0x8000F13C, // .4byte fn_8000EFC0+0x17C
+    0x8000F208, // .4byte fn_8000EFC0+0x248
+    0x8000F208, // .4byte fn_8000EFC0+0x248
+    0x8000F010, // .4byte fn_8000EFC0+0x50
+    0x8000F13C, // .4byte fn_8000EFC0+0x17C
 };
 
 // Data section: jumptable_8001B2E8
 // Address: 0x8001B2E8
 uint32_t jumptable_8001B2E8[] = {
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0xA0, // .4byte fn_8000F238+0xA0
-    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
-    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
-    (uint32_t)&fn_8000F238 + 0xA0, // .4byte fn_8000F238+0xA0
-    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
-    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
-    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D8, // .4byte fn_8000F238+0xA0
+    0x8000F2C8, // .4byte fn_8000F238+0x90
+    0x8000F2C8, // .4byte fn_8000F238+0x90
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D0, // .4byte fn_8000F238+0x98
+    0x8000F2D8, // .4byte fn_8000F238+0xA0
+    0x8000F2C8, // .4byte fn_8000F238+0x90
+    0x8000F2C8, // .4byte fn_8000F238+0x90
+    0x8000F2D0, // .4byte fn_8000F238+0x98
 };
 
 // Data section: gap_05_8001B31C_data
@@ -1235,28 +1235,28 @@ uint32_t lbl_8001B3D8[] = {
 // Data section: jumptable_8001B53C
 // Address: 0x8001B53C
 uint32_t jumptable_8001B53C[] = {
-    (uint32_t)&fn_8000FC30 + 0x28, // .4byte fn_8000FC30+0x28
-    (uint32_t)&fn_8000FC30 + 0x30, // .4byte fn_8000FC30+0x30
-    (uint32_t)&fn_8000FC30 + 0x68, // .4byte fn_8000FC30+0x68
-    (uint32_t)&fn_8000FC30 + 0x70, // .4byte fn_8000FC30+0x70
-    (uint32_t)&fn_8000FC30 + 0x38, // .4byte fn_8000FC30+0x38
-    (uint32_t)&fn_8000FC30 + 0x40, // .4byte fn_8000FC30+0x40
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x58, // .4byte fn_8000FC30+0x58
-    (uint32_t)&fn_8000FC30 + 0x60, // .4byte fn_8000FC30+0x60
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x78, // .4byte fn_8000FC30+0x78
-    (uint32_t)&fn_8000FC30 + 0x80, // .4byte fn_8000FC30+0x80
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
-    (uint32_t)&fn_8000FC30 + 0x48, // .4byte fn_8000FC30+0x48
-    (uint32_t)&fn_8000FC30 + 0x50, // .4byte fn_8000FC30+0x50
+    0x8000FC58, // .4byte fn_8000FC30+0x28
+    0x8000FC60, // .4byte fn_8000FC30+0x30
+    0x8000FC98, // .4byte fn_8000FC30+0x68
+    0x8000FCA0, // .4byte fn_8000FC30+0x70
+    0x8000FC68, // .4byte fn_8000FC30+0x38
+    0x8000FC70, // .4byte fn_8000FC30+0x40
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FC88, // .4byte fn_8000FC30+0x58
+    0x8000FC90, // .4byte fn_8000FC30+0x60
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCA8, // .4byte fn_8000FC30+0x78
+    0x8000FCB0, // .4byte fn_8000FC30+0x80
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FCB8, // .4byte fn_8000FC30+0x88
+    0x8000FC78, // .4byte fn_8000FC30+0x48
+    0x8000FC80, // .4byte fn_8000FC30+0x50
 };
 
 // Data section: gap_05_8001B594_data
@@ -1370,9 +1370,9 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
-    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
-    (uint32_t)&fn_80014034, // .4byte fn_80014034
+    0x800140D4, // .4byte fn_800140D4
+    0x8001403C, // .4byte fn_8001403C
+    0x80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x10800000, // .4byte 0x10800000
@@ -1389,9 +1389,9 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
-    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
-    (uint32_t)&fn_80014034, // .4byte fn_80014034
+    0x800140D4, // .4byte fn_800140D4
+    0x8001403C, // .4byte fn_8001403C
+    0x80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x10800000, // .4byte 0x10800000
@@ -1408,165 +1408,165 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
-    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
-    (uint32_t)&fn_80014034, // .4byte fn_80014034
+    0x800140D4, // .4byte fn_800140D4
+    0x8001403C, // .4byte fn_8001403C
+    0x80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
 };
 
 // Data section: _1009_8001B7B8
 // Address: 0x8001B7B8
 uint32_t _1009_8001B7B8[] = {
-    (uint32_t)&longlong2str_80013554 + 0xF8, // .4byte longlong2str_80013554+0xF8
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x98, // .4byte longlong2str_80013554+0x98
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x98, // .4byte longlong2str_80013554+0x98
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0xD0, // .4byte longlong2str_80013554+0xD0
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0xE4, // .4byte longlong2str_80013554+0xE4
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
-    (uint32_t)&longlong2str_80013554 + 0xF8, // .4byte longlong2str_80013554+0xF8
+    0x8001364C, // .4byte longlong2str_80013554+0xF8
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x800135EC, // .4byte longlong2str_80013554+0x98
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x800135EC, // .4byte longlong2str_80013554+0x98
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x80013624, // .4byte longlong2str_80013554+0xD0
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x80013638, // .4byte longlong2str_80013554+0xE4
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001365C, // .4byte longlong2str_80013554+0x108
+    0x8001364C, // .4byte longlong2str_80013554+0xF8
 };
 
 // Data section: jumptable_8001B83C
 // Address: 0x8001B83C
 uint32_t jumptable_8001B83C[] = {
-    (uint32_t)&long2str_80013834 + 0xA8, // .4byte long2str_80013834+0xA8
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0x70, // .4byte long2str_80013834+0x70
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0x70, // .4byte long2str_80013834+0x70
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0x88, // .4byte long2str_80013834+0x88
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0x98, // .4byte long2str_80013834+0x98
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
-    (uint32_t)&long2str_80013834 + 0xA8, // .4byte long2str_80013834+0xA8
+    0x800138DC, // .4byte long2str_80013834+0xA8
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138A4, // .4byte long2str_80013834+0x70
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138A4, // .4byte long2str_80013834+0x70
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138BC, // .4byte long2str_80013834+0x88
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138CC, // .4byte long2str_80013834+0x98
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138E8, // .4byte long2str_80013834+0xB4
+    0x800138DC, // .4byte long2str_80013834+0xA8
 };
 
 // Data section: jumptable_8001B8C0
 // Address: 0x8001B8C0
 uint32_t jumptable_8001B8C0[] = {
-    (uint32_t)&parse_format_80013A58 + 0x3B0, // .4byte parse_format_80013A58+0x3B0
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x39C, // .4byte parse_format_80013A58+0x39C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x414, // .4byte parse_format_80013A58+0x414
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
-    (uint32_t)&parse_format_80013A58 + 0x3B0, // .4byte parse_format_80013A58+0x3B0
-    (uint32_t)&parse_format_80013A58 + 0x364, // .4byte parse_format_80013A58+0x364
-    (uint32_t)&parse_format_80013A58 + 0x39C, // .4byte parse_format_80013A58+0x39C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x478, // .4byte parse_format_80013A58+0x478
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
-    (uint32_t)&parse_format_80013A58 + 0x3F0, // .4byte parse_format_80013A58+0x3F0
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x44C, // .4byte parse_format_80013A58+0x44C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
-    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    0x80013E08, // .4byte parse_format_80013A58+0x3B0
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013DF4, // .4byte parse_format_80013A58+0x39C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013E6C, // .4byte parse_format_80013A58+0x414
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
+    0x80013E08, // .4byte parse_format_80013A58+0x3B0
+    0x80013DBC, // .4byte parse_format_80013A58+0x364
+    0x80013DF4, // .4byte parse_format_80013A58+0x39C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013ED0, // .4byte parse_format_80013A58+0x478
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
+    0x80013E48, // .4byte parse_format_80013A58+0x3F0
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EA4, // .4byte parse_format_80013A58+0x44C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013EE8, // .4byte parse_format_80013A58+0x490
+    0x80013D74, // .4byte parse_format_80013A58+0x31C
 };
 
 // Data section: jumptable_8001B990
 // Address: 0x8001B990
 uint32_t jumptable_8001B990[] = {
-    (uint32_t)&parse_format_80013A58 + 0xC4, // .4byte parse_format_80013A58+0xC4
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0xDC, // .4byte parse_format_80013A58+0xDC
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0xB8, // .4byte parse_format_80013A58+0xB8
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0xAC, // .4byte parse_format_80013A58+0xAC
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
-    (uint32_t)&parse_format_80013A58 + 0xE8, // .4byte parse_format_80013A58+0xE8
+    0x80013B1C, // .4byte parse_format_80013A58+0xC4
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B34, // .4byte parse_format_80013A58+0xDC
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B10, // .4byte parse_format_80013A58+0xB8
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B04, // .4byte parse_format_80013A58+0xAC
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B58, // .4byte parse_format_80013A58+0x100
+    0x80013B40, // .4byte parse_format_80013A58+0xE8
 };
 
 // Data section: gap_05_8001B9D4_data
@@ -1578,38 +1578,38 @@ uint32_t gap_05_8001B9D4_data[] = {
 // Data section: lbl_8001B9D8
 // Address: 0x8001B9D8
 uint32_t lbl_8001B9D8[] = {
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015440, // .4byte fn_80015440
-    (uint32_t)&fn_80015468, // .4byte fn_80015468
-    (uint32_t)&fn_800154B8, // .4byte fn_800154B8
-    (uint32_t)&fn_800154E8, // .4byte fn_800154E8
-    (uint32_t)&fn_8001566C, // .4byte fn_8001566C
-    (uint32_t)&fn_80015748, // .4byte fn_80015748
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_8001598C, // .4byte fn_8001598C
-    (uint32_t)&fn_80015B74, // .4byte fn_80015B74
-    (uint32_t)&fn_80015D70, // .4byte fn_80015D70
-    (uint32_t)&fn_80015F74, // .4byte fn_80015F74
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_8001617C, // .4byte fn_8001617C
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_800162B4, // .4byte fn_800162B4
-    (uint32_t)&fn_80016318, // .4byte fn_80016318
-    (uint32_t)&fn_8001651C, // .4byte fn_8001651C
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
-    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015440, // .4byte fn_80015440
+    0x80015468, // .4byte fn_80015468
+    0x800154B8, // .4byte fn_800154B8
+    0x800154E8, // .4byte fn_800154E8
+    0x8001566C, // .4byte fn_8001566C
+    0x80015748, // .4byte fn_80015748
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x8001598C, // .4byte fn_8001598C
+    0x80015B74, // .4byte fn_80015B74
+    0x80015D70, // .4byte fn_80015D70
+    0x80015F74, // .4byte fn_80015F74
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x8001617C, // .4byte fn_8001617C
+    0x80015418, // .4byte fn_80015418
+    0x800162B4, // .4byte fn_800162B4
+    0x80016318, // .4byte fn_80016318
+    0x8001651C, // .4byte fn_8001651C
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
+    0x80015418, // .4byte fn_80015418
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
 };
@@ -1617,25 +1617,25 @@ uint32_t lbl_8001B9D8[] = {
 // Data section: jumptable_8001BA60
 // Address: 0x8001BA60
 uint32_t jumptable_8001BA60[] = {
-    (uint32_t)&fn_8001598C + 0x194, // .4byte fn_8001598C+0x194
-    (uint32_t)&fn_8001598C + 0x1B4, // .4byte fn_8001598C+0x1B4
-    (uint32_t)&fn_8001598C + 0x18C, // .4byte fn_8001598C+0x18C
-    (uint32_t)&fn_8001598C + 0x1B4, // .4byte fn_8001598C+0x1B4
-    (uint32_t)&fn_8001598C + 0x19C, // .4byte fn_8001598C+0x19C
-    (uint32_t)&fn_8001598C + 0x1A4, // .4byte fn_8001598C+0x1A4
-    (uint32_t)&fn_8001598C + 0x1AC, // .4byte fn_8001598C+0x1AC
+    0x80015B20, // .4byte fn_8001598C+0x194
+    0x80015B40, // .4byte fn_8001598C+0x1B4
+    0x80015B18, // .4byte fn_8001598C+0x18C
+    0x80015B40, // .4byte fn_8001598C+0x1B4
+    0x80015B28, // .4byte fn_8001598C+0x19C
+    0x80015B30, // .4byte fn_8001598C+0x1A4
+    0x80015B38, // .4byte fn_8001598C+0x1AC
 };
 
 // Data section: jumptable_8001BA7C
 // Address: 0x8001BA7C
 uint32_t jumptable_8001BA7C[] = {
-    (uint32_t)&fn_80015B74 + 0x1A8, // .4byte fn_80015B74+0x1A8
-    (uint32_t)&fn_80015B74 + 0x1C8, // .4byte fn_80015B74+0x1C8
-    (uint32_t)&fn_80015B74 + 0x1A0, // .4byte fn_80015B74+0x1A0
-    (uint32_t)&fn_80015B74 + 0x1C8, // .4byte fn_80015B74+0x1C8
-    (uint32_t)&fn_80015B74 + 0x1B0, // .4byte fn_80015B74+0x1B0
-    (uint32_t)&fn_80015B74 + 0x1B8, // .4byte fn_80015B74+0x1B8
-    (uint32_t)&fn_80015B74 + 0x1C0, // .4byte fn_80015B74+0x1C0
+    0x80015D1C, // .4byte fn_80015B74+0x1A8
+    0x80015D3C, // .4byte fn_80015B74+0x1C8
+    0x80015D14, // .4byte fn_80015B74+0x1A0
+    0x80015D3C, // .4byte fn_80015B74+0x1C8
+    0x80015D24, // .4byte fn_80015B74+0x1B0
+    0x80015D2C, // .4byte fn_80015B74+0x1B8
+    0x80015D34, // .4byte fn_80015B74+0x1C0
 };
 
 // Data section: lbl_8001BA98

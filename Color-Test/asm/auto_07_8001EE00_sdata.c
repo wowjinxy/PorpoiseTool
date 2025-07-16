@@ -138,7 +138,7 @@ extern uint8_t lbl_8001F084;
 // Data section: lbl_8001EE00
 // Address: 0x8001EE00
 uint32_t lbl_8001EE00[] = {
-    (uint32_t)&lbl_8001B6A0, // .4byte lbl_8001B6A0
+    0x8001B6A0, // .4byte lbl_8001B6A0
     0x00000000, // .4byte 0x00000000
 };
 
@@ -228,7 +228,7 @@ uint32_t lbl_8001EE44[] = {
 // Data section: lbl_8001EE48
 // Address: 0x8001EE48
 uint32_t lbl_8001EE48[] = {
-    (uint32_t)&lbl_8001EDE0, // .4byte lbl_8001EDE0
+    0x8001EDE0, // .4byte lbl_8001EDE0
     0x00000000, // .4byte 0x00000000
 };
 
