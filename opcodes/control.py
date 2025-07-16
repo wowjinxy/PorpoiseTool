@@ -70,6 +70,9 @@ def handle(instruction, transpiler):
             label_idx = 1
         label = ops[label_idx].lstrip('.')
         condition = '!=' if opcode == 'bne' else '=='
+        if label not in getattr(transpiler, 'current_labels', set()) and \
+                label in {f.name for f in transpiler.functions}:
+            return f"if (gc_env.cr[{cond_reg}] {condition} 0) {label}();"
         return f"if (gc_env.cr[{cond_reg}] {condition} 0) goto {label};"
     elif opcode == 'bge' and len(ops) >= 1:
         cond_reg = 0
