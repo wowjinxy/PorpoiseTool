@@ -58188,113 +58188,113 @@ Parsed gap data: .double 100000000000000000000000000000000 -> 0x4693B8B5 0xB5056
 Parsed gap data: .double 10000000000000000000000000000000000000000000000000000000000000000 -> 0x4D384F03 0xE93FF9F5
 Parsed gap data: .double 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 -> 0x5A827748 0xF9301D32
 Parsed gap data: .double 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 -> 0x75154FDD 0x7F73BF3C
-Parsed gap data: .4byte 0x40240000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x40590000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x408F4000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x40C38800
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x40F86A00
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x412E8480
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x416312D0
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x4197D784
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x01020202
-Parsed gap data: .4byte 0x02020101
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x01010101
-Parsed gap data: .4byte 0x04080808
-Parsed gap data: .4byte 0x08080808
-Parsed gap data: .4byte 0x08080808
-Parsed gap data: .4byte 0x08080808
-Parsed gap data: .4byte 0x30303030
-Parsed gap data: .4byte 0x30303030
-Parsed gap data: .4byte 0x30300808
-Parsed gap data: .4byte 0x08080808
-Parsed gap data: .4byte 0x08A0A0A0
-Parsed gap data: .4byte 0xA0A0A080
-Parsed gap data: .4byte 0x80808080
-Parsed gap data: .4byte 0x80808080
-Parsed gap data: .4byte 0x80808080
-Parsed gap data: .4byte 0x80808080
-Parsed gap data: .4byte 0x80808008
-Parsed gap data: .4byte 0x08080808
-Parsed gap data: .4byte 0x08606060
-Parsed gap data: .4byte 0x60606040
-Parsed gap data: .4byte 0x40404040
-Parsed gap data: .4byte 0x40404040
-Parsed gap data: .4byte 0x40404040
-Parsed gap data: .4byte 0x40404040
-Parsed gap data: .4byte 0x40404008
-Parsed gap data: .4byte 0x08080801
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x40240000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x40590000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x408F4000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x40C38800
+Parsed gap data: 0x00000000
+Parsed gap data: 0x40F86A00
+Parsed gap data: 0x00000000
+Parsed gap data: 0x412E8480
+Parsed gap data: 0x00000000
+Parsed gap data: 0x416312D0
+Parsed gap data: 0x00000000
+Parsed gap data: 0x4197D784
+Parsed gap data: 0x00000000
+Parsed gap data: 0x01010101
+Parsed gap data: 0x01010101
+Parsed gap data: 0x01020202
+Parsed gap data: 0x02020101
+Parsed gap data: 0x01010101
+Parsed gap data: 0x01010101
+Parsed gap data: 0x01010101
+Parsed gap data: 0x01010101
+Parsed gap data: 0x04080808
+Parsed gap data: 0x08080808
+Parsed gap data: 0x08080808
+Parsed gap data: 0x08080808
+Parsed gap data: 0x30303030
+Parsed gap data: 0x30303030
+Parsed gap data: 0x30300808
+Parsed gap data: 0x08080808
+Parsed gap data: 0x08A0A0A0
+Parsed gap data: 0xA0A0A080
+Parsed gap data: 0x80808080
+Parsed gap data: 0x80808080
+Parsed gap data: 0x80808080
+Parsed gap data: 0x80808080
+Parsed gap data: 0x80808008
+Parsed gap data: 0x08080808
+Parsed gap data: 0x08606060
+Parsed gap data: 0x60606040
+Parsed gap data: 0x40404040
+Parsed gap data: 0x40404040
+Parsed gap data: 0x40404040
+Parsed gap data: 0x40404040
+Parsed gap data: 0x40404008
+Parsed gap data: 0x08080801
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .string ""
 Parsed gap data: .string "-Inf"
 Parsed gap data: .string "Inf"
 Parsed gap data: .string "NaN"
 Parsed gap data: .2byte 0x0000
 Parsed gap data: .string "MetroTRK for Dolphin v0.8"
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .2byte 0x0000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0xFFFFFFFF
-Parsed gap data: .4byte 0x00000001
-Parsed gap data: .4byte 0x00000001
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
-Parsed gap data: .4byte 0x60000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0xFFFFFFFF
+Parsed gap data: 0x00000001
+Parsed gap data: 0x00000001
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
+Parsed gap data: 0x60000000
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_04_8001A460_rodata.c
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_04_8001A460_rodata.h
 Transpiling D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_05_8001A680_data.s
@@ -58396,588 +58396,588 @@ Found obj section: gap_05_8001BB24_data at 0x8001BB24
 Extracted gap section: gap_05_8001BB24_data, 2 lines
 Found obj section: lbl_8001BB28 at 0x8001BB28
 Extracted gap section: lbl_8001BB28, 1 lines
-Parsed gap data: .4byte 0x000000B4
-Parsed gap data: .4byte 0x00000080
-Parsed gap data: .4byte 0x00000080
-Parsed gap data: .4byte 0x000000A2
-Parsed gap data: .4byte 0x0000002C
-Parsed gap data: .4byte 0x0000008E
-Parsed gap data: .4byte 0x00000083
-Parsed gap data: .4byte 0x0000009C
-Parsed gap data: .4byte 0x0000002C
-Parsed gap data: .4byte 0x00000070
-Parsed gap data: .4byte 0x00000048
-Parsed gap data: .4byte 0x0000003A
-Parsed gap data: .4byte 0x00000054
-Parsed gap data: .4byte 0x000000B8
-Parsed gap data: .4byte 0x000000C6
-Parsed gap data: .4byte 0x00000041
-Parsed gap data: .4byte 0x00000064
-Parsed gap data: .4byte 0x000000D4
-Parsed gap data: .4byte 0x00000023
-Parsed gap data: .4byte 0x000000D4
-Parsed gap data: .4byte 0x00000072
-Parsed gap data: .4byte 0x00000010
-Parsed gap data: .4byte 0x00000080
-Parsed gap data: .4byte 0x00000080
+Parsed gap data: 0x000000B4
+Parsed gap data: 0x00000080
+Parsed gap data: 0x00000080
+Parsed gap data: 0x000000A2
+Parsed gap data: 0x0000002C
+Parsed gap data: 0x0000008E
+Parsed gap data: 0x00000083
+Parsed gap data: 0x0000009C
+Parsed gap data: 0x0000002C
+Parsed gap data: 0x00000070
+Parsed gap data: 0x00000048
+Parsed gap data: 0x0000003A
+Parsed gap data: 0x00000054
+Parsed gap data: 0x000000B8
+Parsed gap data: 0x000000C6
+Parsed gap data: 0x00000041
+Parsed gap data: 0x00000064
+Parsed gap data: 0x000000D4
+Parsed gap data: 0x00000023
+Parsed gap data: 0x000000D4
+Parsed gap data: 0x00000072
+Parsed gap data: 0x00000010
+Parsed gap data: 0x00000080
+Parsed gap data: 0x00000080
 Parsed gap data: .string "\nDolphin OS $Revision: 49 $.\n"
-Parsed gap data: .4byte 0x00004B65
-Parsed gap data: .4byte 0x726E656C
-Parsed gap data: .4byte 0x20627569
-Parsed gap data: .4byte 0x6C74203A
-Parsed gap data: .4byte 0x20257320
-Parsed gap data: .4byte 0x25730A00
-Parsed gap data: .4byte 0x00004465
-Parsed gap data: .4byte 0x63203137
-Parsed gap data: .4byte 0x20323030
-Parsed gap data: .4byte 0x31003138
-Parsed gap data: .4byte 0x3A34363A
-Parsed gap data: .4byte 0x34350000
-Parsed gap data: .4byte 0x0000436F
-Parsed gap data: .4byte 0x6E736F6C
-Parsed gap data: .4byte 0x65205479
-Parsed gap data: .4byte 0x7065203A
-Parsed gap data: .4byte 0x20005265
-Parsed gap data: .4byte 0x7461696C
-Parsed gap data: .4byte 0x2025640A
-Parsed gap data: .4byte 0x00004D61
-Parsed gap data: .4byte 0x6320456D
-Parsed gap data: .4byte 0x756C6174
-Parsed gap data: .4byte 0x6F720A00
-Parsed gap data: .4byte 0x00005043
-Parsed gap data: .4byte 0x20456D75
-Parsed gap data: .4byte 0x6C61746F
-Parsed gap data: .4byte 0x720A0000
-Parsed gap data: .4byte 0x00004550
-Parsed gap data: .4byte 0x50432041
-Parsed gap data: .4byte 0x72746875
-Parsed gap data: .4byte 0x720A0000
-Parsed gap data: .4byte 0x00004550
-Parsed gap data: .4byte 0x5043204D
-Parsed gap data: .4byte 0x696E6E6F
-Parsed gap data: .4byte 0x770A0000
-Parsed gap data: .4byte 0x00004465
-Parsed gap data: .4byte 0x76656C6F
-Parsed gap data: .4byte 0x706D656E
-Parsed gap data: .4byte 0x74204857
-Parsed gap data: .4byte 0x25640A00
-Parsed gap data: .4byte 0x00004D65
-Parsed gap data: .4byte 0x6D6F7279
-Parsed gap data: .4byte 0x20256420
-Parsed gap data: .4byte 0x4D420A00
-Parsed gap data: .4byte 0x00004172
-Parsed gap data: .4byte 0x656E6120
-Parsed gap data: .4byte 0x3A203078
-Parsed gap data: .4byte 0x2578202D
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x780A0000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x01000000
-Parsed gap data: .4byte 0x02000000
-Parsed gap data: .4byte 0x03000000
-Parsed gap data: .4byte 0x04000000
-Parsed gap data: .4byte 0x05000000
-Parsed gap data: .4byte 0x06000000
-Parsed gap data: .4byte 0x07000000
-Parsed gap data: .4byte 0x08000000
-Parsed gap data: .4byte 0x09000000
-Parsed gap data: .4byte 0x0C000000
-Parsed gap data: .4byte 0x0D000000
-Parsed gap data: .4byte 0x0F000000
-Parsed gap data: .4byte 0x13000000
-Parsed gap data: .4byte 0x14000000
-Parsed gap data: .4byte 0x1700496E
-Parsed gap data: .4byte 0x7374616C
-Parsed gap data: .4byte 0x6C696E67
-Parsed gap data: .4byte 0x204F5344
-Parsed gap data: .4byte 0x42496E74
-Parsed gap data: .4byte 0x65677261
-Parsed gap data: .4byte 0x746F720A
-Parsed gap data: .4byte 0x00003E3E
-Parsed gap data: .4byte 0x3E204F53
-Parsed gap data: .4byte 0x494E4954
-Parsed gap data: .4byte 0x3A206578
-Parsed gap data: .4byte 0x63657074
-Parsed gap data: .4byte 0x696F6E20
-Parsed gap data: .4byte 0x25642063
-Parsed gap data: .4byte 0x6F6D6D61
-Parsed gap data: .4byte 0x6E646565
-Parsed gap data: .4byte 0x72656420
-Parsed gap data: .4byte 0x62792054
-Parsed gap data: .4byte 0x524B0A00
-Parsed gap data: .4byte 0x00003E3E
-Parsed gap data: .4byte 0x3E204F53
-Parsed gap data: .4byte 0x494E4954
-Parsed gap data: .4byte 0x3A206578
-Parsed gap data: .4byte 0x63657074
-Parsed gap data: .4byte 0x696F6E20
-Parsed gap data: .4byte 0x25642076
-Parsed gap data: .4byte 0x6563746F
-Parsed gap data: .4byte 0x72656420
-Parsed gap data: .4byte 0x746F2064
-Parsed gap data: .4byte 0x65627567
-Parsed gap data: .4byte 0x6765720A
-Parsed gap data: .4byte 0x00004578
-Parsed gap data: .4byte 0x63657074
-Parsed gap data: .4byte 0x696F6E73
-Parsed gap data: .4byte 0x20696E69
-Parsed gap data: .4byte 0x7469616C
-Parsed gap data: .4byte 0x697A6564
-Parsed gap data: .4byte 0x2E2E2E0A
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00004B65
+Parsed gap data: 0x726E656C
+Parsed gap data: 0x20627569
+Parsed gap data: 0x6C74203A
+Parsed gap data: 0x20257320
+Parsed gap data: 0x25730A00
+Parsed gap data: 0x00004465
+Parsed gap data: 0x63203137
+Parsed gap data: 0x20323030
+Parsed gap data: 0x31003138
+Parsed gap data: 0x3A34363A
+Parsed gap data: 0x34350000
+Parsed gap data: 0x0000436F
+Parsed gap data: 0x6E736F6C
+Parsed gap data: 0x65205479
+Parsed gap data: 0x7065203A
+Parsed gap data: 0x20005265
+Parsed gap data: 0x7461696C
+Parsed gap data: 0x2025640A
+Parsed gap data: 0x00004D61
+Parsed gap data: 0x6320456D
+Parsed gap data: 0x756C6174
+Parsed gap data: 0x6F720A00
+Parsed gap data: 0x00005043
+Parsed gap data: 0x20456D75
+Parsed gap data: 0x6C61746F
+Parsed gap data: 0x720A0000
+Parsed gap data: 0x00004550
+Parsed gap data: 0x50432041
+Parsed gap data: 0x72746875
+Parsed gap data: 0x720A0000
+Parsed gap data: 0x00004550
+Parsed gap data: 0x5043204D
+Parsed gap data: 0x696E6E6F
+Parsed gap data: 0x770A0000
+Parsed gap data: 0x00004465
+Parsed gap data: 0x76656C6F
+Parsed gap data: 0x706D656E
+Parsed gap data: 0x74204857
+Parsed gap data: 0x25640A00
+Parsed gap data: 0x00004D65
+Parsed gap data: 0x6D6F7279
+Parsed gap data: 0x20256420
+Parsed gap data: 0x4D420A00
+Parsed gap data: 0x00004172
+Parsed gap data: 0x656E6120
+Parsed gap data: 0x3A203078
+Parsed gap data: 0x2578202D
+Parsed gap data: 0x20307825
+Parsed gap data: 0x780A0000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x01000000
+Parsed gap data: 0x02000000
+Parsed gap data: 0x03000000
+Parsed gap data: 0x04000000
+Parsed gap data: 0x05000000
+Parsed gap data: 0x06000000
+Parsed gap data: 0x07000000
+Parsed gap data: 0x08000000
+Parsed gap data: 0x09000000
+Parsed gap data: 0x0C000000
+Parsed gap data: 0x0D000000
+Parsed gap data: 0x0F000000
+Parsed gap data: 0x13000000
+Parsed gap data: 0x14000000
+Parsed gap data: 0x1700496E
+Parsed gap data: 0x7374616C
+Parsed gap data: 0x6C696E67
+Parsed gap data: 0x204F5344
+Parsed gap data: 0x42496E74
+Parsed gap data: 0x65677261
+Parsed gap data: 0x746F720A
+Parsed gap data: 0x00003E3E
+Parsed gap data: 0x3E204F53
+Parsed gap data: 0x494E4954
+Parsed gap data: 0x3A206578
+Parsed gap data: 0x63657074
+Parsed gap data: 0x696F6E20
+Parsed gap data: 0x25642063
+Parsed gap data: 0x6F6D6D61
+Parsed gap data: 0x6E646565
+Parsed gap data: 0x72656420
+Parsed gap data: 0x62792054
+Parsed gap data: 0x524B0A00
+Parsed gap data: 0x00003E3E
+Parsed gap data: 0x3E204F53
+Parsed gap data: 0x494E4954
+Parsed gap data: 0x3A206578
+Parsed gap data: 0x63657074
+Parsed gap data: 0x696F6E20
+Parsed gap data: 0x25642076
+Parsed gap data: 0x6563746F
+Parsed gap data: 0x72656420
+Parsed gap data: 0x746F2064
+Parsed gap data: 0x65627567
+Parsed gap data: 0x6765720A
+Parsed gap data: 0x00004578
+Parsed gap data: 0x63657074
+Parsed gap data: 0x696F6E73
+Parsed gap data: 0x20696E69
+Parsed gap data: 0x7469616C
+Parsed gap data: 0x697A6564
+Parsed gap data: 0x2E2E2E0A
+Parsed gap data: 0x00000000
 Parsed gap data: .2byte 0x0000
-Parsed gap data: .4byte 0x029F0010
-Parsed gap data: .4byte 0x029F0033
-Parsed gap data: .4byte 0x029F0034
-Parsed gap data: .4byte 0x029F0035
-Parsed gap data: .4byte 0x029F0036
-Parsed gap data: .4byte 0x029F0037
-Parsed gap data: .4byte 0x029F0038
-Parsed gap data: .4byte 0x029F0039
-Parsed gap data: .4byte 0x12061203
-Parsed gap data: .4byte 0x12041205
-Parsed gap data: .4byte 0x00808000
-Parsed gap data: .4byte 0x0088FFFF
-Parsed gap data: .4byte 0x00841000
-Parsed gap data: .4byte 0x0064001D
-Parsed gap data: .4byte 0x02180000
-Parsed gap data: .4byte 0x81001C1E
-Parsed gap data: .4byte 0x00441B1E
-Parsed gap data: .4byte 0x00840800
-Parsed gap data: .4byte 0x00640027
-Parsed gap data: .4byte 0x191E0000
-Parsed gap data: .4byte 0x00DEFFFC
-Parsed gap data: .4byte 0x02A08000
-Parsed gap data: .4byte 0x029C0028
-Parsed gap data: .4byte 0x16FC0054
-Parsed gap data: .4byte 0x16FD4348
-Parsed gap data: .4byte 0x002102FF
-Parsed gap data: .4byte 0x02FF02FF
-Parsed gap data: .4byte 0x02FF02FF
-Parsed gap data: .4byte 0x02FF02FF
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x029F0010
+Parsed gap data: 0x029F0033
+Parsed gap data: 0x029F0034
+Parsed gap data: 0x029F0035
+Parsed gap data: 0x029F0036
+Parsed gap data: 0x029F0037
+Parsed gap data: 0x029F0038
+Parsed gap data: 0x029F0039
+Parsed gap data: 0x12061203
+Parsed gap data: 0x12041205
+Parsed gap data: 0x00808000
+Parsed gap data: 0x0088FFFF
+Parsed gap data: 0x00841000
+Parsed gap data: 0x0064001D
+Parsed gap data: 0x02180000
+Parsed gap data: 0x81001C1E
+Parsed gap data: 0x00441B1E
+Parsed gap data: 0x00840800
+Parsed gap data: 0x00640027
+Parsed gap data: 0x191E0000
+Parsed gap data: 0x00DEFFFC
+Parsed gap data: 0x02A08000
+Parsed gap data: 0x029C0028
+Parsed gap data: 0x16FC0054
+Parsed gap data: 0x16FD4348
+Parsed gap data: 0x002102FF
+Parsed gap data: 0x02FF02FF
+Parsed gap data: 0x02FF02FF
+Parsed gap data: 0x02FF02FF
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
-Parsed gap data: .4byte 0x0000004D
-Parsed gap data: .4byte 0x61636869
-Parsed gap data: .4byte 0x6E652063
-Parsed gap data: .4byte 0x6865636B
-Parsed gap data: .4byte 0x20726563
-Parsed gap data: .4byte 0x65697665
-Parsed gap data: .4byte 0x640A0048
-Parsed gap data: .4byte 0x49443220
-Parsed gap data: .4byte 0x3D203078
-Parsed gap data: .4byte 0x25782020
-Parsed gap data: .4byte 0x20535252
-Parsed gap data: .4byte 0x31203D20
-Parsed gap data: .4byte 0x30782578
-Parsed gap data: .4byte 0x0A00004D
-Parsed gap data: .4byte 0x61636869
-Parsed gap data: .4byte 0x6E652063
-Parsed gap data: .4byte 0x6865636B
-Parsed gap data: .4byte 0x20776173
-Parsed gap data: .4byte 0x206E6F74
-Parsed gap data: .4byte 0x20444D41
-Parsed gap data: .4byte 0x2F6C6F63
-Parsed gap data: .4byte 0x6B656420
-Parsed gap data: .4byte 0x63616368
-Parsed gap data: .4byte 0x65207265
-Parsed gap data: .4byte 0x6C617465
-Parsed gap data: .4byte 0x640A0044
-Parsed gap data: .4byte 0x4D414572
-Parsed gap data: .4byte 0x726F7248
-Parsed gap data: .4byte 0x616E646C
-Parsed gap data: .4byte 0x65722829
-Parsed gap data: .4byte 0x3A20416E
-Parsed gap data: .4byte 0x20657272
-Parsed gap data: .4byte 0x6F72206F
-Parsed gap data: .4byte 0x63637572
-Parsed gap data: .4byte 0x72656420
-Parsed gap data: .4byte 0x7768696C
-Parsed gap data: .4byte 0x65207072
-Parsed gap data: .4byte 0x6F636573
-Parsed gap data: .4byte 0x73696E67
-Parsed gap data: .4byte 0x20444D41
-Parsed gap data: .4byte 0x2E0A0054
-Parsed gap data: .4byte 0x68652066
-Parsed gap data: .4byte 0x6F6C6C6F
-Parsed gap data: .4byte 0x77696E67
-Parsed gap data: .4byte 0x20657272
-Parsed gap data: .4byte 0x6F727320
-Parsed gap data: .4byte 0x68617665
-Parsed gap data: .4byte 0x20626565
-Parsed gap data: .4byte 0x6E206465
-Parsed gap data: .4byte 0x74656374
-Parsed gap data: .4byte 0x65642061
-Parsed gap data: .4byte 0x6E642063
-Parsed gap data: .4byte 0x6C656172
-Parsed gap data: .4byte 0x6564203A
-Parsed gap data: .4byte 0x0A000009
-Parsed gap data: .4byte 0x2D205265
-Parsed gap data: .4byte 0x71756573
-Parsed gap data: .4byte 0x74656420
-Parsed gap data: .4byte 0x61206C6F
-Parsed gap data: .4byte 0x636B6564
-Parsed gap data: .4byte 0x20636163
-Parsed gap data: .4byte 0x68652074
-Parsed gap data: .4byte 0x61672074
-Parsed gap data: .4byte 0x68617420
-Parsed gap data: .4byte 0x77617320
-Parsed gap data: .4byte 0x616C7265
-Parsed gap data: .4byte 0x61647920
-Parsed gap data: .4byte 0x696E2074
-Parsed gap data: .4byte 0x68652063
-Parsed gap data: .4byte 0x61636865
-Parsed gap data: .4byte 0x0A000009
-Parsed gap data: .4byte 0x2D20444D
-Parsed gap data: .4byte 0x41206174
-Parsed gap data: .4byte 0x74656D70
-Parsed gap data: .4byte 0x74656420
-Parsed gap data: .4byte 0x746F2061
-Parsed gap data: .4byte 0x63636573
-Parsed gap data: .4byte 0x73206E6F
-Parsed gap data: .4byte 0x726D616C
-Parsed gap data: .4byte 0x20636163
-Parsed gap data: .4byte 0x68650A00
-Parsed gap data: .4byte 0x00000009
-Parsed gap data: .4byte 0x2D20444D
-Parsed gap data: .4byte 0x41206D69
-Parsed gap data: .4byte 0x73736564
-Parsed gap data: .4byte 0x20696E20
-Parsed gap data: .4byte 0x64617461
-Parsed gap data: .4byte 0x20636163
-Parsed gap data: .4byte 0x68650A00
-Parsed gap data: .4byte 0x00000009
-Parsed gap data: .4byte 0x2D20444D
-Parsed gap data: .4byte 0x41207175
-Parsed gap data: .4byte 0x65756520
-Parsed gap data: .4byte 0x6F766572
-Parsed gap data: .4byte 0x666C6F77
-Parsed gap data: .4byte 0x65640A00
-Parsed gap data: .4byte 0x0000004C
-Parsed gap data: .4byte 0x3120692D
-Parsed gap data: .4byte 0x63616368
-Parsed gap data: .4byte 0x65732069
-Parsed gap data: .4byte 0x6E697469
-Parsed gap data: .4byte 0x616C697A
-Parsed gap data: .4byte 0x65640A00
-Parsed gap data: .4byte 0x0000004C
-Parsed gap data: .4byte 0x3120642D
-Parsed gap data: .4byte 0x63616368
-Parsed gap data: .4byte 0x65732069
-Parsed gap data: .4byte 0x6E697469
-Parsed gap data: .4byte 0x616C697A
-Parsed gap data: .4byte 0x65640A00
-Parsed gap data: .4byte 0x0000004C
-Parsed gap data: .4byte 0x32206361
-Parsed gap data: .4byte 0x63686520
-Parsed gap data: .4byte 0x696E6974
-Parsed gap data: .4byte 0x69616C69
-Parsed gap data: .4byte 0x7A65640A
-Parsed gap data: .4byte 0x0000004C
-Parsed gap data: .4byte 0x6F636B65
-Parsed gap data: .4byte 0x64206361
-Parsed gap data: .4byte 0x63686520
-Parsed gap data: .4byte 0x6D616368
-Parsed gap data: .4byte 0x696E6520
-Parsed gap data: .4byte 0x63686563
-Parsed gap data: .4byte 0x6B206861
-Parsed gap data: .4byte 0x6E646C65
-Parsed gap data: .4byte 0x7220696E
-Parsed gap data: .4byte 0x7374616C
-Parsed gap data: .4byte 0x6C65640A
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x0000004D
+Parsed gap data: 0x61636869
+Parsed gap data: 0x6E652063
+Parsed gap data: 0x6865636B
+Parsed gap data: 0x20726563
+Parsed gap data: 0x65697665
+Parsed gap data: 0x640A0048
+Parsed gap data: 0x49443220
+Parsed gap data: 0x3D203078
+Parsed gap data: 0x25782020
+Parsed gap data: 0x20535252
+Parsed gap data: 0x31203D20
+Parsed gap data: 0x30782578
+Parsed gap data: 0x0A00004D
+Parsed gap data: 0x61636869
+Parsed gap data: 0x6E652063
+Parsed gap data: 0x6865636B
+Parsed gap data: 0x20776173
+Parsed gap data: 0x206E6F74
+Parsed gap data: 0x20444D41
+Parsed gap data: 0x2F6C6F63
+Parsed gap data: 0x6B656420
+Parsed gap data: 0x63616368
+Parsed gap data: 0x65207265
+Parsed gap data: 0x6C617465
+Parsed gap data: 0x640A0044
+Parsed gap data: 0x4D414572
+Parsed gap data: 0x726F7248
+Parsed gap data: 0x616E646C
+Parsed gap data: 0x65722829
+Parsed gap data: 0x3A20416E
+Parsed gap data: 0x20657272
+Parsed gap data: 0x6F72206F
+Parsed gap data: 0x63637572
+Parsed gap data: 0x72656420
+Parsed gap data: 0x7768696C
+Parsed gap data: 0x65207072
+Parsed gap data: 0x6F636573
+Parsed gap data: 0x73696E67
+Parsed gap data: 0x20444D41
+Parsed gap data: 0x2E0A0054
+Parsed gap data: 0x68652066
+Parsed gap data: 0x6F6C6C6F
+Parsed gap data: 0x77696E67
+Parsed gap data: 0x20657272
+Parsed gap data: 0x6F727320
+Parsed gap data: 0x68617665
+Parsed gap data: 0x20626565
+Parsed gap data: 0x6E206465
+Parsed gap data: 0x74656374
+Parsed gap data: 0x65642061
+Parsed gap data: 0x6E642063
+Parsed gap data: 0x6C656172
+Parsed gap data: 0x6564203A
+Parsed gap data: 0x0A000009
+Parsed gap data: 0x2D205265
+Parsed gap data: 0x71756573
+Parsed gap data: 0x74656420
+Parsed gap data: 0x61206C6F
+Parsed gap data: 0x636B6564
+Parsed gap data: 0x20636163
+Parsed gap data: 0x68652074
+Parsed gap data: 0x61672074
+Parsed gap data: 0x68617420
+Parsed gap data: 0x77617320
+Parsed gap data: 0x616C7265
+Parsed gap data: 0x61647920
+Parsed gap data: 0x696E2074
+Parsed gap data: 0x68652063
+Parsed gap data: 0x61636865
+Parsed gap data: 0x0A000009
+Parsed gap data: 0x2D20444D
+Parsed gap data: 0x41206174
+Parsed gap data: 0x74656D70
+Parsed gap data: 0x74656420
+Parsed gap data: 0x746F2061
+Parsed gap data: 0x63636573
+Parsed gap data: 0x73206E6F
+Parsed gap data: 0x726D616C
+Parsed gap data: 0x20636163
+Parsed gap data: 0x68650A00
+Parsed gap data: 0x00000009
+Parsed gap data: 0x2D20444D
+Parsed gap data: 0x41206D69
+Parsed gap data: 0x73736564
+Parsed gap data: 0x20696E20
+Parsed gap data: 0x64617461
+Parsed gap data: 0x20636163
+Parsed gap data: 0x68650A00
+Parsed gap data: 0x00000009
+Parsed gap data: 0x2D20444D
+Parsed gap data: 0x41207175
+Parsed gap data: 0x65756520
+Parsed gap data: 0x6F766572
+Parsed gap data: 0x666C6F77
+Parsed gap data: 0x65640A00
+Parsed gap data: 0x0000004C
+Parsed gap data: 0x3120692D
+Parsed gap data: 0x63616368
+Parsed gap data: 0x65732069
+Parsed gap data: 0x6E697469
+Parsed gap data: 0x616C697A
+Parsed gap data: 0x65640A00
+Parsed gap data: 0x0000004C
+Parsed gap data: 0x3120642D
+Parsed gap data: 0x63616368
+Parsed gap data: 0x65732069
+Parsed gap data: 0x6E697469
+Parsed gap data: 0x616C697A
+Parsed gap data: 0x65640A00
+Parsed gap data: 0x0000004C
+Parsed gap data: 0x32206361
+Parsed gap data: 0x63686520
+Parsed gap data: 0x696E6974
+Parsed gap data: 0x69616C69
+Parsed gap data: 0x7A65640A
+Parsed gap data: 0x0000004C
+Parsed gap data: 0x6F636B65
+Parsed gap data: 0x64206361
+Parsed gap data: 0x63686520
+Parsed gap data: 0x6D616368
+Parsed gap data: 0x696E6520
+Parsed gap data: 0x63686563
+Parsed gap data: 0x6B206861
+Parsed gap data: 0x6E646C65
+Parsed gap data: 0x7220696E
+Parsed gap data: 0x7374616C
+Parsed gap data: 0x6C65640A
+Parsed gap data: 0x00000000
 Parsed gap data: .byte 0x00, 0x00, 0x00
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D20436F
-Parsed gap data: .4byte 0x6E746578
-Parsed gap data: .4byte 0x74203078
-Parsed gap data: .4byte 0x25303878
-Parsed gap data: .4byte 0x202D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D0A00
-Parsed gap data: .4byte 0x72252D32
-Parsed gap data: .4byte 0x6420203D
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x30387820
-Parsed gap data: .4byte 0x28253134
-Parsed gap data: .4byte 0x64292020
-Parsed gap data: .4byte 0x72252D32
-Parsed gap data: .4byte 0x6420203D
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x30387820
-Parsed gap data: .4byte 0x28253134
-Parsed gap data: .4byte 0x64290A00
-Parsed gap data: .4byte 0x4C522020
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x78202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x43522020
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x780A0000
-Parsed gap data: .4byte 0x53525230
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x78202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x53525231
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x780A0000
-Parsed gap data: .4byte 0x0A475152
-Parsed gap data: .4byte 0x732D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D0A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x67717225
-Parsed gap data: .4byte 0x64203D20
-Parsed gap data: .4byte 0x30782530
-Parsed gap data: .4byte 0x38782009
-Parsed gap data: .4byte 0x20677172
-Parsed gap data: .4byte 0x2564203D
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x3038780A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x0A0A4650
-Parsed gap data: .4byte 0x52732D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x66722564
-Parsed gap data: .4byte 0x20093D20
-Parsed gap data: .4byte 0x25642009
-Parsed gap data: .4byte 0x20667225
-Parsed gap data: .4byte 0x6420093D
-Parsed gap data: .4byte 0x2025640A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x0A0A5053
-Parsed gap data: .4byte 0x46732D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x2D2D2D2D
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x70732564
-Parsed gap data: .4byte 0x20093D20
-Parsed gap data: .4byte 0x30782578
-Parsed gap data: .4byte 0x20092070
-Parsed gap data: .4byte 0x73256420
-Parsed gap data: .4byte 0x093D2030
-Parsed gap data: .4byte 0x7825780A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x0A416464
-Parsed gap data: .4byte 0x72657373
-Parsed gap data: .4byte 0x3A202020
-Parsed gap data: .4byte 0x20202042
-Parsed gap data: .4byte 0x61636B20
-Parsed gap data: .4byte 0x43686169
-Parsed gap data: .4byte 0x6E202020
-Parsed gap data: .4byte 0x204C5220
-Parsed gap data: .4byte 0x53617665
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x30782530
-Parsed gap data: .4byte 0x38783A20
-Parsed gap data: .4byte 0x20203078
-Parsed gap data: .4byte 0x25303878
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x30782530
-Parsed gap data: .4byte 0x38780A00
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D20436F
+Parsed gap data: 0x6E746578
+Parsed gap data: 0x74203078
+Parsed gap data: 0x25303878
+Parsed gap data: 0x202D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D0A00
+Parsed gap data: 0x72252D32
+Parsed gap data: 0x6420203D
+Parsed gap data: 0x20307825
+Parsed gap data: 0x30387820
+Parsed gap data: 0x28253134
+Parsed gap data: 0x64292020
+Parsed gap data: 0x72252D32
+Parsed gap data: 0x6420203D
+Parsed gap data: 0x20307825
+Parsed gap data: 0x30387820
+Parsed gap data: 0x28253134
+Parsed gap data: 0x64290A00
+Parsed gap data: 0x4C522020
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x78202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x43522020
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x780A0000
+Parsed gap data: 0x53525230
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x78202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x53525231
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x780A0000
+Parsed gap data: 0x0A475152
+Parsed gap data: 0x732D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D0A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x67717225
+Parsed gap data: 0x64203D20
+Parsed gap data: 0x30782530
+Parsed gap data: 0x38782009
+Parsed gap data: 0x20677172
+Parsed gap data: 0x2564203D
+Parsed gap data: 0x20307825
+Parsed gap data: 0x3038780A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x0A0A4650
+Parsed gap data: 0x52732D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x66722564
+Parsed gap data: 0x20093D20
+Parsed gap data: 0x25642009
+Parsed gap data: 0x20667225
+Parsed gap data: 0x6420093D
+Parsed gap data: 0x2025640A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x0A0A5053
+Parsed gap data: 0x46732D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x2D2D2D2D
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x70732564
+Parsed gap data: 0x20093D20
+Parsed gap data: 0x30782578
+Parsed gap data: 0x20092070
+Parsed gap data: 0x73256420
+Parsed gap data: 0x093D2030
+Parsed gap data: 0x7825780A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x0A416464
+Parsed gap data: 0x72657373
+Parsed gap data: 0x3A202020
+Parsed gap data: 0x20202042
+Parsed gap data: 0x61636B20
+Parsed gap data: 0x43686169
+Parsed gap data: 0x6E202020
+Parsed gap data: 0x204C5220
+Parsed gap data: 0x53617665
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x30782530
+Parsed gap data: 0x38783A20
+Parsed gap data: 0x20203078
+Parsed gap data: 0x25303878
+Parsed gap data: 0x20202020
+Parsed gap data: 0x30782530
+Parsed gap data: 0x38780A00
 Parsed gap data: .string "FPU-unavailable handler installed\n"
 Parsed gap data: .byte 0x00
 Parsed gap data: .string " in "%s" on line %d.\n"
-Parsed gap data: .4byte 0x00000A41
-Parsed gap data: .4byte 0x64647265
-Parsed gap data: .4byte 0x73733A20
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20426163
-Parsed gap data: .4byte 0x6B204368
-Parsed gap data: .4byte 0x61696E20
-Parsed gap data: .4byte 0x2020204C
-Parsed gap data: .4byte 0x52205361
-Parsed gap data: .4byte 0x76650A00
-Parsed gap data: .4byte 0x00003078
-Parsed gap data: .4byte 0x25303878
-Parsed gap data: .4byte 0x3A202020
-Parsed gap data: .4byte 0x30782530
-Parsed gap data: .4byte 0x38782020
-Parsed gap data: .4byte 0x20203078
-Parsed gap data: .4byte 0x25303878
-Parsed gap data: .4byte 0x0A004E6F
-Parsed gap data: .4byte 0x6E2D7265
-Parsed gap data: .4byte 0x636F7665
-Parsed gap data: .4byte 0x7261626C
-Parsed gap data: .4byte 0x65204578
-Parsed gap data: .4byte 0x63657074
-Parsed gap data: .4byte 0x696F6E20
-Parsed gap data: .4byte 0x25640000
-Parsed gap data: .4byte 0x0000556E
-Parsed gap data: .4byte 0x68616E64
-Parsed gap data: .4byte 0x6C656420
-Parsed gap data: .4byte 0x45786365
-Parsed gap data: .4byte 0x7074696F
-Parsed gap data: .4byte 0x6E202564
-Parsed gap data: .4byte 0x00000A44
-Parsed gap data: .4byte 0x53495352
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x78202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x44415220
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x780A0000
-Parsed gap data: .4byte 0x00005442
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253031
-Parsed gap data: .4byte 0x366C6C78
-Parsed gap data: .4byte 0x0A000A49
-Parsed gap data: .4byte 0x6E737472
-Parsed gap data: .4byte 0x75637469
-Parsed gap data: .4byte 0x6F6E2061
-Parsed gap data: .4byte 0x74203078
-Parsed gap data: .4byte 0x25782028
-Parsed gap data: .4byte 0x72656164
-Parsed gap data: .4byte 0x2066726F
-Parsed gap data: .4byte 0x6D205352
-Parsed gap data: .4byte 0x52302920
-Parsed gap data: .4byte 0x61747465
-Parsed gap data: .4byte 0x6D707465
-Parsed gap data: .4byte 0x6420746F
-Parsed gap data: .4byte 0x20616363
-Parsed gap data: .4byte 0x65737320
-Parsed gap data: .4byte 0x696E7661
-Parsed gap data: .4byte 0x6C696420
-Parsed gap data: .4byte 0x61646472
-Parsed gap data: .4byte 0x65737320
-Parsed gap data: .4byte 0x30782578
-Parsed gap data: .4byte 0x20287265
-Parsed gap data: .4byte 0x61642066
-Parsed gap data: .4byte 0x726F6D20
-Parsed gap data: .4byte 0x44415229
-Parsed gap data: .4byte 0x0A000A41
-Parsed gap data: .4byte 0x7474656D
-Parsed gap data: .4byte 0x70746564
-Parsed gap data: .4byte 0x20746F20
-Parsed gap data: .4byte 0x66657463
-Parsed gap data: .4byte 0x6820696E
-Parsed gap data: .4byte 0x73747275
-Parsed gap data: .4byte 0x6374696F
-Parsed gap data: .4byte 0x6E206672
-Parsed gap data: .4byte 0x6F6D2069
-Parsed gap data: .4byte 0x6E76616C
-Parsed gap data: .4byte 0x69642061
-Parsed gap data: .4byte 0x64647265
-Parsed gap data: .4byte 0x73732030
-Parsed gap data: .4byte 0x78257820
-Parsed gap data: .4byte 0x28726561
-Parsed gap data: .4byte 0x64206672
-Parsed gap data: .4byte 0x6F6D2053
-Parsed gap data: .4byte 0x52523029
-Parsed gap data: .4byte 0x0A000A49
-Parsed gap data: .4byte 0x6E737472
-Parsed gap data: .4byte 0x75637469
-Parsed gap data: .4byte 0x6F6E2061
-Parsed gap data: .4byte 0x74203078
-Parsed gap data: .4byte 0x25782028
-Parsed gap data: .4byte 0x72656164
-Parsed gap data: .4byte 0x2066726F
-Parsed gap data: .4byte 0x6D205352
-Parsed gap data: .4byte 0x52302920
-Parsed gap data: .4byte 0x61747465
-Parsed gap data: .4byte 0x6D707465
-Parsed gap data: .4byte 0x6420746F
-Parsed gap data: .4byte 0x20616363
-Parsed gap data: .4byte 0x65737320
-Parsed gap data: .4byte 0x756E616C
-Parsed gap data: .4byte 0x69676E65
-Parsed gap data: .4byte 0x64206164
-Parsed gap data: .4byte 0x64726573
-Parsed gap data: .4byte 0x73203078
-Parsed gap data: .4byte 0x25782028
-Parsed gap data: .4byte 0x72656164
-Parsed gap data: .4byte 0x2066726F
-Parsed gap data: .4byte 0x6D204441
-Parsed gap data: .4byte 0x52290A00
-Parsed gap data: .4byte 0x00000A50
-Parsed gap data: .4byte 0x726F6772
-Parsed gap data: .4byte 0x616D2065
-Parsed gap data: .4byte 0x78636570
-Parsed gap data: .4byte 0x74696F6E
-Parsed gap data: .4byte 0x203A2050
-Parsed gap data: .4byte 0x6F737369
-Parsed gap data: .4byte 0x626C6520
-Parsed gap data: .4byte 0x696C6C65
-Parsed gap data: .4byte 0x67616C20
-Parsed gap data: .4byte 0x696E7374
-Parsed gap data: .4byte 0x72756374
-Parsed gap data: .4byte 0x696F6E2F
-Parsed gap data: .4byte 0x6F706572
-Parsed gap data: .4byte 0x6174696F
-Parsed gap data: .4byte 0x6E206174
-Parsed gap data: .4byte 0x206F7220
-Parsed gap data: .4byte 0x61726F75
-Parsed gap data: .4byte 0x6E642030
-Parsed gap data: .4byte 0x78257820
-Parsed gap data: .4byte 0x28726561
-Parsed gap data: .4byte 0x64206672
-Parsed gap data: .4byte 0x6F6D2053
-Parsed gap data: .4byte 0x52523029
-Parsed gap data: .4byte 0x0A004149
-Parsed gap data: .4byte 0x20444D41
-Parsed gap data: .4byte 0x20416464
-Parsed gap data: .4byte 0x72657373
-Parsed gap data: .4byte 0x203D2020
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x30347825
-Parsed gap data: .4byte 0x3034780A
-Parsed gap data: .4byte 0x00004152
-Parsed gap data: .4byte 0x414D2044
-Parsed gap data: .4byte 0x4D412041
-Parsed gap data: .4byte 0x64647265
-Parsed gap data: .4byte 0x7373203D
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x30347825
-Parsed gap data: .4byte 0x3034780A
-Parsed gap data: .4byte 0x00004449
-Parsed gap data: .4byte 0x20444D41
-Parsed gap data: .4byte 0x20416464
-Parsed gap data: .4byte 0x72657373
-Parsed gap data: .4byte 0x203D2020
-Parsed gap data: .4byte 0x20307825
-Parsed gap data: .4byte 0x3038780A
-Parsed gap data: .4byte 0x00000A4C
-Parsed gap data: .4byte 0x61737420
-Parsed gap data: .4byte 0x696E7465
-Parsed gap data: .4byte 0x72727570
-Parsed gap data: .4byte 0x74202825
-Parsed gap data: .4byte 0x64293A20
-Parsed gap data: .4byte 0x53525230
-Parsed gap data: .4byte 0x203D2030
-Parsed gap data: .4byte 0x78253038
-Parsed gap data: .4byte 0x78202054
-Parsed gap data: .4byte 0x42203D20
-Parsed gap data: .4byte 0x30782530
-Parsed gap data: .4byte 0x31366C6C
-Parsed gap data: .4byte 0x780A0000
+Parsed gap data: 0x00000A41
+Parsed gap data: 0x64647265
+Parsed gap data: 0x73733A20
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20426163
+Parsed gap data: 0x6B204368
+Parsed gap data: 0x61696E20
+Parsed gap data: 0x2020204C
+Parsed gap data: 0x52205361
+Parsed gap data: 0x76650A00
+Parsed gap data: 0x00003078
+Parsed gap data: 0x25303878
+Parsed gap data: 0x3A202020
+Parsed gap data: 0x30782530
+Parsed gap data: 0x38782020
+Parsed gap data: 0x20203078
+Parsed gap data: 0x25303878
+Parsed gap data: 0x0A004E6F
+Parsed gap data: 0x6E2D7265
+Parsed gap data: 0x636F7665
+Parsed gap data: 0x7261626C
+Parsed gap data: 0x65204578
+Parsed gap data: 0x63657074
+Parsed gap data: 0x696F6E20
+Parsed gap data: 0x25640000
+Parsed gap data: 0x0000556E
+Parsed gap data: 0x68616E64
+Parsed gap data: 0x6C656420
+Parsed gap data: 0x45786365
+Parsed gap data: 0x7074696F
+Parsed gap data: 0x6E202564
+Parsed gap data: 0x00000A44
+Parsed gap data: 0x53495352
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x78202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x44415220
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x780A0000
+Parsed gap data: 0x00005442
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253031
+Parsed gap data: 0x366C6C78
+Parsed gap data: 0x0A000A49
+Parsed gap data: 0x6E737472
+Parsed gap data: 0x75637469
+Parsed gap data: 0x6F6E2061
+Parsed gap data: 0x74203078
+Parsed gap data: 0x25782028
+Parsed gap data: 0x72656164
+Parsed gap data: 0x2066726F
+Parsed gap data: 0x6D205352
+Parsed gap data: 0x52302920
+Parsed gap data: 0x61747465
+Parsed gap data: 0x6D707465
+Parsed gap data: 0x6420746F
+Parsed gap data: 0x20616363
+Parsed gap data: 0x65737320
+Parsed gap data: 0x696E7661
+Parsed gap data: 0x6C696420
+Parsed gap data: 0x61646472
+Parsed gap data: 0x65737320
+Parsed gap data: 0x30782578
+Parsed gap data: 0x20287265
+Parsed gap data: 0x61642066
+Parsed gap data: 0x726F6D20
+Parsed gap data: 0x44415229
+Parsed gap data: 0x0A000A41
+Parsed gap data: 0x7474656D
+Parsed gap data: 0x70746564
+Parsed gap data: 0x20746F20
+Parsed gap data: 0x66657463
+Parsed gap data: 0x6820696E
+Parsed gap data: 0x73747275
+Parsed gap data: 0x6374696F
+Parsed gap data: 0x6E206672
+Parsed gap data: 0x6F6D2069
+Parsed gap data: 0x6E76616C
+Parsed gap data: 0x69642061
+Parsed gap data: 0x64647265
+Parsed gap data: 0x73732030
+Parsed gap data: 0x78257820
+Parsed gap data: 0x28726561
+Parsed gap data: 0x64206672
+Parsed gap data: 0x6F6D2053
+Parsed gap data: 0x52523029
+Parsed gap data: 0x0A000A49
+Parsed gap data: 0x6E737472
+Parsed gap data: 0x75637469
+Parsed gap data: 0x6F6E2061
+Parsed gap data: 0x74203078
+Parsed gap data: 0x25782028
+Parsed gap data: 0x72656164
+Parsed gap data: 0x2066726F
+Parsed gap data: 0x6D205352
+Parsed gap data: 0x52302920
+Parsed gap data: 0x61747465
+Parsed gap data: 0x6D707465
+Parsed gap data: 0x6420746F
+Parsed gap data: 0x20616363
+Parsed gap data: 0x65737320
+Parsed gap data: 0x756E616C
+Parsed gap data: 0x69676E65
+Parsed gap data: 0x64206164
+Parsed gap data: 0x64726573
+Parsed gap data: 0x73203078
+Parsed gap data: 0x25782028
+Parsed gap data: 0x72656164
+Parsed gap data: 0x2066726F
+Parsed gap data: 0x6D204441
+Parsed gap data: 0x52290A00
+Parsed gap data: 0x00000A50
+Parsed gap data: 0x726F6772
+Parsed gap data: 0x616D2065
+Parsed gap data: 0x78636570
+Parsed gap data: 0x74696F6E
+Parsed gap data: 0x203A2050
+Parsed gap data: 0x6F737369
+Parsed gap data: 0x626C6520
+Parsed gap data: 0x696C6C65
+Parsed gap data: 0x67616C20
+Parsed gap data: 0x696E7374
+Parsed gap data: 0x72756374
+Parsed gap data: 0x696F6E2F
+Parsed gap data: 0x6F706572
+Parsed gap data: 0x6174696F
+Parsed gap data: 0x6E206174
+Parsed gap data: 0x206F7220
+Parsed gap data: 0x61726F75
+Parsed gap data: 0x6E642030
+Parsed gap data: 0x78257820
+Parsed gap data: 0x28726561
+Parsed gap data: 0x64206672
+Parsed gap data: 0x6F6D2053
+Parsed gap data: 0x52523029
+Parsed gap data: 0x0A004149
+Parsed gap data: 0x20444D41
+Parsed gap data: 0x20416464
+Parsed gap data: 0x72657373
+Parsed gap data: 0x203D2020
+Parsed gap data: 0x20307825
+Parsed gap data: 0x30347825
+Parsed gap data: 0x3034780A
+Parsed gap data: 0x00004152
+Parsed gap data: 0x414D2044
+Parsed gap data: 0x4D412041
+Parsed gap data: 0x64647265
+Parsed gap data: 0x7373203D
+Parsed gap data: 0x20307825
+Parsed gap data: 0x30347825
+Parsed gap data: 0x3034780A
+Parsed gap data: 0x00004449
+Parsed gap data: 0x20444D41
+Parsed gap data: 0x20416464
+Parsed gap data: 0x72657373
+Parsed gap data: 0x203D2020
+Parsed gap data: 0x20307825
+Parsed gap data: 0x3038780A
+Parsed gap data: 0x00000A4C
+Parsed gap data: 0x61737420
+Parsed gap data: 0x696E7465
+Parsed gap data: 0x72727570
+Parsed gap data: 0x74202825
+Parsed gap data: 0x64293A20
+Parsed gap data: 0x53525230
+Parsed gap data: 0x203D2030
+Parsed gap data: 0x78253038
+Parsed gap data: 0x78202054
+Parsed gap data: 0x42203D20
+Parsed gap data: 0x30782530
+Parsed gap data: 0x31366C6C
+Parsed gap data: 0x780A0000
 Parsed gap data: .2byte 0x0000
 Parsed gap data: .4byte __OSUnhandledException+0x1CC
 Parsed gap data: .4byte __OSUnhandledException+0x1CC
@@ -58995,133 +58995,133 @@ Parsed gap data: .4byte __OSUnhandledException+0x1CC
 Parsed gap data: .4byte __OSUnhandledException+0x1CC
 Parsed gap data: .4byte __OSUnhandledException+0x1CC
 Parsed gap data: .4byte __OSUnhandledException+0x180
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000100
-Parsed gap data: .4byte 0x00000040
-Parsed gap data: .4byte 0xF8000000
-Parsed gap data: .4byte 0x00000200
-Parsed gap data: .4byte 0x00000080
-Parsed gap data: .4byte 0x00003000
-Parsed gap data: .4byte 0x00000020
-Parsed gap data: .4byte 0x03FF8C00
-Parsed gap data: .4byte 0x04000000
-Parsed gap data: .4byte 0x00004000
-Parsed gap data: .4byte 0xFFFFFFFF
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000100
+Parsed gap data: 0x00000040
+Parsed gap data: 0xF8000000
+Parsed gap data: 0x00000200
+Parsed gap data: 0x00000080
+Parsed gap data: 0x00003000
+Parsed gap data: 0x00000020
+Parsed gap data: 0x03FF8C00
+Parsed gap data: 0x04000000
+Parsed gap data: 0x00004000
+Parsed gap data: 0xFFFFFFFF
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_80007FE0
-Parsed gap data: .4byte 0x0000007F
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0xFFFFFFFF
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000008
-Parsed gap data: .4byte 0x00000008
-Parsed gap data: .4byte 0x00000008
-Parsed gap data: .4byte 0x00000008
-Parsed gap data: .4byte 0x4E6F2072
-Parsed gap data: .4byte 0x6573706F
-Parsed gap data: .4byte 0x6E736500
-Parsed gap data: .4byte 0x4E363420
-Parsed gap data: .4byte 0x636F6E74
-Parsed gap data: .4byte 0x726F6C6C
-Parsed gap data: .4byte 0x65720000
-Parsed gap data: .4byte 0x4E363420
-Parsed gap data: .4byte 0x6D696372
-Parsed gap data: .4byte 0x6F70686F
-Parsed gap data: .4byte 0x6E650000
-Parsed gap data: .4byte 0x4E363420
-Parsed gap data: .4byte 0x6B657962
-Parsed gap data: .4byte 0x6F617264
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x4E363420
-Parsed gap data: .4byte 0x6D6F7573
-Parsed gap data: .4byte 0x65000000
-Parsed gap data: .4byte 0x47616D65
-Parsed gap data: .4byte 0x426F7920
-Parsed gap data: .4byte 0x41647661
-Parsed gap data: .4byte 0x6E636500
-Parsed gap data: .4byte 0x5374616E
-Parsed gap data: .4byte 0x64617264
-Parsed gap data: .4byte 0x20636F6E
-Parsed gap data: .4byte 0x74726F6C
-Parsed gap data: .4byte 0x6C657200
-Parsed gap data: .4byte 0x57697265
-Parsed gap data: .4byte 0x6C657373
-Parsed gap data: .4byte 0x20726563
-Parsed gap data: .4byte 0x65697665
-Parsed gap data: .4byte 0x72000000
-Parsed gap data: .4byte 0x57617665
-Parsed gap data: .4byte 0x42697264
-Parsed gap data: .4byte 0x20636F6E
-Parsed gap data: .4byte 0x74726F6C
-Parsed gap data: .4byte 0x6C657200
-Parsed gap data: .4byte 0x4B657962
-Parsed gap data: .4byte 0x6F617264
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x53746565
-Parsed gap data: .4byte 0x72696E67
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00F60200
-Parsed gap data: .4byte 0x000F1200
-Parsed gap data: .4byte 0x001E0900
-Parsed gap data: .4byte 0x002C0600
-Parsed gap data: .4byte 0x00340500
-Parsed gap data: .4byte 0x00410400
-Parsed gap data: .4byte 0x00570300
-Parsed gap data: .4byte 0x00570300
-Parsed gap data: .4byte 0x00570300
-Parsed gap data: .4byte 0x00830200
-Parsed gap data: .4byte 0x00830200
-Parsed gap data: .4byte 0x00830200
-Parsed gap data: .4byte 0x01280200
-Parsed gap data: .4byte 0x000F1500
-Parsed gap data: .4byte 0x001D0B00
-Parsed gap data: .4byte 0x002D0700
-Parsed gap data: .4byte 0x00340600
-Parsed gap data: .4byte 0x003F0500
-Parsed gap data: .4byte 0x004E0400
-Parsed gap data: .4byte 0x00680300
-Parsed gap data: .4byte 0x00680300
-Parsed gap data: .4byte 0x00680300
-Parsed gap data: .4byte 0x00680300
-Parsed gap data: .4byte 0x009C0200
-Parsed gap data: .4byte 0x53495365
-Parsed gap data: .4byte 0x7453616D
-Parsed gap data: .4byte 0x706C696E
-Parsed gap data: .4byte 0x67526174
-Parsed gap data: .4byte 0x653A2075
-Parsed gap data: .4byte 0x6E6B6E6F
-Parsed gap data: .4byte 0x776E2054
-Parsed gap data: .4byte 0x5620666F
-Parsed gap data: .4byte 0x726D6174
-Parsed gap data: .4byte 0x2E205573
-Parsed gap data: .4byte 0x65206465
-Parsed gap data: .4byte 0x6661756C
-Parsed gap data: .4byte 0x742E0000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x0000007F
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0xFFFFFFFF
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000008
+Parsed gap data: 0x00000008
+Parsed gap data: 0x00000008
+Parsed gap data: 0x00000008
+Parsed gap data: 0x4E6F2072
+Parsed gap data: 0x6573706F
+Parsed gap data: 0x6E736500
+Parsed gap data: 0x4E363420
+Parsed gap data: 0x636F6E74
+Parsed gap data: 0x726F6C6C
+Parsed gap data: 0x65720000
+Parsed gap data: 0x4E363420
+Parsed gap data: 0x6D696372
+Parsed gap data: 0x6F70686F
+Parsed gap data: 0x6E650000
+Parsed gap data: 0x4E363420
+Parsed gap data: 0x6B657962
+Parsed gap data: 0x6F617264
+Parsed gap data: 0x00000000
+Parsed gap data: 0x4E363420
+Parsed gap data: 0x6D6F7573
+Parsed gap data: 0x65000000
+Parsed gap data: 0x47616D65
+Parsed gap data: 0x426F7920
+Parsed gap data: 0x41647661
+Parsed gap data: 0x6E636500
+Parsed gap data: 0x5374616E
+Parsed gap data: 0x64617264
+Parsed gap data: 0x20636F6E
+Parsed gap data: 0x74726F6C
+Parsed gap data: 0x6C657200
+Parsed gap data: 0x57697265
+Parsed gap data: 0x6C657373
+Parsed gap data: 0x20726563
+Parsed gap data: 0x65697665
+Parsed gap data: 0x72000000
+Parsed gap data: 0x57617665
+Parsed gap data: 0x42697264
+Parsed gap data: 0x20636F6E
+Parsed gap data: 0x74726F6C
+Parsed gap data: 0x6C657200
+Parsed gap data: 0x4B657962
+Parsed gap data: 0x6F617264
+Parsed gap data: 0x00000000
+Parsed gap data: 0x53746565
+Parsed gap data: 0x72696E67
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00F60200
+Parsed gap data: 0x000F1200
+Parsed gap data: 0x001E0900
+Parsed gap data: 0x002C0600
+Parsed gap data: 0x00340500
+Parsed gap data: 0x00410400
+Parsed gap data: 0x00570300
+Parsed gap data: 0x00570300
+Parsed gap data: 0x00570300
+Parsed gap data: 0x00830200
+Parsed gap data: 0x00830200
+Parsed gap data: 0x00830200
+Parsed gap data: 0x01280200
+Parsed gap data: 0x000F1500
+Parsed gap data: 0x001D0B00
+Parsed gap data: 0x002D0700
+Parsed gap data: 0x00340600
+Parsed gap data: 0x003F0500
+Parsed gap data: 0x004E0400
+Parsed gap data: 0x00680300
+Parsed gap data: 0x00680300
+Parsed gap data: 0x00680300
+Parsed gap data: 0x00680300
+Parsed gap data: 0x009C0200
+Parsed gap data: 0x53495365
+Parsed gap data: 0x7453616D
+Parsed gap data: 0x706C696E
+Parsed gap data: 0x67526174
+Parsed gap data: 0x653A2075
+Parsed gap data: 0x6E6B6E6F
+Parsed gap data: 0x776E2054
+Parsed gap data: 0x5620666F
+Parsed gap data: 0x726D6174
+Parsed gap data: 0x2E205573
+Parsed gap data: 0x65206465
+Parsed gap data: 0x6661756C
+Parsed gap data: 0x742E0000
+Parsed gap data: 0x00000000
 Parsed gap data: .string "DBExceptionDestination\n"
-Parsed gap data: .4byte 0x61707020
-Parsed gap data: .4byte 0x626F6F74
-Parsed gap data: .4byte 0x65642076
-Parsed gap data: .4byte 0x6961204A
-Parsed gap data: .4byte 0x5441470A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x6C6F6164
-Parsed gap data: .4byte 0x20667374
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x61707020
-Parsed gap data: .4byte 0x626F6F74
-Parsed gap data: .4byte 0x65642066
-Parsed gap data: .4byte 0x726F6D20
-Parsed gap data: .4byte 0x626F6F74
-Parsed gap data: .4byte 0x726F6D0A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x626F6F74
-Parsed gap data: .4byte 0x726F6D0A
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x61707020
+Parsed gap data: 0x626F6F74
+Parsed gap data: 0x65642076
+Parsed gap data: 0x6961204A
+Parsed gap data: 0x5441470A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x6C6F6164
+Parsed gap data: 0x20667374
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x61707020
+Parsed gap data: 0x626F6F74
+Parsed gap data: 0x65642066
+Parsed gap data: 0x726F6D20
+Parsed gap data: 0x626F6F74
+Parsed gap data: 0x726F6D0A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x626F6F74
+Parsed gap data: 0x726F6D0A
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_8000E240+0x218
 Parsed gap data: .4byte fn_8000E240+0xD8
 Parsed gap data: .4byte fn_8000E240+0xF0
@@ -59172,142 +59172,142 @@ Parsed gap data: .4byte fn_8000F238+0xA0
 Parsed gap data: .4byte fn_8000F238+0x90
 Parsed gap data: .4byte fn_8000F238+0x90
 Parsed gap data: .4byte fn_8000F238+0x98
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00023A00
-Parsed gap data: .4byte 0x00062800
-Parsed gap data: .4byte 0x00030200
-Parsed gap data: .4byte 0x00031100
-Parsed gap data: .4byte 0x00052000
-Parsed gap data: .4byte 0x00052001
-Parsed gap data: .4byte 0x00052100
-Parsed gap data: .4byte 0x00052400
-Parsed gap data: .4byte 0x00052401
-Parsed gap data: .4byte 0x00052402
-Parsed gap data: .4byte 0x000B5A01
-Parsed gap data: .4byte 0x00056300
-Parsed gap data: .4byte 0x00020401
-Parsed gap data: .4byte 0x00020400
-Parsed gap data: .4byte 0x00040800
-Parsed gap data: .4byte 0x00100007
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x20204761
-Parsed gap data: .4byte 0x6D65204E
-Parsed gap data: .4byte 0x616D6520
-Parsed gap data: .4byte 0x2E2E2E20
-Parsed gap data: .4byte 0x25632563
-Parsed gap data: .4byte 0x25632563
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x2020436F
-Parsed gap data: .4byte 0x6D70616E
-Parsed gap data: .4byte 0x79202E2E
-Parsed gap data: .4byte 0x2E2E2E20
-Parsed gap data: .4byte 0x25632563
-Parsed gap data: .4byte 0x0A000000
-Parsed gap data: .4byte 0x20204469
-Parsed gap data: .4byte 0x736B2023
-Parsed gap data: .4byte 0x202E2E2E
-Parsed gap data: .4byte 0x2E2E2E20
-Parsed gap data: .4byte 0x25640A00
-Parsed gap data: .4byte 0x20204761
-Parsed gap data: .4byte 0x6D652076
-Parsed gap data: .4byte 0x6572202E
-Parsed gap data: .4byte 0x2E2E2E20
-Parsed gap data: .4byte 0x25640A00
-Parsed gap data: .4byte 0x20205374
-Parsed gap data: .4byte 0x7265616D
-Parsed gap data: .4byte 0x696E6720
-Parsed gap data: .4byte 0x2E2E2E20
-Parsed gap data: .4byte 0x25730A00
-Parsed gap data: .4byte 0x060000F0
-Parsed gap data: .4byte 0x00180019
-Parsed gap data: .4byte 0x00030002
-Parsed gap data: .4byte 0x0C0D0C0D
-Parsed gap data: .4byte 0x02080207
-Parsed gap data: .4byte 0x02080207
-Parsed gap data: .4byte 0x020D01AD
-Parsed gap data: .4byte 0x404769A2
-Parsed gap data: .4byte 0x01757A00
-Parsed gap data: .4byte 0x019C0600
-Parsed gap data: .4byte 0x00F00018
-Parsed gap data: .4byte 0x00180004
-Parsed gap data: .4byte 0x00040C0C
-Parsed gap data: .4byte 0x0C0C0208
-Parsed gap data: .4byte 0x02080208
-Parsed gap data: .4byte 0x0208020E
-Parsed gap data: .4byte 0x01AD4047
-Parsed gap data: .4byte 0x69A20175
-Parsed gap data: .4byte 0x7A00019C
-Parsed gap data: .4byte 0x0500011F
-Parsed gap data: .4byte 0x00230024
-Parsed gap data: .4byte 0x00010000
-Parsed gap data: .4byte 0x0D0C0B0A
-Parsed gap data: .4byte 0x026B026A
-Parsed gap data: .4byte 0x0269026C
-Parsed gap data: .4byte 0x027101B0
-Parsed gap data: .4byte 0x404B6AAC
-Parsed gap data: .4byte 0x017C8500
-Parsed gap data: .4byte 0x01A40500
-Parsed gap data: .4byte 0x011F0021
-Parsed gap data: .4byte 0x00210002
-Parsed gap data: .4byte 0x00020D0B
-Parsed gap data: .4byte 0x0D0B026B
-Parsed gap data: .4byte 0x026D026B
-Parsed gap data: .4byte 0x026D0270
-Parsed gap data: .4byte 0x01B0404B
-Parsed gap data: .4byte 0x6AAC017C
-Parsed gap data: .4byte 0x850001A4
-Parsed gap data: .4byte 0x060000F0
-Parsed gap data: .4byte 0x00180019
-Parsed gap data: .4byte 0x00030002
-Parsed gap data: .4byte 0x100F0E0D
-Parsed gap data: .4byte 0x02060205
-Parsed gap data: .4byte 0x02040207
-Parsed gap data: .4byte 0x020D01AD
-Parsed gap data: .4byte 0x404E70A2
-Parsed gap data: .4byte 0x01757A00
-Parsed gap data: .4byte 0x019C0600
-Parsed gap data: .4byte 0x00F00018
-Parsed gap data: .4byte 0x00180004
-Parsed gap data: .4byte 0x0004100E
-Parsed gap data: .4byte 0x100E0206
-Parsed gap data: .4byte 0x02080206
-Parsed gap data: .4byte 0x0208020E
-Parsed gap data: .4byte 0x01AD404E
-Parsed gap data: .4byte 0x70A20175
-Parsed gap data: .4byte 0x7A00019C
-Parsed gap data: .4byte 0x0C0001E0
-Parsed gap data: .4byte 0x00300030
-Parsed gap data: .4byte 0x00060006
-Parsed gap data: .4byte 0x18181818
-Parsed gap data: .4byte 0x040E040E
-Parsed gap data: .4byte 0x040E040E
-Parsed gap data: .4byte 0x041A01AD
-Parsed gap data: .4byte 0x404769A2
-Parsed gap data: .4byte 0x01757A00
-Parsed gap data: .4byte 0x019C0C00
-Parsed gap data: .4byte 0x01E0002C
-Parsed gap data: .4byte 0x002C000A
-Parsed gap data: .4byte 0x000A1818
-Parsed gap data: .4byte 0x1818040E
-Parsed gap data: .4byte 0x040E040E
-Parsed gap data: .4byte 0x040E041A
-Parsed gap data: .4byte 0x01AD4047
-Parsed gap data: .4byte 0x69A8017B
-Parsed gap data: .4byte 0x7A00019C
-Parsed gap data: .4byte 0x01F001DC
-Parsed gap data: .4byte 0x01AE0174
-Parsed gap data: .4byte 0x012900DB
-Parsed gap data: .4byte 0x008E0046
-Parsed gap data: .4byte 0x000C00E2
-Parsed gap data: .4byte 0x00CB00C0
-Parsed gap data: .4byte 0x00C400CF
-Parsed gap data: .4byte 0x00DE00EC
-Parsed gap data: .4byte 0x00FC0008
-Parsed gap data: .4byte 0x000F0013
-Parsed gap data: .4byte 0x0013000F
-Parsed gap data: .4byte 0x000C0008
-Parsed gap data: .4byte 0x00010000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00023A00
+Parsed gap data: 0x00062800
+Parsed gap data: 0x00030200
+Parsed gap data: 0x00031100
+Parsed gap data: 0x00052000
+Parsed gap data: 0x00052001
+Parsed gap data: 0x00052100
+Parsed gap data: 0x00052400
+Parsed gap data: 0x00052401
+Parsed gap data: 0x00052402
+Parsed gap data: 0x000B5A01
+Parsed gap data: 0x00056300
+Parsed gap data: 0x00020401
+Parsed gap data: 0x00020400
+Parsed gap data: 0x00040800
+Parsed gap data: 0x00100007
+Parsed gap data: 0x00000000
+Parsed gap data: 0x20204761
+Parsed gap data: 0x6D65204E
+Parsed gap data: 0x616D6520
+Parsed gap data: 0x2E2E2E20
+Parsed gap data: 0x25632563
+Parsed gap data: 0x25632563
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x2020436F
+Parsed gap data: 0x6D70616E
+Parsed gap data: 0x79202E2E
+Parsed gap data: 0x2E2E2E20
+Parsed gap data: 0x25632563
+Parsed gap data: 0x0A000000
+Parsed gap data: 0x20204469
+Parsed gap data: 0x736B2023
+Parsed gap data: 0x202E2E2E
+Parsed gap data: 0x2E2E2E20
+Parsed gap data: 0x25640A00
+Parsed gap data: 0x20204761
+Parsed gap data: 0x6D652076
+Parsed gap data: 0x6572202E
+Parsed gap data: 0x2E2E2E20
+Parsed gap data: 0x25640A00
+Parsed gap data: 0x20205374
+Parsed gap data: 0x7265616D
+Parsed gap data: 0x696E6720
+Parsed gap data: 0x2E2E2E20
+Parsed gap data: 0x25730A00
+Parsed gap data: 0x060000F0
+Parsed gap data: 0x00180019
+Parsed gap data: 0x00030002
+Parsed gap data: 0x0C0D0C0D
+Parsed gap data: 0x02080207
+Parsed gap data: 0x02080207
+Parsed gap data: 0x020D01AD
+Parsed gap data: 0x404769A2
+Parsed gap data: 0x01757A00
+Parsed gap data: 0x019C0600
+Parsed gap data: 0x00F00018
+Parsed gap data: 0x00180004
+Parsed gap data: 0x00040C0C
+Parsed gap data: 0x0C0C0208
+Parsed gap data: 0x02080208
+Parsed gap data: 0x0208020E
+Parsed gap data: 0x01AD4047
+Parsed gap data: 0x69A20175
+Parsed gap data: 0x7A00019C
+Parsed gap data: 0x0500011F
+Parsed gap data: 0x00230024
+Parsed gap data: 0x00010000
+Parsed gap data: 0x0D0C0B0A
+Parsed gap data: 0x026B026A
+Parsed gap data: 0x0269026C
+Parsed gap data: 0x027101B0
+Parsed gap data: 0x404B6AAC
+Parsed gap data: 0x017C8500
+Parsed gap data: 0x01A40500
+Parsed gap data: 0x011F0021
+Parsed gap data: 0x00210002
+Parsed gap data: 0x00020D0B
+Parsed gap data: 0x0D0B026B
+Parsed gap data: 0x026D026B
+Parsed gap data: 0x026D0270
+Parsed gap data: 0x01B0404B
+Parsed gap data: 0x6AAC017C
+Parsed gap data: 0x850001A4
+Parsed gap data: 0x060000F0
+Parsed gap data: 0x00180019
+Parsed gap data: 0x00030002
+Parsed gap data: 0x100F0E0D
+Parsed gap data: 0x02060205
+Parsed gap data: 0x02040207
+Parsed gap data: 0x020D01AD
+Parsed gap data: 0x404E70A2
+Parsed gap data: 0x01757A00
+Parsed gap data: 0x019C0600
+Parsed gap data: 0x00F00018
+Parsed gap data: 0x00180004
+Parsed gap data: 0x0004100E
+Parsed gap data: 0x100E0206
+Parsed gap data: 0x02080206
+Parsed gap data: 0x0208020E
+Parsed gap data: 0x01AD404E
+Parsed gap data: 0x70A20175
+Parsed gap data: 0x7A00019C
+Parsed gap data: 0x0C0001E0
+Parsed gap data: 0x00300030
+Parsed gap data: 0x00060006
+Parsed gap data: 0x18181818
+Parsed gap data: 0x040E040E
+Parsed gap data: 0x040E040E
+Parsed gap data: 0x041A01AD
+Parsed gap data: 0x404769A2
+Parsed gap data: 0x01757A00
+Parsed gap data: 0x019C0C00
+Parsed gap data: 0x01E0002C
+Parsed gap data: 0x002C000A
+Parsed gap data: 0x000A1818
+Parsed gap data: 0x1818040E
+Parsed gap data: 0x040E040E
+Parsed gap data: 0x040E041A
+Parsed gap data: 0x01AD4047
+Parsed gap data: 0x69A8017B
+Parsed gap data: 0x7A00019C
+Parsed gap data: 0x01F001DC
+Parsed gap data: 0x01AE0174
+Parsed gap data: 0x012900DB
+Parsed gap data: 0x008E0046
+Parsed gap data: 0x000C00E2
+Parsed gap data: 0x00CB00C0
+Parsed gap data: 0x00C400CF
+Parsed gap data: 0x00DE00EC
+Parsed gap data: 0x00FC0008
+Parsed gap data: 0x000F0013
+Parsed gap data: 0x0013000F
+Parsed gap data: 0x000C0008
+Parsed gap data: 0x00010000
 Parsed gap data: .4byte fn_8000FC30+0x28
 Parsed gap data: .4byte fn_8000FC30+0x30
 Parsed gap data: .4byte fn_8000FC30+0x68
@@ -59330,146 +59330,146 @@ Parsed gap data: .4byte fn_8000FC30+0x88
 Parsed gap data: .4byte fn_8000FC30+0x88
 Parsed gap data: .4byte fn_8000FC30+0x48
 Parsed gap data: .4byte fn_8000FC30+0x50
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A2A
-Parsed gap data: .4byte 0x2A2A2A0A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x20212021
-Parsed gap data: .4byte 0x20212043
-Parsed gap data: .4byte 0x20412055
-Parsed gap data: .4byte 0x20542049
-Parsed gap data: .4byte 0x204F204E
-Parsed gap data: .4byte 0x20212021
-Parsed gap data: .4byte 0x20212020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x2020200A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x54686973
-Parsed gap data: .4byte 0x20545620
-Parsed gap data: .4byte 0x666F726D
-Parsed gap data: .4byte 0x61742022
-Parsed gap data: .4byte 0x44454255
-Parsed gap data: .4byte 0x475F5041
-Parsed gap data: .4byte 0x4C222069
-Parsed gap data: .4byte 0x73206F6E
-Parsed gap data: .4byte 0x6C792066
-Parsed gap data: .4byte 0x6F72200A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x74656D70
-Parsed gap data: .4byte 0x6F726172
-Parsed gap data: .4byte 0x7920736F
-Parsed gap data: .4byte 0x6C757469
-Parsed gap data: .4byte 0x6F6E2075
-Parsed gap data: .4byte 0x6E74696C
-Parsed gap data: .4byte 0x2050414C
-Parsed gap data: .4byte 0x20444143
-Parsed gap data: .4byte 0x20626F61
-Parsed gap data: .4byte 0x7264200A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x69732061
-Parsed gap data: .4byte 0x7661696C
-Parsed gap data: .4byte 0x61626C65
-Parsed gap data: .4byte 0x2E20506C
-Parsed gap data: .4byte 0x65617365
-Parsed gap data: .4byte 0x20646F20
-Parsed gap data: .4byte 0x4E4F5420
-Parsed gap data: .4byte 0x75736520
-Parsed gap data: .4byte 0x74686973
-Parsed gap data: .4byte 0x2020200A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x6D6F6465
-Parsed gap data: .4byte 0x20696E20
-Parsed gap data: .4byte 0x7265616C
-Parsed gap data: .4byte 0x2067616D
-Parsed gap data: .4byte 0x65732121
-Parsed gap data: .4byte 0x21202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x20202020
-Parsed gap data: .4byte 0x2020200A
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x028001E0
-Parsed gap data: .4byte 0x01E00028
-Parsed gap data: .4byte 0x00000280
-Parsed gap data: .4byte 0x01E00000
-Parsed gap data: .4byte 0x00000001
-Parsed gap data: .4byte 0x00000606
-Parsed gap data: .4byte 0x06060606
-Parsed gap data: .4byte 0x06060606
-Parsed gap data: .4byte 0x06060606
-Parsed gap data: .4byte 0x06060606
-Parsed gap data: .4byte 0x06060606
-Parsed gap data: .4byte 0x06060000
-Parsed gap data: .4byte 0x15161500
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x08800000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A2A
+Parsed gap data: 0x2A2A2A0A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x20212021
+Parsed gap data: 0x20212043
+Parsed gap data: 0x20412055
+Parsed gap data: 0x20542049
+Parsed gap data: 0x204F204E
+Parsed gap data: 0x20212021
+Parsed gap data: 0x20212020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x2020200A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x54686973
+Parsed gap data: 0x20545620
+Parsed gap data: 0x666F726D
+Parsed gap data: 0x61742022
+Parsed gap data: 0x44454255
+Parsed gap data: 0x475F5041
+Parsed gap data: 0x4C222069
+Parsed gap data: 0x73206F6E
+Parsed gap data: 0x6C792066
+Parsed gap data: 0x6F72200A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x74656D70
+Parsed gap data: 0x6F726172
+Parsed gap data: 0x7920736F
+Parsed gap data: 0x6C757469
+Parsed gap data: 0x6F6E2075
+Parsed gap data: 0x6E74696C
+Parsed gap data: 0x2050414C
+Parsed gap data: 0x20444143
+Parsed gap data: 0x20626F61
+Parsed gap data: 0x7264200A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x69732061
+Parsed gap data: 0x7661696C
+Parsed gap data: 0x61626C65
+Parsed gap data: 0x2E20506C
+Parsed gap data: 0x65617365
+Parsed gap data: 0x20646F20
+Parsed gap data: 0x4E4F5420
+Parsed gap data: 0x75736520
+Parsed gap data: 0x74686973
+Parsed gap data: 0x2020200A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x6D6F6465
+Parsed gap data: 0x20696E20
+Parsed gap data: 0x7265616C
+Parsed gap data: 0x2067616D
+Parsed gap data: 0x65732121
+Parsed gap data: 0x21202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x20202020
+Parsed gap data: 0x2020200A
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x028001E0
+Parsed gap data: 0x01E00028
+Parsed gap data: 0x00000280
+Parsed gap data: 0x01E00000
+Parsed gap data: 0x00000001
+Parsed gap data: 0x00000606
+Parsed gap data: 0x06060606
+Parsed gap data: 0x06060606
+Parsed gap data: 0x06060606
+Parsed gap data: 0x06060606
+Parsed gap data: 0x06060606
+Parsed gap data: 0x06060000
+Parsed gap data: 0x15161500
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x08800000
+Parsed gap data: 0x00000000
 Parsed gap label: L_8001B6EC:
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Warning: Unrecognized gap line: .rel __files, .L_8001B6EC
-Parsed gap data: .4byte 0x00000001
+Parsed gap data: 0x00000001
 Warning: Unrecognized gap line: .rel __files, .L_8001B6EC
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_800140D4
 Parsed gap data: .4byte fn_8001403C
 Parsed gap data: .4byte fn_80014034
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x10800000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x10800000
+Parsed gap data: 0x00000000
 Parsed gap label: L_8001B734:
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Warning: Unrecognized gap line: .rel __files, .L_8001B734
-Parsed gap data: .4byte 0x00000001
+Parsed gap data: 0x00000001
 Warning: Unrecognized gap line: .rel __files, .L_8001B734
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_800140D4
 Parsed gap data: .4byte fn_8001403C
 Parsed gap data: .4byte fn_80014034
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x10800000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x10800000
+Parsed gap data: 0x00000000
 Parsed gap label: L_8001B77C:
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Warning: Unrecognized gap line: .rel __files, .L_8001B77C
-Parsed gap data: .4byte 0x00000001
+Parsed gap data: 0x00000001
 Warning: Unrecognized gap line: .rel __files, .L_8001B77C
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_800140D4
 Parsed gap data: .4byte fn_8001403C
 Parsed gap data: .4byte fn_80014034
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte longlong2str_80013554+0xF8
 Parsed gap data: .4byte longlong2str_80013554+0x108
 Parsed gap data: .4byte longlong2str_80013554+0x108
@@ -59605,7 +59605,7 @@ Parsed gap data: .4byte parse_format_80013A58+0xAC
 Parsed gap data: .4byte parse_format_80013A58+0x100
 Parsed gap data: .4byte parse_format_80013A58+0x100
 Parsed gap data: .4byte parse_format_80013A58+0xE8
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_80015418
 Parsed gap data: .4byte fn_80015440
 Parsed gap data: .4byte fn_80015468
@@ -59638,8 +59638,8 @@ Parsed gap data: .4byte fn_80015418
 Parsed gap data: .4byte fn_80015418
 Parsed gap data: .4byte fn_80015418
 Parsed gap data: .4byte fn_80015418
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte fn_8001598C+0x194
 Parsed gap data: .4byte fn_8001598C+0x1B4
 Parsed gap data: .4byte fn_8001598C+0x18C
@@ -59656,39 +59656,39 @@ Parsed gap data: .4byte fn_80015B74+0x1B8
 Parsed gap data: .4byte fn_80015B74+0x1C0
 Parsed gap data: .byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 Parsed gap data: .byte 0x00, 0x00, 0x00, 0x00
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x01000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000100
-Parsed gap data: .4byte 0x00000200
-Parsed gap data: .4byte 0x00000300
-Parsed gap data: .4byte 0x00000400
-Parsed gap data: .4byte 0x00000500
-Parsed gap data: .4byte 0x00000600
-Parsed gap data: .4byte 0x00000700
-Parsed gap data: .4byte 0x00000800
-Parsed gap data: .4byte 0x00000900
-Parsed gap data: .4byte 0x00000C00
-Parsed gap data: .4byte 0x00000D00
-Parsed gap data: .4byte 0x00000F00
-Parsed gap data: .4byte 0x00001300
-Parsed gap data: .4byte 0x00001400
-Parsed gap data: .4byte 0x00001700
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x01000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000100
+Parsed gap data: 0x00000200
+Parsed gap data: 0x00000300
+Parsed gap data: 0x00000400
+Parsed gap data: 0x00000500
+Parsed gap data: 0x00000600
+Parsed gap data: 0x00000700
+Parsed gap data: 0x00000800
+Parsed gap data: 0x00000900
+Parsed gap data: 0x00000C00
+Parsed gap data: 0x00000D00
+Parsed gap data: 0x00000F00
+Parsed gap data: 0x00001300
+Parsed gap data: 0x00001400
+Parsed gap data: 0x00001700
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .string "Can't select EXI2 port!\n"
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_05_8001A680_data.c
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_05_8001A680_data.h
@@ -59848,29 +59848,29 @@ Extracted gap section: lbl_8001EE50, 2 lines
 Found obj section: lbl_8001EE58 at 0x8001EE58
 Extracted gap section: lbl_8001EE58, 1 lines
 Parsed gap data: .4byte lbl_8001B6A0
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0xFFFFFFFF
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
+Parsed gap data: 0xFFFFFFFF
+Parsed gap data: 0x00000000
 Parsed gap data: .string "\n"
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .2byte 0x0000
-Parsed gap data: .4byte 0x00000001
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x00000001
-Parsed gap data: .4byte 0x00000000
-Parsed gap data: .4byte 0x0A000000
+Parsed gap data: 0x00000001
+Parsed gap data: 0x00000000
+Parsed gap data: 0x00000001
+Parsed gap data: 0x00000000
+Parsed gap data: 0x0A000000
 Parsed gap data: .string "OFF"
-Parsed gap data: .4byte 0x4F4E0000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x4F4E0000
+Parsed gap data: 0x00000000
 Parsed gap data: .2byte 0x0000
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .2byte 0x0000
-Parsed gap data: .4byte 0x80808080
-Parsed gap data: .4byte 0xFEFEFEFF
+Parsed gap data: 0x80808080
+Parsed gap data: 0xFEFEFEFF
 Parsed gap data: .4byte lbl_8001EDE0
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .4byte lbl_8001F060
-Parsed gap data: .4byte 0x00000000
+Parsed gap data: 0x00000000
 Parsed gap data: .byte 0x80
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_07_8001EE00_sdata.c
 Generated: D:\SDK stuff\GC1\PyDol\Color-Test\asm\auto_07_8001EE00_sdata.h
