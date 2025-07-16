@@ -52,6 +52,7 @@ class ModularTranspiler:
         self.data_sections: List[DataSection] = []
         self.variables: Set[str] = set()
         self.export_symbols: Set[str] = set()
+        self.symbol_addresses: Dict[str, int] = {}
         self.includes: Set[str] = set(['"gc_env.h"'])
         self.previous_instruction = None
         self.current_function: Optional[Function] = None
@@ -257,11 +258,22 @@ class ModularTranspiler:
             if fourbyte_sym:
                 sym_raw, sign, off = fourbyte_sym.groups()
                 symbol = self.sanitize_symbol_name(sym_raw)
-                value = f"(uint32_t)&{symbol}"
+                offset = int(off, 0) if off else 0
+                if sign == '-':
+                    offset = -offset
                 comment = f".4byte {sym_raw}"
                 if sign and off:
-                    value += f" {sign} {off}"
                     comment += f"{sign}{off}"
+
+                if symbol in self.symbol_addresses:
+                    base = self.symbol_addresses[symbol]
+                    value = f"0x{(base + offset) & 0xFFFFFFFF:08X}"
+                else:
+                    value = f"(uint32_t)&{symbol}"
+                    if offset:
+                        sign_char = '+' if offset >= 0 else '-'
+                        value += f" {sign_char} 0x{abs(offset):X}"
+
                 if byte_buffer:
                     flush_remaining()
                 data.append((value, comment))
@@ -354,6 +366,12 @@ class ModularTranspiler:
         if byte_buffer:
             flush_remaining()
 
+        if addr:
+            try:
+                self.symbol_addresses[name] = int(addr, 16)
+            except ValueError:
+                pass
+
         return DataSection(name=name, start_addr=addr, size=size, data=data)
 
     def parse_assembly(self, assembly_code: str) -> None:
@@ -392,7 +410,8 @@ class ModularTranspiler:
             # Match function declarations
             fn_match = re.match(r'\.fn\s+(\w+)(?:,\s*(\w+))?', line)
             if fn_match:
-                func_name, func_type = fn_match.groups()
+                func_name_raw, func_type = fn_match.groups()
+                func_name = self.sanitize_symbol_name(func_name_raw)
                 current_function = Function(
                     name=func_name,
                     start_addr=current_addr,
@@ -401,6 +420,11 @@ class ModularTranspiler:
                     is_local=(func_type == 'local')
                 )
                 self.functions.append(current_function)
+                if current_addr:
+                    try:
+                        self.symbol_addresses[func_name] = int(current_addr, 16)
+                    except ValueError:
+                        pass
                 print(f"Parsed function: {func_name} at {current_addr}")
                 current_addr = None
                 current_size = None
@@ -415,6 +439,11 @@ class ModularTranspiler:
                 obj_size = current_size
                 obj_lines = []
                 in_obj = True
+                if obj_addr:
+                    try:
+                        self.symbol_addresses[obj_name] = int(obj_addr, 16)
+                    except ValueError:
+                        pass
                 print(f"Parsed obj start: {obj_name} at {obj_addr}")
                 continue
 
