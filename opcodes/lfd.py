@@ -76,7 +76,7 @@ class LfdHandler:
                     self.transpiler.variables.add(f"extern double {symbol}")
                     
                     if base_reg == 0:  # r0 means absolute SDA access
-                        return [f"gc_env.f[{dst_fpreg}] = {symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
+                        return [f"gc_env.f[{dst_fpreg}] = *(double*)&{symbol}; // lfd f{dst_fpreg}, {symbol}@sda21(r0)"]
                     else:
                         return [f"gc_env.f[{dst_fpreg}] = *((double*)(gc_env.r[{base_reg}] + (uint32_t)&{symbol})); // lfd f{dst_fpreg}, {symbol}@sda21(r{base_reg})"]
                 
