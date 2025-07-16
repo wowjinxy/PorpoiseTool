@@ -152,5 +152,17 @@ extern uint32_t __OSDBINTSTART;
 extern uint32_t __OSDBINTEND;
 extern uint32_t __OSDBJUMPEND;
 extern uint32_t __DBVECTOR;
+extern uint32_t _ctors;
+extern uint32_t __OSSystemCallVectorStart;
+extern uint32_t __OSSystemCallVectorEnd;
+extern uint32_t _stack_end;
+extern uint32_t _db_stack_addr;
+extern uint32_t gTRKInterruptVectorTable;
+
+// Stubbed runtime routines referenced by translated code
+void OSGetTime(void);
+void TRKExceptionHandler(void);
+void TRKInterruptHandler(void);
+void TRK_main(void);
 
 #endif // __GC_ENV_H__
