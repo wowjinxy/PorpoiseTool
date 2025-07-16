@@ -49,7 +49,7 @@ class LfdHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle lfd instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -88,9 +88,10 @@ class LfdHandler:
                     base_reg = self.parse_register(offset_base[1].rstrip(')'))
                     offset_hex = format_hex(offset)
                     
+                    temp = transpiler.new_var('temp')
                     return [
-                        f"uint64_t temp = gc_mem_read64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfd f{dst_fpreg}, {offset_hex}(r{base_reg})",
-                        f"gc_env.f[{dst_fpreg}] = *(double*)&temp;"
+                        f"uint64_t {temp} = gc_mem_read64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfd f{dst_fpreg}, {offset_hex}(r{base_reg})",
+                        f"gc_env.f[{dst_fpreg}] = *(double*)&{temp};"
                     ]
             
             # If we get here, the format wasn't recognized
@@ -101,4 +102,4 @@ class LfdHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for lfd instruction handling."""
-    return LfdHandler(transpiler).handle(instruction)
+    return LfdHandler(transpiler).handle(instruction, transpiler)

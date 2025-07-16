@@ -32,7 +32,7 @@ class SubfzeHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle subfze instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -43,11 +43,13 @@ class SubfzeHandler:
             dst_reg = self.parse_register(ops[0])
             src_reg = self.parse_register(ops[1])
 
+            borrow = transpiler.new_var('subfze_borrow')
+            temp = transpiler.new_var('subfze_temp')
             result = [
-                "uint32_t subfze_borrow = 1 - ((gc_env.xer & 0x20000000) >> 29);",
-                f"uint64_t subfze_temp = (uint64_t)0 - gc_env.r[{src_reg}] - subfze_borrow;",
-                f"gc_env.r[{dst_reg}] = (uint32_t)subfze_temp; // subfze r{dst_reg}, r{src_reg}",
-                f"gc_env.xer = (gc_env.xer & ~0x20000000) | (0 >= (gc_env.r[{src_reg}] + subfze_borrow) ? 0x20000000 : 0);",
+                f"uint32_t {borrow} = 1 - ((gc_env.xer & 0x20000000) >> 29);",
+                f"uint64_t {temp} = (uint64_t)0 - gc_env.r[{src_reg}] - {borrow};",
+                f"gc_env.r[{dst_reg}] = (uint32_t){temp}; // subfze r{dst_reg}, r{src_reg}",
+                f"gc_env.xer = (gc_env.xer & ~0x20000000) | (0 >= (gc_env.r[{src_reg}] + {borrow}) ? 0x20000000 : 0);",
             ]
             return result
         except ValueError as e:
@@ -56,4 +58,4 @@ class SubfzeHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for subfze instruction handling."""
-    return SubfzeHandler().handle(instruction)
+    return SubfzeHandler().handle(instruction, transpiler)

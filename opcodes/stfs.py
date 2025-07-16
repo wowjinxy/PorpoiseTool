@@ -51,7 +51,7 @@ class StfsHandler:
         if len(ops) < expected:
             raise ValueError(f"{opcode} requires at least {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle stfs instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -69,9 +69,10 @@ class StfsHandler:
             offset_hex = format_hex(offset)
             
             if opcode == 'stfs':
+                temp = transpiler.new_var('temp')
                 return [
-                    f"float temp = (float)gc_env.f[{src_fpreg}]; // stfs f{src_fpreg}, {offset_hex}(r{base_reg})",
-                    f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, *(uint32_t*)&temp);"
+                    f"float {temp} = (float)gc_env.f[{src_fpreg}]; // stfs f{src_fpreg}, {offset_hex}(r{base_reg})",
+                    f"gc_mem_write32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, *(uint32_t*)&{temp});",
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
@@ -81,4 +82,4 @@ class StfsHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for stfs instruction handling."""
-    return StfsHandler(transpiler).handle(instruction)
+    return StfsHandler(transpiler).handle(instruction, transpiler)

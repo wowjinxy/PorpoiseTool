@@ -50,7 +50,7 @@ class LfsuHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle lfsu instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -68,10 +68,11 @@ class LfsuHandler:
             offset_hex = format_hex(offset)
             
             if opcode == 'lfsu':
+                temp = self.transpiler.new_var('temp')
                 return [
-                    f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfsu f{dst_fpreg}, {offset_hex}(r{base_reg})",
-                    f"gc_env.f[{dst_fpreg}] = *(float*)&temp;",
-                    f"gc_env.r[{base_reg}] = gc_env.r[{base_reg}] + {offset_hex};"
+                    f"uint32_t {temp} = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfsu f{dst_fpreg}, {offset_hex}(r{base_reg})",
+                    f"gc_env.f[{dst_fpreg}] = *(float*)&{temp};",
+                    f"gc_env.r[{base_reg}] = gc_env.r[{base_reg}] + {offset_hex};",
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
@@ -81,4 +82,4 @@ class LfsuHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for lfsu instruction handling."""
-    return LfsuHandler(transpiler).handle(instruction)
+    return LfsuHandler(transpiler).handle(instruction, transpiler)
