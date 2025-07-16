@@ -7,17 +7,17 @@
 
 // Data section declarations
 extern uint32_t lbl_8001A680[];
-extern uint32_t @73_8001A6E0[];
+extern uint32_t _73_8001A6E0[];
 extern uint32_t gap_05_8001A6FE_data[];
 extern uint32_t DSPInitCode_8001A8A0[];
-extern uint32_t @69_8001A920[];
+extern uint32_t _69_8001A920[];
 extern uint32_t gap_05_8001A949_data[];
 extern uint32_t lbl_8001AB50[];
-extern uint32_t @74_8001AD04[];
+extern uint32_t _74_8001AD04[];
 extern uint32_t gap_05_8001AD27_data[];
-extern uint32_t @10_8001AD28[];
+extern uint32_t _10_8001AD28[];
 extern uint32_t gap_05_8001AD3E_data[];
-extern uint32_t @43_8001B004[];
+extern uint32_t _43_8001B004[];
 extern uint32_t gap_05_8001B044_data[];
 extern uint32_t lbl_8001B048[];
 extern uint32_t ResetFunctionInfo_8001B078[];
@@ -40,7 +40,7 @@ extern uint32_t jumptable_8001B53C[];
 extern uint32_t gap_05_8001B594_data[];
 extern uint32_t lbl_8001B6A0[];
 extern uint32_t __files[];
-extern uint32_t @1009_8001B7B8[];
+extern uint32_t _1009_8001B7B8[];
 extern uint32_t jumptable_8001B83C[];
 extern uint32_t jumptable_8001B8C0[];
 extern uint32_t jumptable_8001B990[];

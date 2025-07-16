@@ -37,9 +37,7 @@ extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
-extern uint32_t __OSLastInterruptTime+0x4;
 extern uint32_t __OSStartTime;
-extern uint32_t __OSStartTime+0x4;
 extern uint32_t __PADSpec;
 extern uint32_t __global_destructor_chain;
 extern uint32_t lbl_8001C8C0;
@@ -273,9 +271,9 @@ uint8_t lbl_8001EEFC[0x4];
 // Address: 0x8001EF00
 uint8_t lbl_8001EF00[0x4];
 
-// Data section: cmdTypeAndStatus$371_8001EF04
+// Data section: cmdTypeAndStatus_371_8001EF04
 // Address: 0x8001EF04
-uint8_t cmdTypeAndStatus$371_8001EF04[0x4];
+uint8_t cmdTypeAndStatus_371_8001EF04[0x4];
 
 // Data section: lbl_8001EF08
 // Address: 0x8001EF08

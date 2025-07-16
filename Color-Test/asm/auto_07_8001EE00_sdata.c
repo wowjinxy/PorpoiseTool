@@ -37,9 +37,7 @@ extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
-extern uint32_t __OSLastInterruptTime+0x4;
 extern uint32_t __OSStartTime;
-extern uint32_t __OSStartTime+0x4;
 extern uint32_t __PADSpec;
 extern uint32_t __global_destructor_chain;
 extern uint32_t lbl_8001C8C0;
@@ -152,9 +150,9 @@ uint32_t gap_07_8001EE0C_sdata[] = {
     0x00000000, // .4byte 0x00000000
 };
 
-// Data section: @32_8001EE10
+// Data section: _32_8001EE10
 // Address: 0x8001EE10
-uint32_t @32_8001EE10[] = {
+uint32_t _32_8001EE10[] = {
     // Unrecognized: .string "\n"
 };
 
@@ -198,9 +196,9 @@ uint32_t lbl_8001EE30[] = {
     0x00000000, // .4byte 0x00000000
 };
 
-// Data section: @wstringBase0_8001EE38
+// Data section: _wstringBase0_8001EE38
 // Address: 0x8001EE38
-uint32_t @wstringBase0_8001EE38[] = {
+uint32_t _wstringBase0_8001EE38[] = {
     // Unrecognized: .2byte 0x0000
 };
 

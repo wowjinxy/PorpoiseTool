@@ -142,4 +142,15 @@ extern uint32_t _SDA2_BASE_;
 extern uint32_t _rom_copy_info[];
 extern uint32_t _bss_init_info[];
 
+// Additional system symbols required by generated code
+extern uint32_t __ArenaLo;
+extern uint32_t __ArenaHi;
+extern uint32_t __OSEVSetNumber;
+extern uint32_t __OSEVStart;
+extern uint32_t __OSEVEnd;
+extern uint32_t __OSDBINTSTART;
+extern uint32_t __OSDBINTEND;
+extern uint32_t __OSDBJUMPEND;
+extern uint32_t __DBVECTOR;
+
 #endif // __GC_ENV_H__

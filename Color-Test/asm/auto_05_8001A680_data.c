@@ -37,9 +37,7 @@ extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
-extern uint32_t __OSLastInterruptTime+0x4;
 extern uint32_t __OSStartTime;
-extern uint32_t __OSStartTime+0x4;
 extern uint32_t __PADSpec;
 extern uint32_t __global_destructor_chain;
 extern uint32_t lbl_8001C8C0;
@@ -162,9 +160,9 @@ uint32_t lbl_8001A680[] = {
     0x00000080, // .4byte 0x00000080
 };
 
-// Data section: @73_8001A6E0
+// Data section: _73_8001A6E0
 // Address: 0x8001A6E0
-uint32_t @73_8001A6E0[] = {
+uint32_t _73_8001A6E0[] = {
     // Unrecognized: .string "\nDolphin OS $Revision: 49 $.\n"
 };
 
@@ -315,9 +313,9 @@ uint32_t DSPInitCode_8001A8A0[] = {
     0x00000000, // .4byte 0x00000000
 };
 
-// Data section: @69_8001A920
+// Data section: _69_8001A920
 // Address: 0x8001A920
-uint32_t @69_8001A920[] = {
+uint32_t _69_8001A920[] = {
     // Unrecognized: .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
 };
 
@@ -570,9 +568,9 @@ uint32_t lbl_8001AB50[] = {
     0x38780A00, // .4byte 0x38780A00
 };
 
-// Data section: @74_8001AD04
+// Data section: _74_8001AD04
 // Address: 0x8001AD04
-uint32_t @74_8001AD04[] = {
+uint32_t _74_8001AD04[] = {
     // Unrecognized: .string "FPU-unavailable handler installed\n"
 };
 
@@ -582,9 +580,9 @@ uint32_t gap_05_8001AD27_data[] = {
     // Unrecognized: .byte 0x00
 };
 
-// Data section: @10_8001AD28
+// Data section: _10_8001AD28
 // Address: 0x8001AD28
-uint32_t @10_8001AD28[] = {
+uint32_t _10_8001AD28[] = {
     // Unrecognized: .string " in \"%s\" on line %d.\n"
 };
 
@@ -771,9 +769,9 @@ uint32_t gap_05_8001AD3E_data[] = {
     // Unrecognized: .2byte 0x0000
 };
 
-// Data section: @43_8001B004
+// Data section: _43_8001B004
 // Address: 0x8001B004
-uint32_t @43_8001B004[] = {
+uint32_t _43_8001B004[] = {
     // Unrecognized: .4byte __OSUnhandledException+0x1CC
     // Unrecognized: .4byte __OSUnhandledException+0x1CC
     // Unrecognized: .4byte __OSUnhandledException+0x124
@@ -1377,9 +1375,9 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
 };
 
-// Data section: @1009_8001B7B8
+// Data section: _1009_8001B7B8
 // Address: 0x8001B7B8
-uint32_t @1009_8001B7B8[] = {
+uint32_t _1009_8001B7B8[] = {
     // Unrecognized: .4byte longlong2str_80013554+0xF8
     // Unrecognized: .4byte longlong2str_80013554+0x108
     // Unrecognized: .4byte longlong2str_80013554+0x108

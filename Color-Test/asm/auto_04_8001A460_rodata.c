@@ -37,9 +37,7 @@ extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
-extern uint32_t __OSLastInterruptTime+0x4;
 extern uint32_t __OSStartTime;
-extern uint32_t __OSStartTime+0x4;
 extern uint32_t __PADSpec;
 extern uint32_t __global_destructor_chain;
 extern uint32_t lbl_8001C8C0;
@@ -257,9 +255,9 @@ uint32_t lbl_8001A500[] = {
     0x00000000, // .4byte 0x00000000
 };
 
-// Data section: @stringBase0_8001A600
+// Data section: _stringBase0_8001A600
 // Address: 0x8001A600
-uint32_t @stringBase0_8001A600[] = {
+uint32_t _stringBase0_8001A600[] = {
     // Unrecognized: .string ""
     // Unrecognized: .string "-Inf"
     // Unrecognized: .string "Inf"
@@ -272,9 +270,9 @@ uint32_t gap_04_8001A60E_rodata[] = {
     // Unrecognized: .2byte 0x0000
 };
 
-// Data section: @40_8001A610
+// Data section: _40_8001A610
 // Address: 0x8001A610
-uint32_t @40_8001A610[] = {
+uint32_t _40_8001A610[] = {
     // Unrecognized: .string "MetroTRK for Dolphin v0.8"
 };
 

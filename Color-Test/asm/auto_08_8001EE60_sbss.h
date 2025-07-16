@@ -41,7 +41,7 @@ extern uint8_t lbl_8001EEF4[0x4];
 extern uint8_t lbl_8001EEF8[0x4];
 extern uint8_t lbl_8001EEFC[0x4];
 extern uint8_t lbl_8001EF00[0x4];
-extern uint8_t cmdTypeAndStatus$371_8001EF04[0x4];
+extern uint8_t cmdTypeAndStatus_371_8001EF04[0x4];
 extern uint8_t lbl_8001EF08[0x8];
 extern uint8_t SamplingRate_8001EF10[0x4];
 extern uint8_t gap_08_8001EF14_sbss[0x4];
