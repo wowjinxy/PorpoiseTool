@@ -185,25 +185,28 @@ class ModularTranspiler:
         """Parse a gap_ section into a DataSection with .4byte values."""
         data = []
         byte_buffer = bytearray()
+        last_comment = 'bytes'
 
         def emit_bytes(b: bytes, comment: str) -> None:
-            nonlocal byte_buffer
+            nonlocal byte_buffer, last_comment
             byte_buffer.extend(b)
+            last_comment = comment
             while len(byte_buffer) >= 4:
                 word = int.from_bytes(byte_buffer[:4], 'big')
                 byte_buffer = byte_buffer[4:]
                 data.append((f"0x{word:08X}", comment))
 
-        def flush_remaining(comment: str = 'bytes') -> None:
+        def flush_remaining(comment: Optional[str] = None) -> None:
             nonlocal byte_buffer
             if not byte_buffer:
                 return
+            cmt = comment if comment is not None else last_comment
             while len(byte_buffer) % 4 != 0:
                 byte_buffer.append(0)
             while len(byte_buffer) >= 4:
                 word = int.from_bytes(byte_buffer[:4], 'big')
                 byte_buffer = byte_buffer[4:]
-                data.append((f"0x{word:08X}", comment))
+                data.append((f"0x{word:08X}", cmt))
 
         for line in lines:
             line = line.strip()
@@ -288,8 +291,11 @@ class ModularTranspiler:
                     text = bytes(raw_text, 'utf-8').decode('unicode_escape')
                 except Exception:
                     text = raw_text
-                emit_bytes(text.encode('latin-1') + b'\x00', f'.string "{text}"')
-                print(f"Parsed gap data: .string \"{text}\"")
+                escaped = text.encode('unicode_escape').decode('ascii')
+                comment = f'.string "{escaped}"'
+                emit_bytes(text.encode('latin-1') + b'\x00', comment)
+                flush_remaining(comment)
+                print(f"Parsed gap data: {comment}")
                 continue
 
             # Match .2byte directives
@@ -299,7 +305,9 @@ class ModularTranspiler:
                 for val in vals:
                     num = int(val, 0)
                     emit_bytes(num.to_bytes(2, 'big'), f'.2byte 0x{num:04X}')
-                print(f"Parsed gap data: .2byte {twobyte_match.group(1)}")
+                comment = f'.2byte {twobyte_match.group(1)}'
+                flush_remaining(comment)
+                print(f"Parsed gap data: {comment}")
                 continue
 
             # Match .byte directives
@@ -309,7 +317,9 @@ class ModularTranspiler:
                 for val in vals:
                     num = int(val, 0)
                     emit_bytes(num.to_bytes(1, 'big'), f'.byte 0x{num:02X}')
-                print(f"Parsed gap data: .byte {byte_match.group(1)}")
+                comment = f'.byte {byte_match.group(1)}'
+                flush_remaining(comment)
+                print(f"Parsed gap data: {comment}")
                 continue
 
             # Handle labels
