@@ -108,7 +108,7 @@ class SthHandler:
                 return [f"gc_mem_write16(gc_env.ram, gc_env.r[{base_reg}] + {format_hex(offset)}, gc_env.r[{reg}]); // {opcode} r{reg}, {format_hex(offset)}(r{base_reg})"]
 
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler) -> List[str]:
         """Handle sth instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -126,4 +126,4 @@ class SthHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for sth instruction handling."""
-    return SthHandler().handle(instruction)
+    return SthHandler().handle(instruction, transpiler)
