@@ -79,3 +79,16 @@ uint32_t __OSSystemCallVectorEnd = 0;
 uint32_t _stack_end = 0;
 uint32_t _db_stack_addr = 0;
 uint32_t gTRKInterruptVectorTable = 0;
+
+// ---------------------------------------------------------------------------
+// Runtime stub implementations
+// ---------------------------------------------------------------------------
+
+// Many of the generated translation units reference GameCube SDK routines that
+// are not yet implemented in this minimal runtime.  Provide no-op stubs so that
+// the code links successfully when those functions are missing.
+
+void OSGetTime(void) {}
+void TRKExceptionHandler(void) {}
+void TRKInterruptHandler(void) {}
+void TRK_main(void) {}
