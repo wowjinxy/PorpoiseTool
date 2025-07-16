@@ -62,3 +62,14 @@ uint32_t _SDA_BASE_ = 0;
 uint32_t _SDA2_BASE_ = 0;
 uint32_t _rom_copy_info[1] = {0};
 uint32_t _bss_init_info[1] = {0};
+
+// Simple stubs for system symbols referenced by generated code
+uint32_t __ArenaLo = 0;
+uint32_t __ArenaHi = 0;
+uint32_t __OSEVSetNumber = 0;
+uint32_t __OSEVStart = 0;
+uint32_t __OSEVEnd = 0;
+uint32_t __OSDBINTSTART = 0;
+uint32_t __OSDBINTEND = 0;
+uint32_t __OSDBJUMPEND = 0;
+uint32_t __DBVECTOR = 0;
