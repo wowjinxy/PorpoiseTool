@@ -318,7 +318,7 @@ void __fill_mem(void) {
 
 // Function: memcpy
 // Address: 0x80003478
-void memcpy(void) {
+void memcpy_custom(void) {
     gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[3]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[3] ? -1 : 1); // Logical compare word
     if (gc_env.cr[0] & 0x8) goto L_800034A4; // blt .L_800034A4
     gc_env.r[4] = gc_env.r[4] - 1; // subi r4, r4, 1

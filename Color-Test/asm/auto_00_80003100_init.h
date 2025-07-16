@@ -12,7 +12,8 @@ void __init_hardware(void);
 void __flush_cache(void);
 void memset(void);
 void __fill_mem(void);
-void memcpy(void);
+void memcpy_custom(void);
+#define memcpy() memcpy_custom()
 void fn_800034C8(void);
 void fn_800034EC(void);
 void fn_80005450(void);
