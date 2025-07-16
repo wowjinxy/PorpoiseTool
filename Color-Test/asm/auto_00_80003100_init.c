@@ -316,44 +316,6 @@ void __fill_mem(void) {
     return;
 }
 
-// Function: memcpy
-// Address: 0x80003478
-void memcpy_custom(void) {
-    gc_env.cr[0] = ((uint32_t)gc_env.r[4] == (uint32_t)gc_env.r[3]) ? 0 : ((uint32_t)gc_env.r[4] < (uint32_t)gc_env.r[3] ? -1 : 1); // Logical compare word
-    if (gc_env.cr[0] & 0x8) goto L_800034A4; // blt .L_800034A4
-    gc_env.r[4] = gc_env.r[4] - 1; // subi r4, r4, 1
-    gc_env.r[6] = gc_env.r[3] - 1; // subi r6, r3, 1
-    gc_env.r[5] += 1; // addi r5, r5, 0x1
-    goto L_80003498;
-    L_80003490:
-    gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + 1); // lbzu r0, 1(r4)
-    gc_env.r[4] = gc_env.r[4] + 1;
-    gc_mem_write8(gc_env.ram, gc_env.r[6] + 0x1, gc_env.r[0]); // stbu r0, 0x1(r6)
-    gc_env.r[6] = gc_env.r[6] + 0x1;
-    L_80003498:
-    gc_env.r[5] = gc_env.r[5] - 1; // subic. r5, r5, 1
-    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
-    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
-    if (gc_env.cr[0] != 0) goto L_80003490;
-    return;
-    L_800034A4:
-    gc_env.r[4] = gc_env.r[4] + gc_env.r[5]; // add r4, r4, r5
-    gc_env.r[6] = gc_env.r[3] + gc_env.r[5]; // add r6, r3, r5
-    gc_env.r[5] += 1; // addi r5, r5, 0x1
-    goto L_800034BC;
-    L_800034B4:
-    gc_env.r[0] = gc_mem_read8(gc_env.ram, gc_env.r[4] + -1); // lbzu r0, -1(r4)
-    gc_env.r[4] = gc_env.r[4] + -1;
-    gc_mem_write8(gc_env.ram, gc_env.r[6] + -0x1, gc_env.r[0]); // stbu r0, -0x1(r6)
-    gc_env.r[6] = gc_env.r[6] + -0x1;
-    L_800034BC:
-    gc_env.r[5] = gc_env.r[5] - 1; // subic. r5, r5, 1
-    gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[5] >= 1 ? 0x20000000 : 0);
-    gc_env.cr[0] = (gc_env.r[5] == 0) ? 0x2 : ((int32_t)gc_env.r[5] < 0 ? 0x8 : 0x4);
-    if (gc_env.cr[0] != 0) goto L_800034B4;
-    return;
-}
-
 // Function: fn_800034C8
 // Address: 0x800034C8
 void fn_800034C8(void) {

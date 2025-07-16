@@ -64,7 +64,7 @@ class ModularTranspiler:
         # implementation instead of our generated stubs.
         self.skip_functions: Set[str] = {
             'vprintf', 'fwrite', 'memchr', 'wcstombs', 'strchr', 'strlen',
-            'exit', 'fwide'
+            'exit', 'fwide', 'memcpy'
         }
         self._load_opcode_handlers()
 
