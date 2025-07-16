@@ -38,16 +38,28 @@ class AddiHandler:
         except ValueError:
             raise ValueError(f"Invalid immediate value: {imm_str}")
     
-    def extract_symbol(self, operand: str) -> tuple[str, str]:
-        """Extract symbol name and suffix from operand like 'symbol@l'."""
+    def extract_symbol(self, operand: str) -> tuple[str, str, int]:
+        """Extract symbol name, suffix and addend from operands like 'sym+0x4@l'."""
         operand = operand.strip()
+        suffix = ''
         if operand.endswith('@l'):
-            return operand[:-2].strip('"'), '@l'
+            suffix = '@l'
+            operand = operand[:-2]
         elif operand.endswith('@ha'):
-            return operand[:-3].strip('"'), '@ha'
+            suffix = '@ha'
+            operand = operand[:-3]
         elif operand.endswith('@h'):
-            return operand[:-2].strip('"'), '@h'
-        return operand.strip('"'), ''
+            suffix = '@h'
+            operand = operand[:-2]
+        operand = operand.strip('"')
+        addend = 0
+        if '+' in operand or '-' in operand[1:]:
+            import re
+            m = re.match(r'([^+-]+)([+-]0x[0-9A-Fa-f]+)', operand)
+            if m:
+                operand = m.group(1)
+                addend = int(m.group(2), 0)
+        return operand, suffix, addend
     
     def clean_symbol_name(self, symbol: str) -> str:
         """Clean up symbol names by replacing invalid C characters."""
@@ -55,7 +67,7 @@ class AddiHandler:
         symbol = symbol.replace('*', '_')
         return self.transpiler.sanitize_symbol_name(symbol)
     
-    def check_lis_pattern(self, src_reg: int, symbol: str) -> bool:
+    def check_lis_pattern(self, src_reg: int, symbol: str, addend: int) -> bool:
         """Check if previous instruction was a matching lis instruction."""
         if not hasattr(self.transpiler, 'previous_instruction') or not self.transpiler.previous_instruction:
             return False
@@ -64,12 +76,11 @@ class AddiHandler:
             return False
         try:
             prev_dst = self.parse_register(prev.operands[0])
-            prev_symbol, prev_suffix = self.extract_symbol(prev.operands[1])
+            prev_symbol, prev_suffix, prev_add = self.extract_symbol(prev.operands[1])
             prev_symbol_clean = self.clean_symbol_name(prev_symbol)
             symbol_clean = self.clean_symbol_name(symbol)
-            return (prev_symbol_clean == symbol_clean and 
-                    prev_suffix in ('@h', '@ha') and 
-                    src_reg == prev_dst)
+            return (prev_symbol_clean == symbol_clean and prev_add == addend and
+                    prev_suffix in ('@h', '@ha') and src_reg == prev_dst)
         except (ValueError, IndexError):
             return False
     
@@ -91,24 +102,28 @@ class AddiHandler:
             src_reg = self.parse_register(ops[1])
             value = ops[2].strip()
             
-            symbol, suffix = self.extract_symbol(value)
+            symbol, suffix, addend = self.extract_symbol(value)
             if suffix == '@l':
                 symbol_clean = self.clean_symbol_name(symbol)
-                if self.check_lis_pattern(src_reg, symbol):
+                if self.check_lis_pattern(src_reg, symbol, addend):
+                    expr = f"(uint32_t)&{symbol_clean}"
+                    if addend:
+                        expr = f"{expr} + {addend}"
                     if hasattr(self.transpiler, 'replace_previous_and_current'):
                         self.transpiler.replace_previous_and_current(
-                            f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol}"
+                            f"gc_env.r[{dst_reg}] = {expr}; // lis + addi {symbol}"
                         )
                         return []
                     elif hasattr(self.transpiler, 'replace_previous_instruction'):
                         self.transpiler.replace_previous_instruction(
-                            f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol}"
+                            f"gc_env.r[{dst_reg}] = {expr}; // lis + addi {symbol}"
                         )
                         return []
                     else:
-                        return [f"gc_env.r[{dst_reg}] = (uint32_t)&{symbol_clean}; // lis + addi {symbol} (completing pattern)"]
+                        return [f"gc_env.r[{dst_reg}] = {expr}; // lis + addi {symbol} (completing pattern)"]
                 else:
-                    return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + ((uint32_t)&{symbol_clean} & 0xFFFF); // addi r{dst_reg}, r{src_reg}, {value}"]
+                    expr = f"((uint32_t)&{symbol_clean} + {addend})" if addend else f"((uint32_t)&{symbol_clean} & 0xFFFF)"
+                    return [f"gc_env.r[{dst_reg}] = gc_env.r[{src_reg}] + {expr}; // addi r{dst_reg}, r{src_reg}, {value}"]
             
             try:
                 imm = self.parse_immediate(value)

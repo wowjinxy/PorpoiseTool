@@ -54,6 +54,8 @@ class ModularTranspiler:
         self.export_symbols: Set[str] = set()
         self.includes: Set[str] = set(['"gc_env.h"'])
         self.previous_instruction = None
+        self.current_function: Optional[Function] = None
+        self.current_labels: Set[str] = set()
         # Functions that already exist in the standard C library.  If any of
         # these appear in the assembly, we should not generate definitions or
         # prototypes for them so the compiled code links against the system
@@ -467,14 +469,20 @@ class ModularTranspiler:
         for func in self.functions:
             if func.name in self.skip_functions:
                 continue
+            self.current_function = func
+            self.current_labels = {instr.opcode.rstrip(':') for instr in func.instructions if instr.opcode.endswith(':')}
             c_lines.append(f'// Function: {func.name}')
             if func.start_addr:
                 c_lines.append(f'// Address: {func.start_addr}')
 
             c_lines.append(f'void {func.name}(void) {{')
             
+            self.previous_instruction = None
             for instr in func.instructions:
                 c_lines.extend(f'    {line}' for line in self.translate_instruction(instr) if line.strip())
+                self.previous_instruction = instr
+            self.current_function = None
+            self.current_labels = set()
 
             c_lines.extend(['}', ''])
 
