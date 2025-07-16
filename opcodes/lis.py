@@ -39,16 +39,25 @@ class LisHandler:
         except ValueError:
             raise ValueError(f"Invalid immediate value: {imm_str}")
     
-    def extract_symbol(self, operand: str) -> tuple[str, str]:
-        """Extract symbol name and suffix from operand like 'symbol@h'."""
+    def extract_symbol(self, operand: str) -> tuple[str, str, int]:
+        """Extract symbol name, suffix and addend from operand."""
+        suffix = ''
         if operand.endswith('@ha'):
-            sym = operand[:-3].strip('"')
-            return self.transpiler.sanitize_symbol_name(sym), '@ha'
+            suffix = '@ha'
+            operand = operand[:-3]
         elif operand.endswith('@h'):
-            sym = operand[:-2].strip('"')
-            return self.transpiler.sanitize_symbol_name(sym), '@h'
-        sym = operand.strip('"')
-        return self.transpiler.sanitize_symbol_name(sym), ''
+            suffix = '@h'
+            operand = operand[:-2]
+        operand = operand.strip('"')
+        addend = 0
+        if '+' in operand or '-' in operand[1:]:
+            import re
+            m = re.match(r'([^+-]+)([+-]0x[0-9A-Fa-f]+)', operand)
+            if m:
+                operand = m.group(1)
+                addend = int(m.group(2), 0)
+        symbol = self.transpiler.sanitize_symbol_name(operand)
+        return symbol, suffix, addend
     
     def validate_operand_count(self, ops: List[str], expected: int, opcode: str) -> None:
         """Validate operand count for instruction."""
@@ -67,7 +76,7 @@ class LisHandler:
             value = ops[1].strip()
             
             # Handle @h or @ha modifier (high 16 bits)
-            symbol, suffix = self.extract_symbol(value)
+            symbol, suffix, addend = self.extract_symbol(value)
             if suffix in ('@h', '@ha'):
                 # Store this as a pending instruction for pattern matching
                 if hasattr(self.transpiler, 'set_pending_lis'):
@@ -145,7 +154,7 @@ class SimpleLisHandler:
             value = ops[1].strip()
             
             # Handle symbol references
-            symbol, suffix = self.extract_symbol(value)
+            symbol, suffix, addend = self.extract_symbol(value)
             if suffix in ('@h', '@ha'):
                 # Generate working C code that loads high 16 bits
                 return [f"gc_env.r[{dst_reg}] = ((uint32_t)&{symbol} >> 16) & 0xFFFF; // lis r{dst_reg}, {value}"]

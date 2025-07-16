@@ -41,9 +41,15 @@ def handle(instruction, transpiler):
         if label == 'exit':
             transpiler.includes.add('<stdlib.h>')
             return 'exit(gc_env.r[3]);'
+        # Convert branch to external function into a call
+        if label not in getattr(transpiler, 'current_labels', set()) \
+                and label in {f.name for f in transpiler.functions}:
+            return f"{label}();"
         return f"goto {label};"
     elif opcode == 'bl' and len(ops) >= 1:
         target = ops[0].split('@')[0]
+        if target == 'vprintf':
+            return "vprintf((const char *)gc_env.r[3], (void *)gc_env.r[4]);"
         return f"{target}();"
     elif opcode == 'bla' and len(ops) >= 1:
         target = ops[0].split('@')[0]
@@ -53,12 +59,22 @@ def handle(instruction, transpiler):
 
     # Conditional branches
     elif opcode in ('bne', 'beq', 'beq+') and len(ops) >= 1:
-        label = ops[0].lstrip('.')  # Remove leading period
+        cond_reg = 0
+        label_idx = 0
+        if ops[0].lower().startswith('cr') and len(ops) >= 2:
+            cond_reg = int(ops[0][2:])
+            label_idx = 1
+        label = ops[label_idx].lstrip('.')
         condition = '!=' if opcode == 'bne' else '=='
-        return f"if (gc_env.cr[0] {condition} 0) goto {label};"
+        return f"if (gc_env.cr[{cond_reg}] {condition} 0) goto {label};"
     elif opcode == 'bge' and len(ops) >= 1:
-        label = ops[0].lstrip('.')  # Remove leading period
-        return f"if (gc_env.cr[0] >= 0) goto {label};"
+        cond_reg = 0
+        label_idx = 0
+        if ops[0].lower().startswith('cr') and len(ops) >= 2:
+            cond_reg = int(ops[0][2:])
+            label_idx = 1
+        label = ops[label_idx].lstrip('.')
+        return f"if (gc_env.cr[{cond_reg}] >= 0) goto {label};"
 
     # Count register branches
     elif opcode == 'mtctr' and len(ops) >= 1:
