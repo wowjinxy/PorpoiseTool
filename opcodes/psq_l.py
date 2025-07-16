@@ -43,7 +43,7 @@ class PsqLHandler:
         if len(ops) < expected:
             raise ValueError(f"{opcode} requires at least {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
 
@@ -58,12 +58,13 @@ class PsqLHandler:
             offset = self.parse_immediate(offset_base[0])
             base_reg = self.parse_register(offset_base[1].rstrip(')'))
             offset_hex = format_hex(offset)
+            temp = transpiler.new_var('temp')
             return [
-                f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // psq_l f{dst_fp}, {offset_hex}(r{base_reg})",
-                f"gc_env.f[{dst_fp}] = *(float*)&temp;"
+                f"uint32_t {temp} = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // psq_l f{dst_fp}, {offset_hex}(r{base_reg})",
+                f"gc_env.f[{dst_fp}] = *(float*)&{temp};"
             ]
         except ValueError as e:
             return [f"// Error processing {opcode} {' '.join(ops)}: {str(e)}"]
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
-    return PsqLHandler().handle(instruction)
+    return PsqLHandler().handle(instruction, transpiler)

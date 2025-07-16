@@ -32,7 +32,7 @@ class SubfeHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle subfe instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -44,11 +44,13 @@ class SubfeHandler:
             src_reg1 = self.parse_register(ops[1])
             src_reg2 = self.parse_register(ops[2])
 
+            borrow = transpiler.new_var('subfe_borrow')
+            temp = transpiler.new_var('subfe_temp')
             result = [
-                f"uint32_t subfe_borrow = 1 - ((gc_env.xer & 0x20000000) >> 29);",
-                f"uint64_t subfe_temp = (uint64_t)gc_env.r[{src_reg2}] - gc_env.r[{src_reg1}] - subfe_borrow;",
-                f"gc_env.r[{dst_reg}] = (uint32_t)subfe_temp; // subfe r{dst_reg}, r{src_reg1}, r{src_reg2}",
-                f"gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[{src_reg2}] >= (gc_env.r[{src_reg1}] + subfe_borrow) ? 0x20000000 : 0);",
+                f"uint32_t {borrow} = 1 - ((gc_env.xer & 0x20000000) >> 29);",
+                f"uint64_t {temp} = (uint64_t)gc_env.r[{src_reg2}] - gc_env.r[{src_reg1}] - {borrow};",
+                f"gc_env.r[{dst_reg}] = (uint32_t){temp}; // subfe r{dst_reg}, r{src_reg1}, r{src_reg2}",
+                f"gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[{src_reg2}] >= (gc_env.r[{src_reg1}] + {borrow}) ? 0x20000000 : 0);",
             ]
             return result
         except ValueError as e:
@@ -57,4 +59,4 @@ class SubfeHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for subfe instruction handling."""
-    return SubfeHandler().handle(instruction)
+    return SubfeHandler().handle(instruction, transpiler)

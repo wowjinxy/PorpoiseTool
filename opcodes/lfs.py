@@ -50,7 +50,7 @@ class LfsHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle lfs instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -89,9 +89,10 @@ class LfsHandler:
                     base_reg = self.parse_register(offset_base[1].rstrip(')'))
                     offset_hex = format_hex(offset)
                     
+                    temp = self.transpiler.new_var('temp')
                     return [
-                        f"uint32_t temp = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfs f{dst_fpreg}, {offset_hex}(r{base_reg})",
-                        f"gc_env.f[{dst_fpreg}] = *(float*)&temp;"
+                        f"uint32_t {temp} = gc_mem_read32(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}); // lfs f{dst_fpreg}, {offset_hex}(r{base_reg})",
+                        f"gc_env.f[{dst_fpreg}] = *(float*)&{temp};"
                     ]
             
             # If we get here, the format wasn't recognized
@@ -102,4 +103,4 @@ class LfsHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for lfs instruction handling."""
-    return LfsHandler(transpiler).handle(instruction)
+    return LfsHandler(transpiler).handle(instruction, transpiler)

@@ -50,7 +50,7 @@ class StfdHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle stfd instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -68,10 +68,11 @@ class StfdHandler:
             offset_hex = format_hex(offset)
             
             if opcode == 'stfd':
+                temp = transpiler.new_var('temp')
                 return [
-                    f"uint64_t temp;",
-                    f"memcpy(&temp, &gc_env.f[{src_fpreg}], sizeof(double));",
-                    f"gc_mem_write64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, temp); // stfd f{src_fpreg}, {offset_hex}(r{base_reg})"
+                    f"uint64_t {temp};",
+                    f"memcpy(&{temp}, &gc_env.f[{src_fpreg}], sizeof(double));",
+                    f"gc_mem_write64(gc_env.ram, gc_env.r[{base_reg}] + {offset_hex}, {temp}); // stfd f{src_fpreg}, {offset_hex}(r{base_reg})",
                 ]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
@@ -81,4 +82,4 @@ class StfdHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for stfd instruction handling."""
-    return StfdHandler(transpiler).handle(instruction)
+    return StfdHandler(transpiler).handle(instruction, transpiler)

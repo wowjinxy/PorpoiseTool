@@ -30,7 +30,7 @@ class AddzeHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
 
@@ -40,10 +40,11 @@ class AddzeHandler:
             dst_reg = self.parse_register(ops[0])
             src_reg = self.parse_register(ops[1])
 
+            temp = transpiler.new_var('addze_temp')
             result = [
-                f"uint64_t addze_temp = (uint64_t)gc_env.r[{src_reg}] + ((gc_env.xer & 0x20000000) ? 1 : 0);",
-                f"gc_env.r[{dst_reg}] = (uint32_t)addze_temp; // {opcode} r{dst_reg}, r{src_reg}",
-                f"gc_env.xer = (gc_env.xer & ~0x20000000) | (addze_temp > 0xFFFFFFFF ? 0x20000000 : 0);",
+                f"uint64_t {temp} = (uint64_t)gc_env.r[{src_reg}] + ((gc_env.xer & 0x20000000) ? 1 : 0);",
+                f"gc_env.r[{dst_reg}] = (uint32_t){temp}; // {opcode} r{dst_reg}, r{src_reg}",
+                f"gc_env.xer = (gc_env.xer & ~0x20000000) | ({temp} > 0xFFFFFFFF ? 0x20000000 : 0);",
             ]
             return result
         except (ValueError, IndexError) as e:
@@ -52,4 +53,4 @@ class AddzeHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for addze instruction handling."""
-    return AddzeHandler().handle(instruction)
+    return AddzeHandler().handle(instruction, transpiler)

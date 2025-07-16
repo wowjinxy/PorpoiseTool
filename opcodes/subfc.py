@@ -32,7 +32,7 @@ class SubfcHandler:
         if len(ops) != expected:
             raise ValueError(f"{opcode} expects {expected} operands, got {len(ops)}")
 
-    def handle(self, instruction: Instruction) -> List[str]:
+    def handle(self, instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
         """Handle subfc instruction."""
         opcode = instruction.opcode.lower().rstrip('.')
         ops = instruction.operands
@@ -44,9 +44,10 @@ class SubfcHandler:
             src_reg1 = self.parse_register(ops[1])
             src_reg2 = self.parse_register(ops[2])
 
+            temp = transpiler.new_var('subfc_temp')
             result = [
-                f"uint64_t subfc_temp = (uint64_t)gc_env.r[{src_reg2}] - gc_env.r[{src_reg1}];",
-                f"gc_env.r[{dst_reg}] = (uint32_t)subfc_temp; // subfc r{dst_reg}, r{src_reg1}, r{src_reg2}",
+                f"uint64_t {temp} = (uint64_t)gc_env.r[{src_reg2}] - gc_env.r[{src_reg1}];",
+                f"gc_env.r[{dst_reg}] = (uint32_t){temp}; // subfc r{dst_reg}, r{src_reg1}, r{src_reg2}",
                 f"gc_env.xer = (gc_env.xer & ~0x20000000) | (gc_env.r[{src_reg2}] >= gc_env.r[{src_reg1}] ? 0x20000000 : 0);",
             ]
             return result
@@ -56,4 +57,4 @@ class SubfcHandler:
 
 def handle(instruction: Instruction, transpiler: 'ModularTranspiler') -> List[str]:
     """Entry point for subfc instruction handling."""
-    return SubfcHandler().handle(instruction)
+    return SubfcHandler().handle(instruction, transpiler)

@@ -57,6 +57,7 @@ class ModularTranspiler:
         self.previous_instruction = None
         self.current_function: Optional[Function] = None
         self.current_labels: Set[str] = set()
+        self.temp_var_counter: int = 0
         # Functions that already exist in the standard C library.  If any of
         # these appear in the assembly, we should not generate definitions or
         # prototypes for them so the compiled code links against the system
@@ -73,6 +74,12 @@ class ModularTranspiler:
         name = re.sub(r'[^0-9A-Za-z_]', '_', name)
         if name and name[0].isdigit():
             name = f"lbl_{name}"
+        return name
+
+    def new_var(self, base: str) -> str:
+        """Generate a unique temporary variable name."""
+        name = f"{base}_{self.temp_var_counter}"
+        self.temp_var_counter += 1
         return name
 
     def _load_opcode_handlers(self):
