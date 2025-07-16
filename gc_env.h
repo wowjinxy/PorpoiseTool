@@ -159,4 +159,10 @@ extern uint32_t _stack_end;
 extern uint32_t _db_stack_addr;
 extern uint32_t gTRKInterruptVectorTable;
 
+// Stubbed runtime routines referenced by translated code
+void OSGetTime(void);
+void TRKExceptionHandler(void);
+void TRKInterruptHandler(void);
+void TRK_main(void);
+
 #endif // __GC_ENV_H__
