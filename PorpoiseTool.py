@@ -252,7 +252,23 @@ class ModularTranspiler:
                 print(f"Parsed gap data at {address}: {value} ({comment})")
                 continue
 
-            # Match .4byte directives
+            # Match .4byte directives referencing a symbol with optional offset
+            fourbyte_sym = re.match(r'\.4byte\s+([A-Za-z_\.][\w@\.]*)(?:\s*([+-])\s*(0x[0-9A-Fa-f]+|\d+))?', line)
+            if fourbyte_sym:
+                sym_raw, sign, off = fourbyte_sym.groups()
+                symbol = self.sanitize_symbol_name(sym_raw)
+                value = f"(uint32_t)&{symbol}"
+                comment = f".4byte {sym_raw}"
+                if sign and off:
+                    value += f" {sign} {off}"
+                    comment += f"{sign}{off}"
+                if byte_buffer:
+                    flush_remaining()
+                data.append((value, comment))
+                print(f"Parsed gap data: {comment}")
+                continue
+
+            # Match .4byte directives with immediate values
             fourbyte_match = re.match(r'\.4byte\s+(0x[0-9A-Fa-f]+)', line)
             if fourbyte_match:
                 value = fourbyte_match.group(1)
