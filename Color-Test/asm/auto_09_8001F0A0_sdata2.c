@@ -35,6 +35,7 @@ extern uint32_t __DVDLongFileNameFlag;
 extern uint32_t __OSArenaHi_8001EE90;
 extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
+extern uint32_t __OSLastInterrupt;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
 extern uint32_t __OSStartTime;
@@ -112,6 +113,8 @@ extern uint32_t lbl_8001EFE4;
 extern uint32_t lbl_8001EFF0;
 extern uint32_t lbl_8001EFF4;
 extern uint32_t lbl_8001EFF8;
+extern uint32_t lbl_8001EFFC;
+extern uint32_t lbl_8001EFFE;
 extern uint32_t lbl_8001F000;
 extern uint32_t lbl_8001F008;
 extern uint32_t lbl_8001F00C;
@@ -130,6 +133,7 @@ extern uint32_t lbl_8001F078;
 extern uint32_t lbl_8001F07C;
 extern uint32_t lbl_8001F080;
 extern uint8_t lbl_8001EE58;
+extern uint8_t lbl_8001F084;
 
 // Data section: lbl_8001F0A0
 // Address: 0x8001F0A0
