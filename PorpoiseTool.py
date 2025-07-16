@@ -708,12 +708,19 @@ class ModularTranspiler:
             print(f"Error: Input file '{input_file}' not found")
             sys.exit(1)
 
+        # Attempt to read the file using UTF-8 first. Some DTK generated files
+        # are encoded in Shift-JIS which fails to decode using the default
+        # locale on Windows. Fallback to Shift-JIS if UTF-8 decoding fails.
         try:
-            with input_path.open('r') as f:
+            with input_path.open('r', encoding='utf-8') as f:
                 assembly_code = f.read()
-        except Exception as e:
-            print(f"Error reading file '{input_file}': {str(e)}")
-            sys.exit(1)
+        except UnicodeDecodeError:
+            try:
+                with input_path.open('r', encoding='shift_jis', errors='replace') as f:
+                    assembly_code = f.read()
+            except Exception as e:
+                print(f"Error reading file '{input_file}': {str(e)}")
+                sys.exit(1)
 
         self.functions = []
         self.data_sections = []
