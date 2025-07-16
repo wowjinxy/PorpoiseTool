@@ -394,6 +394,8 @@ class ModularTranspiler:
         current_function = None
         current_addr = None
         current_size = None
+        pending_global: Optional[str] = None
+        current_section = None
         in_obj = False
         obj_name = None
         obj_addr = None
@@ -403,6 +405,18 @@ class ModularTranspiler:
         for line in lines:
             line = line.strip()
             if not line:
+                continue
+
+            # Detect .global function declarations
+            global_match = re.match(r'\.global\s+(\w+)', line)
+            if global_match:
+                pending_global = self.sanitize_symbol_name(global_match.group(1))
+                continue
+
+            # Track the current section so we only create functions in .text
+            section_match = re.match(r'\.section\s+([^\s]+)', line)
+            if section_match:
+                current_section = section_match.group(1)
                 continue
 
             # Match section and address metadata
@@ -427,6 +441,28 @@ class ModularTranspiler:
                     is_local=(func_type == 'local')
                 )
                 self.functions.append(current_function)
+                if current_addr:
+                    try:
+                        self.symbol_addresses[func_name] = int(current_addr, 16)
+                    except ValueError:
+                        pass
+                print(f"Parsed function: {func_name} at {current_addr}")
+                current_addr = None
+                current_size = None
+                continue
+
+            # Start a new function when a label matches a pending .global
+            if pending_global and line.startswith(f"{pending_global}:") and current_section == '.text' and not current_function:
+                func_name = pending_global
+                current_function = Function(
+                    name=func_name,
+                    start_addr=current_addr,
+                    size=None,
+                    instructions=[],
+                    is_local=False,
+                )
+                self.functions.append(current_function)
+                pending_global = None
                 if current_addr:
                     try:
                         self.symbol_addresses[func_name] = int(current_addr, 16)
@@ -485,6 +521,8 @@ class ModularTranspiler:
                 if instr_parts:
                     opcode = instr_parts[0]
                     operands = [op.strip() for op in instr_parts[1:] if op.strip()]
+                    if current_function.start_addr is None:
+                        current_function.start_addr = f"0x{address}"
                     current_function.instructions.append(Instruction(
                         opcode=opcode,
                         operands=operands,
