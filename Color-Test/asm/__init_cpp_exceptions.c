@@ -8,5 +8,5 @@
 // Data section: __destroy_global_chain_reference
 // Address: 0x8001A440
 uint32_t __destroy_global_chain_reference[] = {
-    // Unrecognized: .4byte __destroy_global_chain
+    (uint32_t)&__destroy_global_chain, // .4byte __destroy_global_chain
 };

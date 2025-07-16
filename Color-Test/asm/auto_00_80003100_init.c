@@ -58,7 +58,7 @@ void __start(void) {
     gc_env.r[5] = 0x1; // li r5, 0x1
     L_8000319C:
     gc_env.r[6] = ((uint32_t)&InitMetroTRK >> 16) & 0xFFFF; // lis r6, InitMetroTRK@ha
-    gc_env.r[6] = gc_env.r[6] + ((uint32_t)&InitMetroTRK & 0xFFFF); // addi r6, r6, InitMetroTRK@l
+    gc_env.r[6] = (uint32_t)&InitMetroTRK; // lis + addi InitMetroTRK (completing pattern)
     gc_env.lr = gc_env.r[6]; // Move to link register
     // Call function at gc_env.lr; // Branch to link register
     L_800031AC:
@@ -116,11 +116,11 @@ void __start(void) {
 // Address: 0x80003254
 void __init_registers(void) {
     gc_env.r[1] = ((uint32_t)&_stack_addr >> 16) & 0xFFFF; // lis r1, _stack_addr@h
-    gc_env.r[1] = gc_env.r[1] | ((uint32_t)&_stack_addr & 0xFFFF); // ori r1, r1, _stack_addr@l
+    gc_env.r[1] = (uint32_t)&_stack_addr; // lis + ori _stack_addr
     gc_env.r[2] = ((uint32_t)&_SDA2_BASE_ >> 16) & 0xFFFF; // lis r2, _SDA2_BASE_@h
-    gc_env.r[2] = gc_env.r[2] | ((uint32_t)&_SDA2_BASE_ & 0xFFFF); // ori r2, r2, _SDA2_BASE_@l
+    gc_env.r[2] = (uint32_t)&_SDA2_BASE_; // lis + ori _SDA2_BASE_
     gc_env.r[13] = ((uint32_t)&_SDA_BASE_ >> 16) & 0xFFFF; // lis r13, _SDA_BASE_@h
-    gc_env.r[13] = gc_env.r[13] | ((uint32_t)&_SDA_BASE_ & 0xFFFF); // ori r13, r13, _SDA_BASE_@l
+    gc_env.r[13] = (uint32_t)&_SDA_BASE_; // lis + ori _SDA_BASE_
     return;
 }
 
@@ -135,7 +135,7 @@ void __init_data(void) {
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0x10, gc_env.r[30]); // stw r30, 0x10(r1)
     gc_mem_write32(gc_env.ram, gc_env.r[1] + 0xC, gc_env.r[29]); // stw r29, 0xC(r1)
     gc_env.r[3] = ((uint32_t)&_rom_copy_info >> 16) & 0xFFFF; // lis r3, _rom_copy_info@ha
-    gc_env.r[0] = gc_env.r[3] + ((uint32_t)&_rom_copy_info & 0xFFFF); // addi r0, r3, _rom_copy_info@l
+    gc_env.r[0] = (uint32_t)&_rom_copy_info; // lis + addi _rom_copy_info (completing pattern)
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_80003298;
     L_80003298:
@@ -160,7 +160,7 @@ void __init_data(void) {
     goto L_8000329C;
     L_800032DC:
     gc_env.r[3] = ((uint32_t)&_bss_init_info >> 16) & 0xFFFF; // lis r3, _bss_init_info@ha
-    gc_env.r[0] = gc_env.r[3] + ((uint32_t)&_bss_init_info & 0xFFFF); // addi r0, r3, _bss_init_info@l
+    gc_env.r[0] = (uint32_t)&_bss_init_info; // lis + addi _bss_init_info (completing pattern)
     gc_env.r[29] = gc_env.r[0]; // Move register
     goto L_800032EC;
     L_800032EC:

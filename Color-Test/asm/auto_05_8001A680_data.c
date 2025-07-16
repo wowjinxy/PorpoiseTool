@@ -35,6 +35,7 @@ extern uint32_t __DVDLongFileNameFlag;
 extern uint32_t __OSArenaHi_8001EE90;
 extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
+extern uint32_t __OSLastInterrupt;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
 extern uint32_t __OSStartTime;
@@ -112,6 +113,8 @@ extern uint32_t lbl_8001EFE4;
 extern uint32_t lbl_8001EFF0;
 extern uint32_t lbl_8001EFF4;
 extern uint32_t lbl_8001EFF8;
+extern uint32_t lbl_8001EFFC;
+extern uint32_t lbl_8001EFFE;
 extern uint32_t lbl_8001F000;
 extern uint32_t lbl_8001F008;
 extern uint32_t lbl_8001F00C;
@@ -130,6 +133,7 @@ extern uint32_t lbl_8001F078;
 extern uint32_t lbl_8001F07C;
 extern uint32_t lbl_8001F080;
 extern uint8_t lbl_8001EE58;
+extern uint8_t lbl_8001F084;
 
 // Data section: lbl_8001A680
 // Address: 0x8001A680
@@ -163,7 +167,14 @@ uint32_t lbl_8001A680[] = {
 // Data section: _73_8001A6E0
 // Address: 0x8001A6E0
 uint32_t _73_8001A6E0[] = {
-    // Unrecognized: .string "\nDolphin OS $Revision: 49 $.\n"
+    0x0A446F6C, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x7068696E, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x204F5320, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x24526576, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x6973696F, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x6E3A2034, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x3920242E, // .string "\nDolphin OS $Revision: 49 $.\n"
+    0x0A000000, // .string "\nDolphin OS $Revision: 49 $.\n"
 };
 
 // Data section: gap_05_8001A6FE_data
@@ -273,7 +284,7 @@ uint32_t gap_05_8001A6FE_data[] = {
     0x697A6564, // .4byte 0x697A6564
     0x2E2E2E0A, // .4byte 0x2E2E2E0A
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .2byte 0x0000
+    0x00000000, // .2byte 0x0000
 };
 
 // Data section: DSPInitCode_8001A8A0
@@ -316,7 +327,17 @@ uint32_t DSPInitCode_8001A8A0[] = {
 // Data section: _69_8001A920
 // Address: 0x8001A920
 uint32_t _69_8001A920[] = {
-    // Unrecognized: .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x3E3E3E20, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x4C322049, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x4E56414C, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x49444154, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x45203A20, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x53484F55, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x4C44204E, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x45564552, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x20484150, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x50454E0A, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
+    0x00000000, // .string ">>> L2 INVALIDATE : SHOULD NEVER HAPPEN\n"
 };
 
 // Data section: gap_05_8001A949_data
@@ -451,7 +472,7 @@ uint32_t gap_05_8001A949_data[] = {
     0x7374616C, // .4byte 0x7374616C
     0x6C65640A, // .4byte 0x6C65640A
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .byte 0x00, 0x00, 0x00
+    0x00000000, // .byte 0x00, 0x00, 0x00
 };
 
 // Data section: lbl_8001AB50
@@ -571,19 +592,32 @@ uint32_t lbl_8001AB50[] = {
 // Data section: _74_8001AD04
 // Address: 0x8001AD04
 uint32_t _74_8001AD04[] = {
-    // Unrecognized: .string "FPU-unavailable handler installed\n"
+    0x4650552D, // .string "FPU-unavailable handler installed\n"
+    0x756E6176, // .string "FPU-unavailable handler installed\n"
+    0x61696C61, // .string "FPU-unavailable handler installed\n"
+    0x626C6520, // .string "FPU-unavailable handler installed\n"
+    0x68616E64, // .string "FPU-unavailable handler installed\n"
+    0x6C657220, // .string "FPU-unavailable handler installed\n"
+    0x696E7374, // .string "FPU-unavailable handler installed\n"
+    0x616C6C65, // .string "FPU-unavailable handler installed\n"
+    0x640A0000, // .string "FPU-unavailable handler installed\n"
 };
 
 // Data section: gap_05_8001AD27_data
 // Address: 0x8001AD27
 uint32_t gap_05_8001AD27_data[] = {
-    // Unrecognized: .byte 0x00
+    0x00000000, // .byte 0x00
 };
 
 // Data section: _10_8001AD28
 // Address: 0x8001AD28
 uint32_t _10_8001AD28[] = {
-    // Unrecognized: .string " in \"%s\" on line %d.\n"
+    0x20696E20, // .string " in "%s" on line %d.\n"
+    0x22257322, // .string " in "%s" on line %d.\n"
+    0x206F6E20, // .string " in "%s" on line %d.\n"
+    0x6C696E65, // .string " in "%s" on line %d.\n"
+    0x2025642E, // .string " in "%s" on line %d.\n"
+    0x0A000000, // .string " in "%s" on line %d.\n"
 };
 
 // Data section: gap_05_8001AD3E_data
@@ -766,28 +800,28 @@ uint32_t gap_05_8001AD3E_data[] = {
     0x30782530, // .4byte 0x30782530
     0x31366C6C, // .4byte 0x31366C6C
     0x780A0000, // .4byte 0x780A0000
-    // Unrecognized: .2byte 0x0000
+    0x00000000, // .2byte 0x0000
 };
 
 // Data section: _43_8001B004
 // Address: 0x8001B004
 uint32_t _43_8001B004[] = {
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x124
-    // Unrecognized: .4byte __OSUnhandledException+0x13C
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x150
-    // Unrecognized: .4byte __OSUnhandledException+0x168
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x1CC
-    // Unrecognized: .4byte __OSUnhandledException+0x180
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x124, // .4byte __OSUnhandledException+0x124
+    (uint32_t)&__OSUnhandledException + 0x13C, // .4byte __OSUnhandledException+0x13C
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x150, // .4byte __OSUnhandledException+0x150
+    (uint32_t)&__OSUnhandledException + 0x168, // .4byte __OSUnhandledException+0x168
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x1CC, // .4byte __OSUnhandledException+0x1CC
+    (uint32_t)&__OSUnhandledException + 0x180, // .4byte __OSUnhandledException+0x180
 };
 
 // Data section: gap_05_8001B044_data
@@ -816,7 +850,7 @@ uint32_t lbl_8001B048[] = {
 // Data section: ResetFunctionInfo_8001B078
 // Address: 0x8001B078
 uint32_t ResetFunctionInfo_8001B078[] = {
-    // Unrecognized: .4byte fn_80007FE0
+    (uint32_t)&fn_80007FE0, // .4byte fn_80007FE0
     0x0000007F, // .4byte 0x0000007F
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
@@ -940,7 +974,12 @@ uint32_t gap_05_8001B188_data[] = {
 // Data section: lbl_8001B1F0
 // Address: 0x8001B1F0
 uint32_t lbl_8001B1F0[] = {
-    // Unrecognized: .string "DBExceptionDestination\n"
+    0x44424578, // .string "DBExceptionDestination\n"
+    0x63657074, // .string "DBExceptionDestination\n"
+    0x696F6E44, // .string "DBExceptionDestination\n"
+    0x65737469, // .string "DBExceptionDestination\n"
+    0x6E617469, // .string "DBExceptionDestination\n"
+    0x6F6E0A00, // .string "DBExceptionDestination\n"
 };
 
 // Data section: lbl_8001B208
@@ -970,71 +1009,71 @@ uint32_t lbl_8001B208[] = {
 // Data section: jumptable_8001B254
 // Address: 0x8001B254
 uint32_t jumptable_8001B254[] = {
-    // Unrecognized: .4byte fn_8000E240+0x218
-    // Unrecognized: .4byte fn_8000E240+0xD8
-    // Unrecognized: .4byte fn_8000E240+0xF0
-    // Unrecognized: .4byte fn_8000E240+0x108
-    // Unrecognized: .4byte fn_8000E240+0x138
-    // Unrecognized: .4byte fn_8000E240+0x1FC
-    // Unrecognized: .4byte fn_8000E240+0x150
-    // Unrecognized: .4byte fn_8000E240+0x120
+    (uint32_t)&fn_8000E240 + 0x218, // .4byte fn_8000E240+0x218
+    (uint32_t)&fn_8000E240 + 0xD8, // .4byte fn_8000E240+0xD8
+    (uint32_t)&fn_8000E240 + 0xF0, // .4byte fn_8000E240+0xF0
+    (uint32_t)&fn_8000E240 + 0x108, // .4byte fn_8000E240+0x108
+    (uint32_t)&fn_8000E240 + 0x138, // .4byte fn_8000E240+0x138
+    (uint32_t)&fn_8000E240 + 0x1FC, // .4byte fn_8000E240+0x1FC
+    (uint32_t)&fn_8000E240 + 0x150, // .4byte fn_8000E240+0x150
+    (uint32_t)&fn_8000E240 + 0x120, // .4byte fn_8000E240+0x120
 };
 
 // Data section: jumptable_8001B274
 // Address: 0x8001B274
 uint32_t jumptable_8001B274[] = {
-    // Unrecognized: .4byte fn_8000E488+0x2B0
-    // Unrecognized: .4byte fn_8000E488+0x6C
-    // Unrecognized: .4byte fn_8000E488+0xC8
-    // Unrecognized: .4byte fn_8000E488+0xEC
-    // Unrecognized: .4byte fn_8000E488+0x6C
-    // Unrecognized: .4byte fn_8000E488+0x40
-    // Unrecognized: .4byte fn_8000E488+0x10C
-    // Unrecognized: .4byte fn_8000E488+0x170
-    // Unrecognized: .4byte fn_8000E488+0x19C
-    // Unrecognized: .4byte fn_8000E488+0x1D0
-    // Unrecognized: .4byte fn_8000E488+0x1F4
-    // Unrecognized: .4byte fn_8000E488+0x218
-    // Unrecognized: .4byte fn_8000E488+0x23C
-    // Unrecognized: .4byte fn_8000E488+0x260
-    // Unrecognized: .4byte fn_8000E488+0x288
-    // Unrecognized: .4byte fn_8000E488+0xFC
+    (uint32_t)&fn_8000E488 + 0x2B0, // .4byte fn_8000E488+0x2B0
+    (uint32_t)&fn_8000E488 + 0x6C, // .4byte fn_8000E488+0x6C
+    (uint32_t)&fn_8000E488 + 0xC8, // .4byte fn_8000E488+0xC8
+    (uint32_t)&fn_8000E488 + 0xEC, // .4byte fn_8000E488+0xEC
+    (uint32_t)&fn_8000E488 + 0x6C, // .4byte fn_8000E488+0x6C
+    (uint32_t)&fn_8000E488 + 0x40, // .4byte fn_8000E488+0x40
+    (uint32_t)&fn_8000E488 + 0x10C, // .4byte fn_8000E488+0x10C
+    (uint32_t)&fn_8000E488 + 0x170, // .4byte fn_8000E488+0x170
+    (uint32_t)&fn_8000E488 + 0x19C, // .4byte fn_8000E488+0x19C
+    (uint32_t)&fn_8000E488 + 0x1D0, // .4byte fn_8000E488+0x1D0
+    (uint32_t)&fn_8000E488 + 0x1F4, // .4byte fn_8000E488+0x1F4
+    (uint32_t)&fn_8000E488 + 0x218, // .4byte fn_8000E488+0x218
+    (uint32_t)&fn_8000E488 + 0x23C, // .4byte fn_8000E488+0x23C
+    (uint32_t)&fn_8000E488 + 0x260, // .4byte fn_8000E488+0x260
+    (uint32_t)&fn_8000E488 + 0x288, // .4byte fn_8000E488+0x288
+    (uint32_t)&fn_8000E488 + 0xFC, // .4byte fn_8000E488+0xFC
 };
 
 // Data section: jumptable_8001B2B4
 // Address: 0x8001B2B4
 uint32_t jumptable_8001B2B4[] = {
-    // Unrecognized: .4byte fn_8000EFC0+0x50
-    // Unrecognized: .4byte fn_8000EFC0+0x50
-    // Unrecognized: .4byte fn_8000EFC0+0x70
-    // Unrecognized: .4byte fn_8000EFC0+0xB4
-    // Unrecognized: .4byte fn_8000EFC0+0x100
-    // Unrecognized: .4byte fn_8000EFC0+0x17C
-    // Unrecognized: .4byte fn_8000EFC0+0x17C
-    // Unrecognized: .4byte fn_8000EFC0+0x17C
-    // Unrecognized: .4byte fn_8000EFC0+0x17C
-    // Unrecognized: .4byte fn_8000EFC0+0x248
-    // Unrecognized: .4byte fn_8000EFC0+0x248
-    // Unrecognized: .4byte fn_8000EFC0+0x50
-    // Unrecognized: .4byte fn_8000EFC0+0x17C
+    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
+    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
+    (uint32_t)&fn_8000EFC0 + 0x70, // .4byte fn_8000EFC0+0x70
+    (uint32_t)&fn_8000EFC0 + 0xB4, // .4byte fn_8000EFC0+0xB4
+    (uint32_t)&fn_8000EFC0 + 0x100, // .4byte fn_8000EFC0+0x100
+    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
+    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
+    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
+    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
+    (uint32_t)&fn_8000EFC0 + 0x248, // .4byte fn_8000EFC0+0x248
+    (uint32_t)&fn_8000EFC0 + 0x248, // .4byte fn_8000EFC0+0x248
+    (uint32_t)&fn_8000EFC0 + 0x50, // .4byte fn_8000EFC0+0x50
+    (uint32_t)&fn_8000EFC0 + 0x17C, // .4byte fn_8000EFC0+0x17C
 };
 
 // Data section: jumptable_8001B2E8
 // Address: 0x8001B2E8
 uint32_t jumptable_8001B2E8[] = {
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0xA0
-    // Unrecognized: .4byte fn_8000F238+0x90
-    // Unrecognized: .4byte fn_8000F238+0x90
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0x98
-    // Unrecognized: .4byte fn_8000F238+0xA0
-    // Unrecognized: .4byte fn_8000F238+0x90
-    // Unrecognized: .4byte fn_8000F238+0x90
-    // Unrecognized: .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0xA0, // .4byte fn_8000F238+0xA0
+    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
+    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
+    (uint32_t)&fn_8000F238 + 0xA0, // .4byte fn_8000F238+0xA0
+    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
+    (uint32_t)&fn_8000F238 + 0x90, // .4byte fn_8000F238+0x90
+    (uint32_t)&fn_8000F238 + 0x98, // .4byte fn_8000F238+0x98
 };
 
 // Data section: gap_05_8001B31C_data
@@ -1196,28 +1235,28 @@ uint32_t lbl_8001B3D8[] = {
 // Data section: jumptable_8001B53C
 // Address: 0x8001B53C
 uint32_t jumptable_8001B53C[] = {
-    // Unrecognized: .4byte fn_8000FC30+0x28
-    // Unrecognized: .4byte fn_8000FC30+0x30
-    // Unrecognized: .4byte fn_8000FC30+0x68
-    // Unrecognized: .4byte fn_8000FC30+0x70
-    // Unrecognized: .4byte fn_8000FC30+0x38
-    // Unrecognized: .4byte fn_8000FC30+0x40
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x58
-    // Unrecognized: .4byte fn_8000FC30+0x60
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x78
-    // Unrecognized: .4byte fn_8000FC30+0x80
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x88
-    // Unrecognized: .4byte fn_8000FC30+0x48
-    // Unrecognized: .4byte fn_8000FC30+0x50
+    (uint32_t)&fn_8000FC30 + 0x28, // .4byte fn_8000FC30+0x28
+    (uint32_t)&fn_8000FC30 + 0x30, // .4byte fn_8000FC30+0x30
+    (uint32_t)&fn_8000FC30 + 0x68, // .4byte fn_8000FC30+0x68
+    (uint32_t)&fn_8000FC30 + 0x70, // .4byte fn_8000FC30+0x70
+    (uint32_t)&fn_8000FC30 + 0x38, // .4byte fn_8000FC30+0x38
+    (uint32_t)&fn_8000FC30 + 0x40, // .4byte fn_8000FC30+0x40
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x58, // .4byte fn_8000FC30+0x58
+    (uint32_t)&fn_8000FC30 + 0x60, // .4byte fn_8000FC30+0x60
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x78, // .4byte fn_8000FC30+0x78
+    (uint32_t)&fn_8000FC30 + 0x80, // .4byte fn_8000FC30+0x80
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x88, // .4byte fn_8000FC30+0x88
+    (uint32_t)&fn_8000FC30 + 0x48, // .4byte fn_8000FC30+0x48
+    (uint32_t)&fn_8000FC30 + 0x50, // .4byte fn_8000FC30+0x50
 };
 
 // Data section: gap_05_8001B594_data
@@ -1331,9 +1370,9 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .4byte fn_800140D4
-    // Unrecognized: .4byte fn_8001403C
-    // Unrecognized: .4byte fn_80014034
+    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
+    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
+    (uint32_t)&fn_80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x10800000, // .4byte 0x10800000
@@ -1350,9 +1389,9 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .4byte fn_800140D4
-    // Unrecognized: .4byte fn_8001403C
-    // Unrecognized: .4byte fn_80014034
+    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
+    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
+    (uint32_t)&fn_80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x10800000, // .4byte 0x10800000
@@ -1369,165 +1408,165 @@ uint32_t __files[] = {
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .4byte fn_800140D4
-    // Unrecognized: .4byte fn_8001403C
-    // Unrecognized: .4byte fn_80014034
+    (uint32_t)&fn_800140D4, // .4byte fn_800140D4
+    (uint32_t)&fn_8001403C, // .4byte fn_8001403C
+    (uint32_t)&fn_80014034, // .4byte fn_80014034
     0x00000000, // .4byte 0x00000000
 };
 
 // Data section: _1009_8001B7B8
 // Address: 0x8001B7B8
 uint32_t _1009_8001B7B8[] = {
-    // Unrecognized: .4byte longlong2str_80013554+0xF8
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x98
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x98
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0xD0
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0xE4
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0x108
-    // Unrecognized: .4byte longlong2str_80013554+0xF8
+    (uint32_t)&longlong2str_80013554 + 0xF8, // .4byte longlong2str_80013554+0xF8
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x98, // .4byte longlong2str_80013554+0x98
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x98, // .4byte longlong2str_80013554+0x98
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0xD0, // .4byte longlong2str_80013554+0xD0
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0xE4, // .4byte longlong2str_80013554+0xE4
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0x108, // .4byte longlong2str_80013554+0x108
+    (uint32_t)&longlong2str_80013554 + 0xF8, // .4byte longlong2str_80013554+0xF8
 };
 
 // Data section: jumptable_8001B83C
 // Address: 0x8001B83C
 uint32_t jumptable_8001B83C[] = {
-    // Unrecognized: .4byte long2str_80013834+0xA8
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0x70
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0x70
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0x88
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0x98
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xB4
-    // Unrecognized: .4byte long2str_80013834+0xA8
+    (uint32_t)&long2str_80013834 + 0xA8, // .4byte long2str_80013834+0xA8
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0x70, // .4byte long2str_80013834+0x70
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0x70, // .4byte long2str_80013834+0x70
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0x88, // .4byte long2str_80013834+0x88
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0x98, // .4byte long2str_80013834+0x98
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xB4, // .4byte long2str_80013834+0xB4
+    (uint32_t)&long2str_80013834 + 0xA8, // .4byte long2str_80013834+0xA8
 };
 
 // Data section: jumptable_8001B8C0
 // Address: 0x8001B8C0
 uint32_t jumptable_8001B8C0[] = {
-    // Unrecognized: .4byte parse_format_80013A58+0x3B0
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x39C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x414
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
-    // Unrecognized: .4byte parse_format_80013A58+0x3B0
-    // Unrecognized: .4byte parse_format_80013A58+0x364
-    // Unrecognized: .4byte parse_format_80013A58+0x39C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x478
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
-    // Unrecognized: .4byte parse_format_80013A58+0x3F0
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x44C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x490
-    // Unrecognized: .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x3B0, // .4byte parse_format_80013A58+0x3B0
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x39C, // .4byte parse_format_80013A58+0x39C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x414, // .4byte parse_format_80013A58+0x414
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x3B0, // .4byte parse_format_80013A58+0x3B0
+    (uint32_t)&parse_format_80013A58 + 0x364, // .4byte parse_format_80013A58+0x364
+    (uint32_t)&parse_format_80013A58 + 0x39C, // .4byte parse_format_80013A58+0x39C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x478, // .4byte parse_format_80013A58+0x478
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x3F0, // .4byte parse_format_80013A58+0x3F0
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x44C, // .4byte parse_format_80013A58+0x44C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x490, // .4byte parse_format_80013A58+0x490
+    (uint32_t)&parse_format_80013A58 + 0x31C, // .4byte parse_format_80013A58+0x31C
 };
 
 // Data section: jumptable_8001B990
 // Address: 0x8001B990
 uint32_t jumptable_8001B990[] = {
-    // Unrecognized: .4byte parse_format_80013A58+0xC4
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0xDC
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0xB8
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0xAC
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0x100
-    // Unrecognized: .4byte parse_format_80013A58+0xE8
+    (uint32_t)&parse_format_80013A58 + 0xC4, // .4byte parse_format_80013A58+0xC4
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0xDC, // .4byte parse_format_80013A58+0xDC
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0xB8, // .4byte parse_format_80013A58+0xB8
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0xAC, // .4byte parse_format_80013A58+0xAC
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0x100, // .4byte parse_format_80013A58+0x100
+    (uint32_t)&parse_format_80013A58 + 0xE8, // .4byte parse_format_80013A58+0xE8
 };
 
 // Data section: gap_05_8001B9D4_data
@@ -1539,38 +1578,38 @@ uint32_t gap_05_8001B9D4_data[] = {
 // Data section: lbl_8001B9D8
 // Address: 0x8001B9D8
 uint32_t lbl_8001B9D8[] = {
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015440
-    // Unrecognized: .4byte fn_80015468
-    // Unrecognized: .4byte fn_800154B8
-    // Unrecognized: .4byte fn_800154E8
-    // Unrecognized: .4byte fn_8001566C
-    // Unrecognized: .4byte fn_80015748
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_8001598C
-    // Unrecognized: .4byte fn_80015B74
-    // Unrecognized: .4byte fn_80015D70
-    // Unrecognized: .4byte fn_80015F74
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_8001617C
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_800162B4
-    // Unrecognized: .4byte fn_80016318
-    // Unrecognized: .4byte fn_8001651C
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
-    // Unrecognized: .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015440, // .4byte fn_80015440
+    (uint32_t)&fn_80015468, // .4byte fn_80015468
+    (uint32_t)&fn_800154B8, // .4byte fn_800154B8
+    (uint32_t)&fn_800154E8, // .4byte fn_800154E8
+    (uint32_t)&fn_8001566C, // .4byte fn_8001566C
+    (uint32_t)&fn_80015748, // .4byte fn_80015748
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_8001598C, // .4byte fn_8001598C
+    (uint32_t)&fn_80015B74, // .4byte fn_80015B74
+    (uint32_t)&fn_80015D70, // .4byte fn_80015D70
+    (uint32_t)&fn_80015F74, // .4byte fn_80015F74
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_8001617C, // .4byte fn_8001617C
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_800162B4, // .4byte fn_800162B4
+    (uint32_t)&fn_80016318, // .4byte fn_80016318
+    (uint32_t)&fn_8001651C, // .4byte fn_8001651C
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
+    (uint32_t)&fn_80015418, // .4byte fn_80015418
     0x00000000, // .4byte 0x00000000
     0x00000000, // .4byte 0x00000000
 };
@@ -1578,32 +1617,33 @@ uint32_t lbl_8001B9D8[] = {
 // Data section: jumptable_8001BA60
 // Address: 0x8001BA60
 uint32_t jumptable_8001BA60[] = {
-    // Unrecognized: .4byte fn_8001598C+0x194
-    // Unrecognized: .4byte fn_8001598C+0x1B4
-    // Unrecognized: .4byte fn_8001598C+0x18C
-    // Unrecognized: .4byte fn_8001598C+0x1B4
-    // Unrecognized: .4byte fn_8001598C+0x19C
-    // Unrecognized: .4byte fn_8001598C+0x1A4
-    // Unrecognized: .4byte fn_8001598C+0x1AC
+    (uint32_t)&fn_8001598C + 0x194, // .4byte fn_8001598C+0x194
+    (uint32_t)&fn_8001598C + 0x1B4, // .4byte fn_8001598C+0x1B4
+    (uint32_t)&fn_8001598C + 0x18C, // .4byte fn_8001598C+0x18C
+    (uint32_t)&fn_8001598C + 0x1B4, // .4byte fn_8001598C+0x1B4
+    (uint32_t)&fn_8001598C + 0x19C, // .4byte fn_8001598C+0x19C
+    (uint32_t)&fn_8001598C + 0x1A4, // .4byte fn_8001598C+0x1A4
+    (uint32_t)&fn_8001598C + 0x1AC, // .4byte fn_8001598C+0x1AC
 };
 
 // Data section: jumptable_8001BA7C
 // Address: 0x8001BA7C
 uint32_t jumptable_8001BA7C[] = {
-    // Unrecognized: .4byte fn_80015B74+0x1A8
-    // Unrecognized: .4byte fn_80015B74+0x1C8
-    // Unrecognized: .4byte fn_80015B74+0x1A0
-    // Unrecognized: .4byte fn_80015B74+0x1C8
-    // Unrecognized: .4byte fn_80015B74+0x1B0
-    // Unrecognized: .4byte fn_80015B74+0x1B8
-    // Unrecognized: .4byte fn_80015B74+0x1C0
+    (uint32_t)&fn_80015B74 + 0x1A8, // .4byte fn_80015B74+0x1A8
+    (uint32_t)&fn_80015B74 + 0x1C8, // .4byte fn_80015B74+0x1C8
+    (uint32_t)&fn_80015B74 + 0x1A0, // .4byte fn_80015B74+0x1A0
+    (uint32_t)&fn_80015B74 + 0x1C8, // .4byte fn_80015B74+0x1C8
+    (uint32_t)&fn_80015B74 + 0x1B0, // .4byte fn_80015B74+0x1B0
+    (uint32_t)&fn_80015B74 + 0x1B8, // .4byte fn_80015B74+0x1B8
+    (uint32_t)&fn_80015B74 + 0x1C0, // .4byte fn_80015B74+0x1C0
 };
 
 // Data section: lbl_8001BA98
 // Address: 0x8001BA98
 uint32_t lbl_8001BA98[] = {
-    // Unrecognized: .byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    // Unrecognized: .byte 0x00, 0x00, 0x00, 0x00
+    0x00000000, // .byte 0x00
+    0x00000000, // .byte 0x00
+    0x00000000, // .byte 0x00
 };
 
 // Data section: gTRKExceptionStatus_8001BAA4
@@ -1667,5 +1707,11 @@ uint32_t gap_05_8001BB24_data[] = {
 // Data section: lbl_8001BB28
 // Address: 0x8001BB28
 uint32_t lbl_8001BB28[] = {
-    // Unrecognized: .string "Can't select EXI2 port!\n"
+    0x43616E27, // .string "Can't select EXI2 port!\n"
+    0x74207365, // .string "Can't select EXI2 port!\n"
+    0x6C656374, // .string "Can't select EXI2 port!\n"
+    0x20455849, // .string "Can't select EXI2 port!\n"
+    0x3220706F, // .string "Can't select EXI2 port!\n"
+    0x7274210A, // .string "Can't select EXI2 port!\n"
+    0x00000000, // .string "Can't select EXI2 port!\n"
 };

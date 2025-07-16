@@ -35,6 +35,7 @@ extern uint32_t __DVDLongFileNameFlag;
 extern uint32_t __OSArenaHi_8001EE90;
 extern uint32_t __OSArenaLo_8001EE08;
 extern uint32_t __OSInIPL;
+extern uint32_t __OSLastInterrupt;
 extern uint32_t __OSLastInterruptSrr0;
 extern uint32_t __OSLastInterruptTime;
 extern uint32_t __OSStartTime;
@@ -112,6 +113,8 @@ extern uint32_t lbl_8001EFE4;
 extern uint32_t lbl_8001EFF0;
 extern uint32_t lbl_8001EFF4;
 extern uint32_t lbl_8001EFF8;
+extern uint32_t lbl_8001EFFC;
+extern uint32_t lbl_8001EFFE;
 extern uint32_t lbl_8001F000;
 extern uint32_t lbl_8001F008;
 extern uint32_t lbl_8001F00C;
@@ -130,11 +133,12 @@ extern uint32_t lbl_8001F078;
 extern uint32_t lbl_8001F07C;
 extern uint32_t lbl_8001F080;
 extern uint8_t lbl_8001EE58;
+extern uint8_t lbl_8001F084;
 
 // Data section: lbl_8001EE00
 // Address: 0x8001EE00
 uint32_t lbl_8001EE00[] = {
-    // Unrecognized: .4byte lbl_8001B6A0
+    (uint32_t)&lbl_8001B6A0, // .4byte lbl_8001B6A0
     0x00000000, // .4byte 0x00000000
 };
 
@@ -153,14 +157,14 @@ uint32_t gap_07_8001EE0C_sdata[] = {
 // Data section: _32_8001EE10
 // Address: 0x8001EE10
 uint32_t _32_8001EE10[] = {
-    // Unrecognized: .string "\n"
+    0x0A000000, // .string "\n"
 };
 
 // Data section: gap_07_8001EE12_sdata
 // Address: 0x8001EE12
 uint32_t gap_07_8001EE12_sdata[] = {
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .2byte 0x0000
+    0x00000000, // .2byte 0x0000
 };
 
 // Data section: lbl_8001EE18
@@ -186,7 +190,7 @@ uint32_t lbl_8001EE28[] = {
 // Data section: lbl_8001EE2C
 // Address: 0x8001EE2C
 uint32_t lbl_8001EE2C[] = {
-    // Unrecognized: .string "OFF"
+    0x4F464600, // .string "OFF"
 };
 
 // Data section: lbl_8001EE30
@@ -199,14 +203,14 @@ uint32_t lbl_8001EE30[] = {
 // Data section: _wstringBase0_8001EE38
 // Address: 0x8001EE38
 uint32_t _wstringBase0_8001EE38[] = {
-    // Unrecognized: .2byte 0x0000
+    0x00000000, // .2byte 0x0000
 };
 
 // Data section: gap_07_8001EE3A_sdata
 // Address: 0x8001EE3A
 uint32_t gap_07_8001EE3A_sdata[] = {
     0x00000000, // .4byte 0x00000000
-    // Unrecognized: .2byte 0x0000
+    0x00000000, // .2byte 0x0000
 };
 
 // Data section: lbl_8001EE40
@@ -224,19 +228,19 @@ uint32_t lbl_8001EE44[] = {
 // Data section: lbl_8001EE48
 // Address: 0x8001EE48
 uint32_t lbl_8001EE48[] = {
-    // Unrecognized: .4byte lbl_8001EDE0
+    (uint32_t)&lbl_8001EDE0, // .4byte lbl_8001EDE0
     0x00000000, // .4byte 0x00000000
 };
 
 // Data section: lbl_8001EE50
 // Address: 0x8001EE50
 uint32_t lbl_8001EE50[] = {
-    // Unrecognized: .4byte lbl_8001F060
+    (uint32_t)&lbl_8001F060, // .4byte lbl_8001F060
     0x00000000, // .4byte 0x00000000
 };
 
 // Data section: lbl_8001EE58
 // Address: 0x8001EE58
 uint32_t lbl_8001EE58[] = {
-    // Unrecognized: .byte 0x80
+    0x80000000, // .byte 0x80
 };
