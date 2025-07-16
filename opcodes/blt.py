@@ -34,11 +34,16 @@ class BltHandler:
         ops = instruction.operands
         
         self.validate_operand_count(ops, 1, opcode)
-        
+
         try:
-            label = ops[0].lstrip('.')  # Remove leading period
+            cond_reg = 0
+            label_idx = 0
+            if ops[0].lower().startswith('cr') and len(ops) >= 2:
+                cond_reg = int(ops[0][2:])
+                label_idx = 1
+            label = ops[label_idx].lstrip('.')  # Remove leading period
             if opcode == 'blt':
-                return [f"if (gc_env.cr[0] & 0x8) goto {label}; // blt {ops[0]}"]
+                return [f"if (gc_env.cr[{cond_reg}] & 0x8) goto {label}; // blt {ops[label_idx]}"]
             
             return [f"// Unknown opcode: {instruction.opcode} {' '.join(ops)}"]
         

@@ -50,6 +50,10 @@ def handle(instruction, transpiler):
         target = ops[0].split('@')[0]
         if target == 'vprintf':
             return "vprintf((const char *)gc_env.r[3], (void *)gc_env.r[4]);"
+        if target == 'fwrite':
+            return "fwrite((void*)gc_env.r[3], gc_env.r[4], gc_env.r[5], (void*)gc_env.r[6]);"
+        if target == 'wcstombs':
+            return "wcstombs((char*)gc_env.r[3], (const wchar_t*)gc_env.r[4], gc_env.r[5]);"
         return f"{target}();"
     elif opcode == 'bla' and len(ops) >= 1:
         target = ops[0].split('@')[0]
